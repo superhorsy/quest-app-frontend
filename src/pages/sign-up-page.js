@@ -9,11 +9,12 @@ export const SignUpPage = () => {
     const [nickname, setNickname] = useState('');
     const [pass, setPass] = useState('');
     const [passConfirm, setPassConfirm] = useState('');
-    const [btnEnable, setBtnEnable] = useState(true);
-
+    const [btnDisable, setBtnDisable] = useState(true);
     const [error, setError] = useState(false);
 
-    const sendData = () => {
+    const sendData = (event) => {
+        event.preventDefault();
+        // Пока что отправляем в консоль
         console.log(
             {
                 email: email,
@@ -24,29 +25,31 @@ export const SignUpPage = () => {
     }
 
     useEffect(() => {
-        if (passConfirm === pass) {
-            setError(false);
-            if (passConfirm !== '') {
-                setBtnEnable(false);
-            }
-        } else {
+        if (email === '' || nickname === '' || pass === '' || passConfirm === '') {
+            setBtnDisable(true);
+        } else if (passConfirm !== pass && passConfirm !== '') {
             setError(true);
-            setBtnEnable(true);
+            setBtnDisable(true);
+        } else {
+            setBtnDisable(false);
+            setError(false);
         }
-    }, [passConfirm]);
+    }, [passConfirm, pass, nickname, email]);
 
     return (
         <Box
             component="form"
             sx={{
-                '& > :not(style)': {m: '0 auto', width: '25ch'},
+                '& > :not(style)': {m: '0 auto', width: '25ch', textAlign: 'center'},
             }}
-            noValidate
+            noValidate={false}
             autoComplete="off"
+            onSubmit={sendData}
         >
             <div>
                 <h1>Регистрация</h1>
                 <TextField
+                    required
                     sx={{mt: 2}}
                     id="outlined-basic"
                     type="email"
@@ -56,6 +59,7 @@ export const SignUpPage = () => {
                     onChange={(e) => setEmail(e.target.value)}
                 />
                 <TextField
+                    required
                     sx={{mt: 2}}
                     id="outlined-basic"
                     label="Никнейм"
@@ -64,6 +68,7 @@ export const SignUpPage = () => {
                     onChange={(e) => setNickname(e.target.value)}
                 />
                 <TextField
+                    required
                     sx={{mt: 2}}
                     id="outlined-basic"
                     type="password"
@@ -74,6 +79,7 @@ export const SignUpPage = () => {
                 />
                 <TextField
                     error={error}
+                    required
                     sx={{mt: 2}}
                     id="outlined-basic"
                     type="password"
@@ -84,10 +90,10 @@ export const SignUpPage = () => {
                 />
                 <div>
                     <Button
+                        type="submit"
                         sx={{mt: 2}}
                         variant="contained"
-                        disabled={btnEnable}
-                        onClick={sendData}
+                        disabled={btnDisable}
                     >Зарегистрироваться
                     </Button>
                     <Link sx={{

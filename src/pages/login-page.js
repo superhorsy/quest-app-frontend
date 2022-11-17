@@ -3,13 +3,14 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Link from "@mui/material/Link";
-import classes from "./margins.module.css"
 
 export const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
 
-    const sendData = () => {
+    const sendData = (event) => {
+        event.preventDefault();
+        // Пока что отправляем в консоль
         console.log(
             {
                 email: email,
@@ -22,14 +23,16 @@ export const LoginPage = () => {
         <Box
             component="form"
             sx={{
-                '& > :not(style)': {m: '0 auto', width: '25ch'},
+                '& > :not(style)': {m: '0 auto', width: '25ch', textAlign: 'center'},
             }}
-            noValidate
+            noValidate={false}
             autoComplete="off"
+            onSubmit={sendData}
         >
             <div>
                 <h1>Quest App</h1>
                 <TextField
+                    required
                     sx={{mt: 2}}
                     id="outlined-basic"
                     label="Email"
@@ -39,6 +42,7 @@ export const LoginPage = () => {
                     onChange={(e) => setEmail(e.target.value)}
                 />
                 <TextField
+                    required
                     sx={{mt: 2}}
                     id="outlined-basic"
                     label="Пароль"
@@ -56,9 +60,9 @@ export const LoginPage = () => {
                 </Link>
                 <div>
                     <Button
+                        type="submit"
                         sx={{mt: 2}}
                         variant="contained"
-                        onClick={sendData}
                     >Войти
                     </Button>
                     <Link sx={{
