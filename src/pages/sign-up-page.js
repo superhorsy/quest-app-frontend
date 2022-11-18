@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
@@ -9,8 +9,6 @@ export const SignUpPage = () => {
     const [nickname, setNickname] = useState('');
     const [pass, setPass] = useState('');
     const [passConfirm, setPassConfirm] = useState('');
-    const [btnDisable, setBtnDisable] = useState(true);
-    const [error, setError] = useState(false);
 
     const sendData = (event) => {
         event.preventDefault();
@@ -24,17 +22,47 @@ export const SignUpPage = () => {
         )
     }
 
-    useEffect(() => {
-        if (email === '' || nickname === '' || pass === '' || passConfirm === '') {
-            setBtnDisable(true);
-        } else if (passConfirm !== pass && passConfirm !== '') {
-            setError(true);
-            setBtnDisable(true);
-        } else {
-            setBtnDisable(false);
-            setError(false);
-        }
-    }, [passConfirm, pass, nickname, email]);
+    /** Функция для проверки на пустые поля.
+     * @returns {boolean} Возвращает true если хоть одно поле пустое
+     */
+    const isEmptyField = () => {
+        return !email || !nickname || !pass || !passConfirm;
+    }
+
+    /** Функция для проверки подтверждения пароля.
+     * @returns {boolean} Возвращает true если пароль совпадает
+     */
+    const isPassMatched = () => {
+        return passConfirm === pass;
+    }
+
+    // const isEmptyField = useMemo(
+    //     () => !email || !nickname || !pass || !passConfirm,
+    //     [passConfirm, pass, nickname, email]
+    // )
+    //
+    // const isPassMatched = useMemo(
+    //     () => passConfirm === pass,
+    //     [passConfirm, pass]
+    // )
+
+    // useEffect(() => {
+    //     console.log('отработал юзэфеект')
+    //     if (!email || !nickname || !pass || !passConfirm) {
+    //         // setBtnDisable(true);
+    //         console.log('отработал if');
+    //     } else if (passConfirm !== pass && passConfirm) {
+    //         setError(true);
+    //         setBtnDisable(true);
+    //         console.log('отработал else if');
+    //     } else {
+    //         setBtnDisable(false);
+    //         setError(false);
+    //         console.log('отработал else');
+    //     }
+    // }, [passConfirm, pass, nickname, email]);
+
+    console.log('рендер');
 
     return (
         <Box
@@ -78,7 +106,7 @@ export const SignUpPage = () => {
                     onChange={(e) => setPass(e.target.value)}
                 />
                 <TextField
-                    error={error}
+                    error={!isPassMatched() && Boolean(passConfirm)}
                     required
                     sx={{mt: 2}}
                     id="outlined-basic"
@@ -93,7 +121,7 @@ export const SignUpPage = () => {
                         type="submit"
                         sx={{mt: 2}}
                         variant="contained"
-                        disabled={btnDisable}
+                        disabled={isEmptyField() || !isPassMatched()}
                     >Зарегистрироваться
                     </Button>
                     <Link sx={{
