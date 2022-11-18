@@ -1,0 +1,23 @@
+import React from "react";
+
+import { TextStepContent } from "../textStepContent/textStepContent";
+import { ImageStepContent } from "../imageStepContent/imageStepContent";
+
+import styles from './stepTemplate.module.scss';
+
+export const StepTemplate = ({ number, description, questionType }) => {
+  const text = "Зимой и летом одним цветом.";
+  const imageSrc =
+    "https://cdn1.ozone.ru/s3/multimedia-0/wc1000/6470696436.jpg";
+
+  return (
+    <div className={styles.step__container}>
+      <div className={styles.step__title}>Шаг {number}</div>
+      <div className={styles.step__desc}>{description}</div>
+      <div className={styles.step__content}>
+        {questionType === "text" && <TextStepContent text={text} />}
+        {questionType === "image" && <ImageStepContent imageSrc={imageSrc} />}
+      </div>
+    </div>
+  );
+};

@@ -1,0 +1,9 @@
+.step {
+  &__textQuestion {
+    font-size: 25px;
+    font-style: italic;
+    @media (max-width: 600px) {
+      font-size: 18px;
+    }
+  }
+}
