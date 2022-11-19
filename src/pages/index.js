@@ -1,2 +1,3 @@
-export * from './sign-up-page.js';
-export * from './login-page.js';
+export * from './signUpPage/signUpPage.js';
+export * from './loginPage/loginPage.js';
+export * from './passRecoveryPage/passRecoveryPage.js';

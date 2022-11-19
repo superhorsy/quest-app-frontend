@@ -23,19 +23,19 @@ export const LoginPage = () => {
         <Box
             component="form"
             sx={{
-                '& > :not(style)': {m: '0 auto', width: '25ch', textAlign: 'center'},
+                '& > :not(style)': {m: '0 auto', width: '30ch', textAlign: 'center'},
             }}
             noValidate={false}
             autoComplete="off"
             onSubmit={sendData}
         >
             <div>
-                <h1>Quest App</h1>
+                <h1>Авторизация</h1>
                 <TextField
                     required
                     sx={{mt: 2}}
                     id="outlined-basic"
-                    label="Email"
+                    label="Ваш email"
                     type="email"
                     variant="outlined"
                     value={email}
@@ -65,12 +65,16 @@ export const LoginPage = () => {
                         variant="contained"
                     >Войти
                     </Button>
-                    <Link sx={{
-                        display: 'block',
-                        mt: 2
-                    }}
-                          href="#">Зарегистрируйтесь, если у вас ещё нет аккаунта
-                    </Link>
+                    <div style={{marginTop: '40px'}}>
+                        <span>Ещё нет аккаунта? </span>
+                        <Link
+                            // sx={{
+                            //     display: 'block',
+                            //     mt: 2
+                            // }}
+                            href="#">Зарегистрироваться
+                        </Link>
+                    </div>
                 </div>
             </div>
         </Box>

@@ -1,5 +1,5 @@
 import React from 'react';
-import {LoginPage, SignUpPage} from "./pages";
+import {LoginPage, PassRecoveryPage, SignUpPage} from "./pages";
 
 import {TestComponent} from "./components/testComponent/testComponent";
 
@@ -8,6 +8,7 @@ function App() {
         <div className="App">
             <LoginPage/>
             <SignUpPage/>
+            <PassRecoveryPage/>
             {/*<TestComponent/>*/}
         </div>
     );

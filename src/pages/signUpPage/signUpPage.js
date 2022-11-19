@@ -68,7 +68,7 @@ export const SignUpPage = () => {
         <Box
             component="form"
             sx={{
-                '& > :not(style)': {m: '0 auto', width: '25ch', textAlign: 'center'},
+                '& > :not(style)': {m: '0 auto', width: '30ch', textAlign: 'center'},
             }}
             noValidate={false}
             autoComplete="off"
@@ -81,7 +81,7 @@ export const SignUpPage = () => {
                     sx={{mt: 2}}
                     id="outlined-basic"
                     type="email"
-                    label="Email"
+                    label="Ваш email"
                     variant="outlined"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -124,12 +124,16 @@ export const SignUpPage = () => {
                         disabled={isEmptyField() || !isPassMatched()}
                     >Зарегистрироваться
                     </Button>
-                    <Link sx={{
-                        display: 'block',
-                        mt: 2
-                    }}
-                          href="#">Войдите, если у вас уже есть аккаунт
-                    </Link>
+                    <div style={{marginTop: '40px'}}>
+                        <span>Уже есть аккаунт? </span>
+                        <Link
+                            // sx={{
+                            //     display: 'block',
+                            //     mt: 2
+                            // }}
+                            href="#">Войти
+                        </Link>
+                    </div>
                 </div>
             </div>
         </Box>
