@@ -1,14 +1,18 @@
 import React from 'react';
-import {LoginPage, PassRecoveryPage, SignUpPage} from "./pages";
+import {LoginPage, PassRecoveryPage, SignUpPage, StartPage} from "./pages";
+
+//Styles
+import "./App.scss";
 
 import {TestComponent} from "./components/testComponent/testComponent";
 
 function App() {
     return (
         <div className="App">
-            <LoginPage/>
-            <SignUpPage/>
-            <PassRecoveryPage/>
+            <StartPage/>
+            {/*<LoginPage/>*/}
+            {/*<SignUpPage/>*/}
+            {/*<PassRecoveryPage/>*/}
             {/*<TestComponent/>*/}
         </div>
     );

@@ -65,77 +65,89 @@ export const SignUpPage = () => {
     console.log('рендер');
 
     return (
-        <Box
-            component="form"
-            sx={{
-                '& > :not(style)': {m: '0 auto', width: '30ch', textAlign: 'center'},
-            }}
-            noValidate={false}
-            autoComplete="off"
-            onSubmit={sendData}
-        >
-            <div>
-                <h1>Регистрация</h1>
-                <TextField
-                    required
-                    sx={{mt: 2, width: '100%'}}
-                    id="outlined-basic"
-                    type="email"
-                    label="Ваш email"
-                    variant="outlined"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                <TextField
-                    required
-                    sx={{mt: 2, width: '100%'}}
-                    id="outlined-basic"
-                    label="Никнейм"
-                    variant="outlined"
-                    value={nickname}
-                    onChange={(e) => setNickname(e.target.value)}
-                />
-                <TextField
-                    required
-                    sx={{mt: 2, width: '100%'}}
-                    id="outlined-basic"
-                    type="password"
-                    label="Пароль"
-                    variant="outlined"
-                    value={pass}
-                    onChange={(e) => setPass(e.target.value)}
-                />
-                <TextField
-                    error={!isPassMatched() && Boolean(passConfirm)}
-                    required
-                    sx={{mt: 2, width: '100%'}}
-                    id="outlined-basic"
-                    type="password"
-                    label="Подтвердите пароль"
-                    variant="outlined"
-                    value={passConfirm}
-                    onChange={(e) => setPassConfirm(e.target.value)}
-                />
-                <div>
-                    <Button
-                        type="submit"
-                        sx={{mt: 2, width: '100%'}}
-                        variant="contained"
-                        disabled={isEmptyField() || !isPassMatched()}
-                    >Зарегистрироваться
-                    </Button>
-                    <div style={{marginTop: '40px'}}>
-                        <span>Уже есть аккаунт? </span>
-                        <Link
-                            // sx={{
-                            //     display: 'block',
-                            //     mt: 2
-                            // }}
-                            href="#">Войти
-                        </Link>
+        <div className="page-container">
+
+            <div className="temporary-header"/>
+
+            <div className="main-container">
+
+                <h1 className="title">Регистрация</h1>
+
+                <Box
+                    component="form"
+                    sx={{
+                        m: '0 auto',
+                        textAlign: "center",
+                        width: {xs: 1 / 1, sm: 500},
+                    }}
+                    noValidate={false}
+                    autoComplete="off"
+                    onSubmit={sendData}
+                >
+                    <div>
+
+                        <TextField
+                            required
+                            fullWidth
+                            sx={{mb: {xs: 3, sm: 4}}}
+                            id="outlined-basic"
+                            type="email"
+                            label="Ваш email"
+                            variant="outlined"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                        <TextField
+                            required
+                            fullWidth
+                            sx={{mb: {xs: 3, sm: 4}}}
+                            id="outlined-basic"
+                            label="Никнейм"
+                            variant="outlined"
+                            value={nickname}
+                            onChange={(e) => setNickname(e.target.value)}
+                        />
+                        <TextField
+                            required
+                            fullWidth
+                            sx={{mb: {xs: 3, sm: 4}}}
+                            id="outlined-basic"
+                            type="password"
+                            label="Пароль"
+                            variant="outlined"
+                            value={pass}
+                            onChange={(e) => setPass(e.target.value)}
+                        />
+                        <TextField
+                            error={!isPassMatched() && Boolean(passConfirm)}
+                            required
+                            fullWidth
+                            sx={{mb: {xs: 3, sm: 4}}}
+                            id="outlined-basic"
+                            type="password"
+                            label="Подтвердите пароль"
+                            variant="outlined"
+                            value={passConfirm}
+                            onChange={(e) => setPassConfirm(e.target.value)}
+                        />
+                        <div>
+                            <Button
+                                fullWidth
+                                type="submit"
+                                sx={{mb: {xs: 4, sm: 6}}}
+                                variant="contained"
+                                size="large"
+                                disabled={isEmptyField() || !isPassMatched()}
+                            >Зарегистрироваться
+                            </Button>
+                            <div>
+                                <span>Уже есть аккаунт? </span>
+                                <Link href="#">Войти</Link>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </Box>
             </div>
-        </Box>
+        </div>
     );
 };

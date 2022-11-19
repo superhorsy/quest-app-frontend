@@ -1,0 +1,88 @@
+.temporary-header {
+  width: 100%;
+  height: 64px;
+  background-color: #4e7ad2;
+}
+
+.title {
+  width: 100%;
+  color: black;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 35px;
+  margin-top: 50px;
+  margin-bottom: 35px;
+
+  @media (max-width: 600px) {
+    font-size: 22px;
+    margin-top: 47px;
+  }
+}
+
+.welcomeTitle {
+  width: 100%;
+  color: black;
+  text-align: center;
+  //text-transform: uppercase;
+  font-size: 25px;
+  margin-top: 50px;
+  margin-bottom: 10px;
+
+  @media (max-width: 600px) {
+    font-size: 22px;
+    margin-top: 50px;
+  }
+}
+
+.nameOfService {
+  width: 100%;
+  color: black;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 50px;
+  margin-top: 0px;
+  margin-bottom: 40px;
+
+  @media (max-width: 600px) {
+    font-size: 30px;
+    margin-top: 10px;
+  }
+}
+
+.welcomeText {
+  align-self: center;
+  text-align: center;
+  max-width: 500px;
+  font-size: 23px;
+  margin-bottom: 50px;
+
+  @media (max-width: 600px) {
+    font-size: 18px;
+    margin-top: 10px;
+  }
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 100%;
+  @media (max-width: 600px) {
+    max-width: 90%;
+  }
+}
+
+.textToRightSide {
+  text-align: right;
+  margin-bottom: 50px;
+
+  @media (max-width: 600px) {
+    //font-size: 22px;
+    margin-bottom: 30px;
+  }
+}

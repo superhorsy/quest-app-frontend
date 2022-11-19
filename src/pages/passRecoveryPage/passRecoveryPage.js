@@ -7,6 +7,10 @@ import Button from "@mui/material/Button";
 export const PassRecoveryPage = () => {
     const [email, setEmail] = useState('');
 
+    const isEmptyField = () => {
+        return !email;
+    }
+
     const sendData = (event) => {
         event.preventDefault();
         // Пока что отправляем в консоль
@@ -18,47 +22,51 @@ export const PassRecoveryPage = () => {
     }
 
     return (
-        <Box
-            component="form"
-            sx={{
-                '& > :not(style)': {m: '0 auto', width: '30ch', textAlign: 'center'},
-            }}
-            noValidate={false}
-            autoComplete="off"
-            onSubmit={sendData}
-        >
-            <div>
-                <h1>Восстановить пароль</h1>
-                <TextField
-                    required
-                    sx={{mt: 2, width: '100%'}}
-                    id="outlined-basic"
-                    label="Ваш email"
-                    type="email"
-                    variant="outlined"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                <div>
-                    <Button
-                        type="submit"
-                        sx={{mt: 2, width: '100%'}}
-                        variant="contained"
-                    >Восстановить
-                    </Button>
-                    <div style={{marginTop: '40px'}}>
-                        <span>Ещё нет аккаунта? </span>
-                        <Link
-                            // sx={{
-                            //     display: 'block',
-                            //     mt: 20
-                            // }}
-                            href="#">Зарегистрироваться
-                        </Link>
+        <div className="page-container">
+            <div className="temporary-header"/>
+            <div className="main-container">
+                <h1 className="title">Восстановить пароль</h1>
+                <Box
+                    component="form"
+                    sx={{
+                        m: '0 auto',
+                        textAlign: "center",
+                        width: {xs: 1 / 1, sm: 500},
+                    }}
+                    noValidate={false}
+                    autoComplete="off"
+                    onSubmit={sendData}
+                >
+                    <div>
+                        <TextField
+                            required
+                            fullWidth
+                            sx={{mb: {xs: 3, sm: 4}}}
+                            id="outlined-basic"
+                            label="Ваш email"
+                            type="email"
+                            variant="outlined"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                        <div>
+                            <Button
+                                fullWidth
+                                type="submit"
+                                sx={{mb: {xs: 4, sm: 6}}}
+                                size="large"
+                                variant="contained"
+                                disabled={isEmptyField()}
+                            >Восстановить
+                            </Button>
+                            <div>
+                                <span>Ещё нет аккаунта? </span>
+                                <Link href="#">Зарегистрироваться</Link>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </Box>
             </div>
-        </Box>
-
+        </div>
     );
 };

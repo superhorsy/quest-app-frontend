@@ -4,9 +4,16 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Link from "@mui/material/Link";
 
+//Style
+import classes from './loginPage.module.scss';
+
 export const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
+
+    const isEmptyField = () => {
+        return !email || !pass;
+    }
 
     const sendData = (event) => {
         event.preventDefault();
@@ -20,63 +27,71 @@ export const LoginPage = () => {
     }
 
     return (
-        <Box
-            component="form"
-            sx={{
-                '& > :not(style)': {m: '0 auto', width: '30ch', textAlign: 'center'},
-            }}
-            noValidate={false}
-            autoComplete="off"
-            onSubmit={sendData}
-        >
-            <div>
-                <h1>Авторизация</h1>
-                <TextField
-                    required
-                    sx={{mt: 2, width: '100%'}}
-                    id="outlined-basic"
-                    label="Ваш email"
-                    type="email"
-                    variant="outlined"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                <TextField
-                    required
-                    sx={{mt: 2, width: '100%'}}
-                    id="outlined-basic"
-                    label="Пароль"
-                    type="password"
-                    variant="outlined"
-                    value={pass}
-                    onChange={(e) => setPass(e.target.value)}
-                />
-                <Link sx={{
-                    display: 'block',
-                    textAlign: 'right',
-                    mt: 2
-                }}
-                      href="#">Забыли пароль?
-                </Link>
-                <div>
-                    <Button
-                        type="submit"
-                        sx={{mt: 2, width: '100%'}}
-                        variant="contained"
-                    >Войти
-                    </Button>
-                    <div style={{marginTop: '40px'}}>
-                        <span>Ещё нет аккаунта? </span>
-                        <Link
-                            // sx={{
-                            //     display: 'block',
-                            //     mt: 2
-                            // }}
-                            href="#">Зарегистрироваться
-                        </Link>
+        <div className="page-container">
+
+            <div className="temporary-header"/>
+
+            <div className="main-container">
+                <h1 className="title">Авторизация</h1>
+
+                <Box
+                    component="form"
+                    sx={{
+                        m: '0 auto',
+                        textAlign: "center",
+                        width: {xs: 1 / 1, sm: 500},
+                    }}
+                    noValidate={false}
+                    autoComplete="off"
+                    onSubmit={sendData}
+                >
+                    <div>
+
+                        <TextField
+                            required
+                            fullWidth
+                            sx={{mb: {xs: 3, sm: 4}}}
+                            id="outlined-basic"
+                            label="Ваш email"
+                            type="email"
+                            variant="outlined"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                        <TextField
+                            required
+                            fullWidth
+                            sx={{mb: {xs: 3, sm: 4}}}
+                            id="outlined-basic"
+                            label="Пароль"
+                            type="password"
+                            variant="outlined"
+                            value={pass}
+                            onChange={(e) => setPass(e.target.value)}
+                        />
+                        <div className="textToRightSide">
+                            <span>Забыли пароль? </span>
+                            <Link href="#">Восстановить
+                            </Link>
+                        </div>
+                        <div>
+                            <Button
+                                fullWidth
+                                type="submit"
+                                sx={{mb: {xs: 4, sm: 6}}}
+                                variant="contained"
+                                size="large"
+                                disabled={isEmptyField()}
+                            >Войти
+                            </Button>
+                            <div>
+                                <span>Ещё нет аккаунта? </span>
+                                <Link href="#">Зарегистрироваться</Link>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </Box>
             </div>
-        </Box>
+        </div>
     )
 };
