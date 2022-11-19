@@ -33,7 +33,7 @@ export const LoginPage = () => {
                 <h1>Авторизация</h1>
                 <TextField
                     required
-                    sx={{mt: 2}}
+                    sx={{mt: 2, width: '100%'}}
                     id="outlined-basic"
                     label="Ваш email"
                     type="email"
@@ -43,7 +43,7 @@ export const LoginPage = () => {
                 />
                 <TextField
                     required
-                    sx={{mt: 2}}
+                    sx={{mt: 2, width: '100%'}}
                     id="outlined-basic"
                     label="Пароль"
                     type="password"
@@ -61,7 +61,7 @@ export const LoginPage = () => {
                 <div>
                     <Button
                         type="submit"
-                        sx={{mt: 2}}
+                        sx={{mt: 2, width: '100%'}}
                         variant="contained"
                     >Войти
                     </Button>

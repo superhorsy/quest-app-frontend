@@ -78,7 +78,7 @@ export const SignUpPage = () => {
                 <h1>Регистрация</h1>
                 <TextField
                     required
-                    sx={{mt: 2}}
+                    sx={{mt: 2, width: '100%'}}
                     id="outlined-basic"
                     type="email"
                     label="Ваш email"
@@ -88,7 +88,7 @@ export const SignUpPage = () => {
                 />
                 <TextField
                     required
-                    sx={{mt: 2}}
+                    sx={{mt: 2, width: '100%'}}
                     id="outlined-basic"
                     label="Никнейм"
                     variant="outlined"
@@ -97,7 +97,7 @@ export const SignUpPage = () => {
                 />
                 <TextField
                     required
-                    sx={{mt: 2}}
+                    sx={{mt: 2, width: '100%'}}
                     id="outlined-basic"
                     type="password"
                     label="Пароль"
@@ -108,7 +108,7 @@ export const SignUpPage = () => {
                 <TextField
                     error={!isPassMatched() && Boolean(passConfirm)}
                     required
-                    sx={{mt: 2}}
+                    sx={{mt: 2, width: '100%'}}
                     id="outlined-basic"
                     type="password"
                     label="Подтвердите пароль"
@@ -119,7 +119,7 @@ export const SignUpPage = () => {
                 <div>
                     <Button
                         type="submit"
-                        sx={{mt: 2}}
+                        sx={{mt: 2, width: '100%'}}
                         variant="contained"
                         disabled={isEmptyField() || !isPassMatched()}
                     >Зарегистрироваться

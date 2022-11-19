@@ -31,7 +31,7 @@ export const PassRecoveryPage = () => {
                 <h1>Восстановить пароль</h1>
                 <TextField
                     required
-                    sx={{mt: 2}}
+                    sx={{mt: 2, width: '100%'}}
                     id="outlined-basic"
                     label="Ваш email"
                     type="email"
@@ -42,7 +42,7 @@ export const PassRecoveryPage = () => {
                 <div>
                     <Button
                         type="submit"
-                        sx={{mt: 2}}
+                        sx={{mt: 2, width: '100%'}}
                         variant="contained"
                     >Восстановить
                     </Button>
