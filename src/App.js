@@ -9,9 +9,9 @@ import {TestComponent} from "./components/testComponent/testComponent";
 function App() {
     return (
         <div className="App">
-            {/*<StartPage/>*/}
+            <StartPage/>
             {/*<LoginPage/>*/}
-            <SignUpPage/>
+            {/*<SignUpPage/>*/}
             {/*<PassRecoveryPage/>*/}
             {/*<TestComponent/>*/}
         </div>
