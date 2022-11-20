@@ -1,0 +1,35 @@
+.step {
+  &__container {
+    margin: 0 auto;
+    max-width: 600px;
+    margin-top: 50px;
+    margin-bottom: 30px;
+    @media (max-width: 600px) {
+      margin-top: 25px;
+      margin-bottom: 20px;
+    }
+  }
+  &__title {
+    text-align: center;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 25px;
+    margin-bottom: 20px;
+
+    @media (max-width: 600px) {
+      font-size: 20px;
+    }
+  }
+  &__desc {
+    text-align: center;
+    font-style: italic;
+    font-size: 20px;
+    margin-bottom: 20px;
+
+    @media (max-width: 600px) {
+      font-size: 16px;
+    }
+  }
+  &__content {
+  }
+}

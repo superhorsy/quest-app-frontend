@@ -1,8 +1,11 @@
 import React from 'react';
+//Styles
+import "./App.scss";
+
 import { BrowserRouter } from 'react-router-dom';
 import { AppRouter } from './components/AppRouter';
-// import {TestComponent} from "./components/testComponent/testComponent";
-// import { Header } from "./components/Header/Header";
+
+import "./App.scss";
 
 function App() {
     return (
