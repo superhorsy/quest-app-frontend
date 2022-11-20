@@ -1,0 +1,1 @@
+export const PanelIndex = () => <h1>Панель</h1>;

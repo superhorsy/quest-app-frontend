@@ -1,0 +1,1 @@
+export const ChangePass = () => <h1>Изменить пароль</h1>;

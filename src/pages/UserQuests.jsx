@@ -1,0 +1,1 @@
+export const UserQuests = () => <h1>Мои квесты</h1>;

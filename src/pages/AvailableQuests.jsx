@@ -1,0 +1,1 @@
+export const AvailableQuests = () => <h1>Доступные квесты</h1>;

@@ -1,0 +1,1 @@
+export const ProfileIndex = () => <h1>Мой профиль</h1>;

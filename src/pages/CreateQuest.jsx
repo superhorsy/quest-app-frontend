@@ -1,0 +1,1 @@
+export const CreateQuest = () => <h1>Создать квест</h1>;
