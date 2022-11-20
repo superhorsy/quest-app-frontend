@@ -7,9 +7,11 @@ import Button from "@mui/material/Button";
 export const PassRecoveryPage = () => {
     const [email, setEmail] = useState('');
 
-    const isEmptyField = () => {
-        return !email;
-    }
+    // const isEmptyField = () => {
+    //     return !email;
+    // }
+
+    const isEmptyField = !email;
 
     const sendData = (event) => {
         event.preventDefault();
@@ -56,7 +58,7 @@ export const PassRecoveryPage = () => {
                                 sx={{mb: {xs: 4, sm: 6}}}
                                 size="large"
                                 variant="contained"
-                                disabled={isEmptyField()}
+                                disabled={isEmptyField}
                             >Восстановить
                             </Button>
                             <div>

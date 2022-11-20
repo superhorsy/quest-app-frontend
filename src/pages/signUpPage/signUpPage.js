@@ -12,6 +12,7 @@ export const SignUpPage = () => {
 
     const sendData = (event) => {
         event.preventDefault();
+
         // Пока что отправляем в консоль
         console.log(
             {
@@ -20,21 +21,15 @@ export const SignUpPage = () => {
                 pass: pass
             }
         )
+
+        setEmail('');
+        setNickname('');
+        setPass('');
+        setPassConfirm('');
     }
 
-    /** Функция для проверки на пустые поля.
-     * @returns {boolean} Возвращает true если хоть одно поле пустое
-     */
-    const isEmptyField = () => {
-        return !email || !nickname || !pass || !passConfirm;
-    }
-
-    /** Функция для проверки подтверждения пароля.
-     * @returns {boolean} Возвращает true если пароль совпадает
-     */
-    const isPassMatched = () => {
-        return passConfirm === pass;
-    }
+    const isEmptyField = !email || !nickname || !pass || !passConfirm;
+    const isPassMatched = passConfirm === pass;
 
     // const isEmptyField = useMemo(
     //     () => !email || !nickname || !pass || !passConfirm,
@@ -119,7 +114,7 @@ export const SignUpPage = () => {
                             onChange={(e) => setPass(e.target.value)}
                         />
                         <TextField
-                            error={!isPassMatched() && Boolean(passConfirm)}
+                            error={!isPassMatched && Boolean(passConfirm)}
                             required
                             fullWidth
                             sx={{mb: {xs: 3, sm: 4}}}
@@ -137,7 +132,7 @@ export const SignUpPage = () => {
                                 sx={{mb: {xs: 4, sm: 6}}}
                                 variant="contained"
                                 size="large"
-                                disabled={isEmptyField() || !isPassMatched()}
+                                disabled={isEmptyField || !isPassMatched}
                             >Зарегистрироваться
                             </Button>
                             <div>

@@ -11,9 +11,7 @@ export const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
 
-    const isEmptyField = () => {
-        return !email || !pass;
-    }
+    const isEmptyField = !email || !pass;
 
     const sendData = (event) => {
         event.preventDefault();
@@ -81,7 +79,7 @@ export const LoginPage = () => {
                                 sx={{mb: {xs: 4, sm: 6}}}
                                 variant="contained"
                                 size="large"
-                                disabled={isEmptyField()}
+                                disabled={isEmptyField}
                             >Войти
                             </Button>
                             <div>
