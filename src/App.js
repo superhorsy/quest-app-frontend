@@ -1,28 +1,18 @@
 import React from 'react';
-import {LoginPage, PassRecoveryPage, SignUpPage, StartPage} from "./pages";
-
 //Styles
 import "./App.scss";
 
-import {TestComponent} from "./components/testComponent/testComponent";
-
-import { CreateQuestPage } from "./pages/createQuestPage/createQuestPage";
-import { QuestionsPage } from "./pages/questionsPage/questionsPage";
-import { TextQuestionPage } from "./pages/textQuestionPage/textQuestionPage";
+import { BrowserRouter } from 'react-router-dom';
+import { AppRouter } from './components/AppRouter';
 
 import "./App.scss";
 
 function App() {
     return (
         <div className="App">
-            {/*<StartPage/>*/}
-            {/*<LoginPage/>*/}
-            {/*<SignUpPage/>*/}
-            {/*<PassRecoveryPage/>*/}
-            {/*<TestComponent/>*/}
-            <CreateQuestPage />
-            <QuestionsPage />
-            <TextQuestionPage />
+            <BrowserRouter>
+                <AppRouter />
+            </BrowserRouter>
         </div>
     );
 }
