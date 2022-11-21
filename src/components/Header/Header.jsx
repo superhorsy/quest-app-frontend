@@ -14,6 +14,7 @@ export const Header = () => {
 
     const handleLogout = () => {
         setIsAuth(false);
+        navigate("/signin");
         handleCloseUserMenu();
     };
 
