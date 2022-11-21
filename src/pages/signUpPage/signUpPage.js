@@ -1,14 +1,17 @@
 import React, {useMemo, useState} from 'react';
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
+import {Link} from "react-router-dom";
 import Button from "@mui/material/Button";
+import {useNavigate} from "react-router-dom";
 
 export const SignUpPage = () => {
     const [email, setEmail] = useState('');
     const [nickname, setNickname] = useState('');
     const [pass, setPass] = useState('');
     const [passConfirm, setPassConfirm] = useState('');
+
+    const navigate = useNavigate();
 
     const sendData = (event) => {
         event.preventDefault();
@@ -62,7 +65,7 @@ export const SignUpPage = () => {
     return (
         <div className="page-container">
 
-            <div className="temporary-header"/>
+            {/*<div className="temporary-header"/>*/}
 
             <div className="main-container">
 
@@ -137,7 +140,7 @@ export const SignUpPage = () => {
                             </Button>
                             <div>
                                 <span>Уже есть аккаунт? </span>
-                                <Link href="#">Войти</Link>
+                                <Link to="/signin">Войти</Link>
                             </div>
                         </div>
                     </div>

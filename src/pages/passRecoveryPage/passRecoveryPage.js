@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
+import {Link} from "react-router-dom";
 import Button from "@mui/material/Button";
 
 export const PassRecoveryPage = () => {
@@ -25,7 +25,7 @@ export const PassRecoveryPage = () => {
 
     return (
         <div className="page-container">
-            <div className="temporary-header"/>
+            {/*<div className="temporary-header"/>*/}
             <div className="main-container">
                 <h1 className="title">Восстановить пароль</h1>
                 <Box
@@ -63,7 +63,7 @@ export const PassRecoveryPage = () => {
                             </Button>
                             <div>
                                 <span>Ещё нет аккаунта? </span>
-                                <Link href="#">Зарегистрироваться</Link>
+                                <Link to="/signup">Зарегистрироваться</Link>
                             </div>
                         </div>
                     </div>

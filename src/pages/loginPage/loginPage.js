@@ -1,8 +1,10 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
-import Link from "@mui/material/Link";
+import {Link} from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 //Style
 import classes from './loginPage.module.scss';
@@ -10,6 +12,14 @@ import classes from './loginPage.module.scss';
 export const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
+    const [isAuth, setIsAuth] = useOutletContext();
+    const navigate = useNavigate();
+
+    // Захардкодил юзера пока так
+    const user = {
+      email: '123@123',
+      pass: '123'
+    };
 
     const isEmptyField = !email || !pass;
 
@@ -22,12 +32,19 @@ export const LoginPage = () => {
                 pass: pass
             }
         )
+
+        // Тут пока что заглушка
+        const isAuthorized = user.email === email && user.pass === pass;
+        if (isAuthorized) {
+            setIsAuth(true);
+            navigate("/panel");
+        }
     }
 
     return (
         <div className="page-container">
 
-            <div className="temporary-header"/>
+            {/*<div className="temporary-header"/>*/}
 
             <div className="main-container">
                 <h1 className="title">Авторизация</h1>
@@ -69,7 +86,7 @@ export const LoginPage = () => {
                         />
                         <div className="textToRightSide">
                             <span>Забыли пароль? </span>
-                            <Link href="#">Восстановить
+                            <Link to="/restore">Восстановить
                             </Link>
                         </div>
                         <div>
@@ -84,7 +101,7 @@ export const LoginPage = () => {
                             </Button>
                             <div>
                                 <span>Ещё нет аккаунта? </span>
-                                <Link href="#">Зарегистрироваться</Link>
+                                <Link to="/signup">Зарегистрироваться</Link>
                             </div>
                         </div>
                     </div>
