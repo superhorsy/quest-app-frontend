@@ -1,7 +1,5 @@
 import {Route, Routes} from 'react-router-dom';
 
-import {Main} from '../pages/Main';
-
 //AUTH LINKS
 import {
     LoginPage,
