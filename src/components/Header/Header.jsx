@@ -14,6 +14,7 @@ export const Header = () => {
 
     const handleLogout = () => {
         setIsAuth(false);
+        navigate("/signin");
         handleCloseUserMenu();
     };
 
@@ -22,7 +23,8 @@ export const Header = () => {
     };
 
     const handleLogin = () => {
-        setIsAuth(true);
+        // setIsAuth(true);
+        navigate("/signin")
     };
 
     const handleOpenUserMenu = (event) => {
@@ -97,7 +99,7 @@ export const Header = () => {
             </AppBar>
             <Container maxWidth="xl">
                 <Box sx={{ mt: 10 }}>
-                    <Outlet/>
+                    <Outlet context={[isAuth, setIsAuth]}/>
                 </Box>
             </Container>
         </>

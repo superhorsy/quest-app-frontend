@@ -1,11 +1,14 @@
 import React from 'react';
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import {useNavigate} from "react-router-dom";
 
 export const StartPage = () => {
+    const navigate = useNavigate();
+
     return (
         <div className="page-container">
-            <div className="temporary-header"/>
+            {/*<div className="temporary-header"/>*/}
 
             <span className="welcomeTitle">Рады видеть вас в</span>
             <h1 className="nameOfService">Название сервиса</h1>
@@ -29,6 +32,7 @@ export const StartPage = () => {
                         }}
                         variant="contained"
                         size="large"
+                        onClick={() => navigate('signup')}
                     >Зарегистрироваться
                     </Button>
                 </Box>
