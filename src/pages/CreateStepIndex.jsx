@@ -1,1 +1,2 @@
-export const CreateStepIndex = () => <h1>выбор типа шагов</h1>;
+import { QuestionsPage } from "./questionsPage/questionsPage";
+export const CreateStepIndex = () => <QuestionsPage />;

@@ -1,8 +1,11 @@
 import React from "react";
+import { NavigationType, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
 export const QuestQuestions = () => {
+  const navigate = useNavigate();
+
   return (
     <Box
       component="div"
@@ -18,6 +21,7 @@ export const QuestQuestions = () => {
         variant="contained"
         size="medium"
         sx={{ mt: 4, py: 2, mb: 1 }}
+        onClick={()=> navigate("/panel/create-quest/create-step/text-step")}
       >
         Текстовое задание
       </Button>

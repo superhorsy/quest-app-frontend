@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -10,9 +11,11 @@ export const TextQuestionCreateForm = () => {
   const [taskAnswersString, setTaskAnswersString] = useState("");
   const [taskAnswersArray, setTaskAnswersArray] = useState([]);
 
-  useEffect(() => {
-    getArrayOfAnswers(taskAnswersString);
-  }, [taskAnswersString]);
+  const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   getArrayOfAnswers(taskAnswersString);
+  // }, [taskAnswersString]);
 
   const getArrayOfAnswers = (answers) => {
     const arrayOfAnswers = answers.toLowerCase().split(",");
@@ -34,6 +37,7 @@ export const TextQuestionCreateForm = () => {
 
     getArrayOfAnswers(taskAnswersString);
     console.log(taskAnswersArray);
+    navigate("/panel/quest-profile");
   };
   return (
     <Box

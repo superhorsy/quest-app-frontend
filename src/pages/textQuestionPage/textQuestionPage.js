@@ -6,7 +6,6 @@ import "./textQuestionPage.module.scss";
 export const TextQuestionPage = () => {
   return (
     <div className="page-container">
-      <div className="temporary-header" />
       <div className="main-container">
         <h1 className="title">
           Создание

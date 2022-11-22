@@ -26,6 +26,8 @@ import {CreateQuest} from '../pages/CreateQuest';
 import {CreateStep} from '../pages/CreateStep';
 import {CreateStepIndex} from '../pages/CreateStepIndex';
 import {CreateStepForm} from '../pages/CreateStepForm';
+import { QuestProfile } from '../pages/QuestProfile';
+import { TextQuestionStep } from '../pages/TextQuestionStep';
 
 
 import {Header} from './Header/Header';
@@ -76,6 +78,10 @@ export const AppRouter = () => {
                         element={<CreateQuest/>}
                     />
                     <Route
+                        path="quest-profile"
+                        element={<QuestProfile/>}
+                    />
+                    <Route
                         path="create-quest/create-step"
                         element={<CreateStep/>}
                     >
@@ -86,6 +92,10 @@ export const AppRouter = () => {
                         <Route
                             path=":step"
                             element={<CreateStepForm/>}
+                        />
+                        <Route
+                            path="text-step"
+                            element={<TextQuestionStep/>}
                         />
                     </Route>
                 </Route>

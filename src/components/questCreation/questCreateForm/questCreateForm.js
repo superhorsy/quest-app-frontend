@@ -9,6 +9,8 @@ export const CreateQuestForm = () => {
   const [questName, setQuestName] = useState("");
   const [questDesctiption, setQuestDescription] = useState("");
 
+  const navigate = useNavigate();
+
   const isEmptyField = !questDesctiption || !questName;
 
   const createQuest = (event) => {
@@ -18,9 +20,10 @@ export const CreateQuestForm = () => {
       questName: questName,
       questDesctiption: questDesctiption,
     });
+    navigate("/panel/quest-profile/");
   };
 
-  const navigate = useNavigate();
+
 
   return (
     
@@ -68,7 +71,6 @@ export const CreateQuestForm = () => {
           variant="contained"
           size="large"
           disabled={isEmptyField}
-          onClick={navigate('/panel/create-quest')}
         >
           Далее
       </Button>
