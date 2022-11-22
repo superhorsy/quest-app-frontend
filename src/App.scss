@@ -18,6 +18,16 @@
     margin-top: 47px;
   }
 }
+.subtitle {
+  text-align: center;
+  color: gray;
+  font-size: 25px;
+  text-transform: uppercase;
+  @media (max-width: 600px) {
+    font-size: 20px;
+    margin-top: 20px;
+  }
+}
 
 .welcomeTitle {
   width: 100%;
