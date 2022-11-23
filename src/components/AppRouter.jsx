@@ -29,6 +29,7 @@ import {CreateStepForm} from '../pages/CreateStepForm';
 
 
 import {Header} from './Header/Header';
+import {QuestExecution} from "../pages/questExecution/questExecution";
 
 
 export const AppRouter = () => {
@@ -99,6 +100,10 @@ export const AppRouter = () => {
                         element={<ChangePass/>}
                     />
                 </Route>
+                <Route
+                    path="questExecution"
+                    element={<QuestExecution/>}
+                />
                 <Route path="*" element={<h1>Ошибка 404</h1>}/>
             </Route>
         </Routes>
