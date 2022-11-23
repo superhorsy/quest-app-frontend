@@ -30,7 +30,6 @@ export const getInitQuest = createAsyncThunk(
 export const getNextQuest = createAsyncThunk(
     'quests/getNextQuest',
     async (id, {rejectWithValue}) => {
-        console.log('id', id)
         try {
             const data = await questExecutionApi.getNextQuest(id)
             return data
