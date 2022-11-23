@@ -19,8 +19,7 @@ export const getInitQuest = createAsyncThunk(
     'quests/getInitQuest',
     async (_, {rejectWithValue}) => {
         try {
-            const data = await questExecutionApi.getInitQuest()
-            return data
+            return await questExecutionApi.getInitQuest()
         } catch (e) {
             return rejectWithValue(e.message)
         }
@@ -31,8 +30,7 @@ export const getNextQuest = createAsyncThunk(
     'quests/getNextQuest',
     async (id, {rejectWithValue}) => {
         try {
-            const data = await questExecutionApi.getNextQuest(id)
-            return data
+            return await questExecutionApi.getNextQuest(id)
         } catch (e) {
             return rejectWithValue(e.message)
         }
