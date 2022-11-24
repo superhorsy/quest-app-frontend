@@ -47,7 +47,10 @@ export const AvailableQuestsPage = () => {
                     <Grid container spacing={1}>
                         <List>
                             {availableQuests.map((quest) => (
-                                <ListItem key={quest.id} button>
+                                <ListItem
+                                    key={quest.id}
+                                    button
+                                    sx={{borderBottom: '1px solid lightgray', minHeight: '73px'}}>
                                     <Grid item xs={10}>
                                         <ListItemText>{quest.name}</ListItemText>
                                     </Grid>

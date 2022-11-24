@@ -42,7 +42,6 @@ export const UserQuestsPage = () => {
     const onDeleteQuest = (questId) => {
         setQuests(quests.filter((quest) => quest.id !== questId))
     }
-    //почему-то не работает
 
     return (
         <div className="page-container">
@@ -51,10 +50,11 @@ export const UserQuestsPage = () => {
                 <Container maxWidth="sm">
                     <Grid container spacing={1}>
                         <List>
-                            {userQuests.map((quest) => (
+                            {quests.map((quest) => (
                                 <ListItem
                                     key={quest.id}
                                     button
+                                    sx={{borderBottom: '1px solid lightgray', minHeight: '73px'}}
                                 >
                                     <Grid item xs={10}><ListItemText>{quest.name}</ListItemText></Grid>
                                     <Grid item xs={2}><ListItemSecondaryAction>
