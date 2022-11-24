@@ -1,11 +1,14 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import { createQuest } from "../../../store/actions/actions";
 
 export const CreateQuestForm = () => {
+  const dispatch = useDispatch();
   const [questName, setQuestName] = useState("");
   const [questDesctiption, setQuestDescription] = useState("");
 
@@ -13,15 +16,21 @@ export const CreateQuestForm = () => {
 
   const isEmptyField = !questDesctiption || !questName;
 
-  const createQuest = (event) => {
+  const handleCreateQuestSubmit = (event) => {
     event.preventDefault();
+    const data = {
+      name: questName,
+      description: questDesctiption,
+      owner: "cd8dc282-c853-4122-b503-de99740734c4",
+      steps: []
+    }
+    dispatch(createQuest(data))
+    .then((data) => {
+      const questId = data.payload.data.id;
+      navigate(`/panel/quest-profile/${questId}`);
+    })
+  }
 
-    console.log({
-      questName: questName,
-      questDesctiption: questDesctiption,
-    });
-    navigate("/panel/quest-profile/");
-  };
 
   return (
     <Box
@@ -33,7 +42,7 @@ export const CreateQuestForm = () => {
       }}
       noValidate={false}
       autoComplete="off"
-      onSubmit={createQuest}
+      onSubmit={handleCreateQuestSubmit}
     >
       <TextField
         required
@@ -69,7 +78,7 @@ export const CreateQuestForm = () => {
         size="large"
         disabled={isEmptyField}
       >
-        Далее
+        Сохранить
       </Button>
     </Box>
   );

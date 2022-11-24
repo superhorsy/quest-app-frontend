@@ -1,21 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import { useNavigate } from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
-export const TextQuestionCreateForm = () => {
+export const TextQuestionEditForm = () => {
   const [taskName, setTaskName] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
   const [taskAnswersString, setTaskAnswersString] = useState("");
   const [taskAnswersArray, setTaskAnswersArray] = useState([]);
 
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   getArrayOfAnswers(taskAnswersString);
-  // }, [taskAnswersString]);
 
   const getArrayOfAnswers = (answers) => {
     const arrayOfAnswers = answers.toLowerCase().split(",");

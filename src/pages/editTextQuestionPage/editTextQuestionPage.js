@@ -1,7 +1,6 @@
 import React from "react";
 import { TextQuestionEditForm } from "../../components/questEdition/stepEdition/textQuestionEditForm/textQuestionEditForm";
 
-import "./textQuestionPage.module.scss";
 
 export const EditTextQuestionPage = () => {
   return (
