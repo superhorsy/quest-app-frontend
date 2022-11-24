@@ -1,9 +1,3 @@
-.temporary-header {
-  width: 100%;
-  height: 64px;
-  background-color: #4e7ad2;
-}
-
 .title {
   width: 100%;
   color: black;
@@ -34,13 +28,27 @@
   color: black;
   text-align: center;
   //text-transform: uppercase;
-  font-size: 25px;
+  font-size: 35px;
   margin-top: 50px;
   margin-bottom: 10px;
 
   @media (max-width: 600px) {
     font-size: 22px;
     margin-top: 50px;
+  }
+}
+.logoBox {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  img {
+    margin: 0 auto;
+    display: block;
+    object-fit: contain;
+    @media (max-width: 600px) {
+      width: 260px;
+    }
   }
 }
 
