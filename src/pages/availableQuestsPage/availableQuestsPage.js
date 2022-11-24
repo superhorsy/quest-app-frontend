@@ -3,7 +3,6 @@ import {
     ListItemText,
     List,
     ListItem,
-    IconButton,
     Container,
     Pagination,
     ListItemSecondaryAction,
@@ -35,7 +34,11 @@ const availableQuests = [
         name: 'Квест для Маши, Пети, Коли, Даши и еще для многомногомногомногомного много много много кого',
     },
 ]
+
 export const AvailableQuestsPage = () => {
+
+    const isVisible = true;
+
     return (
         <div className="page-container">
             <div className="main-container">
@@ -44,20 +47,21 @@ export const AvailableQuestsPage = () => {
                     <Grid container spacing={1}>
                         <List>
                             {availableQuests.map((quest) => (
-                                <ListItem
-                                    key={quest.id}
-                                    button
-                                >
-                                    <Grid item xs={10}><ListItemText>{quest.name}</ListItemText></Grid>
-                                    <Grid item xs={2}><ListItemSecondaryAction>
-                                        <IconButton edge="end" aria-label="check">
-                                            <CheckCircleOutlineIcon/>
-                                        </IconButton>
-                                    </ListItemSecondaryAction>
+                                <ListItem key={quest.id} button>
+                                    <Grid item xs={10}>
+                                        <ListItemText>{quest.name}</ListItemText>
+                                    </Grid>
+                                    <Grid item xs={2}>
+                                        <ListItemSecondaryAction>
+                                            <CheckCircleOutlineIcon
+                                                edge="end"
+                                                sx={{ color: "#8FBC8F" }}
+                                                style={{ display: isVisible ? "true" : "none" }}
+                                            />
+                                        </ListItemSecondaryAction>
                                     </Grid>
                                 </ListItem>
                             ))}
-
                         </List>
                         <Grid item xs={12}>
                             <Pagination className={style.pagination} count={10} size="small"/>
