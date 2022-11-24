@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
     Container,
     Grid,
@@ -37,6 +37,13 @@ const userQuests = [
 ]
 
 export const UserQuestsPage = () => {
+    const [quests, setQuests] = useState(userQuests);
+
+    const onDeleteQuest = (questId) => {
+        setQuests(quests.filter((quest) => quest.id !== questId))
+    }
+    //почему-то не работает
+
     return (
         <div className="page-container">
             <div className="main-container">
@@ -51,10 +58,14 @@ export const UserQuestsPage = () => {
                                 >
                                     <Grid item xs={10}><ListItemText>{quest.name}</ListItemText></Grid>
                                     <Grid item xs={2}><ListItemSecondaryAction>
-                                        <IconButton aria-label="send">
+                                        <IconButton aria-label="send" sx={{ color: "#8FBC8F" }}>
                                             <EmailIcon/>
                                         </IconButton>
-                                        <IconButton edge="end" aria-label="delete">
+                                        <IconButton
+                                            onClick={() => onDeleteQuest(quest.id)}
+                                            edge="end"
+                                            aria-label="delete"
+                                            sx={{ color: "#F08080" }}>
                                             <DeleteIcon/>
                                         </IconButton>
                                     </ListItemSecondaryAction>
