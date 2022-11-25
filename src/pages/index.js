@@ -8,3 +8,4 @@ export * from './questProfilePage/questProfilePage.js';
 export * from './questionsPage/questionsPage.js';
 export * from './textQuestionPage/textQuestionPage.js';
 export * from './editTextQuestionPage/editTextQuestionPage.js';
+export * from './qrCodeQuestionPage/qrCodeQuestionPage.js';

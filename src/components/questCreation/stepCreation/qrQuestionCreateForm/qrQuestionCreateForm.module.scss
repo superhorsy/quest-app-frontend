@@ -1,0 +1,17 @@
+.qrCodeBox {
+  display: flex;
+  flex-direction:column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  &__qr {
+    margin: 0 auto;
+    width: 150px;
+    height: 150px;
+    img {
+      display: block;
+      object-fit: contain;
+      width: 100%;
+    }
+  }
+}

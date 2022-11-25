@@ -14,7 +14,15 @@ const questsSlice = createSlice({
     reducers: {
         addStep(state, action) {
             const currentQuestId = action.payload.quest_id;
-            state.quests.find(item => item.id === currentQuestId).steps.push(action.payload);
+            const currentQuest = state.quests.find(item => item.id === currentQuestId);
+            const currentQuestSteps = currentQuest.steps;
+            if (currentQuestSteps.length === 0) {
+                currentQuestSteps.push(action.payload);
+            } else {
+                const stepData = action.payload;
+                stepData.sort = currentQuestSteps.length + 1;
+                currentQuestSteps.push(stepData);
+            }
         }
     },
     extraReducers: {

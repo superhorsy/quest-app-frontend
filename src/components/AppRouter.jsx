@@ -23,6 +23,7 @@ import { CreateStepIndex } from "../pages/CreateStepIndex";
 import { QuestProfileTemplate } from "../pages/QuestProfileTemplate";
 import { QuestProfileIndex } from "../pages/QuestProfileIndex";
 import { TextQuestionStep } from "../pages/TextQuestionStep";
+import { QRQuestionStep } from "../pages/QRQuestionStep";
 
 import { Header } from "./Header/Header";
 
@@ -49,6 +50,10 @@ export const AppRouter = () => {
           <Route
             path="create-quest/:questId/create-step/text-step"
             element={<TextQuestionStep />}
+          />
+          <Route
+            path="create-quest/:questId/create-step/qr-step"
+            element={<QRQuestionStep />}
           />
 
           <Route path="quest-profile" element={<QuestProfileTemplate />}>

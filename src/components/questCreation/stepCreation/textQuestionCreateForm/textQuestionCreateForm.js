@@ -36,7 +36,7 @@ export const TextQuestionCreateForm = () => {
     const step = {
       id: "jldgdkfgkj jkfdjgdjkfgnkjdnfg",
       quest_id: questId,
-      sort: "0",
+      sort: 1,
       description: taskName,
       question_type: "text",
       question_content: taskDescription,
@@ -44,7 +44,6 @@ export const TextQuestionCreateForm = () => {
       answer_content: taskAnswersArray
     }
     dispatch(addStep(step));
-    console.log('questId>>>>>>', questId);
     navigate(`/panel/quest-profile/${questId}`);
   };
   return (
