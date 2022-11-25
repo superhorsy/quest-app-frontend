@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import {
-    Container,
     Grid,
     IconButton,
     List,
@@ -24,7 +23,7 @@ const userQuests = [
     },
     {
         id: '3',
-        name: 'Квест для Маши, Пети, Коли, Даши ',
+        name: 'Квест для Маши, Пети, Коли  ',
     },
     {
         id: '4',
@@ -47,16 +46,16 @@ export const UserQuestsPage = () => {
         <div className="page-container">
             <div className="main-container">
                 <h1 className="title">Мои квесты</h1>
-                <Container maxWidth="sm">
-                    <Grid container spacing={1}>
-                        <List>
+                    <Grid container spacing={2} sx={{maxWidth: '600px'}}>
+                        <List sx={{width: '100%'}}>
                             {quests.map((quest) => (
                                 <ListItem
                                     key={quest.id}
                                     button
-                                    sx={{borderBottom: '1px solid lightgray', minHeight: '73px'}}
+                                    className={style.listItem}
+                                    sx={{borderBottom: '1px solid lightgray'}}
                                 >
-                                    <Grid item xs={10}><ListItemText>{quest.name}</ListItemText></Grid>
+                                    <Grid item xs={9}><ListItemText>{quest.name}</ListItemText></Grid>
                                     <Grid item xs={2}><ListItemSecondaryAction>
                                         <IconButton aria-label="send" sx={{ color: "#8FBC8F" }}>
                                             <EmailIcon/>
@@ -77,7 +76,6 @@ export const UserQuestsPage = () => {
                             <Pagination className={style.pagination} count={10} size="small"/>
                         </Grid>
                     </Grid>
-                </Container>
             </div>
         </div>
     );
