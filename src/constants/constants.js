@@ -3,6 +3,6 @@ export const apiTest = {
     POSTS: 'posts'
 }
 export const apiQuests = {
-    BASE_URL_QUESTS: 'http://34.28.145.90:80',
+    BASE_URL_QUESTS: 'https://questy.fun/api/',
     QUESTS: 'v1/quests'
 }

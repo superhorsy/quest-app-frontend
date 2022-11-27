@@ -13,7 +13,7 @@ const instance_quests = axios.create({
 });
 
 instance_quests.defaults.headers.common['Content-Type'] ='application/json';
-instance_quests.defaults.headers.common['Authorization'] ='Basic dGVzdDp0ZXN0';
+instance_quests.defaults.headers.common['Authorization'] ='Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkM2RmNzI0Mi02OWNkLTQ1ZWYtYTczNi04OTI4MWQ1MTg2YjQifQ.1zdpU0XW3RExrx_nfe91Dt45HjGBiO-XcUOkq3s-Odg';
 
 export const testPostsApi = {
     fetchPosts: () => {

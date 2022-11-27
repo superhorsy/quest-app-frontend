@@ -21,7 +21,6 @@ export const CreateQuestForm = () => {
     const data = {
       name: questName,
       description: questDesctiption,
-      owner: "cd8dc282-c853-4122-b503-de99740734c4",
       steps: []
     }
     dispatch(createQuest(data))
