@@ -25,23 +25,51 @@ import { QuestProfileIndex } from "../pages/QuestProfileIndex";
 import { TextQuestionStep } from "../pages/TextQuestionStep";
 import { QRQuestionStep } from "../pages/QRQuestionStep";
 
-import { Header } from "./Header/Header";
+import {Header} from './Header/Header';
+import {QuestExecution} from "../pages/questExecution/questExecution";
+
 
 export const AppRouter = () => {
-  return (
-    <Routes>
-      <Route path="/" element={<Header />}>
-        <Route index element={<StartPage />} />
-        <Route path="/signin" element={<LoginPage />} />
-        <Route path="/signup" element={<SignUpPage />} />
-        <Route path="/restore" element={<PassRecoveryPage />} />
-        <Route path="panel" element={<Panel />}>
-          <Route index element={<PanelIndex />} />
-          <Route path="available-quests" element={<AvailableQuests />} />
-          <Route path="my-progress" element={<QuestProgress />} />
-          <Route path="my-quests" element={<UserQuests />} />
-
-          <Route path="create-quest" element={<CreateQuest />} />
+    return (
+        <Routes>
+            <Route
+                path="/"
+                element={<Header/>}
+            >
+                <Route
+                    index
+                    element={<StartPage/>}
+                />
+                <Route
+                    path="/signin"
+                    element={<LoginPage/>}
+                />
+                <Route
+                    path="/signup"
+                    element={<SignUpPage/>}
+                />
+                <Route
+                    path="/restore"
+                    element={<PassRecoveryPage />}
+                />
+                <Route path="panel" element={<Panel/>}>
+                    <Route
+                        index
+                        element={<PanelIndex/>}
+                    />
+                    <Route
+                        path="available-quests"
+                        element={<AvailableQuests/>}
+                    />
+                    <Route
+                        path="my-progress"
+                        element={<QuestProgress/>}
+                    />
+                    <Route
+                        path="my-quests"
+                        element={<UserQuests/>}
+                    />
+                     <Route path="create-quest" element={<CreateQuest />} />
           <Route path="create-quest/:questId" element={<CreateStep />} />
           <Route
             path="create-quest/:questId/create-step"
@@ -55,18 +83,33 @@ export const AppRouter = () => {
             path="create-quest/:questId/create-step/qr-step"
             element={<QRQuestionStep />}
           />
-
-          <Route path="quest-profile" element={<QuestProfileTemplate />}>
+          
+                </Route>
+                          <Route path="quest-profile" element={<QuestProfileTemplate />}>
             <Route path=":questId" element={<QuestProfileIndex />} />
           </Route>
-
-          <Route path="profile" element={<Profile />}>
-            <Route index element={<ProfileIndex />} />
-            <Route path="change-password" element={<ChangePass />} />
-          </Route>
-        </Route>
-        <Route path="*" element={<h1>Ошибка 404</h1>} />
-      </Route>
-    </Routes>
-  );
+                
+                
+                
+                
+                
+                
+                <Route path="profile" element={<Profile/>}>
+                    <Route
+                        index
+                        element={<ProfileIndex/>}
+                    />
+                    <Route
+                        path="change-password"
+                        element={<ChangePass/>}
+                    />
+                </Route>
+                <Route
+                    path="questExecution"
+                    element={<QuestExecution/>}
+                />
+                <Route path="*" element={<h1>Ошибка 404</h1>}/>
+            </Route>
+        </Routes>
+    );
 };
