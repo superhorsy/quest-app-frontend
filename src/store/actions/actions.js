@@ -1,8 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import {testPostsApi} from "../../api/api";
-import { questsApi } from "../../api/api";
 
-import {questExecutionApi, testPostsApi} from "../../api/api";
+import {questExecutionApi, questsApi, testPostsApi } from "../../api/api";
 
 // Пример
 
