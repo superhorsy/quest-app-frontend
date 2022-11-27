@@ -37,6 +37,8 @@ const userQuests = [
 
 export const UserQuestsPage = () => {
   const [quests, setQuests] = useState(userQuests);
+  // pageAmount должно приходить с бека
+  const pageAmount = 2;
 
   const onDeleteQuest = (questId) => {
     setQuests(quests.filter((quest) => quest.id !== questId))
@@ -72,9 +74,10 @@ export const UserQuestsPage = () => {
               </ListItem>
             ))}
           </List>
-          <Grid item xs={12}>
-            <Pagination className={style.pagination} count={10} size="small"/>
-          </Grid>
+          {pageAmount >= 2 && <Grid item xs={12}>
+            <Pagination className={style.pagination} count={pageAmount} size="small"/>
+          </Grid>}
+          
         </Grid>
       </div>
     </div>
