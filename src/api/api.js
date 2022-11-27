@@ -17,15 +17,15 @@ instance_quests.defaults.headers.common['Content-Type'] ='application/json';
 instance_quests.defaults.headers.common['Authorization'] ='Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkM2RmNzI0Mi02OWNkLTQ1ZWYtYTczNi04OTI4MWQ1MTg2YjQifQ.1zdpU0XW3RExrx_nfe91Dt45HjGBiO-XcUOkq3s-Odg';
 
 export const testPostsApi = {
-    fetchPosts: () => {
-        return instance.get(POSTS)
-    },
-    // sendPosts: (posts) => {
-    // const data = {
-    //     posts
-    // }
-    //     return instance.post(POSTS, data)
-    // }
+  fetchPosts: () => {
+    return instance.get(POSTS)
+  },
+  // sendPosts: (posts) => {
+  // const data = {
+  //     posts
+  // }
+  //     return instance.post(POSTS, data)
+  // }
 }
 
 export const questsApi = {
@@ -40,21 +40,21 @@ export const questsApi = {
 //Под каждую сущность создаем свою константу апи с методами
 
 export const questExecutionApi = {
-    getInitQuest: async () => {
-        return {
-            quests: [
-                {
-                    id: 1,
-                    label: 'Отгадайте загадку',
-                    description: 'Первая загадка. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque, et!',
-                    hasAnswer: false,
-                    rightAnswer: null
-                }
-            ],
-            totalQuestsCount: 5
+  getInitQuest: async () => {
+    return {
+      quests: [
+        {
+          id: 1,
+          label: 'Отгадайте загадку',
+          description: 'Первая загадка. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque, et!',
+          hasAnswer: false,
+          rightAnswer: null
         }
-    },
-    getNextQuest: async (id) => {
-        return nextQuestResponse[id]
+      ],
+      totalQuestsCount: 5
     }
+  },
+  getNextQuest: async (id) => {
+    return nextQuestResponse[id]
+  }
 }

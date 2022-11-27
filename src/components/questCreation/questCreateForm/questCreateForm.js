@@ -24,10 +24,10 @@ export const CreateQuestForm = () => {
       steps: []
     }
     dispatch(createQuest(data))
-    .then((data) => {
-      const questId = data.payload.data.id;
-      navigate(`/panel/quest-profile/${questId}`);
-    })
+      .then((data) => {
+        const questId = data.payload.data.id;
+        navigate(`/panel/quest-profile/${questId}`);
+      })
   }
 
 
