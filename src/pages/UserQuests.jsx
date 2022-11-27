@@ -1,1 +1,2 @@
-export const UserQuests = () => <h1>Мои квесты</h1>;
+import { UserQuestsPage } from './userQuestsPage';
+export const UserQuests = () => <UserQuestsPage/>;
