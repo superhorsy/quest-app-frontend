@@ -1,19 +1,27 @@
-import { useState } from 'react';
-import { Button, AppBar, Container, Toolbar, Box, IconButton, Avatar, Menu, MenuItem, ListItemIcon } from '@mui/material';
-import { Login, Settings, Logout } from '@mui/icons-material';
-import { useNavigate } from "react-router-dom";
+import {useState} from 'react';
+import {Button, AppBar, Container, Toolbar, Box, IconButton, Avatar, Menu, MenuItem, ListItemIcon} from '@mui/material';
+import {Login, Settings, Logout} from '@mui/icons-material';
+import {useNavigate} from "react-router-dom";
 import Logo from '../../assets/images/logo.png';
 import UserAvatar from '../../assets/images/avatar.jpg';
-import { Outlet } from 'react-router-dom';
-
+import {Outlet} from 'react-router-dom';
+import {useDispatch, useSelector} from "react-redux";
+import {authSlice} from "../../store/reducers/authSlice";
 
 export const Header = () => {
-    const [isAuth, setIsAuth ] = useState(false);
+    // const [isAuth, setIsAuth] = useState(false);
     const [anchorElUser, setAnchorElUser] = useState(false);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const {isAuth, user} = useSelector(state => state.authReducer);
+    const {logOut} = authSlice.actions;
+
+    const name = 'Иван';
 
     const handleLogout = () => {
-        setIsAuth(false);
+        // setIsAuth(false);
+        dispatch(logOut());
         navigate("/signin");
         handleCloseUserMenu();
     };
@@ -44,7 +52,7 @@ export const Header = () => {
         {
             name: 'Выйти',
             function: handleLogout,
-            icon: <Logout />
+            icon: <Logout/>
         }
     ];
 
@@ -53,17 +61,18 @@ export const Header = () => {
             <AppBar>
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
-                        <Box sx={{ flexGrow: 1 }}>
-                            <img src={ Logo } alt="logo"/>
+                        <Box sx={{flexGrow: 1}}>
+                            <img src={Logo} alt="logo"/>
                         </Box>
-                        <Box sx={{ flexGrow: 0 }}>
+                        <Box sx={{flexGrow: 0}}>
                             {isAuth ? (
                                 <>
-                                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                        <Avatar alt="user" src={UserAvatar} />
+                                    <span>Привет, {user?.data.first_name} </span>
+                                    <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
+                                        <Avatar alt="user" src=""/>
                                     </IconButton>
                                     <Menu
-                                        sx={{ mt: '45px' }}
+                                        sx={{mt: '45px'}}
                                         id="menu-appbar"
                                         anchorEl={anchorElUser}
                                         anchorOrigin={{
@@ -89,7 +98,7 @@ export const Header = () => {
                                     </Menu>
                                 </>
                             ) : (
-                                <Button sx={{ color:'white' }} onClick={handleLogin} endIcon={<Login />}>
+                                <Button sx={{color: 'white'}} onClick={handleLogin} endIcon={<Login/>}>
                                     Войти
                                 </Button>
                             )}
@@ -98,10 +107,11 @@ export const Header = () => {
                 </Container>
             </AppBar>
             <Container maxWidth="xl">
-                <Box sx={{ mt: 10 }}>
-                    <Outlet context={[isAuth, setIsAuth]}/>
+                <Box sx={{mt: 10}}>
+                    {/*<Outlet context={[isAuth, setIsAuth]}/>*/}
+                    <Outlet/>
                 </Box>
             </Container>
         </>
     );
-  };
+};

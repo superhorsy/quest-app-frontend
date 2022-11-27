@@ -1,37 +1,61 @@
+// React
 import React, {useMemo, useState} from 'react';
+
+// Redux
+import {useDispatch} from "react-redux";
+
+// Router
+import {useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
+
+// UI
+import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import {Link} from "react-router-dom";
-import Button from "@mui/material/Button";
-import {useNavigate} from "react-router-dom";
+
+// Api comps
+import {registration} from "../../store/actions/actions";
 
 export const SignUpPage = () => {
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [nickname, setNickname] = useState('');
     const [pass, setPass] = useState('');
     const [passConfirm, setPassConfirm] = useState('');
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const sendData = (event) => {
         event.preventDefault();
 
-        // Пока что отправляем в консоль
-        console.log(
-            {
-                email: email,
-                nickname: nickname,
-                pass: pass
-            }
-        )
+        // // Пока что отправляем в консоль
+        // console.log(
+        //     {
+        //         email: email,
+        //         nickname: nickname,
+        //         pass: pass
+        //     }
+        // )
 
+        dispatch(registration({
+            first_name: firstName,
+            last_name: lastName,
+            nickname: nickname,
+            password: pass,
+            email: email,
+        }))
+
+        setFirstName('');
+        setLastName('');
         setEmail('');
         setNickname('');
         setPass('');
         setPassConfirm('');
     }
 
-    const isEmptyField = !email || !nickname || !pass || !passConfirm;
+    const isEmptyField = !firstName || !lastName || !email || !nickname || !pass || !passConfirm;
     const isPassMatched = passConfirm === pass;
 
     // const isEmptyField = useMemo(
@@ -83,12 +107,31 @@ export const SignUpPage = () => {
                     onSubmit={sendData}
                 >
                     <div>
-
                         <TextField
                             required
                             fullWidth
                             sx={{mb: {xs: 3, sm: 4}}}
-                            id="outlined-basic"
+                            id="outlined-basic-firstname"
+                            label="Имя"
+                            variant="outlined"
+                            value={firstName}
+                            onChange={(e) => setFirstName(e.target.value)}
+                        />
+                        <TextField
+                            required
+                            fullWidth
+                            sx={{mb: {xs: 3, sm: 4}}}
+                            id="outlined-basic-lastname"
+                            label="Фамилия"
+                            variant="outlined"
+                            value={lastName}
+                            onChange={(e) => setLastName(e.target.value)}
+                        />
+                        <TextField
+                            required
+                            fullWidth
+                            sx={{mb: {xs: 3, sm: 4}}}
+                            id="outlined-basic-email"
                             type="email"
                             label="Ваш email"
                             variant="outlined"
@@ -99,7 +142,7 @@ export const SignUpPage = () => {
                             required
                             fullWidth
                             sx={{mb: {xs: 3, sm: 4}}}
-                            id="outlined-basic"
+                            id="outlined-basic-nickname"
                             label="Никнейм"
                             variant="outlined"
                             value={nickname}
@@ -109,7 +152,7 @@ export const SignUpPage = () => {
                             required
                             fullWidth
                             sx={{mb: {xs: 3, sm: 4}}}
-                            id="outlined-basic"
+                            id="outlined-basic-password"
                             type="password"
                             label="Пароль"
                             variant="outlined"
@@ -121,7 +164,7 @@ export const SignUpPage = () => {
                             required
                             fullWidth
                             sx={{mb: {xs: 3, sm: 4}}}
-                            id="outlined-basic"
+                            id="outlined-basic-password-confirm"
                             type="password"
                             label="Подтвердите пароль"
                             variant="outlined"

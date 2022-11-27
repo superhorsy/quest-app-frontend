@@ -1,22 +1,20 @@
+import React from "react";
 import {Route, Routes} from 'react-router-dom';
 
-//AUTH LINKS
+//AUTH PAGES
 import {
     LoginPage,
     SignUpPage,
     StartPage,
     PassRecoveryPage,
 } from "../pages";
-// import { SignIn } from '../pages/SignIn';
-// import {SignUp} from '../pages/SignUp';
-// import {RestorePass} from '../pages/RestorePass';
 
-//PROFILE LINKS
+//PROFILE PAGES
 import {Profile} from '../pages/Profile';
 import {ProfileIndex} from '../pages/ProfileIndex';
 import {ChangePass} from '../pages/ChangePass';
 
-//PANEL LINKS
+//PANEL PAGES
 import {Panel} from '../pages/Panel';
 import {PanelIndex} from '../pages/PanelIndex';
 import {AvailableQuests} from '../pages/AvailableQuests';
@@ -27,16 +25,15 @@ import {CreateStep} from '../pages/CreateStep';
 import {CreateStepIndex} from '../pages/CreateStepIndex';
 import {CreateStepForm} from '../pages/CreateStepForm';
 
-
 import {Header} from './Header/Header';
-
+import {Footer} from './footer';
 
 export const AppRouter = () => {
     return (
         <Routes>
             <Route
                 path="/"
-                element={<Header/>}
+                element={<><Header/><Footer/></>}
             >
                 <Route
                     index
@@ -52,7 +49,7 @@ export const AppRouter = () => {
                 />
                 <Route
                     path="/restore"
-                    element={<PassRecoveryPage />}
+                    element={<PassRecoveryPage/>}
                 />
                 <Route path="panel" element={<Panel/>}>
                     <Route
