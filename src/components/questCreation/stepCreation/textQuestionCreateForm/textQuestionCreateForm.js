@@ -1,18 +1,24 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addStep } from "../../../../store/reducers/questsSlice";
 
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 export const TextQuestionCreateForm = () => {
+
   const [taskName, setTaskName] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
   const [taskAnswersString, setTaskAnswersString] = useState("");
   const [taskAnswersArray, setTaskAnswersArray] = useState([]);
 
-  useEffect(() => {
-    getArrayOfAnswers(taskAnswersString);
-  }, [taskAnswersString]);
+  const { questId } = useParams();
+
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const getArrayOfAnswers = (answers) => {
     const arrayOfAnswers = answers.toLowerCase().split(",");
@@ -23,17 +29,22 @@ export const TextQuestionCreateForm = () => {
     return !taskName || !taskDescription || !taskAnswersString;
   };
 
-  const createTask = (event) => {
+  const onCreateTaskSubmit = (event) => {
     event.preventDefault();
-
-    console.log({
-      taskName: taskName,
-      taskDescription: taskDescription,
-      taskAnswersString: taskAnswersString,
-    });
-
     getArrayOfAnswers(taskAnswersString);
-    console.log(taskAnswersArray);
+
+    const step = {
+      id: "jldgdkfgkj jkfdjgdjkfgnkjdnfg",
+      quest_id: questId,
+      sort: 1,
+      description: taskName,
+      question_type: "text",
+      question_content: taskDescription,
+      answer_type: "text",
+      answer_content: taskAnswersArray
+    }
+    dispatch(addStep(step));
+    navigate(`/panel/quest-profile/${questId}`);
   };
   return (
     <Box
@@ -46,7 +57,7 @@ export const TextQuestionCreateForm = () => {
       }}
       noValidate={false}
       autoComplete="off"
-      onSubmit={createTask}
+      onSubmit={onCreateTaskSubmit}
     >
       <TextField
         fullWidth
@@ -55,6 +66,7 @@ export const TextQuestionCreateForm = () => {
         variant="outlined"
         helperText="Например: Отгадайте загадку"
         sx={{ mb: { xs: 3, sm: 7 } }}
+        value={taskName}
         onChange={(e) => setTaskName(e.target.value)}
       />
       <TextField
@@ -66,6 +78,7 @@ export const TextQuestionCreateForm = () => {
         multiline
         rows={4}
         sx={{ mb: { xs: 3, sm: 7 } }}
+        value={taskDescription}
         onChange={(e) => setTaskDescription(e.target.value)}
       />
       <TextField
@@ -75,6 +88,7 @@ export const TextQuestionCreateForm = () => {
         variant="outlined"
         helperText="Например: елка,елочка,ёлка,ёлочка"
         sx={{ mb: { xs: 3, sm: 7 } }}
+        value={taskAnswersString}
         onChange={(e) => setTaskAnswersString(e.target.value)}
       />
       <Button
