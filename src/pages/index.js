@@ -4,3 +4,4 @@ export * from './passRecoveryPage/passRecoveryPage.js';
 export * from './startPage/startPage.js';
 export * from './userQuestsPage/userQuestsPage';
 export * from './availableQuestsPage/availableQuestsPage';
+export * from './userProfile/userProfile.js';
