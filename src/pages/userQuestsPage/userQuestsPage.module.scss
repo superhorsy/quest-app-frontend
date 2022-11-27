@@ -1,0 +1,23 @@
+.listItem {
+  min-height: 73px;
+  min-width: 570px;
+  @media (max-width: 600px) {
+    min-width: 400px;
+  }
+  @media (max-width: 550px) {
+    min-width: 400px;
+  }
+  @media (max-width: 450px) {
+    min-width: 300px;
+  }
+  @media (max-width: 375px) {
+    min-width: 250px;
+  }
+
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  padding-top: 30px;
+}
