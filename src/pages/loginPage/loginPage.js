@@ -97,6 +97,7 @@ export const LoginPage = () => {
                                 variant="contained"
                                 size="large"
                                 disabled={isEmptyField}
+                                onClick={() => navigate('/profile')}
                             >Войти
                             </Button>
                             <div>
