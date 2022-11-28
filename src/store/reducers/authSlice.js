@@ -1,6 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 // import {testFetchPosts} from "../actions/actions";
-import {login, registration} from "../actions/actions";
+import {login, registration, getProfile} from "../actions/actions";
 
 
 export const initialState = {
@@ -46,6 +46,18 @@ export const authSlice = createSlice({
             state.user = action.payload
         },
         [registration.rejected.type]: (state, action) => {
+            state.isLoading = false
+            state.error = action.payload
+        },
+        [getProfile.pending.type]: (state, action) => {
+            state.isLoading = true
+        },
+        [getProfile.fulfilled.type]: (state, action) => {
+            state.isLoading = false
+            state.error = ''
+            state.user = action.payload
+        },
+        [getProfile.rejected.type]: (state, action) => {
             state.isLoading = false
             state.error = action.payload
         }
