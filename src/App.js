@@ -8,13 +8,13 @@ import { AppRouter } from './components/AppRouter';
 import "./App.scss";
 
 function App() {
-    return (
-        <div className="App">
-            <BrowserRouter>
-                <AppRouter />
-            </BrowserRouter>
-        </div>
-    );
+  return (
+    <div className="App">
+      <BrowserRouter>
+        <AppRouter />
+      </BrowserRouter>
+    </div>
+  );
 }
 
 export default App;

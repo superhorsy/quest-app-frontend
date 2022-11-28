@@ -2,29 +2,29 @@ import {createSlice} from "@reduxjs/toolkit";
 import {testFetchPosts} from "../actions/actions";
 
 const initialState = {
-    posts: [],
-    isLoading: false,
-    error: ''
+  posts: [],
+  isLoading: false,
+  error: ''
 }
 
 const postsSlice = createSlice({
-    name: 'posts',
-    initialState,
-    reducers: {},
-    extraReducers: {
-        [testFetchPosts.pending.type]: (state, action) => {
-            state.isLoading = true
-        },
-        [testFetchPosts.fulfilled.type]: (state, action) => {
-            state.isLoading = false
-            state.error = ''
-            state.posts.push(...action.payload)
-        },
-        [testFetchPosts.rejected.type]: (state, action) => {
-            state.isLoading = false
-            state.error = action.payload
-        }
+  name: 'posts',
+  initialState,
+  reducers: {},
+  extraReducers: {
+    [testFetchPosts.pending.type]: (state, action) => {
+      state.isLoading = true
+    },
+    [testFetchPosts.fulfilled.type]: (state, action) => {
+      state.isLoading = false
+      state.error = ''
+      state.posts.push(...action.payload)
+    },
+    [testFetchPosts.rejected.type]: (state, action) => {
+      state.isLoading = false
+      state.error = action.payload
     }
+  }
 })
 
 // const isPendingAction = (action) => action.type.endsWith('pending')
