@@ -1,6 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-// import {testFetchPosts} from "../actions/actions";
-import { fetchQuests, createQuest } from "../actions/actions";
+import { fetchCreatedQuests, createQuest } from "../actions/actions";
 
 const initialState = {
   quests: [],
@@ -8,7 +7,7 @@ const initialState = {
   error: ''
 }
 
-const questsSlice = createSlice({
+const createdQuestsSlice = createSlice({
   name: 'quests',
   initialState,
   reducers: {
@@ -26,15 +25,15 @@ const questsSlice = createSlice({
     }
   },
   extraReducers: {
-    [fetchQuests.pending.type]: (state, action) => {
+    [fetchCreatedQuests.pending.type]: (state, action) => {
       state.isLoading = true
     },
-    [fetchQuests.fulfilled.type]: (state, action) => {
+    [fetchCreatedQuests.fulfilled.type]: (state, action) => {
       state.isLoading = false
       state.error = ''
       state.quests.push(...action.payload)
     },
-    [fetchQuests.rejected.type]: (state, action) => {
+    [fetchCreatedQuests.rejected.type]: (state, action) => {
       state.isLoading = false
       state.error = action.payload
     },
@@ -55,5 +54,5 @@ const questsSlice = createSlice({
     }
   }
 })
-export const {addStep} = questsSlice.actions;
-export default questsSlice.reducer;
+export const {addStep} = createdQuestsSlice.actions;
+export default createdQuestsSlice.reducer;

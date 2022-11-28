@@ -1,12 +1,14 @@
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import postsReducer from './reducers/testPostsSlice';
-import questsReducer from "./reducers/questsSlice";
+import createdQuestsReducer from "./reducers/createdQuestsSlice";
 import questExecutionReducer from "./reducers/questExecutionSlice";
+import userProfileReducer from "./reducers/userProfileSlice";
 
 const rootReducer = combineReducers({
   postsReducer,
-  questsReducer,
-  questExecutionReducer
+  createdQuestsReducer,
+  questExecutionReducer,
+  userProfileReducer
 })
 
 export const store = configureStore({

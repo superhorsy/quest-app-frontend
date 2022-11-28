@@ -1,11 +1,15 @@
 export const apiTest = {
-  BASE_URL: 'https://jsonplaceholder.typicode.com',
+  BASE_URL_TEST: 'https://jsonplaceholder.typicode.com',
   POSTS: 'posts'
 }
 
 export const apiQuests = {
-  BASE_URL_QUESTS: 'https://questy.fun/api/',
-  QUESTS: 'v1/quests'
+  BASE_URL: 'https://questy.fun/api/v1/',
+  QUESTS: 'quests',
+  QUESTS_CREATED: 'quests/created',
+  LOGIN: 'login',
+  REGISTER: 'register',
+  PRIFILE: 'profile',
 }
 
 export const colors = {

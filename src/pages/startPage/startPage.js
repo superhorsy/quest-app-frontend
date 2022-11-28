@@ -9,10 +9,8 @@ export const StartPage = () => {
 
   return (
     <div className="page-container">
-      {/*<div className="temporary-header"/>*/}
 
       <span className="welcomeTitle">Рады видеть вас в</span>
-      {/* <h1 className="nameOfService">Название сервиса</h1> */}
       <div className='logoBox'>
         <img src={Logo} alt="logo"/>
       </div>

@@ -44,8 +44,6 @@ export const LoginPage = () => {
   return (
     <div className="page-container">
 
-      {/*<div className="temporary-header"/>*/}
-
       <div className="main-container">
         <h1 className="title">Авторизация</h1>
 

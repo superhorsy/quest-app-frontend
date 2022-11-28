@@ -7,10 +7,6 @@ import Button from "@mui/material/Button";
 export const PassRecoveryPage = () => {
   const [email, setEmail] = useState('');
 
-  // const isEmptyField = () => {
-  //     return !email;
-  // }
-
   const isEmptyField = !email;
 
   const sendData = (event) => {
@@ -25,7 +21,6 @@ export const PassRecoveryPage = () => {
 
   return (
     <div className="page-container">
-      {/*<div className="temporary-header"/>*/}
       <div className="main-container">
         <h1 className="title">Восстановить пароль</h1>
         <Box

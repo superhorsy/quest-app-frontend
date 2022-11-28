@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import {questExecutionApi, questsApi, testPostsApi } from "../../api/api";
+import {questExecutionApi, questsApi, testPostsApi, userProfileApi } from "../../api/api";
 
 // Пример
 
@@ -19,11 +19,23 @@ export const testFetchPosts = createAsyncThunk(
 //Пока предлагаю писать все экшены здесь, если сильно очень разрастется (что вряд ли), то разнесем
 
 
-export const fetchQuests = createAsyncThunk(
+export const fetchCreatedQuests = createAsyncThunk(
   "quests/fetchQuests",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await questsApi.fetchQuests();
+      const { data } = await questsApi.fetchCreatedQuests();
+      return data;
+    } catch (e) {
+      return rejectWithValue(e.message);
+    }
+  }
+);
+
+export const fetchUserProfile = createAsyncThunk(
+  "userProfile/fetchUserProfile",
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await userProfileApi.fetchUserProfile();
       return data;
     } catch (e) {
       return rejectWithValue(e.message);
