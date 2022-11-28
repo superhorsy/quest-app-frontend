@@ -26,14 +26,15 @@ import {CreateStepIndex} from '../pages/CreateStepIndex';
 import {CreateStepForm} from '../pages/CreateStepForm';
 
 import {Header} from './Header/Header';
-import {Footer} from './footer';
+// import {Footer} from './footer';
+import {FooterTest} from "./footer/footerTest";
 
 export const AppRouter = () => {
     return (
         <Routes>
             <Route
                 path="/"
-                element={<><Header/><Footer/></>}
+                element={<><Header/><FooterTest /></>}
             >
                 <Route
                     index
