@@ -21,13 +21,24 @@ export const testPostsApi = {
     // // }
 }
 
+// Api для авторизации пользователя
 export const loginApi = (data) => {
     return instance.post('/api/v1/login', data)
 }
 
-// Апи отправляет объект на сервер для регистрации пользователя
+// Api отправляет объект на сервер для регистрации пользователя
 export const registrationApi = (data) => {
     return instance.post('/api/v1/register', data)
+}
+
+// Api для получения профиля пользователя
+export const getProfileApi = () => {
+    return instance.get('/api/v1/profile', {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        }
+    );
 }
 
 //Под каждую сущность создаем свою константу апи с методами
