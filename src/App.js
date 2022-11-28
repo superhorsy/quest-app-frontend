@@ -10,6 +10,7 @@ import {AppRouter} from './components/AppRouter';
 
 import "./App.scss";
 import {TestComponent} from "./components/testComponent/testComponent";
+import {getProfile} from "./store/actions/actions";
 
 function App() {
     // const {isAuth} = useSelector(state => state.authReducer);
@@ -19,6 +20,7 @@ function App() {
 
     useEffect(() => {
         if (localStorage.getItem('token')) {
+            dispatch(getProfile())
             dispatch(checkAuth());
             // store.checkAuth()
         }
