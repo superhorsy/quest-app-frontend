@@ -17,178 +17,161 @@ import TextField from "@mui/material/TextField";
 import {registration} from "../../store/actions/actions";
 
 export const SignUpPage = () => {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
-    const [nickname, setNickname] = useState('');
-    const [pass, setPass] = useState('');
-    const [passConfirm, setPassConfirm] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [nickname, setNickname] = useState('');
+  const [pass, setPass] = useState('');
+  const [passConfirm, setPassConfirm] = useState('');
 
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-    const sendData = (event) => {
-        event.preventDefault();
+  const sendData = (event) => {
+    event.preventDefault();
 
-        // // Пока что отправляем в консоль
-        // console.log(
-        //     {
-        //         email: email,
-        //         nickname: nickname,
-        //         pass: pass
-        //     }
-        // )
+    dispatch(registration({
+      first_name: firstName,
+      last_name: lastName,
+      nickname: nickname,
+      password: pass,
+      email: email,
+    }))
 
-        dispatch(registration({
-            first_name: firstName,
-            last_name: lastName,
-            nickname: nickname,
-            password: pass,
-            email: email,
-        }))
+    setFirstName('');
+    setLastName('');
+    setEmail('');
+    setNickname('');
+    setPass('');
+    setPassConfirm('');
+  }
 
-        setFirstName('');
-        setLastName('');
-        setEmail('');
-        setNickname('');
-        setPass('');
-        setPassConfirm('');
-    }
+  const isEmptyField = !firstName || !lastName || !email || !nickname || !pass || !passConfirm;
+  const isPassMatched = passConfirm === pass;
 
-    const isEmptyField = !firstName || !lastName || !email || !nickname || !pass || !passConfirm;
-    const isPassMatched = passConfirm === pass;
 
-    // const isEmptyField = useMemo(
-    //     () => !email || !nickname || !pass || !passConfirm,
-    //     [passConfirm, pass, nickname, email]
-    // )
-    //
-    // const isPassMatched = useMemo(
-    //     () => passConfirm === pass,
-    //     [passConfirm, pass]
-    // )
+  return (
+    <div className="page-container">
 
-    // useEffect(() => {
-    //     console.log('отработал юзэфеект')
-    //     if (!email || !nickname || !pass || !passConfirm) {
-    //         // setBtnDisable(true);
-    //         console.log('отработал if');
-    //     } else if (passConfirm !== pass && passConfirm) {
-    //         setError(true);
-    //         setBtnDisable(true);
-    //         console.log('отработал else if');
-    //     } else {
-    //         setBtnDisable(false);
-    //         setError(false);
-    //         console.log('отработал else');
-    //     }
-    // }, [passConfirm, pass, nickname, email]);
+      {/*<div className="temporary-header"/>*/}
 
-    console.log('рендер');
+      <div className="main-container">
 
-    return (
-        <div className="page-container">
+        <h1 className="title">Регистрация</h1>
 
-            {/*<div className="temporary-header"/>*/}
-
+        <Box
+          component="form"
+          sx={{
+            m: '0 auto',
+            textAlign: "center",
+            width: {xs: 1 / 1, sm: 500},
+          }}
+          noValidate={false}
+          autoComplete="off"
+          onSubmit={sendData}
+        >
+          <div>
             <div className="main-container">
 
-                <h1 className="title">Регистрация</h1>
+              <h1 className="title">Регистрация</h1>
 
-                <Box
-                    component="form"
-                    sx={{
-                        m: '0 auto',
-                        textAlign: "center",
-                        width: {xs: 1 / 1, sm: 500},
-                    }}
-                    noValidate={false}
-                    autoComplete="off"
-                    onSubmit={sendData}
-                >
+              <Box
+                component="form"
+                sx={{
+                  m: '0 auto',
+                  textAlign: "center",
+                  width: {xs: 1 / 1, sm: 500},
+                }}
+                noValidate={false}
+                autoComplete="off"
+                onSubmit={sendData}
+              >
+                <div>
+                  <TextField
+                    required
+                    fullWidth
+                    sx={{mb: {xs: 3, sm: 4}}}
+                    id="outlined-basic-firstname"
+                    label="Имя"
+                    variant="outlined"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                  />
+                  <TextField
+                    required
+                    fullWidth
+                    sx={{mb: {xs: 3, sm: 4}}}
+                    id="outlined-basic-lastname"
+                    label="Фамилия"
+                    variant="outlined"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                  />
+                  <TextField
+                    required
+                    fullWidth
+                    sx={{mb: {xs: 3, sm: 4}}}
+                    id="outlined-basic-email"
+                    type="email"
+                    label="Ваш email"
+                    variant="outlined"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                  <TextField
+                    required
+                    fullWidth
+                    sx={{mb: {xs: 3, sm: 4}}}
+                    id="outlined-basic-nickname"
+                    label="Никнейм"
+                    variant="outlined"
+                    value={nickname}
+                    onChange={(e) => setNickname(e.target.value)}
+                  />
+                  <TextField
+                    required
+                    fullWidth
+                    sx={{mb: {xs: 3, sm: 4}}}
+                    id="outlined-basic-password"
+                    type="password"
+                    label="Пароль"
+                    variant="outlined"
+                    value={pass}
+                    onChange={(e) => setPass(e.target.value)}
+                  />
+                  <TextField
+                    error={!isPassMatched && Boolean(passConfirm)}
+                    required
+                    fullWidth
+                    sx={{mb: {xs: 3, sm: 4}}}
+                    id="outlined-basic-password-confirm"
+                    type="password"
+                    label="Подтвердите пароль"
+                    variant="outlined"
+                    value={passConfirm}
+                    onChange={(e) => setPassConfirm(e.target.value)}
+                  />
+                  <div>
+                    <Button
+                      fullWidth
+                      type="submit"
+                      sx={{mb: {xs: 4, sm: 6}}}
+                      variant="contained"
+                      size="large"
+                      disabled={isEmptyField || !isPassMatched}
+                    >Зарегистрироваться
+                    </Button>
                     <div>
-                        <TextField
-                            required
-                            fullWidth
-                            sx={{mb: {xs: 3, sm: 4}}}
-                            id="outlined-basic-firstname"
-                            label="Имя"
-                            variant="outlined"
-                            value={firstName}
-                            onChange={(e) => setFirstName(e.target.value)}
-                        />
-                        <TextField
-                            required
-                            fullWidth
-                            sx={{mb: {xs: 3, sm: 4}}}
-                            id="outlined-basic-lastname"
-                            label="Фамилия"
-                            variant="outlined"
-                            value={lastName}
-                            onChange={(e) => setLastName(e.target.value)}
-                        />
-                        <TextField
-                            required
-                            fullWidth
-                            sx={{mb: {xs: 3, sm: 4}}}
-                            id="outlined-basic-email"
-                            type="email"
-                            label="Ваш email"
-                            variant="outlined"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                        <TextField
-                            required
-                            fullWidth
-                            sx={{mb: {xs: 3, sm: 4}}}
-                            id="outlined-basic-nickname"
-                            label="Никнейм"
-                            variant="outlined"
-                            value={nickname}
-                            onChange={(e) => setNickname(e.target.value)}
-                        />
-                        <TextField
-                            required
-                            fullWidth
-                            sx={{mb: {xs: 3, sm: 4}}}
-                            id="outlined-basic-password"
-                            type="password"
-                            label="Пароль"
-                            variant="outlined"
-                            value={pass}
-                            onChange={(e) => setPass(e.target.value)}
-                        />
-                        <TextField
-                            error={!isPassMatched && Boolean(passConfirm)}
-                            required
-                            fullWidth
-                            sx={{mb: {xs: 3, sm: 4}}}
-                            id="outlined-basic-password-confirm"
-                            type="password"
-                            label="Подтвердите пароль"
-                            variant="outlined"
-                            value={passConfirm}
-                            onChange={(e) => setPassConfirm(e.target.value)}
-                        />
-                        <div>
-                            <Button
-                                fullWidth
-                                type="submit"
-                                sx={{mb: {xs: 4, sm: 6}}}
-                                variant="contained"
-                                size="large"
-                                disabled={isEmptyField || !isPassMatched}
-                            >Зарегистрироваться
-                            </Button>
-                            <div>
-                                <span>Уже есть аккаунт? </span>
-                                <Link to="/signin">Войти</Link>
-                            </div>
-                        </div>
+                      <span>Уже есть аккаунт? </span>
+                      <Link to="/signin">Войти</Link>
                     </div>
-                </Box>
+                  </div>
+                </div>
+              </Box>
             </div>
-        </div>
-    );
+          </div>
+        </Box>
+      </div>
+    </div>
+  );
 };

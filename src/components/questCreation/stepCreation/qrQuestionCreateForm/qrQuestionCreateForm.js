@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import QRCode from "qrcode";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addStep } from "../../../../store/reducers/questsSlice";
+import { addStep } from "../../../../store/reducers/createdQuestsSlice";
 
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";

@@ -10,7 +10,7 @@ import Box from "@mui/material/Box";
 import styles from "./questProfile.module.scss";
 
 export const QuestProfile = () => {
-  const quests = useSelector((state) => state.questsReducer.quests);
+  const quests = useSelector((state) => state.createdQuestsReducer.quests);
   let { questId } = useParams();
 
   let currentQuest = quests.find((quest) => quest.id === questId);
