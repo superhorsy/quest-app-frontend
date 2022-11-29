@@ -1,32 +1,31 @@
 import React from "react";
-import {Route, Routes} from 'react-router-dom';
+import {Route, Routes} from "react-router-dom";
 
 //AUTH PAGES
-import {
-    LoginPage,
-    SignUpPage,
-    StartPage,
-    PassRecoveryPage,
-} from "../pages";
+import {LoginPage, SignUpPage, StartPage, PassRecoveryPage} from "../pages";
 
 //PROFILE PAGES
-import {Profile} from '../pages/Profile';
-import {ProfileIndex} from '../pages/ProfileIndex';
-import {ChangePass} from '../pages/ChangePass';
+import {Profile} from "../pages/Profile";
+import {ProfileIndex} from "../pages/ProfileIndex";
+import {ChangePass} from "../pages/ChangePass";
 
 //PANEL PAGES
-import {Panel} from '../pages/Panel';
-import {PanelIndex} from '../pages/PanelIndex';
-import {AvailableQuests} from '../pages/AvailableQuests';
-import {QuestProgress} from '../pages/QuestProgress';
-import {UserQuests} from '../pages/UserQuests';
-import {CreateQuest} from '../pages/CreateQuest';
-import {CreateStep} from '../pages/CreateStep';
-import {CreateStepIndex} from '../pages/CreateStepIndex';
+import {Panel} from "../pages/Panel";
+import {PanelIndex} from "../pages/PanelIndex";
+import {AvailableQuests} from "../pages/AvailableQuests";
+import {QuestProgress} from "../pages/QuestProgress";
+import {UserQuests} from "../pages/UserQuests";
+import {CreateQuest} from "../pages/CreateQuest";
+import {CreateStep} from "../pages/CreateStep";
+import {CreateStepIndex} from "../pages/CreateStepIndex";
 import {CreateStepForm} from '../pages/CreateStepForm';
+import {QuestProfileTemplate} from "../pages/QuestProfileTemplate";
+import {QuestProfileIndex} from "../pages/QuestProfileIndex";
+import {TextQuestionStep} from "../pages/TextQuestionStep";
+import {QRQuestionStep} from "../pages/QRQuestionStep";
 
 import {Header} from './Header/Header';
-// import {Footer} from './footer';
+import {QuestExecution} from "../pages/questExecution/questExecution";
 import {FooterTest} from "./footer/footerTest";
 
 export const AppRouter = () => {
@@ -34,7 +33,7 @@ export const AppRouter = () => {
         <Routes>
             <Route
                 path="/"
-                element={<><Header/><FooterTest /></>}
+                element={<><Header/><FooterTest/></>}
             >
                 <Route
                     index
@@ -69,23 +68,24 @@ export const AppRouter = () => {
                         path="my-quests"
                         element={<UserQuests/>}
                     />
+                    <Route path="create-quest" element={<CreateQuest/>}/>
+                    <Route path="create-quest/:questId" element={<CreateStep/>}/>
                     <Route
-                        path="create-quest"
-                        element={<CreateQuest/>}
+                        path="create-quest/:questId/create-step"
+                        element={<CreateStepIndex/>}
                     />
                     <Route
-                        path="create-quest/create-step"
-                        element={<CreateStep/>}
-                    >
-                        <Route
-                            index
-                            element={<CreateStepIndex/>}
-                        />
-                        <Route
-                            path=":step"
-                            element={<CreateStepForm/>}
-                        />
-                    </Route>
+                        path="create-quest/:questId/create-step/text-step"
+                        element={<TextQuestionStep/>}
+                    />
+                    <Route
+                        path="create-quest/:questId/create-step/qr-step"
+                        element={<QRQuestionStep/>}
+                    />
+
+                </Route>
+                <Route path="quest-profile" element={<QuestProfileTemplate/>}>
+                    <Route path=":questId" element={<QuestProfileIndex/>}/>
                 </Route>
                 <Route path="profile" element={<Profile/>}>
                     <Route
@@ -97,6 +97,10 @@ export const AppRouter = () => {
                         element={<ChangePass/>}
                     />
                 </Route>
+                <Route
+                    path="questExecution"
+                    element={<QuestExecution/>}
+                />
                 <Route path="*" element={<h1>Ошибка 404</h1>}/>
             </Route>
         </Routes>

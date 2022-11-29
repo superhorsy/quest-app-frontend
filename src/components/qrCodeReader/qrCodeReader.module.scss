@@ -1,0 +1,10 @@
+.qrBox {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  width: 150px;
+  &__desc {
+    text-align: center;
+    font-size: 10px;
+  }
+}

@@ -1,34 +1,35 @@
 import React, { useState } from "react";
-import isEmail from "validator/lib/isEmail";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import { createQuest } from "../../../store/actions/actions";
 
 export const CreateQuestForm = () => {
+  const dispatch = useDispatch();
   const [questName, setQuestName] = useState("");
   const [questDesctiption, setQuestDescription] = useState("");
-  const [receiverEmail, setReceiverEmail] = useState("");
 
-  const isEmptyField = () => {
-    return !receiverEmail || !questDesctiption || !questName;
-  };
+  const navigate = useNavigate();
 
-  const validateEmail = (email) => {
-    if (isEmail(email)) {
-      setReceiverEmail(email);
-    }
-  };
+  const isEmptyField = !questDesctiption || !questName;
 
-  const createQuest = (event) => {
+  const handleCreateQuestSubmit = (event) => {
     event.preventDefault();
+    const data = {
+      name: questName,
+      description: questDesctiption,
+      steps: []
+    }
+    dispatch(createQuest(data))
+    .then((data) => {
+      const questId = data.payload.data.id;
+      navigate(`/panel/quest-profile/${questId}`);
+    })
+  }
 
-    console.log({
-      questName: questName,
-      questDesctiption: questDesctiption,
-      receiverEmail: receiverEmail,
-    });
-  };
 
   return (
     <Box
@@ -36,12 +37,11 @@ export const CreateQuestForm = () => {
       sx={{
         m: "0 auto",
         textAlign: "center",
-        borderBottom: 1,
         width: { xs: 1 / 1, sm: 500 },
       }}
       noValidate={false}
       autoComplete="off"
-      onSubmit={createQuest}
+      onSubmit={handleCreateQuestSubmit}
     >
       <TextField
         required
@@ -51,6 +51,7 @@ export const CreateQuestForm = () => {
         variant="outlined"
         helperText="Название квеста будете видеть только Вы"
         sx={{ mb: { xs: 3, sm: 7 } }}
+        value={questName}
         onChange={(e) => setQuestName(e.target.value)}
       />
       <TextField
@@ -62,26 +63,19 @@ export const CreateQuestForm = () => {
         multiline
         rows={4}
         sx={{ mb: { xs: 3, sm: 7 } }}
+        value={questDesctiption}
         onChange={(e) => setQuestDescription(e.target.value)}
       />
-      <TextField
-        required
-        type="email"
-        fullWidth
-        id="outlined-basic"
-        label="Почтовый ящик друга"
-        variant="outlined"
-        sx={{ mb: { xs: 3, sm: 5 } }}
-        onChange={(e) => validateEmail(e.target.value)}
-      />
+
       <Button
         sx={{
+          width: 200,
           mb: { xs: 2, sm: 3 },
         }}
         type="submit"
         variant="contained"
         size="large"
-        disabled={isEmptyField()}
+        disabled={isEmptyField}
       >
         Сохранить
       </Button>

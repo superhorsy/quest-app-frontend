@@ -19,18 +19,20 @@ export const LoginPage = () => {
     const dispatch = useDispatch();
 
     const {isAuth, user} = useSelector(state => state.authReducer)
-    console.log('isAut', isAuth)
-    console.log('user', user)
+    //console.log('isAut', isAuth)
+    //console.log('user', user)
 
     const isEmptyField = !email || !pass;
 
     const sendData = (event) => {
+        console.log('Метод отправки')
         dispatch(login({password: pass, email}));
         event.preventDefault();
     }
 
     useEffect(() => {
         if (isAuth) {
+            console.log('isAuth header',isAuth)
             navigate("/panel");
         }
     }, [isAuth])
@@ -91,6 +93,7 @@ export const LoginPage = () => {
                                 variant="contained"
                                 size="large"
                                 disabled={isEmptyField}
+                                // onClick={() => navigate('/profile')} // тут не нужен онКлик т.к. кнопка имеет тип submit и выполняет сабмит формы
                             >Войти
                             </Button>
                             <div>

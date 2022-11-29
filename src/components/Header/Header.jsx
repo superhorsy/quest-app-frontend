@@ -1,8 +1,9 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
 import {Button, AppBar, Container, Toolbar, Box, IconButton, Avatar, Menu, MenuItem, ListItemIcon} from '@mui/material';
 import {Login, Settings, Logout} from '@mui/icons-material';
 import {useNavigate} from "react-router-dom";
 import Logo from '../../assets/images/logo.png';
+import Logo1 from '../../assets/images/logo-sm-w.png';
 import UserAvatar from '../../assets/images/avatar.jpg';
 import {Outlet} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
@@ -62,7 +63,7 @@ export const Header = () => {
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
                         <Box sx={{flexGrow: 1}}>
-                            <img src={Logo} alt="logo"/>
+                            <img src={Logo1} alt="logo"/>
                         </Box>
                         <Box sx={{flexGrow: 0}}>
                             {isAuth ? (

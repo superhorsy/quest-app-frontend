@@ -1,1 +1,2 @@
-export const CreateQuest = () => <h1>Создать квест</h1>;
+import { CreateQuestPage } from "./createQuestPage";
+export const CreateQuest = () => <CreateQuestPage/>;

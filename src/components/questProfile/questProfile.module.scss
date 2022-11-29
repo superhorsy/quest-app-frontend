@@ -1,0 +1,38 @@
+.step {
+  &__box {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+}
+.questInfo {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid black;
+  &__item {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  &__title {
+    margin-bottom: 15px;
+    font-size: 20px;
+    color: #000;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    @media(max-width: 600px) {
+      font-size: 16px;
+    }
+  }
+  &__desc {
+    text-align: center;
+    font-size: 25px;
+    color: black;
+    font-style: italic;
+    @media(max-width: 600px) {
+      font-size: 18px;
+    }
+  }
+}
