@@ -12,7 +12,7 @@ const {
 
 const instance_quests = axios.create({
     baseURL: BASE_URL_QUESTS,
-    headers: {'content-type': 'application/json'},
+    headers: {'Content-Type': 'application/json'},
 });
 console.log('axios', instance_quests)
 
@@ -23,6 +23,7 @@ console.log('axios', instance_quests)
 instance_quests.interceptors.request.use((config) => {
     // в хэдер из localStorage добавили токен
     config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
+    console.log('REQ_CONFIG', config)
     return config
 })
 
@@ -71,7 +72,9 @@ export const testPostsApi = {
 
 // Api для авторизации пользователя
 export const loginApi = (data) => {
+    console.log('DATA/LOGIN', data, LOGIN)
     return instance_quests.post(LOGIN, data);
+
 }
 
 // Api отправляет объект на сервер для регистрации пользователя
