@@ -25,6 +25,9 @@ import { QuestProfileIndex } from "../pages/QuestProfileIndex";
 import { TextQuestionStep } from "../pages/TextQuestionStep";
 import { QRQuestionStep } from "../pages/QRQuestionStep";
 
+
+import { DecoratedPage } from "../pages/themes/decoratedPage/decoratedPage";
+
 import { Header } from "./Header/Header";
 import { QuestExecution } from "../pages/questExecution/questExecution";
 
@@ -69,6 +72,7 @@ export const AppRouter = () => {
 
         </Route>
         <Route path="questExecution" element={<QuestExecution />} />
+        <Route path="questExecution_decorated" element={<DecoratedPage />} />
         <Route path="*" element={<h1>Ошибка 404</h1>} />
       </Route>
     </Routes>
