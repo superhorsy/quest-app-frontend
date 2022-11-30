@@ -12,7 +12,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import DeleteIcon from "@mui/icons-material/Delete";
 import style from "./userQuestsPage.module.scss";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchCreatedQuests} from "../../store/actions/actions";
+import {deleteQuest, fetchCreatedQuests} from "../../store/actions/actions";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
@@ -31,9 +31,11 @@ export const UserQuestsPage = () => {
     dispatch(fetchCreatedQuests())
   }, [])
 
-  // const onDeleteQuest = (questId) => {
-  //   setQuests(quests.filter((quest) => quest.id !== questId))
-  // }
+
+  const onDeleteQuest = (questId) => {
+    dispatch(deleteQuest(questId))
+    // dispatch(fetchCreatedQuests())
+  }
 
 
   // pageAmount должно приходить с бека
@@ -75,11 +77,10 @@ export const UserQuestsPage = () => {
                       <EmailIcon/>
                     </IconButton>
                     <IconButton
-                    // onClick={() => onDeleteQuest(quest.id)}
+                      onClick={() => onDeleteQuest(quest.id)}
                       edge="end"
                       aria-label="delete"
-                      sx={{color: "#F08080"}}
-                      disabled>
+                      sx={{color: "#F08080"}}>
                       <DeleteIcon/>
                     </IconButton>
                   </ListItemSecondaryAction>
