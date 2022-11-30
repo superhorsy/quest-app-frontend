@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {
   Grid,
   IconButton,
@@ -11,38 +11,42 @@ import {
 import EmailIcon from "@mui/icons-material/Email";
 import DeleteIcon from "@mui/icons-material/Delete";
 import style from "./userQuestsPage.module.scss";
-
-const userQuests = [
-  {
-    id: '1',
-    name: 'Квест для Маши',
-  },
-  {
-    id: '2',
-    name: 'Квест для Пети',
-  },
-  {
-    id: '3',
-    name: 'Квест для Маши, Пети, Коли  ',
-  },
-  {
-    id: '4',
-    name: 'Квест',
-  },
-  {
-    id: '5',
-    name: 'Квест для Маши, Пети, Коли, Даши и еще для много много много много много много много много кого',
-  },
-]
+import {useDispatch, useSelector} from "react-redux";
+import {fetchCreatedQuests} from "../../store/actions/actions";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import TextField from "@mui/material/TextField";
+import DialogActions from "@mui/material/DialogActions";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import {useNavigate} from "react-router-dom";
 
 export const UserQuestsPage = () => {
-  const [quests, setQuests] = useState(userQuests);
-  // pageAmount должно приходить с бека
-  const pageAmount = 2;
+  const dispatch = useDispatch();
+  const quests = useSelector((state) => state.createdQuestsReducer.quests)
+  const navigate = useNavigate();
 
-  const onDeleteQuest = (questId) => {
-    setQuests(quests.filter((quest) => quest.id !== questId))
-  }
+  useEffect(() => {
+    dispatch(fetchCreatedQuests())
+  }, [])
+
+  // const onDeleteQuest = (questId) => {
+  //   setQuests(quests.filter((quest) => quest.id !== questId))
+  // }
+
+
+  // pageAmount должно приходить с бека
+  const pageAmount = Math.ceil(quests.length / 5);
+
+  const [open, setOpen] = useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <div className="page-container">
@@ -50,26 +54,63 @@ export const UserQuestsPage = () => {
         <h1 className="title">Мои квесты</h1>
         <Grid container spacing={2} sx={{maxWidth: '600px'}}>
           <List sx={{width: '100%'}}>
-            {quests.map((quest) => (
+            {quests && quests.map((quest, idx) => (
               <ListItem
-                key={quest.id}
+                key={idx}
                 button
                 className={style.listItem}
                 sx={{borderBottom: '1px solid lightgray'}}
               >
-                <Grid item xs={9}><ListItemText>{quest.name}</ListItemText></Grid>
-                <Grid item xs={2}><ListItemSecondaryAction>
-                  <IconButton aria-label="send" sx={{ color: "#8FBC8F" }}>
-                    <EmailIcon/>
-                  </IconButton>
-                  <IconButton
-                    onClick={() => onDeleteQuest(quest.id)}
-                    edge="end"
-                    aria-label="delete"
-                    sx={{ color: "#F08080" }}>
-                    <DeleteIcon/>
-                  </IconButton>
-                </ListItemSecondaryAction>
+                <Grid item xs={9}>
+                  <ListItemText onClick={() => navigate(`/panel/create-quest/${quest.id}`)}>
+                    {quest.name}
+                  </ListItemText>
+                </Grid>
+                <Grid item xs={2}>
+                  <ListItemSecondaryAction>
+                    <IconButton
+                      aria-label="send"
+                      sx={{color: "#8FBC8F"}}
+                      onClick={handleClickOpen}>
+                      <EmailIcon/>
+                    </IconButton>
+                    <IconButton
+                    // onClick={() => onDeleteQuest(quest.id)}
+                      edge="end"
+                      aria-label="delete"
+                      sx={{color: "#F08080"}}
+                      disabled>
+                      <DeleteIcon/>
+                    </IconButton>
+                  </ListItemSecondaryAction>
+                  <Dialog open={open} onClose={handleClose} sx={{backgroundColor: "rgba(0,0,0,0.4)"}}>
+                    <DialogTitle>Отправить квест</DialogTitle>
+                    <DialogContent>
+                      <DialogContentText>
+                                Введите имя и email вашего друга для отправки квеста на почту.
+                      </DialogContentText>
+                      <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label="Имя друга"
+                        fullWidth
+                        variant="standard"
+                      />
+                      <TextField
+                        margin="dense"
+                        id="name"
+                        label="Email Address"
+                        type="email"
+                        fullWidth
+                        variant="standard"
+                      />
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={handleClose}>Отмена</Button>
+                      <Button onClick={handleClose}>Отправить</Button>
+                    </DialogActions>
+                  </Dialog>
                 </Grid>
               </ListItem>
             ))}
@@ -77,7 +118,7 @@ export const UserQuestsPage = () => {
           {pageAmount >= 2 && <Grid item xs={12}>
             <Pagination className={style.pagination} count={pageAmount} size="small"/>
           </Grid>}
-          
+
         </Grid>
       </div>
     </div>

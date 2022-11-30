@@ -21,10 +21,11 @@ export const testFetchPosts = createAsyncThunk(
 
 export const fetchCreatedQuests = createAsyncThunk(
   "quests/fetchQuests",
-  async (_, { rejectWithValue }) => {
+  async (questsData, { rejectWithValue }) => {
     try {
-      const { data } = await questsApi.fetchCreatedQuests();
-      return data;
+      const { data } = await questsApi.fetchCreatedQuests(questsData);
+      console.log('ответ на запрос о получении квестов', data.data)
+      return data.data;
     } catch (e) {
       return rejectWithValue(e.message);
     }
