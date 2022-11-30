@@ -14,10 +14,10 @@ import classes from './loginPage.module.scss';
 export const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
+  // const [isAuth, setIsAuth] = useOutletContext();
+  const {isAuth} = useSelector(state => state.authReducer)
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const [isAuth, setIsAuth] = useOutletContext();
-  const {isAuth, user} = useSelector(state => state.authReducer)
   const isEmptyField = !email || !pass;
 
   const sendData = (event) => {

@@ -31,7 +31,7 @@ import {FooterTest} from "./footer/footerTest";
 export const AppRouter = () => {
   return (
     <Routes>
-      <Route path="/" element={<Header/>}>
+      <Route path="/" element={<><Header/><FooterTest /></>}>
         <Route index element={<StartPage/>}/>
         <Route path="/signin" element={<LoginPage/>}/>
         <Route path="/signup" element={<SignUpPage/>}/>
