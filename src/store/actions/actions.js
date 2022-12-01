@@ -32,7 +32,7 @@ export const fetchCreatedQuests = createAsyncThunk(
 
 export const deleteQuest = createAsyncThunk(
   "quests/deleteQuest",
-  async (id, { rejectWithValue, dispatch }) => {
+  async (id, { rejectWithValue }) => {
     try {
       const { data } = await questsApi.deleteQuest(id);
       console.log('ответ на запрос об удалении', data.data)
