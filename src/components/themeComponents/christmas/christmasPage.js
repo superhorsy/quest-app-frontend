@@ -4,6 +4,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { QuestExecution } from "../../../pages/questExecution/questExecution";
 import { LinksFooter } from "../../linksFooter/linksFooter";
+import { Header } from "../../Header/Header";
 
 import Christmas from "../../../assets/images/themesIcons/newYear/christmas.png";
 import ChristmasCatBall from "../../../assets/images/themesIcons/newYear/christmas-catball-256.png";
@@ -41,6 +42,7 @@ export const ChristmasPage = () => {
   return (
     <ThemeProvider theme={christmasTheme}>
       <>
+        <Header />
         <div className={styles.decoratedPage}>
           <img
             className={styles.decoratedPage__stikerTopLeft}

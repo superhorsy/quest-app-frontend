@@ -4,6 +4,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { QuestExecution } from "../../../pages/questExecution/questExecution";
 import { LinksFooter } from "../../linksFooter/linksFooter";
+import { Header } from "../../Header/Header";
 
 import Avocado from "../../../assets/images/themesIcons/valentain/avocado-256.png";
 import LoveBalloons from "../../../assets/images/themesIcons/valentain/balloon-512.png";
@@ -50,6 +51,7 @@ export const ValentainPage = () => {
   return (
     <ThemeProvider theme={ValentainTheme}>
       <>
+        <Header/>
         <div className={styles.decoratedPage}>
           <img
             className={styles.decoratedPage__stikerTopLeftRotaded}

@@ -1,6 +1,8 @@
 .decoratedPage {
   position: relative;
   min-height: calc(100vh - 120px);
+  margin: 0 auto;
+  max-width: 1536px;
 
   &__stikerTopLeft {
     display: block;

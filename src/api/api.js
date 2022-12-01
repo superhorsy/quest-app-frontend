@@ -16,7 +16,7 @@ const instance = axios.create({
 
 instance.defaults.headers.common['Content-Type'] ='application/json';
 // временно., пока нет авторизации
-instance.defaults.headers.common['Authorization'] ='Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkM2RmNzI0Mi02OWNkLTQ1ZWYtYTczNi04OTI4MWQ1MTg2YjQifQ.1zdpU0XW3RExrx_nfe91Dt45HjGBiO-XcUOkq3s-Odg';
+instance.defaults.headers.common['Authorization'] ='Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxZTQwZjVhMi1jODRkLTQ4ZTItOGRiZS1hYjNjODllNGIzZDEifQ.4w5pS0P9HvGwWV_Bkhs-dD_p1ISB99ZK3vfmbrkfVuo';
 
 export const testPostsApi = {
   fetchPosts: () => {

@@ -72,9 +72,9 @@ export const AppRouter = () => {
 
         </Route>
         <Route path="questExecution" element={<QuestExecution />} />
-        <Route path="questExecution_decorated" element={<DecoratedPage />} />
         <Route path="*" element={<h1>Ошибка 404</h1>} />
       </Route>
+      <Route path="/questExecution_decorated" element={<DecoratedPage />} />
     </Routes>
   );
 };

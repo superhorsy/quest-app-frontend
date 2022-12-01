@@ -2,6 +2,7 @@ import React from "react";
 
 import { QuestExecution } from "../../../pages/questExecution/questExecution";
 import { LinksFooter } from "../../linksFooter/linksFooter";
+import { Header } from "../../Header/Header";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import Castle from "../../../assets/images/themesIcons/halloween/castle-house-512.png";
@@ -54,6 +55,7 @@ export const HalloweenPage = () => {
   return (
     <ThemeProvider theme={halloweenTheme}>
       <>
+        <Header />
         <div className={styles.decoratedPage}>
           <img
             className={styles.decoratedPage__stikerTopLeftRotaded}

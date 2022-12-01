@@ -2,12 +2,13 @@ import React from "react";
 
 import { QuestExecution } from "../../../pages/questExecution/questExecution";
 import { LinksFooter } from "../../linksFooter/linksFooter";
+import { Header } from "../../Header/Header";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import Question from "../../../assets/images/themesIcons/common/question-512.png";
 import QR from "../../../assets/images/themesIcons/common/qr-code-256.png";
 
-import styles from "./commonTheamPage.module.scss";
+import styles from "./commonThemePage.module.scss";
 
 const linksData = [
   {
@@ -39,10 +40,11 @@ const commonTheme = createTheme({
   },
 });
 
-export const CommonTheamPage = () => {
+export const CommonThemePage = () => {
   return (
     <ThemeProvider theme={commonTheme}>
       <>
+        <Header />
         <div className={styles.decoratedPage}>
           <img
             className={styles.decoratedPage__stikerTopLeftRotaded}

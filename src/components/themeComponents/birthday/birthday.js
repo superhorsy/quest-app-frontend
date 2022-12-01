@@ -4,6 +4,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { QuestExecution } from "../../../pages/questExecution/questExecution";
 import { LinksFooter } from "../../linksFooter/linksFooter";
+import { Header } from "../../Header/Header";
 
 import HappyBithday from "../../../assets/images/themesIcons/bithday/happy-birthday-256.png";
 import Balloons from "../../../assets/images/themesIcons/bithday/balloon-512.png";
@@ -48,7 +49,7 @@ const birthdayTheme = createTheme({
 export const BirthdayPage = () => {
   return (
     <ThemeProvider theme={birthdayTheme}>
-      <>
+      <><Header/>
         <div className={styles.decoratedPage}>
           <img
             className={styles.decoratedPage__stikerTopLeftRotaded}

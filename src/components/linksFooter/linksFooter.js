@@ -8,7 +8,7 @@ export const LinksFooter = ({ linksData }) => {
     <Box
       sx={{
         width: 1,
-        minHeight: 40,
+        minHeight: 60,
         display: "flex",
         height: "auto",
         position: "absolute",
@@ -34,7 +34,7 @@ export const LinksFooter = ({ linksData }) => {
             <Link
               key={ind}
               underline="none"
-              sx={{ color: "secondary.main" }}
+              sx={{ color: "secondary.main", fontSize: {xs: 12, ms: 16} }}
               rel="noopener"
               target="_blank"
               href={item.linkUrl}
