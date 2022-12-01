@@ -31,7 +31,7 @@ export const SendQuestDialog = () => {
         Отправить квест
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Отправть квест</DialogTitle>
+        <DialogTitle>Отправить квест</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Введите email вашего друга для отправки квеста на почту.

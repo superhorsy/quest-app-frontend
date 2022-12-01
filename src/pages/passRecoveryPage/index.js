@@ -1,1 +1,1 @@
-export * from './passRecoveryPage.js';
+export * from "./passRecoveryPage.js";

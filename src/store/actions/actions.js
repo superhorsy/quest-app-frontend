@@ -1,8 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-
-import {questExecutionApi, questsApi, testPostsApi, userProfileApi } from "../../api/api";
-
-// Пример
+import {questExecutionApi, questsApi, userProfileApi, authApi, testPostsApi } from "../../api/api";
 
 export const testFetchPosts = createAsyncThunk(
   'posts/fetchPosts',
@@ -14,16 +11,53 @@ export const testFetchPosts = createAsyncThunk(
       return rejectWithValue(e.message)
     }
   }
-)
+);
 
-//Пока предлагаю писать все экшены здесь, если сильно очень разрастется (что вряд ли), то разнесем
+export const login = createAsyncThunk(
+  "auth/login",
+  async (loginData, {rejectWithValue}) => {
+    try {
+      const {data} = await authApi.loginUser(loginData);
+      localStorage.setItem('token', data.jwt);
+      return data;
+    } catch (e) {
+      return rejectWithValue(e.message)
+    }
+  }
+);
 
+export const registration = createAsyncThunk(
+  "auth/registration",
+  async (registrationData, {rejectWithValue}) => {
+    try {
+      const {data} = await authApi.registrationUser(registrationData);
+      localStorage.setItem('token', data.jwt);
+      return data;
+    } catch (e) {
+      return rejectWithValue(e.message);
+    }
+  }
+);
 
 export const fetchCreatedQuests = createAsyncThunk(
   "quests/fetchQuests",
-  async (_, { rejectWithValue }) => {
+  async (questsData, { rejectWithValue }) => {
     try {
-      const { data } = await questsApi.fetchCreatedQuests();
+      const { data } = await questsApi.fetchCreatedQuests(questsData);
+      console.log('ответ на запрос о получении квестов', data.data)
+      return data.data;
+    } catch (e) {
+      return rejectWithValue(e.message);
+    }
+  }
+);
+
+export const deleteQuest = createAsyncThunk(
+  "quests/deleteQuest",
+  async (id, { rejectWithValue }) => {
+    try {
+      const { data } = await questsApi.deleteQuest(id);
+      console.log('ответ на запрос об удалении', data.data)
       return data.data;
     } catch (e) {
       return rejectWithValue(e.message);
@@ -45,9 +79,9 @@ export const updateQuest = createAsyncThunk(
 
 export const fetchUserProfile = createAsyncThunk(
   "userProfile/fetchUserProfile",
-  async (_, { rejectWithValue }) => {
+  async (_, {rejectWithValue}) => {
     try {
-      const { data } = await userProfileApi.fetchUserProfile();
+      const {data} = await userProfileApi.fetchUserProfile();
       return data;
     } catch (e) {
       return rejectWithValue(e.message);
@@ -57,7 +91,7 @@ export const fetchUserProfile = createAsyncThunk(
 
 export const createQuest = createAsyncThunk(
   "quests/createQuest",
-  async (quest, { rejectWithValue }) => {
+  async (quest, {rejectWithValue}) => {
     try {
       const response = await questsApi.createQuest(quest);
       // If you want to get something back
@@ -77,7 +111,8 @@ export const getInitQuest = createAsyncThunk(
       return rejectWithValue(e.message)
     }
   }
-)
+);
+
 
 export const getNextQuest = createAsyncThunk(
   'quests/getNextQuest',
@@ -88,4 +123,4 @@ export const getNextQuest = createAsyncThunk(
       return rejectWithValue(e.message)
     }
   }
-)
+);
