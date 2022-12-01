@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, {useEffect, useState} from 'react';
 import {
   Button,
   AppBar,
@@ -11,20 +11,29 @@ import {
   MenuItem,
   ListItemIcon,
 } from "@mui/material";
-import { Login, Settings, Logout } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
+import {Login, Settings, Logout} from "@mui/icons-material";
+import {useNavigate} from "react-router-dom";
 
 import Logo from "../../assets/images/logo-sm-w.png";
 import UserAvatar from "../../assets/images/avatar.jpg";
-import { Outlet } from "react-router-dom";
+import {Outlet} from "react-router-dom";
+
+import {useDispatch, useSelector} from "react-redux";
+import {authSlice} from "../../store/reducers/authSlice";
+//import userProfileReducer from "../../store/reducers/userProfileSlice";
+import {fetchUserProfile} from "../../store/actions/actions";
 
 export const Header = () => {
-  const [isAuth, setIsAuth] = useState(false);
   const [anchorElUser, setAnchorElUser] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const {isAuth} = useSelector(state => state.authReducer);
+  const {profile} = useSelector((state) => state.userProfileReducer);
+  const {logOut} = authSlice.actions;
 
   const handleLogout = () => {
-    setIsAuth(false);
+    dispatch(logOut());
     navigate("/signin");
     handleCloseUserMenu();
   };
@@ -34,7 +43,6 @@ export const Header = () => {
   };
 
   const handleLogin = () => {
-    // setIsAuth(true);
     navigate("/signin");
   };
 
@@ -50,31 +58,38 @@ export const Header = () => {
     {
       name: "Профиль",
       function: goToProfile,
-      icon: <Settings />,
+      icon: <Settings/>,
     },
     {
       name: "Выйти",
       function: handleLogout,
-      icon: <Logout />,
+      icon: <Logout/>,
     },
   ];
+
+  useEffect(() => {
+    if (isAuth) {
+      dispatch(fetchUserProfile())
+    }
+  }, [isAuth])
 
   return (
     <>
       <AppBar>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            <Box sx={{ flexGrow: 1 }}>
-              <img src={Logo} alt="logo" />
+            <Box sx={{flexGrow: 1}}>
+              <img src={Logo} alt="logo"/>
             </Box>
-            <Box sx={{ flexGrow: 0 }}>
+            <Box sx={{flexGrow: 0}}>
               {isAuth ? (
                 <>
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar alt="user" src={UserAvatar} />
+                  <span>Привет, {profile?.data.first_name} </span>
+                  <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
+                    <Avatar alt="user" src={UserAvatar}/>
                   </IconButton>
                   <Menu
-                    sx={{ mt: "45px" }}
+                    sx={{mt: "45px"}}
                     id="menu-appbar"
                     anchorEl={anchorElUser}
                     anchorOrigin={{
@@ -99,9 +114,9 @@ export const Header = () => {
                 </>
               ) : (
                 <Button
-                  sx={{ color: "white" }}
+                  sx={{color: "white"}}
                   onClick={handleLogin}
-                  endIcon={<Login />}
+                  endIcon={<Login/>}
                 >
                   Войти
                 </Button>
@@ -111,8 +126,9 @@ export const Header = () => {
         </Container>
       </AppBar>
       <Container maxWidth="xl">
-        <Box sx={{ mt: 10 }}>
-          <Outlet context={[isAuth, setIsAuth]} />
+        <Box sx={{mt: 10}}>
+          {/*<Outlet context={[isAuth, setIsAuth]} />*/}
+          <Outlet/>
         </Box>
       </Container>
     </>

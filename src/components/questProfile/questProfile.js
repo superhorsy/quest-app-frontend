@@ -72,6 +72,14 @@ export const QuestProfile = () => {
       >
         Создать шаг
       </Button>
+      <Button
+        variant="contained"
+        size="medium"
+        sx={{ mt: 4, mb: { xs: 2, sm: 3 }, py: 2 }}
+        onClick={() => navigate('/panel')}
+      >
+        Назад
+      </Button>
     </>
   );
 };

@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import {useNavigate} from "react-router-dom";
-import Logo from '../../assets/images/log-b.png';
+import Logo from "../../assets/images/log-b.png";
 
 export const StartPage = () => {
   const navigate = useNavigate();
@@ -14,7 +14,8 @@ export const StartPage = () => {
       <div className='logoBox'>
         <img src={Logo} alt="logo"/>
       </div>
-      <span className="welcomeText">Для полноценной работы приложения войдите в ваш аккаунт, либо зарегистрируйтесь</span>
+      <span
+        className="welcomeText">Для полноценной работы приложения войдите в ваш аккаунт, либо зарегистрируйтесь</span>
 
       <div className="main-container">
         <Box

@@ -9,7 +9,7 @@ export const apiQuests = {
   QUESTS_CREATED: 'quests/created',
   LOGIN: 'login',
   REGISTER: 'register',
-  PRIFILE: 'profile',
+  PROFILE: 'profile',
 }
 
 export const colors = {

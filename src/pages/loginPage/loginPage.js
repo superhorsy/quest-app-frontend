@@ -1,45 +1,37 @@
-import React, { useState } from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import React, {useContext, useEffect, useState} from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import {Link} from "react-router-dom";
-import { useOutletContext } from "react-router-dom";
+import {useOutletContext} from "react-router-dom";
 import {useNavigate} from "react-router-dom";
+import {login} from "../../store/actions/actions";
 
 //Style
-// import classes from './loginPage.module.scss';
+import classes from './loginPage.module.scss';
 
 export const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
-  const [isAuth, setIsAuth] = useOutletContext();
+  // const [isAuth, setIsAuth] = useOutletContext();
+  const {isAuth} = useSelector(state => state.authReducer)
   const navigate = useNavigate();
-
-  // Захардкодил юзера пока так
-  const user = {
-    email: '123@123',
-    pass: '123'
-  };
-
+  const dispatch = useDispatch();
   const isEmptyField = !email || !pass;
 
   const sendData = (event) => {
+    console.log('Метод отправки')
+    dispatch(login({password: pass, email}));
     event.preventDefault();
-    // Пока что отправляем в консоль
-    console.log(
-      {
-        email: email,
-        pass: pass
-      }
-    )
+  };
 
-    // Тут пока что заглушка
-    const isAuthorized = user.email === email && user.pass === pass;
-    if (isAuthorized) {
-      setIsAuth(true);
+  useEffect(() => {
+    if (isAuth) {
+      console.log('isAuth header', isAuth)
       navigate("/panel");
     }
-  }
+  }, [isAuth])
 
   return (
     <div className="page-container">
@@ -60,11 +52,12 @@ export const LoginPage = () => {
         >
           <div>
 
+
             <TextField
               required
               fullWidth
               sx={{mb: {xs: 3, sm: 4}}}
-              id="outlined-basic"
+              id="outlined-basic-email"
               label="Ваш email"
               type="email"
               variant="outlined"
@@ -75,7 +68,7 @@ export const LoginPage = () => {
               required
               fullWidth
               sx={{mb: {xs: 3, sm: 4}}}
-              id="outlined-basic"
+              id="outlined-basic-password"
               label="Пароль"
               type="password"
               variant="outlined"
@@ -95,7 +88,7 @@ export const LoginPage = () => {
                 variant="contained"
                 size="large"
                 disabled={isEmptyField}
-                onClick={() => navigate('/profile')}
+                // onClick={() => navigate('/profile')} // тут не нужен онКлик т.к. кнопка имеет тип submit и выполняет сабмит формы
               >Войти
               </Button>
               <div>
