@@ -9,6 +9,8 @@ import {BrowserRouter} from 'react-router-dom';
 import {AppRouter} from './components/AppRouter';
 
 import "./App.scss";
+//import {getProfile} from "./store/actions/actions";
+import {fetchUserProfile} from './store/actions/actions';
 
 function App() {
   const {checkAuth} = authSlice.actions;

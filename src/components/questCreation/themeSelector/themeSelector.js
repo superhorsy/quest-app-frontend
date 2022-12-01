@@ -26,32 +26,7 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
 
-const RadioButtons = ({ themes }) => {
-  const [theme, setTheme] = useState("None");
-
-  return (
-    <FormControl>
-      <RadioGroup
-        row
-        aria-labelledby="theme-redio"
-        name="theme-redio"
-        value={theme}
-        onChange={(e) => setTheme(e.target.value)}
-      >
-        {themes.map((item, indx) => (
-          <FormControlLabel
-            key={indx}
-            value={item.aitText}
-            control={<Radio />}
-            label={item.aitText}
-          ></FormControlLabel>
-        ))}
-      </RadioGroup>
-    </FormControl>
-  );
-};
 
 const ThemeCard = ({ imgUrl, altText }) => {
   return (
