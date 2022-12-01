@@ -2,15 +2,19 @@ import {createSlice} from "@reduxjs/toolkit";
 import {fetchUserProfile} from "../actions/actions";
 
 const initialState = {
-  profile: [],
+  profile: null,
   isLoading: false,
-  error: ''
+  error: null,
 }
 
-const userProfileSlice = createSlice({
+export const userProfileSlice = createSlice({
   name: 'userProfile',
   initialState,
-  reducers: {},
+  reducers: {
+    setProfile(state, action) {
+      state.profile = action.payload;
+    },
+  },
   extraReducers: {
     [fetchUserProfile.pending.type]: (state, action) => {
       state.isLoading = true
@@ -18,7 +22,7 @@ const userProfileSlice = createSlice({
     [fetchUserProfile.fulfilled.type]: (state, action) => {
       state.isLoading = false
       state.error = ''
-      state.posts.push(...action.payload)
+      state.profile = action.payload
     },
     [fetchUserProfile.rejected.type]: (state, action) => {
       state.isLoading = false
@@ -26,7 +30,6 @@ const userProfileSlice = createSlice({
     }
   }
 })
-
 
 
 export default userProfileSlice.reducer;

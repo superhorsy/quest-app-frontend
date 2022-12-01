@@ -1,7 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import {questExecutionApi, questsApi, testPostsApi, userProfileApi } from "../../api/api";
+import {questExecutionApi, questsApi, userProfileApi, authApi, testPostsApi } from "../../api/api";
 
-// Пример
 export const testFetchPosts = createAsyncThunk(
   'posts/fetchPosts',
   async (_, {rejectWithValue}) => {
@@ -12,10 +11,33 @@ export const testFetchPosts = createAsyncThunk(
       return rejectWithValue(e.message)
     }
   }
-)
+);
 
-//Пока предлагаю писать все экшены здесь, если сильно очень разрастется (что вряд ли), то разнесем
+export const login = createAsyncThunk(
+  "auth/login",
+  async (loginData, {rejectWithValue}) => {
+    try {
+      const {data} = await authApi.loginUser(loginData);
+      localStorage.setItem('token', data.jwt);
+      return data;
+    } catch (e) {
+      return rejectWithValue(e.message)
+    }
+  }
+);
 
+export const registration = createAsyncThunk(
+  "auth/registration",
+  async (registrationData, {rejectWithValue}) => {
+    try {
+      const {data} = await authApi.registrationUser(registrationData);
+      localStorage.setItem('token', data.jwt);
+      return data;
+    } catch (e) {
+      return rejectWithValue(e.message);
+    }
+  }
+);
 
 export const fetchCreatedQuests = createAsyncThunk(
   "quests/fetchQuests",
@@ -45,9 +67,9 @@ export const deleteQuest = createAsyncThunk(
 
 export const fetchUserProfile = createAsyncThunk(
   "userProfile/fetchUserProfile",
-  async (_, { rejectWithValue }) => {
+  async (_, {rejectWithValue}) => {
     try {
-      const { data } = await userProfileApi.fetchUserProfile();
+      const {data} = await userProfileApi.fetchUserProfile();
       return data;
     } catch (e) {
       return rejectWithValue(e.message);
@@ -57,7 +79,7 @@ export const fetchUserProfile = createAsyncThunk(
 
 export const createQuest = createAsyncThunk(
   "quests/createQuest",
-  async (quest, { rejectWithValue }) => {
+  async (quest, {rejectWithValue}) => {
     try {
       const response = await questsApi.createQuest(quest);
       // If you want to get something back
@@ -77,7 +99,8 @@ export const getInitQuest = createAsyncThunk(
       return rejectWithValue(e.message)
     }
   }
-)
+);
+
 
 export const getNextQuest = createAsyncThunk(
   'quests/getNextQuest',
@@ -88,4 +111,4 @@ export const getNextQuest = createAsyncThunk(
       return rejectWithValue(e.message)
     }
   }
-)
+);

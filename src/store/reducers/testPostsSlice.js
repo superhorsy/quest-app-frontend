@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {testFetchPosts} from "../actions/actions";
+//import {testFetchPosts} from "../actions/actions";
 
 const initialState = {
   posts: [],
@@ -12,18 +12,18 @@ const postsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [testFetchPosts.pending.type]: (state, action) => {
-      state.isLoading = true
-    },
-    [testFetchPosts.fulfilled.type]: (state, action) => {
-      state.isLoading = false
-      state.error = ''
-      state.posts.push(...action.payload)
-    },
-    [testFetchPosts.rejected.type]: (state, action) => {
-      state.isLoading = false
-      state.error = action.payload
-    }
+    // [testFetchPosts.pending.type]: (state, action) => {
+    //   state.isLoading = true
+    // },
+    // [testFetchPosts.fulfilled.type]: (state, action) => {
+    //   state.isLoading = false
+    //   state.error = ''
+    //   state.posts.push(...action.payload)
+    // },
+    // [testFetchPosts.rejected.type]: (state, action) => {
+    //   state.isLoading = false
+    //   state.error = action.payload
+    // }
   }
 })
 
