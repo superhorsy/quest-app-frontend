@@ -9,11 +9,6 @@ const instance = axios.create({
   headers: {'Content-Type': 'application/json'}
 });
 
-// вшито в конфиг и в интерсепторы
-//instance.defaults.headers.common['Content-Type'] ='application/json';
-// временно., пока нет авторизации
-//nstance.defaults.headers.common['Authorization'] ='Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkM2RmNzI0Mi02OWNkLTQ1ZWYtYTczNi04OTI4MWQ1MTg2YjQifQ.1zdpU0XW3RExrx_nfe91Dt45HjGBiO-XcUOkq3s-Odg';
-
 // инитерцептор на запрос, будет в хедер вшивать аксесс токен
 instance.interceptors.request.use((config) => {
   // в хэдер из localStorage добавили токен
