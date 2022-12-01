@@ -65,6 +65,18 @@ export const deleteQuest = createAsyncThunk(
   }
 );
 
+export const updateQuest = createAsyncThunk(
+  "quests/updateQuest",
+  async (questData, { rejectWithValue }) => {
+    try {
+      const { data } = await questsApi.updateQuest(questData.id, questData);
+      return data.data;
+    } catch (e) {
+      return rejectWithValue(e.message);
+    }
+  }
+);
+
 export const fetchUserProfile = createAsyncThunk(
   "userProfile/fetchUserProfile",
   async (_, {rejectWithValue}) => {

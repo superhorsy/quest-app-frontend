@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import { fetchCreatedQuests, createQuest, deleteQuest } from "../actions/actions";
+import { fetchCreatedQuests, createQuest, updateQuest, deleteQuest } from "../actions/actions";
 
 const initialState = {
   quests: [],
@@ -11,18 +11,6 @@ const createdQuestsSlice = createSlice({
   name: 'quests',
   initialState,
   reducers: {
-    addStep(state, action) {
-      const currentQuestId = action.payload.quest_id;
-      const currentQuest = state.quests.find(item => item.id === currentQuestId);
-      const currentQuestSteps = currentQuest.steps;
-      if (currentQuestSteps.length === 0) {
-        currentQuestSteps.push(action.payload);
-      } else {
-        const stepData = action.payload;
-        stepData.sort = currentQuestSteps.length + 1;
-        currentQuestSteps.push(stepData);
-      }
-    }
   },
   extraReducers: {
     [fetchCreatedQuests.pending.type]: (state, action) => {
@@ -64,7 +52,23 @@ const createdQuestsSlice = createSlice({
       state.isLoading = false
       state.error = action.payload
     },
+    [updateQuest.pending.type]: (state, action) => {
+      state.isLoading = true
+    },
+    [updateQuest.fulfilled.type]: (state, action) => {
+      state.isLoading = false
+      state.error = ''
+      const currentQuestId = action.payload.id;
+      console.log(action.payload);
+      const currentQuest = state.quests.find(item => item.id === currentQuestId);
+      const ind = state.quests.indexOf(currentQuest)
+      state.quests[ind] = action.payload;
+    },
+    [updateQuest.rejected.type]: (state, action) => {
+      state.isLoading = false
+      state.error = action.payload
+    },
   }
 })
-export const {addStep} = createdQuestsSlice.actions;
+
 export default createdQuestsSlice.reducer;
