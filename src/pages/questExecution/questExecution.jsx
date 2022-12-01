@@ -96,7 +96,7 @@ export const QuestExecution = () => {
 
   const renderCompleteQuest = () => (
     <Box sx={{ mt: 10 }}>
-      <h2>Поздравляем с прохождением квеста!</h2>
+      <h1>Поздравляем с прохождением квеста!</h1>
       <Button
         fullWidth
         size="large"

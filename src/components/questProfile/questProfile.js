@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import { StepTemplate } from "../questCreation/stepCreation/stepTemplate/stepTemplate";
+import { ThemeSelector } from "../questCreation/themeSelector/themeSelector";
 
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
@@ -62,6 +63,7 @@ export const QuestProfile = () => {
             />
           ))}
       </div>
+      <ThemeSelector />
       <Button
         variant="contained"
         size="medium"
