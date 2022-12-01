@@ -1,9 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-
 import {questExecutionApi, questsApi, testPostsApi, userProfileApi } from "../../api/api";
 
 // Пример
-
 export const testFetchPosts = createAsyncThunk(
   'posts/fetchPosts',
   async (_, {rejectWithValue}) => {
@@ -21,10 +19,24 @@ export const testFetchPosts = createAsyncThunk(
 
 export const fetchCreatedQuests = createAsyncThunk(
   "quests/fetchQuests",
-  async (_, { rejectWithValue }) => {
+  async (questsData, { rejectWithValue }) => {
     try {
-      const { data } = await questsApi.fetchCreatedQuests();
-      return data;
+      const { data } = await questsApi.fetchCreatedQuests(questsData);
+      console.log('ответ на запрос о получении квестов', data.data)
+      return data.data;
+    } catch (e) {
+      return rejectWithValue(e.message);
+    }
+  }
+);
+
+export const deleteQuest = createAsyncThunk(
+  "quests/deleteQuest",
+  async (id, { rejectWithValue }) => {
+    try {
+      const { data } = await questsApi.deleteQuest(id);
+      console.log('ответ на запрос об удалении', data.data)
+      return data.data;
     } catch (e) {
       return rejectWithValue(e.message);
     }
