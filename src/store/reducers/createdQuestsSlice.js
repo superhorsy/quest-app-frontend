@@ -22,9 +22,6 @@ const createdQuestsSlice = createSlice({
         stepData.sort = currentQuestSteps.length + 1;
         currentQuestSteps.push(stepData);
       }
-    },
-    removeQuests(state, action) {
-      state.quests = state.quests.filter(quest => quest.id !== action.payload.id)
     }
   },
   extraReducers: {
@@ -61,7 +58,7 @@ const createdQuestsSlice = createSlice({
     [deleteQuest.fulfilled.type]: (state, action) => {
       state.isLoading = false
       state.error = ''
-      // state.quests.push(...action.payload)
+      state.quests = state.quests.filter(quest => quest.id !== action.meta.arg)
     },
     [deleteQuest.rejected.type]: (state, action) => {
       state.isLoading = false
@@ -69,5 +66,5 @@ const createdQuestsSlice = createSlice({
     },
   }
 })
-export const {addStep, removeQuests} = createdQuestsSlice.actions;
+export const {addStep} = createdQuestsSlice.actions;
 export default createdQuestsSlice.reducer;

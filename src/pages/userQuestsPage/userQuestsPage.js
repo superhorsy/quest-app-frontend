@@ -1,4 +1,8 @@
 import React, {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {deleteQuest, fetchCreatedQuests} from "../../store/actions/actions";
+import {useNavigate} from "react-router-dom";
+
 import {
   Grid,
   IconButton,
@@ -10,9 +14,7 @@ import {
 } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
 import DeleteIcon from "@mui/icons-material/Delete";
-import style from "./userQuestsPage.module.scss";
-import {useDispatch, useSelector} from "react-redux";
-import {deleteQuest, fetchCreatedQuests} from "../../store/actions/actions";
+
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
@@ -20,8 +22,10 @@ import TextField from "@mui/material/TextField";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
-import {useNavigate} from "react-router-dom";
-import {removeQuests} from "../../store/reducers/createdQuestsSlice";
+
+import style from "./userQuestsPage.module.scss";
+
+
 
 export const UserQuestsPage = () => {
   const dispatch = useDispatch();
@@ -30,12 +34,11 @@ export const UserQuestsPage = () => {
 
   useEffect(() => {
     dispatch(fetchCreatedQuests())
-  }, [])
+  }, [dispatch])
 
 
   const onDeleteQuest = (questId) => {
     dispatch(deleteQuest(questId))
-    dispatch(removeQuests(questId))
   }
 
 
