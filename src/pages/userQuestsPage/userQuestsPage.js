@@ -21,6 +21,7 @@ import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import {useNavigate} from "react-router-dom";
+import {removeQuests} from "../../store/reducers/createdQuestsSlice";
 
 export const UserQuestsPage = () => {
   const dispatch = useDispatch();
@@ -34,7 +35,7 @@ export const UserQuestsPage = () => {
 
   const onDeleteQuest = (questId) => {
     dispatch(deleteQuest(questId))
-    // dispatch(fetchCreatedQuests())
+    dispatch(removeQuests(questId))
   }
 
 

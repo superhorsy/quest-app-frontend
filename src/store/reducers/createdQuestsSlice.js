@@ -23,9 +23,9 @@ const createdQuestsSlice = createSlice({
         currentQuestSteps.push(stepData);
       }
     },
-    // deleteQuest(state, action) {
-    //   state.quests = state.quests.filter(quest => quest.id !== action.payload.id)
-    // }
+    removeQuests(state, action) {
+      state.quests = state.quests.filter(quest => quest.id !== action.payload.id)
+    }
   },
   extraReducers: {
     [fetchCreatedQuests.pending.type]: (state, action) => {
@@ -69,5 +69,5 @@ const createdQuestsSlice = createSlice({
     },
   }
 })
-export const {addStep} = createdQuestsSlice.actions;
+export const {addStep, removeQuests} = createdQuestsSlice.actions;
 export default createdQuestsSlice.reducer;

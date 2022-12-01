@@ -1,7 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import {questExecutionApi, questsApi, testPostsApi, userProfileApi } from "../../api/api";
-
 // Пример
 
 export const testFetchPosts = createAsyncThunk(
@@ -34,11 +33,12 @@ export const fetchCreatedQuests = createAsyncThunk(
 
 export const deleteQuest = createAsyncThunk(
   "quests/deleteQuest",
-  async (id, { rejectWithValue }) => {
+  async (id, { rejectWithValue, dispatch }) => {
     try {
       const { data } = await questsApi.deleteQuest(id);
-      console.log('ответ на запрос об удалении', data)
-      return data;
+      console.log('ответ на запрос об удалении', data.data)
+      // dispatch(removeQuests({id}))
+      return data.data;
     } catch (e) {
       return rejectWithValue(e.message);
     }
