@@ -14,9 +14,6 @@ const instance = axios.create({
 });
 
 
-instance.defaults.headers.common['Content-Type'] ='application/json';
-// временно., пока нет авторизации
-instance.defaults.headers.common['Authorization'] ='Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkM2RmNzI0Mi02OWNkLTQ1ZWYtYTczNi04OTI4MWQ1MTg2YjQifQ.1zdpU0XW3RExrx_nfe91Dt45HjGBiO-XcUOkq3s-Odg';
 
 export const testPostsApi = {
   fetchPosts: () => {
@@ -37,7 +34,6 @@ export const questsApi = {
   createQuest: (quest) => {
     return instance.post(QUESTS, quest);
   },
-  //пока не работает
   deleteQuest: (questId) => {
     return instance.delete(`${QUESTS}/${questId}`);
   },
@@ -45,12 +41,11 @@ export const questsApi = {
   updateQuest: (questId, data) => {
     return instance.put(`${QUESTS}/${questId}`, data);
   },
-  //? получение какого именно квеста?
+
   fetchQuest: (questId) => {
     return instance.get( `${QUESTS}/${questId}`);
   },
 
-  //пока не работает
   sendQuest: (questId, data) => {
     return instance.post(`${QUESTS}/${questId}`, data);
   }

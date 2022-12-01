@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { addStep } from "../../../../store/reducers/createdQuestsSlice";
+import { useDispatch, useSelector } from "react-redux";
+
+import { updateQuest } from "../../../../store/actions/actions";
 
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -15,6 +16,9 @@ export const TextQuestionCreateForm = () => {
   const [taskAnswersArray, setTaskAnswersArray] = useState([]);
 
   const { questId } = useParams();
+
+  const quests = useSelector(state => state.createdQuestsReducer.quests);
+  const currentQuest = quests.find(item => item.id === questId);
 
   const dispatch = useDispatch();
 
@@ -33,17 +37,21 @@ export const TextQuestionCreateForm = () => {
     event.preventDefault();
     getArrayOfAnswers(taskAnswersString);
 
-    const step = {
-      id: "jldgdkfgkj jkfdjgdjkfgnkjdnfg",
+    let stepN = currentQuest.steps.length + 1;
+
+    let copyOfCurrentQuest = structuredClone(currentQuest);
+
+    let step = {
       quest_id: questId,
-      sort: 1,
+      sort: stepN,
       description: taskName,
       question_type: "text",
       question_content: taskDescription,
       answer_type: "text",
       answer_content: taskAnswersArray
     }
-    dispatch(addStep(step));
+    copyOfCurrentQuest.steps.push(step);
+    dispatch(updateQuest(copyOfCurrentQuest));
     navigate(`/panel/quest-profile/${questId}`);
   };
   return (

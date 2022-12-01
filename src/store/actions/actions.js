@@ -24,7 +24,19 @@ export const fetchCreatedQuests = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await questsApi.fetchCreatedQuests();
-      return data;
+      return data.data;
+    } catch (e) {
+      return rejectWithValue(e.message);
+    }
+  }
+);
+
+export const updateQuest = createAsyncThunk(
+  "quests/updateQuest",
+  async (questData, { rejectWithValue }) => {
+    try {
+      const { data } = await questsApi.updateQuest(questData.id, questData);
+      return data.data;
     } catch (e) {
       return rejectWithValue(e.message);
     }
