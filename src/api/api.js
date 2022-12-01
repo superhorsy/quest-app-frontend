@@ -1,8 +1,13 @@
 import axios from "axios";
-import {apiQuests} from "../constants/constants";
+import {apiQuests, apiTest} from "../constants/constants";
 import {nextQuestResponse} from "./questExecutionApiTMP";
 
+const {BASE_URL_TEST, POSTS} = apiTest;
 const {BASE_URL, QUESTS, QUESTS_CREATED, REGISTER, LOGIN, PROFILE} = apiQuests;
+
+const instance_test = axios.create({
+  baseURL: BASE_URL_TEST,
+});
 
 const instance = axios.create({
   baseURL: BASE_URL,
@@ -47,6 +52,19 @@ instance.interceptors.response.use((config) => {
   // если if не отработал, то пробрасываем ошибку
   throw error;
 })
+
+
+export const testPostsApi = {
+  fetchPosts: () => {
+    return instance_test.get(POSTS)
+  },
+  // sendPosts: (posts) => {
+  // const data = {
+  //     posts
+  // }
+  //     return instance.post(POSTS, data)
+  // }
+}
 
 export const questsApi = {
   fetchCreatedQuests: () => {
