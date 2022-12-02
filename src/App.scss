@@ -1,3 +1,21 @@
+html {
+  height: 100%;
+}
+
+body {
+  height: inherit;
+}
+
+#root {
+  height: inherit;
+}
+
+.App {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: inherit;
+}
+
 .title {
   width: 100%;
   color: black;

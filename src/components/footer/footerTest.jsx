@@ -178,7 +178,7 @@ export const FooterTest = () => {
     <Box sx={{flexGrow: 1}}>
 
       {/*<AppBar position="static" >*/}
-      <AppBar position="fixed" sx={{top: 'auto', bottom: 0}}>
+      <AppBar position="static">
         <Toolbar>
           {/*<IconButton*/}
           {/*  size="large"*/}
