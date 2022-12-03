@@ -1,21 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import CreateIcon from "@mui/icons-material/Create";
 import avatarLogo from "../../assets/images/avatar-icon.jpg";
+import { fetchUserProfile } from "../../store/actions/actions";
+
 
 export const UserProfile = () => {
   const [email, setEmail] = useState("");
   const [nickname, setNickname] = useState("");
   const [isEditProfile, setIsEditProfile] = useState(false);
 
+  useEffect(() => {
+    dispatch(fetchUserProfile())
+
+  }, [])
+
+
+  const profile = useSelector((state) => state.userProfileReducer.profile);
+  //const userEmail = profile.email;
+  //const userNickname = profile.nickname;
+console.log("профиль пользователя",profile);
   const avatar = avatarLogo;
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleEditProfile = () => {
-    setIsEditProfile(true);
+    setIsEditProfile(!isEditProfile);
   };
 
   const handleSubmitEditProfile = (event) => {
@@ -24,13 +38,16 @@ export const UserProfile = () => {
 
   const isEmptyField = !email || !nickname;
 
+  
+ 
+
   return (
     <div className="page-container">
       <div className="main-container">
         <h1 className="title">Мой Профиль</h1>
         <img src={avatar} className="avatar-logo" alt="avatar" />
 
-        <Box
+        { profile && <Box
           component="div"
           sx={{
             m: "0 auto",
@@ -58,7 +75,8 @@ export const UserProfile = () => {
                 id="outlined-basic"
                 label="Ваш Никнейм"
                 variant="outlined"
-                value={nickname}
+                //value={nickname}
+                value={userNickname}
                 onChange={(e) => setNickname(e.target.value)}
               />
               <TextField
@@ -70,7 +88,8 @@ export const UserProfile = () => {
                 type="Ваш email"
                 label="Ваш email"
                 variant="outlined"
-                value={email}
+                //value={email}
+                value={userEmail}
                 onChange={(e) => setEmail(e.target.value)}
               />
               <div>
@@ -106,7 +125,7 @@ export const UserProfile = () => {
           <div>
             <Button
               fullWidth
-              sx={{mt: 5, mb: { xs: 4, sm: 6 } }}
+              sx={{ mt: 5, mb: { xs: 4, sm: 6 } }}
               variant="contained"
               size="large"
               disabled={isEmptyField}
@@ -118,7 +137,7 @@ export const UserProfile = () => {
               Изменить пароль
             </Button>
           </div>
-        </Box>
+        </Box>}
       </div>
     </div>
   );
