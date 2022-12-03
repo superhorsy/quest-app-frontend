@@ -43,8 +43,12 @@ export const Header = () => {
     navigate("/");
   };
 
+  const handleToPanel = () => {
+    navigate("/panel");
+  };
+
   const goToProfile = () => {
-    navigate("/profile");
+    navigate("/panel/profile");
   };
 
   const handleLogin = () => {
@@ -81,10 +85,10 @@ export const Header = () => {
   return (
     <>
       <AppBar>
-        <Container maxWidth="lg">
+        <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Box sx={{flexGrow: 1}}>
-              <CardActionArea onClick={handleToMain}>
+              <CardActionArea onClick={isAuth ? handleToPanel : handleToMain}>
                 <img src={Logo} alt="logo"/>
               </CardActionArea>
             </Box>
