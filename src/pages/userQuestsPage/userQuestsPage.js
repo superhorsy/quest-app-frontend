@@ -68,7 +68,7 @@ export const UserQuestsPage = () => {
                 sx={{borderBottom: '1px solid lightgray'}}
               >
                 <Grid item xs={9}>
-                  <ListItemText onClick={() => navigate(`/panel/create-quest/${quest.id}`)}>
+                  <ListItemText onClick={() => navigate(`/panel/quest-profile/${quest.id}`)}>
                     {quest.name}
                   </ListItemText>
                 </Grid>

@@ -3,7 +3,6 @@ import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 
 export const PanelIndex = () => {
-
   const navigate = useNavigate();
 
   return (
@@ -25,7 +24,6 @@ export const PanelIndex = () => {
             width: { xs: 1 / 1, sm: 200 },
           }}
         >
-          {" "}
           <Button
             fullWidth
             variant="contained"
@@ -34,6 +32,24 @@ export const PanelIndex = () => {
             onClick={() => navigate("/panel/create-quest/")}
           >
             Создать квест
+          </Button>{" "}
+          <Button
+            fullWidth
+            variant="contained"
+            size="medium"
+            sx={{ mt: 4, mb: { xs: 2, sm: 3 }, py: { xs: 1.5 } }}
+            onClick={() => navigate("/panel/my-quests")}
+          >
+            Мои квесты
+          </Button>
+          <Button
+            fullWidth
+            variant="contained"
+            size="medium"
+            sx={{ mt: 4, mb: { xs: 2, sm: 3 }, py: { xs: 1.5 } }}
+            onClick={() => navigate("/panel/available-quests")}
+          >
+            Доступные квесты
           </Button>
         </Box>
       </Box>

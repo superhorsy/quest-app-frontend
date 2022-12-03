@@ -11,6 +11,7 @@ import {
   MenuItem,
   ListItemIcon,
 } from "@mui/material";
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import {Login, Settings, Logout} from "@mui/icons-material";
 import {useNavigate} from "react-router-dom";
 
@@ -39,8 +40,12 @@ export const Header = () => {
   };
 
   const goToProfile = () => {
-    navigate("/profile");
+    navigate("/panel/profile");
   };
+
+  const goToPanel = () => {
+    navigate("/panel");
+  }
 
   const handleLogin = () => {
     navigate("/signin");
@@ -59,6 +64,11 @@ export const Header = () => {
       name: "Профиль",
       function: goToProfile,
       icon: <Settings/>,
+    },
+    {
+      name: "Панель",
+      function: goToPanel,
+      icon: <DashboardIcon />,
     },
     {
       name: "Выйти",

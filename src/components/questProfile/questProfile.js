@@ -7,7 +7,13 @@ import { ThemeSelector } from "../questCreation/themeSelector/themeSelector";
 
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import EditIcon from '@mui/icons-material/Edit';
+import NoteAddIcon from "@mui/icons-material/NoteAdd";
+import SaveIcon from "@mui/icons-material/Save";
 import styles from "./questProfile.module.scss";
+
+import { DragAndDropList } from "../dragAndDropList/dragAndDropList";
 
 export const QuestProfile = () => {
   const quests = useSelector((state) => state.createdQuestsReducer.quests);
@@ -35,15 +41,15 @@ export const QuestProfile = () => {
           sx={{
             m: "0 auto",
             textAlign: "center",
-            width: { xs: 1 / 1, sm: 200 },
+            width: { xs: 150, sm: 200 },
           }}
         >
           <Button
-            disabled
+            // disabled
             fullWidth
             variant="contained"
+            endIcon={<EditIcon/>}
             size="medium"
-            sx={{ mt: 4, mb: { xs: 2, sm: 3 }, py: { xs: 1.5 } }}
             onClick={() => navigate("/panel/create-quest/")}
           >
             Редактировать
@@ -64,22 +70,53 @@ export const QuestProfile = () => {
           ))}
       </div>
       <ThemeSelector />
+
+      <DragAndDropList />
       <Button
+        endIcon={<NoteAddIcon />}
         variant="contained"
-        size="medium"
-        sx={{ mt: 4, mb: { xs: 2, sm: 3 }, py: 2 }}
+        sx={{
+          m: "0 auto",
+          width: { sx: 1, sm: 300 },
+          mt: 3,
+          mb: { xs: 1, sm: 2 },
+          py: 1,
+        }}
         onClick={() => navigate(`/panel/create-quest/${questId}/create-step`)}
       >
         Создать шаг
       </Button>
-      <Button
-        variant="contained"
-        size="medium"
-        sx={{ mt: 4, mb: { xs: 2, sm: 3 }, py: 2 }}
-        onClick={() => navigate('/panel')}
+      <Box
+        component="div"
+        sx={{ mb: 9, display: "flex", justifyContent: "space-around" }}
       >
-        Назад
-      </Button>
+        <Button
+          variant="contained"
+          startIcon={<KeyboardBackspaceIcon />}
+          sx={{
+            width: { xs: 130, sm: 200 },
+            mt: 3,
+            mb: { xs: 1, sm: 2 },
+            py: 1,
+          }}
+          onClick={() => navigate("/panel")}
+        >
+          Назад
+        </Button>
+        <Button
+          variant="contained"
+          endIcon={<SaveIcon />}
+          sx={{
+            width: { xs: 130, sm: 200 },
+            mt: 3,
+            mb: { xs: 1, sm: 2 },
+            py: 1,
+          }}
+          onClick={() => navigate("/panel")}
+        >
+          Сохранить
+        </Button>
+      </Box>
     </>
   );
 };

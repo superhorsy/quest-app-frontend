@@ -7,6 +7,7 @@
 }
 .questInfo {
   width: 100%;
+  margin: 0 auto;
   max-width: 600px;
   display: flex;
   flex-direction: column;
@@ -16,7 +17,7 @@
     margin-bottom: 20px;
   }
   &__title {
-    margin-bottom: 15px;
+    // margin-bottom: 15px;
     font-size: 20px;
     color: #000;
     font-weight: 700;
@@ -28,7 +29,7 @@
   }
   &__desc {
     text-align: center;
-    font-size: 25px;
+    font-size: 22px;
     color: black;
     font-style: italic;
     @media(max-width: 600px) {
