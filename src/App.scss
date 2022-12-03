@@ -1,3 +1,17 @@
+html, body {
+  height: 100%;
+}
+
+#root {
+  height: inherit;
+}
+
+.app {
+  height: inherit;
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
+
 .title {
   width: 100%;
   color: black;

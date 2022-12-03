@@ -25,7 +25,7 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div className="app">
       <BrowserRouter>
         <AppRouter/>
       </BrowserRouter>
