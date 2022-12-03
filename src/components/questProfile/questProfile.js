@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import { StepTemplate } from "../questCreation/stepCreation/stepTemplate/stepTemplate";
-import { SendQuestDialog } from "../questCreation/sendQuestDialog/sendQuestDialog";
+import { ThemeSelector } from "../questCreation/themeSelector/themeSelector";
 
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
@@ -63,6 +63,7 @@ export const QuestProfile = () => {
             />
           ))}
       </div>
+      <ThemeSelector />
       <Button
         variant="contained"
         size="medium"
@@ -71,7 +72,14 @@ export const QuestProfile = () => {
       >
         Создать шаг
       </Button>
-      <SendQuestDialog />
+      <Button
+        variant="contained"
+        size="medium"
+        sx={{ mt: 4, mb: { xs: 2, sm: 3 }, py: 2 }}
+        onClick={() => navigate('/panel')}
+      >
+        Назад
+      </Button>
     </>
   );
 };

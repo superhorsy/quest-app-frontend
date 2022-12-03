@@ -1,22 +1,58 @@
 import axios from "axios";
-import {apiTest} from "../constants/constants";
-import { apiQuests } from "../constants/constants";
+import {apiQuests, apiTest} from "../constants/constants";
 import {nextQuestResponse} from "./questExecutionApiTMP";
 
-const {BASE_URL_TEST, POSTS} = apiTest
-const { BASE_URL, QUESTS, QUESTS_CREATED, REGISTER, LOGIN, PROFILE } = apiQuests;
+const {BASE_URL_TEST, POSTS} = apiTest;
+const {BASE_URL, QUESTS, QUESTS_CREATED, REGISTER, LOGIN, PROFILE} = apiQuests;
 
 const instance_test = axios.create({
   baseURL: BASE_URL_TEST,
 });
+
 const instance = axios.create({
   baseURL: BASE_URL,
+  headers: {'Content-Type': 'application/json'}
 });
 
+// инитерцептор на запрос, будет в хедер вшивать аксесс токен
+instance.interceptors.request.use((config) => {
+  // в хэдер из localStorage добавили токен
+  config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
+  console.log('REQ_CONFIG', config)
+  return config
+})
 
-instance.defaults.headers.common['Content-Type'] ='application/json';
-// временно., пока нет авторизации
-instance.defaults.headers.common['Authorization'] ='Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkM2RmNzI0Mi02OWNkLTQ1ZWYtYTczNi04OTI4MWQ1MTg2YjQifQ.1zdpU0XW3RExrx_nfe91Dt45HjGBiO-XcUOkq3s-Odg';
+//интерсептер для обновления аксес токена
+//пока не используется, т.к. нет обновления токена
+instance.interceptors.response.use((config) => {
+  //config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
+  return config
+}, async (error) => {
+  //получаем оригинальный запрос
+  const originalRequest = error.config
+
+  // если у респонса стаутус 401, то делаем запрос  на обновление аксесс токена и записываем его в localStorage
+  // так же проверяем что сам конфиг есть и что _isRetry равен false
+  if (error.response.status === 401 && error.config && !error.config._isRetry) {
+    // добавляем оригинальному запросу поле о том, что запрос уже делали, делается это для того чтобы если при
+    // обновлении токена вернется еще раз 401 то инттерцептер не зациклился
+    originalRequest._isRetry = true;
+    try {
+      //запрос на обновление токена
+      const response = await axios.get(`${BASE_URL}/refresh`, {withCredentials: true});
+      // записываем новый токен в localStorage
+      localStorage.setItem('token', response.data.accessToken);
+      //делаем повторный запрос
+      return instance.request(originalRequest)
+    } catch (e) {
+      console.log("Не авторизован")
+    }
+
+  }
+  // если if не отработал, то пробрасываем ошибку
+  throw error;
+})
+
 
 export const testPostsApi = {
   fetchPosts: () => {
@@ -37,7 +73,6 @@ export const questsApi = {
   createQuest: (quest) => {
     return instance.post(QUESTS, quest);
   },
-  //пока не работает
   deleteQuest: (questId) => {
     return instance.delete(`${QUESTS}/${questId}`);
   },
@@ -45,27 +80,29 @@ export const questsApi = {
   updateQuest: (questId, data) => {
     return instance.put(`${QUESTS}/${questId}`, data);
   },
-  //? получение какого именно квеста?
+
   fetchQuest: (questId) => {
-    return instance.get( `${QUESTS}/${questId}`);
+    return instance.get(`${QUESTS}/${questId}`);
   },
 
-  //пока не работает
   sendQuest: (questId, data) => {
     return instance.post(`${QUESTS}/${questId}`, data);
   }
 };
 
 export const authApi = {
-  requsterUser: (userData) => {
+  //отправляет объект на сервер для регистрации пользователя
+  registrationUser: (userData) => {
     return instance.post(REGISTER, userData);
   },
+  //для авторизации пользователя
   loginUser: (loginData) => {
     return instance.post(LOGIN, loginData);
   }
 }
 
 export const userProfileApi = {
+  //для получения профиля пользователя
   fetchUserProfile: () => {
     return instance.get(PROFILE);
   }
