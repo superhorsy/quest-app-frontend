@@ -84,7 +84,7 @@ export const Header = () => {
 
   return (
     <>
-      <AppBar>
+      <AppBar position="sticky">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Box sx={{flexGrow: 1}}>
@@ -137,7 +137,7 @@ export const Header = () => {
         </Container>
       </AppBar>
       <Container maxWidth="xl">
-        <Box sx={{mt: 10}}>
+        <Box>
           {/*<Outlet context={[isAuth, setIsAuth]} />*/}
           <Outlet/>
         </Box>
