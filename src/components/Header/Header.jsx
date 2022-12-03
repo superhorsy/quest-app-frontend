@@ -10,6 +10,7 @@ import {
   Menu,
   MenuItem,
   ListItemIcon,
+  CardActionArea
 } from "@mui/material";
 import {Login, Settings, Logout} from "@mui/icons-material";
 import {useNavigate} from "react-router-dom";
@@ -38,8 +39,16 @@ export const Header = () => {
     handleCloseUserMenu();
   };
 
+  const handleToMain = () => {
+    navigate("/");
+  };
+
+  const handleToPanel = () => {
+    navigate("/panel");
+  };
+
   const goToProfile = () => {
-    navigate("/profile");
+    navigate("/panel/profile");
   };
 
   const handleLogin = () => {
@@ -79,7 +88,9 @@ export const Header = () => {
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Box sx={{flexGrow: 1}}>
-              <img src={Logo} alt="logo"/>
+              <CardActionArea onClick={isAuth ? handleToPanel : handleToMain}>
+                <img src={Logo} alt="logo"/>
+              </CardActionArea>
             </Box>
             <Box sx={{flexGrow: 0}}>
               {isAuth ? (
