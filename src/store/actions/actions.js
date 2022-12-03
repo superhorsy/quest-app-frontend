@@ -83,7 +83,7 @@ export const fetchUserProfile = createAsyncThunk(
     try {
       const {data} = await userProfileApi.fetchUserProfile();
       console.log("получение результата по запросу", data.data);
-      return data.data;
+      return data;
     } catch (e) {
       return rejectWithValue(e.message);
     }

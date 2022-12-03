@@ -22,7 +22,7 @@ export const userProfileSlice = createSlice({
     [fetchUserProfile.fulfilled.type]: (state, action) => {
       state.isLoading = false
       state.error = ''
-      state.profile = action.payload
+      state.profile = action.payload.data
     },
     [fetchUserProfile.rejected.type]: (state, action) => {
       state.isLoading = false
