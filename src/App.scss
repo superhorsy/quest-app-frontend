@@ -1,15 +1,19 @@
-html, body {
+html {
   height: 100%;
+}
+
+body {
+  height: inherit;
 }
 
 #root {
   height: inherit;
 }
 
-.app {
-  height: inherit;
+.App {
   display: grid;
-  grid-template-rows: 1fr auto;
+  grid-template-rows: auto 1fr auto;
+  height: inherit;
 }
 
 .title {

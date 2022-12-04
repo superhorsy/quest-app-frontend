@@ -139,13 +139,12 @@ export const FooterTest = () => {
 
   return (
     <Box sx={{flexGrow: 1, mt: 4}}>
-      <AppBar sx={{position: "relative"}}>
+      <AppBar position="static">
         <Toolbar>
           <Typography
             variant="h6"
             noWrap
             component="div"
-            // sx={{display: {xs: 'none', sm: 'block'}}}
             sx={{fontSize: {xs: '12px', md: '15px'}}}
           >
             Copyright @ 2022 All Rights Reserved
