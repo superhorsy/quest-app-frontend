@@ -39,7 +39,7 @@ export const Header = () => {
   };
 
   const goToProfile = () => {
-    navigate("/profile");
+    navigate("/panel/profile");
   };
 
   const handleLogin = () => {
