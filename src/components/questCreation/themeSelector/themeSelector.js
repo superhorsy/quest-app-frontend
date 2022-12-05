@@ -50,15 +50,15 @@ export const ThemeSelector = () => {
     <>
       <Typography
         gutterBottom
-        variant="h5"
+        variant="h6"
         component="div"
         sx={{ textAlign: "center", mt: 2 }}
       >
         Выбрать тему
       </Typography>
-      <Accordion sx={{ mt: 2 }}>
+      <Accordion sx={{ mt: 2, mb: 2, borderRadius: 1, borderTop: 0 }}>
         <AccordionSummary
-          sx={{ m: 0 }}
+          sx={{ m: 0, borderTop:0 }}
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header"
@@ -72,7 +72,7 @@ export const ThemeSelector = () => {
             Текущая тема: <b>{theme}</b>
           </Typography>
         </AccordionSummary>
-        <AccordionDetails sx={{ m: 0, pb: 0, pt: 0 }}>
+        <AccordionDetails sx={{ m: 0, pb: 0, pt: 0, borderTop: 0 }}>
           <Box component="div">
             <Box
               component="div"
@@ -105,7 +105,7 @@ export const ThemeSelector = () => {
             <FormControl
               component="div"
               sx={{
-                width: { xs: 1, sm: 550 },
+                width: { xs: 1, sm: 600 },
                 display: "flex",
                 flexWrap: "wrap",
                 justifyContent: "space-evenly",

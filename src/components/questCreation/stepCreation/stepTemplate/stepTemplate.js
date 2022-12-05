@@ -35,7 +35,7 @@ export const StepTemplate = ({
         sx={{
           m: "0 auto",
           textAlign: "center",
-          width: { xs: 1 / 1, sm: 200 },
+          width: { xs: 150, sm: 150 },
         }}
       >
         <Button
@@ -43,7 +43,7 @@ export const StepTemplate = ({
           fullWidth
           variant="contained"
           size="medium"
-          sx={{ mt: 4, mb: { xs: 2, sm: 3 }, py: { xs: 1.5 } }}
+          sx={{ mt: 2, mb: { xs: 2, sm: 3 }, py: { xs: 1, sm: 1 } }}
         >
           Редактировать
         </Button>
