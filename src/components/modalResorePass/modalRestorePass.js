@@ -10,7 +10,7 @@ import {userProfileApi} from "../../api/api";
 
 const style = {
   position: 'absolute',
-  top: '30%',
+  top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: {xs: 300, md: 400},
@@ -61,9 +61,11 @@ export const ModalRestorePass = (children) => {
       <Modal
         open={open}
         onClose={handleClose}
-        slotProps={{backdrop: {timeout: 500, transition: 'backdropFilter 5s'} }}
-        sx={{
-          backdropFilter: 'blur(5px)',
+        slotProps={{
+          backdrop: {
+            timeout: 500,
+            sx: {backdropFilter: 'blur(10px)'}
+          },
         }}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
