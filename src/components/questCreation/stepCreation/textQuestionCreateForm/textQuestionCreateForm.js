@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { updateQuest } from "../../../../store/actions/actions";
+import { addOneStep } from "../../../../store/reducers/currentQuestSlice";
 
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -13,21 +13,14 @@ export const TextQuestionCreateForm = () => {
   const [taskName, setTaskName] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
   const [taskAnswersString, setTaskAnswersString] = useState("");
-  const [taskAnswersArray, setTaskAnswersArray] = useState([]);
 
   const { questId } = useParams();
 
-  const quests = useSelector(state => state.createdQuestsReducer.quests);
-  const currentQuest = quests.find(item => item.id === questId);
+  const currentQuest = useSelector(state => state.currentQuestReducer.currentQuest);
 
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
-
-  const getArrayOfAnswers = (answers) => {
-    const arrayOfAnswers = answers.toLowerCase().split(",");
-    setTaskAnswersArray(arrayOfAnswers);
-  };
 
   const isEmptyField = () => {
     return !taskName || !taskDescription || !taskAnswersString;
@@ -35,11 +28,12 @@ export const TextQuestionCreateForm = () => {
 
   const onCreateTaskSubmit = (event) => {
     event.preventDefault();
-    getArrayOfAnswers(taskAnswersString);
+
+    const arrayOfAnswers = taskAnswersString.toLowerCase().split(",");
 
     let stepN = currentQuest.steps.length + 1;
 
-    let copyOfCurrentQuest = structuredClone(currentQuest);
+    // let copyOfCurrentQuest = structuredClone(currentQuest);
 
     let step = {
       quest_id: questId,
@@ -48,10 +42,10 @@ export const TextQuestionCreateForm = () => {
       question_type: "text",
       question_content: taskDescription,
       answer_type: "text",
-      answer_content: taskAnswersArray
+      answer_content: arrayOfAnswers
     }
-    copyOfCurrentQuest.steps.push(step);
-    dispatch(updateQuest(copyOfCurrentQuest));
+    // copyOfCurrentQuest.steps.push(step);
+    dispatch(addOneStep(step));
     navigate(`/panel/quest-profile/${questId}`);
   };
   return (

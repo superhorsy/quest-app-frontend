@@ -18,7 +18,6 @@ const instance = axios.create({
 instance.interceptors.request.use((config) => {
   // в хэдер из localStorage добавили токен
   config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
-  console.log('REQ_CONFIG', config)
   return config
 })
 
@@ -45,7 +44,7 @@ instance.interceptors.response.use((config) => {
       //делаем повторный запрос
       return instance.request(originalRequest)
     } catch (e) {
-      console.log("Не авторизован")
+      console.log("Не авторизован");
     }
 
   }

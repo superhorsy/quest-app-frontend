@@ -1,50 +1,56 @@
-import React, { useState } from "react";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { addSteps } from "../../store/reducers/currentQuestSlice";
+
 import Box from "@mui/material/Box";
-import { IconButton, List, ListItemText } from "@mui/material";
+import { IconButton, ListItemText } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 export const DragAndDropList = () => {
-  const [steps, setSteps] = useState([
-    { name: "Step", sort: 1, description: "Отгадай загадку" },
-    { name: "Step", sort: 2, description: "Отсканируй QR - код" },
-    {
-      name: "Step",
-      sort: 3,
-      description:
-        "Сходи к бабушке и помоги ей убрать квартиру и она даст тебе код. Сходи к бабушке и помоги ей убрать квартиру и она даст тебе код.",
-    },
-    {
-      name: "Step",
-      sort: 4,
-      description:
-        "Сходи к бабушке и помоги ей убрать квартиру и она даст тебе код. Сходи к бабушке и помоги ей убрать квартиру и она даст тебе код.",
-    },
-    {
-      name: "Step",
-      sort: 5,
-      description:
-        "Сходи к бабушке и помоги ей убрать квартиру и она даст тебе код. Сходи к бабушке и помоги ей убрать квартиру и она даст тебе код.",
-    },
-    {
-      name: "Step",
-      sort: 6,
-      description:
-        "Сходи к бабушке и помоги ей убрать квартиру и она даст тебе код. Сходи к бабушке и помоги ей убрать квартиру и она даст тебе код.",
-    },
-    {
-      name: "Step",
-      sort: 7,
-      description:
-        "Сходи к бабушке и помоги ей убрать квартиру и она даст тебе код. Сходи к бабушке и помоги ей убрать квартиру и она даст тебе код.",
-    },
-    {
-      name: "Step",
-      sort: 8,
-      description:
-        "Сходи к бабушке и помоги ей убрать квартиру и она даст тебе код. Сходи к бабушке и помоги ей убрать квартиру и она даст тебе код.",
-    },
-  ]);
+
+  const steps = useSelector((state) => state.currentQuestReducer.currentQuest.steps);
+  const dispatch = useDispatch();
+  // const [steps, setSteps] = useState([
+  //   { name: "Step", sort: 1, description: "Отгадай загадку" },
+  //   { name: "Step", sort: 2, description: "Отсканируй QR - код" },
+  //   {
+  //     name: "Step",
+  //     sort: 3,
+  //     description:
+  //       "Сходи к бабушке и помоги ей убрать квартиру и она даст тебе код. Сходи к бабушке и помоги ей убрать квартиру и она даст тебе код.",
+  //   },
+  //   {
+  //     name: "Step",
+  //     sort: 4,
+  //     description:
+  //       "Сходи к бабушке и помоги ей убрать квартиру и она даст тебе код. Сходи к бабушке и помоги ей убрать квартиру и она даст тебе код.",
+  //   },
+  //   {
+  //     name: "Step",
+  //     sort: 5,
+  //     description:
+  //       "Сходи к бабушке и помоги ей убрать квартиру и она даст тебе код. Сходи к бабушке и помоги ей убрать квартиру и она даст тебе код.",
+  //   },
+  //   {
+  //     name: "Step",
+  //     sort: 6,
+  //     description:
+  //       "Сходи к бабушке и помоги ей убрать квартиру и она даст тебе код. Сходи к бабушке и помоги ей убрать квартиру и она даст тебе код.",
+  //   },
+  //   {
+  //     name: "Step",
+  //     sort: 7,
+  //     description:
+  //       "Сходи к бабушке и помоги ей убрать квартиру и она даст тебе код. Сходи к бабушке и помоги ей убрать квартиру и она даст тебе код.",
+  //   },
+  //   {
+  //     name: "Step",
+  //     sort: 8,
+  //     description:
+  //       "Сходи к бабушке и помоги ей убрать квартиру и она даст тебе код. Сходи к бабушке и помоги ей убрать квартиру и она даст тебе код.",
+  //   },
+  // ]);
 
   //save reference for dragitem and dragOverItem
   const dragItem = React.useRef(null);
@@ -67,7 +73,8 @@ export const DragAndDropList = () => {
     dragOverItem.current = null;
 
     // update the actual array
-    setSteps(_steps);
+    // setSteps(_steps);
+    dispatch(addSteps(_steps));
   };
 
   return (
