@@ -2,9 +2,8 @@ import React, {useEffect} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux";
 
-import {StepTemplate} from "../questCreation/stepCreation/stepTemplate/stepTemplate";
 import {ThemeSelector} from "../questCreation/themeSelector/themeSelector";
-import {fetchQuest} from "../../store/actions/actions";
+import {fetchQuest, updateQuest} from "../../store/actions/actions";
 
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
@@ -21,12 +20,15 @@ export const QuestProfile = () => {
     (state) => state.currentQuestReducer.currentQuest
   );
 
-  console.log("currentQuest: >>>>>>>", currentQuest);
-
   const {questId} = useParams();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const handleSaveQuest = () => {
+    dispatch(updateQuest(currentQuest));
+    navigate("/panel/my-quests");
+  }
 
   useEffect(() => {
     if (!currentQuest?.steps?.length) {
@@ -70,18 +72,6 @@ export const QuestProfile = () => {
             </Box>
           </div>
 
-          <div className={styles.step__box}>
-            {currentQuest.steps &&
-            currentQuest.steps.map((item, ind) => (
-              <StepTemplate
-                key={ind}
-                number={item.sort}
-                questionType={item.question_type}
-                description={item.description}
-                questionContent={item.question_content}
-              />
-            ))}
-          </div>
           <ThemeSelector/>
 
           <DragAndDropList/>
@@ -127,7 +117,7 @@ export const QuestProfile = () => {
                 mb: {xs: 1, sm: 2},
                 py: 1,
               }}
-              onClick={() => navigate("/panel")}
+              onClick={handleSaveQuest}
             >
               Сохранить
             </Button>
