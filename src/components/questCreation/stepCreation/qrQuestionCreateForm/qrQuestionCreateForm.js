@@ -4,7 +4,7 @@ import QRCode from "qrcode";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { updateQuest } from "../../../../store/actions/actions";
+import { addOneStep } from "../../../../store/reducers/currentQuestSlice";
 
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -21,8 +21,8 @@ export const QRQuestionCreateForm = () => {
   // для qr-code
   const imageSaveName = `qr-code-${taskDescription}.png`;
   const { questId } = useParams();
-  const quests = useSelector(state => state.createdQuestsReducer.quests);
-  const currentQuest = quests.find(item => item.id === questId);
+
+  const currentQuest = useSelector(state => state.currentQuestReducer.currentQuest);
 
   const dispatch = useDispatch();
 
@@ -40,8 +40,6 @@ export const QRQuestionCreateForm = () => {
 
     let stepN = currentQuest.steps.length + 1;
 
-    let copyOfCurrentQuest = structuredClone(currentQuest);
-
     const step = {
       quest_id: questId,
       sort: stepN,
@@ -51,9 +49,8 @@ export const QRQuestionCreateForm = () => {
       answer_type: "text",
       answer_content: [taskDescription],
     };
-    copyOfCurrentQuest.steps.push(step);
 
-    dispatch(updateQuest(copyOfCurrentQuest));
+    dispatch(addOneStep(step));
     navigate(`/panel/quest-profile/${questId}`);
   };
   return (
