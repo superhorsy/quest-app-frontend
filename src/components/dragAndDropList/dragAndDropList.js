@@ -5,11 +5,18 @@ import { addSteps } from "../../store/reducers/currentQuestSlice";
 import Box from "@mui/material/Box";
 import { IconButton, ListItemText } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
+import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import DeleteIcon from "@mui/icons-material/Delete";
 
-export const DragAndDropList = () => {
+import TextIcon from "../../assets/images/questions/text-icon.png";
+import QRIcon from "../../assets/images/questions/qr-icon.png";
+import styles from "./dragAndDropList.module.scss";
 
-  const steps = useSelector((state) => state.currentQuestReducer.currentQuest.steps);
+export const DragAndDropList = () => {
+  const steps = useSelector(
+    (state) => state.currentQuestReducer.currentQuest.steps
+  );
   const dispatch = useDispatch();
 
   //save reference for dragitem and dragOverItem
@@ -24,7 +31,7 @@ export const DragAndDropList = () => {
 
     // remove and save the dragged item content
     let draggedItemContent = _steps.splice(dragItem.current, 1)[0];
-    console.log('draggedItemContent', draggedItemContent);
+    console.log("draggedItemContent", draggedItemContent);
 
     // switch the position
     _steps.splice(dragOverItem.current, 0, draggedItemContent);
@@ -35,14 +42,22 @@ export const DragAndDropList = () => {
 
     // update the actual array
     _steps = _steps.map((item, ind) => {
-      item.sort = ind + 1
+      item.sort = ind + 1;
       return item;
     });
     dispatch(addSteps(_steps));
   };
 
   return (
-    <Box component="div" sx={{ maxWidth: 600, width: 1, boxSizing: "border-box", mt: {xs: 1, sm: 4}}}>
+    <Box
+      component="div"
+      sx={{
+        maxWidth: 600,
+        width: 1,
+        boxSizing: "border-box",
+        mt: { xs: 1, sm: 4 },
+      }}
+    >
       <Box sx={{ width: 1, mb: 2 }}>
         {steps &&
           steps.map((step, index) => (
@@ -59,9 +74,9 @@ export const DragAndDropList = () => {
                 display: "flex",
                 width: 1,
                 flexDirection: "column",
-                alignItems: "center",
-                border: "1px solid lightgray",
-                borderRadius: 5,
+                // alignItems: "center",
+                // border: "1px solid lightgray",
+                // borderRadius: 5,
                 boxSizing: "border-box",
                 mb: 1,
                 minHeight: 60,
@@ -72,39 +87,51 @@ export const DragAndDropList = () => {
                 sx={{
                   display: "flex",
                   alignItems: "start",
-                  width: 1
+                  width: 1,
                 }}
               >
-                <ListItemText
-                  sx={{ fontSize: { xs: 14, sm: 16 }, width: 8 / 9 }}
-                >
-                  <b>
-                    Шаг {step.sort}: {step.description}
-                  </b>
-                </ListItemText>
                 <Box
                   sx={{
-                    width: 1 / 9,
                     display: "flex",
-                    alignItems: "start",
-                    justifyContent: { xs: "space-around", sm: "center" },
-                    flexDirection: { xs: "column", sm: "row" },
+                    width: 30,
+                    mr: 1,
                   }}
                 >
-                  <IconButton sx={{ color: "#8FBC8F", p: { xs: 0.5 } }}>
-                    <EditIcon />
+                  {step.question_type === "text" && (
+                    <img src={TextIcon} alt="text" />
+                  )}
+                  {step.question_type === "qr" && (
+                    <img src={QRIcon} alt="qr" />
+                  )}
+                </Box>
+                <div
+                  className={styles.question__title}                >
+                  <b>{step.description}</b>
+                </div>
+                <Box
+                  sx={{
+                    width:{xs: 2 / 9, sm: 1/9},
+                    ml: 2,
+                    display: "flex",
+                    alignItems: "start",
+                    justifyContent: { sm: "center" },
+                    flexDirection: {  sm: "row" },
+                  }}
+                >
+                  <IconButton sx={{ color: "#cfd8dc", p: { xs: 0.5 } }}>
+                    <ModeEditOutlineOutlinedIcon />
                   </IconButton>
                   <IconButton
                     aria-label="delete"
-                    sx={{ color: "#F08080", p: { xs: 0.5 } }}
+                    sx={{ color: "#ff6090", p: { xs: 0.5 } }}
                   >
-                    <DeleteIcon />
+                    <DeleteOutlineOutlinedIcon />
                   </IconButton>
                 </Box>
               </Box>
-              <ListItemText sx={{ fontSize: { xs: 14, sm: 16 }, width: 1 }}>
+              <div className={styles.question__desc}>
                 {step.question_content}
-              </ListItemText>
+              </div>
             </Box>
           ))}
       </Box>
