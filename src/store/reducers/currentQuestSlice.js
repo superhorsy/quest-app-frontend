@@ -23,7 +23,13 @@ const currentQuestSlice = createSlice({
     },
     updateTheme(state, action) {
       state.currentQuest.theme = action.payload;
-      console.log('current quest with new theme:', state.currentQuest);
+    },
+    deleteStep(state, action) {
+      const _steps = state.currentQuest.steps.filter(step => step.id !== action.payload);
+      state.currentQuest.steps = _steps.map((step, ind) => {
+        step.sort = ind + 1;
+        return step;
+      })
     }
   },
   extraReducers: {
@@ -42,5 +48,5 @@ const currentQuestSlice = createSlice({
   }
 })
 
-export const { addSteps, addOneStep, updateTheme } = currentQuestSlice.actions;
+export const { addSteps, addOneStep, updateTheme, deleteStep } = currentQuestSlice.actions;
 export default currentQuestSlice.reducer;

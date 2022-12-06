@@ -128,7 +128,6 @@ export const fetchQuest = createAsyncThunk(
   async (questId, {rejectWithValue}) => {
     try {
       const {data} = await questsApi.fetchQuest(questId);
-      console.log('currentQuest async', data.data);
       return data.data;
     } catch (e) {
       return rejectWithValue(e.message);

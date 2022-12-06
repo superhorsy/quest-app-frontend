@@ -28,7 +28,7 @@ import FormControl from "@mui/material/FormControl";
 
 const ThemeCard = ({ imgUrl, altText }) => {
   return (
-    <Card sx={{ width: {xs: 200, sm: 1} }}>
+    <Card sx={{ width: {xs: 200, sm: 1}, minHeight:{xs: 157}}}>
       <CardMedia component="img" alt={altText} height="auto" image={imgUrl} />
     </Card>
   );
@@ -65,7 +65,7 @@ export const ThemeSelector = () => {
             Текущая тема: <b>{theme}</b>
           </Typography>
         </AccordionSummary>
-        <AccordionDetails sx={{ m: 0, pb: 1, pt: 0, borderTop: 0 }}>
+        <AccordionDetails sx={{minHeight: {xs: 299, sm: 165}, m: 0, pb: 1, pt: 0, borderTop: 0 }}>
           <Box
             component="div"
             sx={{ display: "flex", justifyContent: "space-between", flexDirection: {xs: "column", sm: "row"} }}
@@ -101,7 +101,6 @@ export const ThemeSelector = () => {
             <FormControl
               component="div"
               sx={{
-                // width: { xs: 1, sm: 600 },
                 width: 1 ,
                 display: "flex",
                 flexWrap: "wrap",
@@ -110,7 +109,7 @@ export const ThemeSelector = () => {
             >
               <RadioGroup
                 sx={{
-                  // width: { xs: 1, sm: 550 },
+                  minHeight: {xs: 126, sm: 126 },
                   width: 1,
                   display: "flex",
                   flexWrap: "wrap",

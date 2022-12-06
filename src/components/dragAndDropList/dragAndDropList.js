@@ -1,13 +1,13 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addSteps } from "../../store/reducers/currentQuestSlice";
+import { addSteps, deleteStep } from "../../store/reducers/currentQuestSlice";
 
 import Box from "@mui/material/Box";
-import { IconButton, ListItemText } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
+import { IconButton } from "@mui/material";
+// import EditIcon from "@mui/icons-material/Edit";
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import DeleteIcon from "@mui/icons-material/Delete";
+// import DeleteIcon from "@mui/icons-material/Delete";
 
 import TextIcon from "../../assets/images/questions/text-icon.png";
 import QRIcon from "../../assets/images/questions/qr-icon.png";
@@ -48,6 +48,10 @@ export const DragAndDropList = () => {
     dispatch(addSteps(_steps));
   };
 
+  const handleDeleteStep = (id) => {
+    dispatch(deleteStep(id));
+  }
+
   return (
     <Box
       component="div"
@@ -74,9 +78,6 @@ export const DragAndDropList = () => {
                 display: "flex",
                 width: 1,
                 flexDirection: "column",
-                // alignItems: "center",
-                // border: "1px solid lightgray",
-                // borderRadius: 5,
                 boxSizing: "border-box",
                 mb: 1,
                 minHeight: 60,
@@ -124,6 +125,7 @@ export const DragAndDropList = () => {
                   <IconButton
                     aria-label="delete"
                     sx={{ color: "#ff6090", p: { xs: 0.5 } }}
+                    onClick={() => dispatch(deleteStep(step.id))}
                   >
                     <DeleteOutlineOutlinedIcon />
                   </IconButton>
