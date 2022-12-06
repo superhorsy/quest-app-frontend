@@ -11,46 +11,6 @@ export const DragAndDropList = () => {
 
   const steps = useSelector((state) => state.currentQuestReducer.currentQuest.steps);
   const dispatch = useDispatch();
-  // const [steps, setSteps] = useState([
-  //   { name: "Step", sort: 1, description: "Отгадай загадку" },
-  //   { name: "Step", sort: 2, description: "Отсканируй QR - код" },
-  //   {
-  //     name: "Step",
-  //     sort: 3,
-  //     description:
-  //       "Сходи к бабушке и помоги ей убрать квартиру и она даст тебе код. Сходи к бабушке и помоги ей убрать квартиру и она даст тебе код.",
-  //   },
-  //   {
-  //     name: "Step",
-  //     sort: 4,
-  //     description:
-  //       "Сходи к бабушке и помоги ей убрать квартиру и она даст тебе код. Сходи к бабушке и помоги ей убрать квартиру и она даст тебе код.",
-  //   },
-  //   {
-  //     name: "Step",
-  //     sort: 5,
-  //     description:
-  //       "Сходи к бабушке и помоги ей убрать квартиру и она даст тебе код. Сходи к бабушке и помоги ей убрать квартиру и она даст тебе код.",
-  //   },
-  //   {
-  //     name: "Step",
-  //     sort: 6,
-  //     description:
-  //       "Сходи к бабушке и помоги ей убрать квартиру и она даст тебе код. Сходи к бабушке и помоги ей убрать квартиру и она даст тебе код.",
-  //   },
-  //   {
-  //     name: "Step",
-  //     sort: 7,
-  //     description:
-  //       "Сходи к бабушке и помоги ей убрать квартиру и она даст тебе код. Сходи к бабушке и помоги ей убрать квартиру и она даст тебе код.",
-  //   },
-  //   {
-  //     name: "Step",
-  //     sort: 8,
-  //     description:
-  //       "Сходи к бабушке и помоги ей убрать квартиру и она даст тебе код. Сходи к бабушке и помоги ей убрать квартиру и она даст тебе код.",
-  //   },
-  // ]);
 
   //save reference for dragitem and dragOverItem
   const dragItem = React.useRef(null);
@@ -60,10 +20,11 @@ export const DragAndDropList = () => {
 
   const handleSort = () => {
     //duplicate items
-    let _steps = [...steps];
+    let _steps = structuredClone(steps);
 
     // remove and save the dragged item content
-    const draggedItemContent = _steps.splice(dragItem.current, 1)[0];
+    let draggedItemContent = _steps.splice(dragItem.current, 1)[0];
+    console.log('draggedItemContent', draggedItemContent);
 
     // switch the position
     _steps.splice(dragOverItem.current, 0, draggedItemContent);
@@ -73,7 +34,11 @@ export const DragAndDropList = () => {
     dragOverItem.current = null;
 
     // update the actual array
-    // setSteps(_steps);
+    _steps = _steps.map((item, ind) => {
+      item.sort = ind + 1
+      return item;
+    });
+    console.log("steps after drag and drop",_steps);
     dispatch(addSteps(_steps));
   };
 

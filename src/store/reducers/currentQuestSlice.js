@@ -22,7 +22,7 @@ const currentQuestSlice = createSlice({
       if (state.currentQuest.steps === null) {
         state.currentQuest.steps = [];
       }
-      // state.currentQuest.steps.push(action.payload);
+      state.currentQuest.steps = action.payload;
       console.log("step payload: >>>>", action.payload);
     }
   },
