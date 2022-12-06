@@ -38,7 +38,6 @@ export const DragAndDropList = () => {
       item.sort = ind + 1
       return item;
     });
-    console.log("steps after drag and drop",_steps);
     dispatch(addSteps(_steps));
   };
 
@@ -80,7 +79,7 @@ export const DragAndDropList = () => {
                   sx={{ fontSize: { xs: 14, sm: 16 }, width: 8 / 9 }}
                 >
                   <b>
-                    {step.name} {step.sort}: {step.description}
+                    Шаг {step.sort}: {step.description}
                   </b>
                 </ListItemText>
                 <Box
@@ -104,7 +103,7 @@ export const DragAndDropList = () => {
                 </Box>
               </Box>
               <ListItemText sx={{ fontSize: { xs: 14, sm: 16 }, width: 1 }}>
-                {step.description}
+                {step.question_content}
               </ListItemText>
             </Box>
           ))}
