@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { updateTheme } from "../../../store/reducers/currentQuestSlice";
 
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-
 import Card from "@mui/material/Card";
-
 import CardMedia from "@mui/material/CardMedia";
 
 import Typography from "@mui/material/Typography";
@@ -45,7 +44,8 @@ export const ThemeSelector = () => {
     { name: "Halloween", imgUrl: HalloweenImg, altText: "halloween" },
     { name: "Standart", imgIrl: NoneImg, altText: "standart" },
   ];
-  const [theme, setTheme] = useState("standart");
+  const theme = useSelector((state) => state.currentQuestReducer.currentQuest.theme);
+  const dispatch = useDispatch();
   return (
     <>
       <Typography
@@ -98,7 +98,7 @@ export const ThemeSelector = () => {
               {theme === "halloween" && (
                 <ThemeCard imgUrl={HalloweenImg} altText="halloween" />
               )}
-              {theme === "standart" && (
+              {theme === "standart" || theme === null && (
                 <ThemeCard imgUrl={NoneImg} altText="standart" />
               )}
             </Box>
@@ -122,7 +122,7 @@ export const ThemeSelector = () => {
                 aria-labelledby="theme-redio"
                 name="theme-redio"
                 value={theme}
-                onChange={(e) => setTheme(e.target.value)}
+                onChange={(e) => dispatch(updateTheme(e.target.value))}
               >
                 {themes &&
                   themes.map((item, ind) => (

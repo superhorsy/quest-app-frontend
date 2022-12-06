@@ -34,7 +34,12 @@ export const QuestProfile = () => {
     if (!currentQuest?.steps?.length) {
       dispatch(fetchQuest(questId));
     }
+    if (currentQuest.id !== questId) {
+      dispatch(fetchQuest(questId));
+    }
   }, []);
+
+
 
   return (
     <>
