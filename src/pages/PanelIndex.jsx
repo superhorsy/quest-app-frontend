@@ -49,7 +49,7 @@ export const PanelIndex = () => {
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={3} sx={{mt: 12}} alignItems="stretch">
         {panelRouting.map((nav) => (
-          <Grid item xs={6}>
+          <Grid key={nav.name} item xs={6}>
             <Card sx={{height: '100%'}}>
               <CardActionArea sx={{height: '100%'}} onClick={nav.topage} key={nav.name}>
                 <CardContent sx={{height: '100%'}}>

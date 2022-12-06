@@ -30,12 +30,14 @@ import style from "./userQuestsPage.module.scss";
 export const UserQuestsPage = () => {
   const dispatch = useDispatch();
   const quests = useSelector((state) => state.createdQuestsReducer.quests)
+  console.log("quests", quests);
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(fetchCreatedQuests())
+    if(!quests.length){
+      dispatch(fetchCreatedQuests())
+    }
   }, [dispatch])
-
 
   const onDeleteQuest = (questId) => {
     dispatch(deleteQuest(questId))
@@ -62,7 +64,7 @@ export const UserQuestsPage = () => {
           <List sx={{width: '100%'}}>
             {quests && quests.map((quest, idx) => (
               <ListItem
-                key={idx}
+                key={quest.id}
                 button
                 className={style.listItem}
                 sx={{borderBottom: '1px solid lightgray'}}
