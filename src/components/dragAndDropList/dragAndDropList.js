@@ -42,7 +42,7 @@ export const DragAndDropList = () => {
   };
 
   return (
-    <Box component="div" sx={{ maxWidth: 600, width: 1, boxSizing: "border-box" }}>
+    <Box component="div" sx={{ maxWidth: 600, width: 1, boxSizing: "border-box", mt: {xs: 1, sm: 4}}}>
       <Box sx={{ width: 1, mb: 2 }}>
         {steps &&
           steps.map((step, index) => (

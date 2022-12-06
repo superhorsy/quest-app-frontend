@@ -8,7 +8,7 @@ import {fetchQuest, updateQuest} from "../../store/actions/actions";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import EditIcon from "@mui/icons-material/Edit";
+
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import SaveIcon from "@mui/icons-material/Save";
 import styles from "./questProfile.module.scss";
@@ -56,6 +56,7 @@ export const QuestProfile = () => {
                 {currentQuest.description}
               </div>
             </div>
+            <ThemeSelector/>
             <Box
               component="div"
               sx={{
@@ -67,9 +68,9 @@ export const QuestProfile = () => {
               <Button
                 // disabled
                 fullWidth
-                variant="contained"
-                endIcon={<EditIcon/>}
+                variant="text"
                 size="medium"
+                sx={{mb: {xs: 2, sm: 3}}}
                 onClick={() => navigate("/panel/create-quest/")}
               >
                 Редактировать
@@ -77,7 +78,7 @@ export const QuestProfile = () => {
             </Box>
           </div>
 
-          <ThemeSelector/>
+          
 
           <DragAndDropList/>
           <Button
