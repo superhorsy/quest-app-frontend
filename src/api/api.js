@@ -3,7 +3,7 @@ import {apiQuests, apiTest} from "../constants/constants";
 import {nextQuestResponse} from "./questExecutionApiTMP";
 
 const {BASE_URL_TEST, POSTS} = apiTest;
-const {BASE_URL, QUESTS, QUESTS_CREATED, REGISTER, LOGIN, PROFILE} = apiQuests;
+const {BASE_URL, QUESTS, QUESTS_CREATED, REGISTER, LOGIN, PROFILE, CHANGE_PASSWORD} = apiQuests;
 
 const instance_test = axios.create({
   baseURL: BASE_URL_TEST,
@@ -105,6 +105,10 @@ export const userProfileApi = {
   //для получения профиля пользователя
   fetchUserProfile: () => {
     return instance.get(PROFILE);
+  },
+  // Изменение пароля
+  changePassword: (newPass) => {
+    return instance.patch(CHANGE_PASSWORD, newPass);
   }
 }
 

@@ -5,6 +5,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import CreateIcon from "@mui/icons-material/Create";
 import avatarLogo from "../../assets/images/avatar-icon.jpg";
+import {ModalRestorePass} from "../../components/modalResorePass";
 
 export const UserProfile = () => {
   const [email, setEmail] = useState("");
@@ -104,19 +105,7 @@ export const UserProfile = () => {
           </Box>
 
           <div>
-            <Button
-              fullWidth
-              sx={{mt: 5, mb: { xs: 4, sm: 6 } }}
-              variant="contained"
-              size="large"
-              disabled={isEmptyField}
-              onClick={() => {
-                // должна быть ссылка на страницу изменения пароля
-                navigate("/");
-              }}
-            >
-              Изменить пароль
-            </Button>
+            <ModalRestorePass disabled={isEmptyField} fullWidth={true} variant="contained" size="large"/>
           </div>
         </Box>
       </div>
