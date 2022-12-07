@@ -95,7 +95,7 @@ export const Header = () => {
             <Box sx={{flexGrow: 0}}>
               {isAuth ? (
                 <>
-                  <span>Привет, {profile?.data.first_name} </span>
+                  <span>Привет, {profile?.first_name} </span>
                   <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
                     <Avatar alt="user" src={UserAvatar}/>
                   </IconButton>
