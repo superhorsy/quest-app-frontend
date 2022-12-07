@@ -10,6 +10,7 @@ export const apiQuests = {
   LOGIN: 'login',
   REGISTER: 'register',
   PROFILE: 'profile',
+  CHANGE_PASSWORD: 'profile/change-password'
 }
 
 export const colors = {
