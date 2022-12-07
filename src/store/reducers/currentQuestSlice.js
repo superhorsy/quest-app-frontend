@@ -21,6 +21,18 @@ const currentQuestSlice = createSlice({
       }
       state.currentQuest.steps = action.payload;
     },
+    editStep(state, action){
+      const newSteps = [];
+      state.currentQuest.steps.map((step) => {
+        if(step.sort === action.payload.sort){
+          newSteps.push(action.payload)
+        } else {
+          newSteps.push(step)
+        }
+      })
+      console.log("newSteps", newSteps);
+      state.currentQuest.steps = newSteps;
+    },
     updateTheme(state, action) {
       state.currentQuest.theme = action.payload;
     },
@@ -48,5 +60,5 @@ const currentQuestSlice = createSlice({
   }
 })
 
-export const { addSteps, addOneStep, updateTheme, deleteStep } = currentQuestSlice.actions;
+export const { addSteps, addOneStep, editStep, updateTheme, deleteStep } = currentQuestSlice.actions;
 export default currentQuestSlice.reducer;

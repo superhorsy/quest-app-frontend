@@ -78,7 +78,6 @@ export const QuestProfile = () => {
               </Button>
             </Box>
           </div>
-
           <DragAndDropList />
           <Button
             endIcon={<NoteAddIcon />}
