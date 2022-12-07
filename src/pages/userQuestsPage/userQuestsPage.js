@@ -36,15 +36,22 @@ export const UserQuestsPage = () => {
     dispatch(fetchCreatedQuests())
   }, [dispatch])
 
+  //модальное окно удаления
+  const [openDelete, setOpenDelete] = useState(false);
+  const handleClickOpenDelete = () => {
+    setOpenDelete(true);
+  };
+
+  const handleCloseDelete = () => {
+    setOpenDelete(false);
+  };
 
   const onDeleteQuest = (questId) => {
-    dispatch(deleteQuest(questId))
-  }
+    dispatch(deleteQuest(questId));
+    setOpenDelete(false);
+  };
 
-
-  // pageAmount должно приходить с бека
-  const pageAmount = Math.ceil(quests.length / 5);
-
+  //модальное окно отправки квеста
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -53,6 +60,9 @@ export const UserQuestsPage = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  // pageAmount должно приходить с бека
+  const pageAmount = Math.ceil(quests.length / 5);
 
   return (
     <div className="page-container">
@@ -81,13 +91,25 @@ export const UserQuestsPage = () => {
                       <EmailIcon/>
                     </IconButton>
                     <IconButton
-                      onClick={() => onDeleteQuest(quest.id)}
+                      onClick={handleClickOpenDelete}
                       edge="end"
                       aria-label="delete"
                       sx={{color: "#F08080"}}>
                       <DeleteIcon/>
                     </IconButton>
                   </ListItemSecondaryAction>
+                  <Dialog open={openDelete} onClose={handleCloseDelete} sx={{backgroundColor: "rgba(0,0,0,0.4)"}}>
+                    <DialogTitle>Вы уверены, что хотите удалить квест {quest.name}?</DialogTitle>
+                    <DialogContent>
+                      <DialogContentText>
+                        Это действие приведет к безвозвратному удалению квеста
+                      </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={handleCloseDelete}>Отмена</Button>
+                      <Button onClick={() => onDeleteQuest(quest.id)}>Удалить</Button>
+                    </DialogActions>
+                  </Dialog>
                   <Dialog open={open} onClose={handleClose} sx={{backgroundColor: "rgba(0,0,0,0.4)"}}>
                     <DialogTitle>Отправить квест</DialogTitle>
                     <DialogContent>
@@ -105,7 +127,7 @@ export const UserQuestsPage = () => {
                       <TextField
                         margin="dense"
                         id="name"
-                        label="Email Address"
+                        label="Адрес почты"
                         type="email"
                         fullWidth
                         variant="standard"
