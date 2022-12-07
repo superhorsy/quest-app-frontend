@@ -49,6 +49,7 @@ export const UserQuestsPage = () => {
   };
 
   const onDeleteQuest = (questId) => {
+    console.log(questId)
     dispatch(deleteQuest(questId));
     setOpenDelete(false);
   };
@@ -69,10 +70,10 @@ export const UserQuestsPage = () => {
   return (
     <div className="page-container">
       <div className="main-container">
+        <h1 className="title">Мои квесты</h1>
         {isLoading && <CircularProgress disableShrink sx={{m: "0 auto", mt: 10}}/>}
         {(!isLoading && quests) && (
           <>
-            <h1 className="title">Мои квесты</h1>
             <Grid container spacing={2} sx={{maxWidth: '600px'}}>
               <List sx={{width: '100%'}}>
                 {quests && quests.map((quest, idx) => (
@@ -103,10 +104,9 @@ export const UserQuestsPage = () => {
                           <DeleteIcon/>
                         </IconButton>
                       </ListItemSecondaryAction>
-                      <Dialog open={openDelete} onClose={handleCloseDelete}
-                        sx={{backgroundColor: "rgba(0,0,0,0.4)"}}>
+                      <Dialog open={openDelete} onClose={handleCloseDelete}>
                         <DialogTitle>Вы уверены, что хотите удалить
-                                                    квест {quest.name}?</DialogTitle>
+                          квест <strong>{quest.name}</strong>?</DialogTitle>
                         <DialogContent>
                           <DialogContentText>
                                                         Это действие приведет к безвозвратному удалению квеста
@@ -117,8 +117,7 @@ export const UserQuestsPage = () => {
                           <Button onClick={() => onDeleteQuest(quest.id)}>Удалить</Button>
                         </DialogActions>
                       </Dialog>
-                      <Dialog open={open} onClose={handleClose}
-                        sx={{backgroundColor: "rgba(0,0,0,0.4)"}}>
+                      <Dialog open={open} onClose={handleClose}>
                         <DialogTitle>Отправить квест</DialogTitle>
                         <DialogContent>
                           <DialogContentText>
