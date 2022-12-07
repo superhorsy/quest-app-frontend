@@ -19,7 +19,7 @@ const createdQuestsSlice = createSlice({
     [fetchCreatedQuests.fulfilled.type]: (state, action) => {
       state.isLoading = false
       state.error = ''
-      state.quests.push(...action.payload)
+      state.quests = action.payload
     },
     [fetchCreatedQuests.rejected.type]: (state, action) => {
       state.isLoading = false

@@ -24,7 +24,7 @@ import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 
 import style from "./userQuestsPage.module.scss";
-
+import CircularProgress from "@mui/material/CircularProgress";
 
 
 export const UserQuestsPage = () => {
@@ -35,6 +35,8 @@ export const UserQuestsPage = () => {
   useEffect(() => {
     dispatch(fetchCreatedQuests())
   }, [dispatch])
+
+  const isLoading = useSelector((state) => state.createdQuestsReducer.isLoading);
 
   //модальное окно удаления
   const [openDelete, setOpenDelete] = useState(false);
@@ -67,86 +69,92 @@ export const UserQuestsPage = () => {
   return (
     <div className="page-container">
       <div className="main-container">
-        <h1 className="title">Мои квесты</h1>
-        <Grid container spacing={2} sx={{maxWidth: '600px'}}>
-          <List sx={{width: '100%'}}>
-            {quests && quests.map((quest, idx) => (
-              <ListItem
-                key={idx}
-                button
-                className={style.listItem}
-                sx={{borderBottom: '1px solid lightgray'}}
-              >
-                <Grid item xs={9}>
-                  <ListItemText onClick={() => navigate(`/panel/create-quest/${quest.id}`)}>
-                    {quest.name}
-                  </ListItemText>
-                </Grid>
-                <Grid item xs={2}>
-                  <ListItemSecondaryAction>
-                    <IconButton
-                      aria-label="send"
-                      sx={{color: "#8FBC8F"}}
-                      onClick={handleClickOpen}>
-                      <EmailIcon/>
-                    </IconButton>
-                    <IconButton
-                      onClick={handleClickOpenDelete}
-                      edge="end"
-                      aria-label="delete"
-                      sx={{color: "#F08080"}}>
-                      <DeleteIcon/>
-                    </IconButton>
-                  </ListItemSecondaryAction>
-                  <Dialog open={openDelete} onClose={handleCloseDelete} sx={{backgroundColor: "rgba(0,0,0,0.4)"}}>
-                    <DialogTitle>Вы уверены, что хотите удалить квест {quest.name}?</DialogTitle>
-                    <DialogContent>
-                      <DialogContentText>
-                        Это действие приведет к безвозвратному удалению квеста
-                      </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                      <Button onClick={handleCloseDelete}>Отмена</Button>
-                      <Button onClick={() => onDeleteQuest(quest.id)}>Удалить</Button>
-                    </DialogActions>
-                  </Dialog>
-                  <Dialog open={open} onClose={handleClose} sx={{backgroundColor: "rgba(0,0,0,0.4)"}}>
-                    <DialogTitle>Отправить квест</DialogTitle>
-                    <DialogContent>
-                      <DialogContentText>
-                                Введите имя и email вашего друга для отправки квеста на почту.
-                      </DialogContentText>
-                      <TextField
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        label="Имя друга"
-                        fullWidth
-                        variant="standard"
-                      />
-                      <TextField
-                        margin="dense"
-                        id="name"
-                        label="Адрес почты"
-                        type="email"
-                        fullWidth
-                        variant="standard"
-                      />
-                    </DialogContent>
-                    <DialogActions>
-                      <Button onClick={handleClose}>Отмена</Button>
-                      <Button onClick={handleClose}>Отправить</Button>
-                    </DialogActions>
-                  </Dialog>
-                </Grid>
-              </ListItem>
-            ))}
-          </List>
-          {pageAmount >= 2 && <Grid item xs={12}>
-            <Pagination className={style.pagination} count={pageAmount} size="small"/>
-          </Grid>}
-
-        </Grid>
+        {isLoading && <CircularProgress disableShrink sx={{m: "0 auto", mt: 10}}/>}
+        {(!isLoading && quests) && (
+          <>
+            <h1 className="title">Мои квесты</h1>
+            <Grid container spacing={2} sx={{maxWidth: '600px'}}>
+              <List sx={{width: '100%'}}>
+                {quests && quests.map((quest, idx) => (
+                  <ListItem
+                    key={idx}
+                    button
+                    className={style.listItem}
+                    sx={{borderBottom: '1px solid lightgray'}}
+                  >
+                    <Grid item xs={9}>
+                      <ListItemText onClick={() => navigate(`/panel/quest-profile/${quest.id}`)}>
+                        {quest.name}
+                      </ListItemText>
+                    </Grid>
+                    <Grid item xs={2}>
+                      <ListItemSecondaryAction>
+                        <IconButton
+                          aria-label="send"
+                          sx={{color: "#8FBC8F"}}
+                          onClick={handleClickOpen}>
+                          <EmailIcon/>
+                        </IconButton>
+                        <IconButton
+                          onClick={handleClickOpenDelete}
+                          edge="end"
+                          aria-label="delete"
+                          sx={{color: "#F08080"}}>
+                          <DeleteIcon/>
+                        </IconButton>
+                      </ListItemSecondaryAction>
+                      <Dialog open={openDelete} onClose={handleCloseDelete}
+                        sx={{backgroundColor: "rgba(0,0,0,0.4)"}}>
+                        <DialogTitle>Вы уверены, что хотите удалить
+                                                    квест {quest.name}?</DialogTitle>
+                        <DialogContent>
+                          <DialogContentText>
+                                                        Это действие приведет к безвозвратному удалению квеста
+                          </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                          <Button onClick={handleCloseDelete}>Отмена</Button>
+                          <Button onClick={() => onDeleteQuest(quest.id)}>Удалить</Button>
+                        </DialogActions>
+                      </Dialog>
+                      <Dialog open={open} onClose={handleClose}
+                        sx={{backgroundColor: "rgba(0,0,0,0.4)"}}>
+                        <DialogTitle>Отправить квест</DialogTitle>
+                        <DialogContent>
+                          <DialogContentText>
+                                                        Введите имя и email вашего друга для отправки квеста на почту.
+                          </DialogContentText>
+                          <TextField
+                            autoFocus
+                            margin="dense"
+                            id="name"
+                            label="Имя друга"
+                            fullWidth
+                            variant="standard"
+                          />
+                          <TextField
+                            margin="dense"
+                            id="name"
+                            label="Адрес почты"
+                            type="email"
+                            fullWidth
+                            variant="standard"
+                          />
+                        </DialogContent>
+                        <DialogActions>
+                          <Button onClick={handleClose}>Отмена</Button>
+                          <Button onClick={handleClose}>Отправить</Button>
+                        </DialogActions>
+                      </Dialog>
+                    </Grid>
+                  </ListItem>
+                ))}
+              </List>
+              {pageAmount >= 2 && <Grid item xs={12}>
+                <Pagination className={style.pagination} count={pageAmount} size="small"/>
+              </Grid>}
+            </Grid>
+          </>)}
       </div>
     </div>
   );
