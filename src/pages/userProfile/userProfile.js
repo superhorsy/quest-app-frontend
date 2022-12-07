@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import Box from "@mui/material/Box";
@@ -7,8 +6,8 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import CreateIcon from "@mui/icons-material/Create";
 import avatarLogo from "../../assets/images/avatar-icon.jpg";
-import {ModalRestorePass} from "../../components/modalResorePass";
-import { Loader } from '../../components/loader/loader';
+import { ModalRestorePass } from "../../components/modalResorePass";
+import { Loader } from "../../components/loader/loader";
 import { fetchUserProfile } from "../../store/actions/actions";
 
 export const UserProfile = () => {
@@ -16,14 +15,12 @@ export const UserProfile = () => {
 
   const { profile } = useSelector((state) => state.userProfileReducer);
   const { isLoading } = useSelector((state) => state.userProfileReducer);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchUserProfile());
   }, [dispatch]);
 
-  // console.log(profile)
   const isEmptyField = !profile ? true : !profile.nickname;
 
   const avatar = avatarLogo;
@@ -43,7 +40,7 @@ export const UserProfile = () => {
         <img src={avatar} className="avatar-logo" alt="avatar" />
 
         {isLoading && <Loader />}
-        
+
         {profile && (
           <Box
             component="div"
@@ -132,10 +129,16 @@ export const UserProfile = () => {
               </div>
             </Box>
 
-          <div>
-            <ModalRestorePass disabled={isEmptyField} fullWidth={true} variant="contained" size="large"/>
-          </div>
-        </Box>
+            <div>
+              <ModalRestorePass
+                disabled={isEmptyField}
+                fullWidth={true}
+                variant="contained"
+                size="large"
+              />
+            </div>
+          </Box>
+        )}
       </div>
     </div>
   );
