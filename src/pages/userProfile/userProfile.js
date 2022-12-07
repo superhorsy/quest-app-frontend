@@ -7,6 +7,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import CreateIcon from "@mui/icons-material/Create";
 import avatarLogo from "../../assets/images/avatar-icon.jpg";
+import {ModalRestorePass} from "../../components/modalResorePass";
 import { Loader } from '../../components/loader/loader';
 import { fetchUserProfile } from "../../store/actions/actions";
 
@@ -131,23 +132,10 @@ export const UserProfile = () => {
               </div>
             </Box>
 
-            <div>
-              <Button
-                fullWidth
-                sx={{ mt: 5, mb: { xs: 4, sm: 6 } }}
-                variant="contained"
-                size="large"
-                disabled={isEmptyField}
-                onClick={() => {
-                  // должна быть ссылка на страницу изменения пароля
-                  navigate("/");
-                }}
-              >
-                Изменить пароль
-              </Button>
-            </div>
-          </Box>
-        )}
+          <div>
+            <ModalRestorePass disabled={isEmptyField} fullWidth={true} variant="contained" size="large"/>
+          </div>
+        </Box>
       </div>
     </div>
   );

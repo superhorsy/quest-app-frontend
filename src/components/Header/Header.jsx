@@ -10,6 +10,7 @@ import {
   Menu,
   MenuItem,
   ListItemIcon,
+  CardActionArea
 } from "@mui/material";
 import {Login, Settings, Logout} from "@mui/icons-material";
 import {useNavigate} from "react-router-dom";
@@ -36,6 +37,14 @@ export const Header = () => {
     dispatch(logOut());
     navigate("/signin");
     handleCloseUserMenu();
+  };
+
+  const handleToMain = () => {
+    navigate("/");
+  };
+
+  const handleToPanel = () => {
+    navigate("/panel");
   };
 
   const goToProfile = () => {
@@ -75,11 +84,13 @@ export const Header = () => {
 
   return (
     <>
-      <AppBar>
+      <AppBar position="sticky">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Box sx={{flexGrow: 1}}>
-              <img src={Logo} alt="logo"/>
+              <CardActionArea onClick={isAuth ? handleToPanel : handleToMain}>
+                <img src={Logo} alt="logo"/>
+              </CardActionArea>
             </Box>
             <Box sx={{flexGrow: 0}}>
               {isAuth ? (
@@ -126,7 +137,7 @@ export const Header = () => {
         </Container>
       </AppBar>
       <Container maxWidth="xl">
-        <Box sx={{mt: 10}}>
+        <Box>
           {/*<Outlet context={[isAuth, setIsAuth]} />*/}
           <Outlet/>
         </Box>
