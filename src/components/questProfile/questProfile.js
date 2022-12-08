@@ -1,85 +1,133 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
-import { StepTemplate } from "../questCreation/stepCreation/stepTemplate/stepTemplate";
 import { ThemeSelector } from "../questCreation/themeSelector/themeSelector";
+import { fetchQuest, updateQuest } from "../../store/actions/actions";
 
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+
+import NoteAddIcon from "@mui/icons-material/NoteAdd";
+import SaveIcon from "@mui/icons-material/Save";
 import styles from "./questProfile.module.scss";
 
-export const QuestProfile = () => {
-  const quests = useSelector((state) => state.createdQuestsReducer.quests);
-  let { questId } = useParams();
+import { DragAndDropList } from "../dragAndDropList/dragAndDropList";
+import { Loader } from "../loader/loader.js";
 
-  let currentQuest = quests.find((quest) => quest.id === questId);
+export const QuestProfile = () => {
+  const currentQuest = useSelector(
+    (state) => state.currentQuestReducer.currentQuest
+  );
+  const isLoading = useSelector((state) => state.currentQuestReducer.isLoading);
+
+  const { questId } = useParams();
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleSaveQuest = () => {
+    dispatch(updateQuest(currentQuest));
+    navigate("/panel/my-quests");
+  };
+
+  useEffect(() => {
+    if (!currentQuest?.steps?.length) {
+      dispatch(fetchQuest(questId));
+    }
+    if (currentQuest.id !== questId) {
+      dispatch(fetchQuest(questId));
+    }
+  }, []);
 
   return (
     <>
-      <div className={styles.questInfo}>
-        <div className={styles.questInfo__item}>
-          <div className={styles.questInfo__title}>
-            Квест: {currentQuest.name}
+      {isLoading && <Loader />}
+      {(!isLoading && currentQuest) && (
+        <>
+          <div className={styles.questInfo}>
+            <div className={styles.questInfo__item}>
+              <div className={styles.questInfo__title}>
+                Квест: {currentQuest.name}
+              </div>
+            </div>
+            <div className={styles.questInfo__item}>
+              <div className={styles.questInfo__desc}>
+                {currentQuest.description}
+              </div>
+            </div>
+            <ThemeSelector />
+            <Box
+              component="div"
+              sx={{
+                m: "0 auto",
+                textAlign: "center",
+                width: { xs: 150, sm: 200 },
+              }}
+            >
+              <Button
+                disabled
+                fullWidth
+                variant="text"
+                size="medium"
+                sx={{ mb: { xs: 2, sm: 3 } }}
+                // onClick={() => navigate("/panel/create-quest/")}
+              >
+                Редактировать
+              </Button>
+            </Box>
           </div>
-        </div>
-        <div className={styles.questInfo__item}>
-          <div className={styles.questInfo__desc}>
-            {currentQuest.description}
-          </div>
-        </div>
-        <Box
-          component="div"
-          sx={{
-            m: "0 auto",
-            textAlign: "center",
-            width: { xs: 1 / 1, sm: 200 },
-          }}
-        >
+          <DragAndDropList />
           <Button
-            disabled
-            fullWidth
+            endIcon={<NoteAddIcon />}
             variant="contained"
-            size="medium"
-            sx={{ mt: 4, mb: { xs: 2, sm: 3 }, py: { xs: 1.5 } }}
-            onClick={() => navigate("/panel/create-quest/")}
+            sx={{
+              m: "0 auto",
+              width: { sx: 1, sm: 300 },
+              mt: 3,
+              mb: { xs: 1, sm: 2 },
+              py: 1,
+            }}
+            onClick={() =>
+              navigate(`/panel/create-quest/${questId}/create-step`)
+            }
           >
-            Редактировать
+            Создать шаг
           </Button>
-        </Box>
-      </div>
-
-      <div className={styles.step__box}>
-        {currentQuest.steps &&
-          currentQuest.steps.map((item, ind) => (
-            <StepTemplate
-              key={ind}
-              number={item.sort}
-              questionType={item.question_type}
-              description={item.description}
-              questionContent={item.question_content}
-            />
-          ))}
-      </div>
-      <ThemeSelector />
-      <Button
-        variant="contained"
-        size="medium"
-        sx={{ mt: 4, mb: { xs: 2, sm: 3 }, py: 2 }}
-        onClick={() => navigate(`/panel/create-quest/${questId}/create-step`)}
-      >
-        Создать шаг
-      </Button>
-      <Button
-        variant="contained"
-        size="medium"
-        sx={{ mt: 4, mb: { xs: 2, sm: 3 }, py: 2 }}
-        onClick={() => navigate('/panel')}
-      >
-        Назад
-      </Button>
+          <Box
+            component="div"
+            sx={{ mb: 9, display: "flex", justifyContent: "space-around" }}
+          >
+            <Button
+              variant="contained"
+              startIcon={<KeyboardBackspaceIcon />}
+              sx={{
+                width: { xs: 130, sm: 200 },
+                mt: 3,
+                mb: { xs: 1, sm: 2 },
+                py: 1,
+              }}
+              onClick={() => navigate("/panel")}
+            >
+              Назад
+            </Button>
+            <Button
+              variant="contained"
+              endIcon={<SaveIcon />}
+              sx={{
+                width: { xs: 130, sm: 200 },
+                mt: 3,
+                mb: { xs: 1, sm: 2 },
+                py: 1,
+              }}
+              onClick={handleSaveQuest}
+            >
+              Сохранить
+            </Button>
+          </Box>
+        </>
+      )}
     </>
   );
 };

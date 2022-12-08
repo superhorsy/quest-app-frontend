@@ -21,8 +21,8 @@ body {
   color: black;
   text-align: center;
   text-transform: uppercase;
-  font-size: 35px;
-  margin-top: 50px;
+  font-size: 28px;
+  margin-top: 25px;
   margin-bottom: 35px;
 
   @media (max-width: 600px) {
@@ -107,10 +107,7 @@ body {
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  max-width: 100%;
-  @media (max-width: 600px) {
-    max-width: 90%;
-  }
+  max-width: 600px;
 }
 
 .textToRightSide {

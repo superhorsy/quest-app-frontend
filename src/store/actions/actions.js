@@ -56,7 +56,6 @@ export const deleteQuest = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const { data } = await questsApi.deleteQuest(id);
-      console.log('ответ на запрос об удалении', data.data)
       return data.data;
     } catch (e) {
       return rejectWithValue(e.message);
@@ -121,6 +120,18 @@ export const getNextQuest = createAsyncThunk(
       return await questExecutionApi.getNextQuest(id)
     } catch (e) {
       return rejectWithValue(e.message)
+    }
+  }
+);
+
+export const fetchQuest = createAsyncThunk(
+  "currentQuest/fetchCurrentQuest",
+  async (questId, {rejectWithValue}) => {
+    try {
+      const {data} = await questsApi.fetchQuest(questId);
+      return data.data;
+    } catch (e) {
+      return rejectWithValue(e.message);
     }
   }
 );
