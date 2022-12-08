@@ -34,6 +34,9 @@ const createdQuestsSlice = createSlice({
       if (action.payload.data.steps === null) {
         action.payload.data.steps = [];
       }
+      if(state.quest === null) {
+        state.quests = [];
+      }
       state.quests.push(action.payload.data);
     },
     [createQuest.rejected.type]: (state, action) => {
