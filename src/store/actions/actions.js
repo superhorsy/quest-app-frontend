@@ -44,7 +44,6 @@ export const fetchCreatedQuests = createAsyncThunk(
   async (questsData, { rejectWithValue }) => {
     try {
       const { data } = await questsApi.fetchCreatedQuests(questsData);
-      console.log('ответ на запрос о получении квестов', data.data)
       return data.data;
     } catch (e) {
       return rejectWithValue(e.message);
