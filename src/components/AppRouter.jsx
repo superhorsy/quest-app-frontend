@@ -23,13 +23,12 @@ import {QuestProfileTemplate} from "../pages/QuestProfileTemplate";
 import {QuestProfileIndex} from "../pages/QuestProfileIndex";
 import {TextQuestionStep} from "../pages/TextQuestionStep";
 import {QRQuestionStep} from "../pages/QRQuestionStep";
-
-
 import { DecoratedPage } from "../pages/themes/decoratedPage/decoratedPage";
-
-import {Header} from "./Header/Header";
 import {QuestExecution} from "../pages/questExecution/questExecution";
 import {FooterTest} from "./footer/footerTest";
+
+// COMPONENTS
+import {Header} from "./Header/Header";
 
 export const AppRouter = () => {
   return (
