@@ -1,12 +1,11 @@
 // React
-import React, {useMemo, useState} from 'react';
+import React, { useState } from 'react';
 
 // Redux
-import {useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 
 // Router
-import {useNavigate} from "react-router-dom";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 // UI
 import Button from "@mui/material/Button";
@@ -14,7 +13,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 
 // Api comps
-import {registration} from "../../store/actions/actions";
+import { registration } from "../../store/actions/actions";
 
 export const SignUpPage = () => {
   const [firstName, setFirstName] = useState('');
@@ -24,7 +23,6 @@ export const SignUpPage = () => {
   const [pass, setPass] = useState('');
   const [passConfirm, setPassConfirm] = useState('');
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const sendData = (event) => {
@@ -62,7 +60,7 @@ export const SignUpPage = () => {
           sx={{
             m: '0 auto',
             textAlign: "center",
-            width: {xs: 1 / 1, sm: 500},
+            width: { xs: 1 / 1, sm: 500 },
           }}
           noValidate={false}
           autoComplete="off"
@@ -72,7 +70,7 @@ export const SignUpPage = () => {
             <TextField
               required
               fullWidth
-              sx={{mb: {xs: 3, sm: 4}}}
+              sx={{ mb: { xs: 3, sm: 4 } }}
               id="outlined-basic-firstname"
               label="Имя"
               variant="outlined"
@@ -82,7 +80,7 @@ export const SignUpPage = () => {
             <TextField
               required
               fullWidth
-              sx={{mb: {xs: 3, sm: 4}}}
+              sx={{ mb: { xs: 3, sm: 4 } }}
               id="outlined-basic-lastname"
               label="Фамилия"
               variant="outlined"
@@ -92,7 +90,7 @@ export const SignUpPage = () => {
             <TextField
               required
               fullWidth
-              sx={{mb: {xs: 3, sm: 4}}}
+              sx={{ mb: { xs: 3, sm: 4 } }}
               id="outlined-basic-email"
               type="email"
               label="Ваш email"
@@ -103,7 +101,7 @@ export const SignUpPage = () => {
             <TextField
               required
               fullWidth
-              sx={{mb: {xs: 3, sm: 4}}}
+              sx={{ mb: { xs: 3, sm: 4 } }}
               id="outlined-basic-nickname"
               label="Никнейм"
               variant="outlined"
@@ -113,7 +111,7 @@ export const SignUpPage = () => {
             <TextField
               required
               fullWidth
-              sx={{mb: {xs: 3, sm: 4}}}
+              sx={{ mb: { xs: 3, sm: 4 } }}
               id="outlined-basic-password"
               type="password"
               label="Пароль"
@@ -125,7 +123,7 @@ export const SignUpPage = () => {
               error={!isPassMatched && Boolean(passConfirm)}
               required
               fullWidth
-              sx={{mb: {xs: 3, sm: 4}}}
+              sx={{ mb: { xs: 3, sm: 4 } }}
               id="outlined-basic-password-confirm"
               type="password"
               label="Подтвердите пароль"
@@ -137,7 +135,7 @@ export const SignUpPage = () => {
               <Button
                 fullWidth
                 type="submit"
-                sx={{mb: {xs: 4, sm: 6}}}
+                sx={{ mb: { xs: 4, sm: 6 } }}
                 variant="contained"
                 size="large"
                 disabled={isEmptyField || !isPassMatched}

@@ -1,19 +1,19 @@
-import React, {useEffect} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {authSlice} from "./store/reducers/authSlice";
+import React, { useEffect } from 'react';
+import { useDispatch } from "react-redux";
+import { authSlice } from "./store/reducers/authSlice";
 
 //Styles
 import "./App.scss";
 
-import {BrowserRouter} from 'react-router-dom';
-import {AppRouter} from './components/AppRouter';
+import { RouterProvider } from 'react-router-dom';
+import { routes } from './components/AppRouter';
 
 import "./App.scss";
 //import {getProfile} from "./store/actions/actions";
-import {fetchUserProfile} from './store/actions/actions';
+import { fetchUserProfile } from './store/actions/actions';
 
 function App() {
-  const {checkAuth} = authSlice.actions;
+  const { checkAuth } = authSlice.actions;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,13 +22,11 @@ function App() {
       dispatch(checkAuth());
       // store.checkAuth()
     }
-  }, []);
+  }, [checkAuth, dispatch]);
 
   return (
     <div className="App">
-      <BrowserRouter>
-        <AppRouter/>
-      </BrowserRouter>
+      <RouterProvider router={routes} />
     </div>
   );
 }

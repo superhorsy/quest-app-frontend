@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { 
-  CardActionArea, 
-  Box, 
+import {
+  CardActionArea,
+  Box,
   Grid,
   CardContent,
   Card,
@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import { Add } from "@mui/icons-material";
 
-export const PanelIndex = () => { 
+export const PanelIndex = () => {
   const navigate = useNavigate();
   const goToMyQuests = () => {
     navigate('my-quests');
@@ -29,12 +29,12 @@ export const PanelIndex = () => {
 
   const panelRouting = [
     {
-      name:'Мои квесты',
+      name: 'Мои квесты',
       description: 'В данном разделе можно просмотреть созданные вами квесты.',
       topage: goToMyQuests,
     },
     {
-      name:'Прогресс',
+      name: 'Прогресс',
       description: 'Посмотреть прогресс текущего квеста, выбранного для прохождения.',
       topage: goToMyProgress,
     },
@@ -47,13 +47,13 @@ export const PanelIndex = () => {
 
   return <>
     <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={3} sx={{mt: 12}} alignItems="stretch">
+      <Grid container spacing={3} sx={{ mt: 12 }} alignItems="stretch">
         {panelRouting.map((nav) => (
           <Grid key={nav.name} item xs={6}>
-            <Card sx={{height: '100%'}}>
-              <CardActionArea sx={{height: '100%'}} onClick={nav.topage} key={nav.name}>
-                <CardContent sx={{height: '100%'}}>
-                  <Typography variant="h5" component="p" sx={{lineHeight: 1, mb: 1}}>
+            <Card sx={{ height: '100%' }}>
+              <CardActionArea sx={{ height: '100%' }} onClick={nav.topage}>
+                <CardContent sx={{ height: '100%' }}>
+                  <Typography variant="h5" component="p" sx={{ lineHeight: 1, mb: 1 }}>
                     {nav.name}
                   </Typography>
                   <Typography variant="default" component="p">
@@ -66,12 +66,12 @@ export const PanelIndex = () => {
         ))}
         <Grid item xs={6}>
           <Card sx={{ textAlign: 'center', bgcolor: 'primary.main', color: 'common.white', height: '100%' }}>
-            <CardActionArea sx={{height: '100%'}} onClick = {goToCreateQuest}>
-              <CardContent sx={{height: '100%'}}>
-                <Typography variant="h5" component="p" sx={{lineHeight: 1, mb: 1}}>
-                    Создать новый квест
+            <CardActionArea sx={{ height: '100%' }} onClick={goToCreateQuest}>
+              <CardContent sx={{ height: '100%' }}>
+                <Typography variant="h5" component="p" sx={{ lineHeight: 1, mb: 1 }}>
+                  Создать новый квест
                 </Typography>
-                <Add/>
+                <Add />
               </CardContent>
             </CardActionArea>
           </Card>
