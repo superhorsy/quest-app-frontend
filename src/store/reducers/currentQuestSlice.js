@@ -1,6 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import { fetchQuest, updateQuest } from "../actions/actions";
-
+import {fetchQuest, updateQuest} from "../actions/actions";
 
 const initialState = {
   currentQuest: {},
@@ -20,6 +19,11 @@ const currentQuestSlice = createSlice({
         state.currentQuest.steps = [];
       }
       state.currentQuest.steps = action.payload;
+    },
+    editStep(state, action) {
+      state.currentQuest.steps = state.currentQuest.steps.map((step) => {
+        return step.id === action.payload.id ? action.payload : step
+      })
     },
     updateTheme(state, action) {
       state.currentQuest.theme = action.payload;
@@ -48,5 +52,5 @@ const currentQuestSlice = createSlice({
   }
 })
 
-export const { addSteps, addOneStep, updateTheme, deleteStep } = currentQuestSlice.actions;
+export const {addSteps, addOneStep, editStep, updateTheme, deleteStep} = currentQuestSlice.actions;
 export default currentQuestSlice.reducer;

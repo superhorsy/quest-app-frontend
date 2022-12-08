@@ -67,7 +67,6 @@ export const QuestProfile = () => {
               }}
             >
               <Button
-                // disabled
                 fullWidth
                 variant="text"
                 size="medium"
@@ -78,7 +77,6 @@ export const QuestProfile = () => {
               </Button>
             </Box>
           </div>
-
           <DragAndDropList />
           <Button
             endIcon={<NoteAddIcon />}
