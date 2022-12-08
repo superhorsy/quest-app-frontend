@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAvailableQuests } from "../../store/actions/actions";
+
 import {
   ListItemText,
   List,
@@ -12,44 +15,39 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 
 import style from "./availableQuestsPage.module.scss";
 
-const availableQuests = [
-  {
-    id: "1",
-    name: "Квест для Маши",
-  },
-  {
-    id: "2",
-    name: "Квест для Пети",
-  },
-  {
-    id: "3",
-    name: "Квест для Маши, Пети, Коли, Даши ",
-  },
-  {
-    id: "4",
-    name: "Квест",
-  },
-  {
-    id: "5",
-    name: "Квест для Маши, Пети, Коли, Даши и еще для много много много много много много много много кого",
-  },
-];
-
 export const AvailableQuestsPage = () => {
-  // pageAmount должно приходить с бека
-  const pageAmount = 1;
+  const perPage = 10;
+  const dispatch = useDispatch();
+  const quests = useSelector((state) => state.questsAvailableReducer.quests);
+  const totalQuests = useSelector((state) => state.questsAvailableReducer.total);
+  const loading = useSelector((state) => state.questsAvailableReducer.loading);
+  const [page, setPage] = useState(1);
+  const [settings, setSettings] = useState({ limit: perPage, offset: 0 });
   const isVisible = true;
 
+  useEffect(() => {
+    if (!quests.length) {
+      fetchData();
+    }
+  }, [quests]);
+
+  function fetchData() {
+    dispatch(fetchAvailableQuests(settings));
+  }
+
+  const getPages = () => {
+    return Math.ceil(totalQuests / perPage)
+  }
   return (
     <div className="page-container">
       <div className="main-container">
         <h1 className="title">Доступные квесты</h1>
         <Container maxWidth="sm">
-          <Grid container spacing={1}>
-            <List>
-              {availableQuests.map((quest) => (
+          <Grid container spacing={1} >
+            {!loading && quests.length > 0 ? (<List sx={{ width: '100%' }}>
+              {quests.map((quest) => (
                 <ListItem
-                  key={quest.id}
+                  key={quest.quest_id}
                   button
                   sx={{
                     borderBottom: "1px solid lightgray",
@@ -57,7 +55,7 @@ export const AvailableQuestsPage = () => {
                   }}
                 >
                   <Grid item xs={10}>
-                    <ListItemText>{quest.name}</ListItemText>
+                    <ListItemText>{quest.quest_name}</ListItemText>
                   </Grid>
                   <Grid item xs={2}>
                     <ListItemSecondaryAction>
@@ -70,12 +68,14 @@ export const AvailableQuestsPage = () => {
                   </Grid>
                 </ListItem>
               ))}
-            </List>
-            {pageAmount >= 2 && (
+            </List>) : <p>Загрузка...</p>
+            }
+            {!loading && !quests.length && <p>Сожалеем, у вас пока нет доступных квестов!</p>}
+            {getPages() >= 2 && (
               <Grid item xs={12}>
                 <Pagination
                   className={style.pagination}
-                  count={pageAmount}
+                  count={getPages()}
                   size="small"
                 />
               </Grid>

@@ -1,2 +1,2 @@
 import { AvailableQuestsPage } from './availableQuestsPage';
-export const AvailableQuests = () => <AvailableQuestsPage/>;
+export const AvailableQuests = () => <AvailableQuestsPage />;

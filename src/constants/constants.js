@@ -7,6 +7,7 @@ export const apiQuests = {
   BASE_URL: 'https://questy.fun/api/v1/',
   QUESTS: 'quests',
   QUESTS_CREATED: 'quests/created',
+  QUESTS_AVAILABLE: 'quests/available',
   LOGIN: 'login',
   REGISTER: 'register',
   PROFILE: 'profile',

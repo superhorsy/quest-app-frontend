@@ -1,11 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import {questExecutionApi, questsApi, userProfileApi, authApi, testPostsApi } from "../../api/api";
+import { questExecutionApi, questsApi, userProfileApi, authApi, testPostsApi } from "../../api/api";
 
 export const testFetchPosts = createAsyncThunk(
   'posts/fetchPosts',
-  async (_, {rejectWithValue}) => {
+  async (_, { rejectWithValue }) => {
     try {
-      const {data} = await testPostsApi.fetchPosts()
+      const { data } = await testPostsApi.fetchPosts()
       return data
     } catch (e) {
       return rejectWithValue(e.message)
@@ -15,9 +15,9 @@ export const testFetchPosts = createAsyncThunk(
 
 export const login = createAsyncThunk(
   "auth/login",
-  async (loginData, {rejectWithValue}) => {
+  async (loginData, { rejectWithValue }) => {
     try {
-      const {data} = await authApi.loginUser(loginData);
+      const { data } = await authApi.loginUser(loginData);
       localStorage.setItem('token', data.jwt);
       return data;
     } catch (e) {
@@ -28,9 +28,9 @@ export const login = createAsyncThunk(
 
 export const registration = createAsyncThunk(
   "auth/registration",
-  async (registrationData, {rejectWithValue}) => {
+  async (registrationData, { rejectWithValue }) => {
     try {
-      const {data} = await authApi.registrationUser(registrationData);
+      const { data } = await authApi.registrationUser(registrationData);
       localStorage.setItem('token', data.jwt);
       return data;
     } catch (e) {
@@ -46,6 +46,18 @@ export const fetchCreatedQuests = createAsyncThunk(
       const { data } = await questsApi.fetchCreatedQuests(questsData);
       console.log('ответ на запрос о получении квестов', data.data)
       return data.data;
+    } catch (e) {
+      return rejectWithValue(e.message);
+    }
+  }
+);
+
+export const fetchAvailableQuests = createAsyncThunk(
+  "quests/fetchAvailableQuests",
+  async (avQData, { rejectWithValue }) => {
+    try {
+      const { data } = await questsApi.fetchAvailableQuests(avQData);
+      return data;
     } catch (e) {
       return rejectWithValue(e.message);
     }
@@ -79,9 +91,9 @@ export const updateQuest = createAsyncThunk(
 
 export const fetchUserProfile = createAsyncThunk(
   "userProfile/fetchUserProfile",
-  async (_, {rejectWithValue}) => {
+  async (_, { rejectWithValue }) => {
     try {
-      const {data} = await userProfileApi.fetchUserProfile();
+      const { data } = await userProfileApi.fetchUserProfile();
       return data;
     } catch (e) {
       return rejectWithValue(e.message);
@@ -91,7 +103,7 @@ export const fetchUserProfile = createAsyncThunk(
 
 export const createQuest = createAsyncThunk(
   "quests/createQuest",
-  async (quest, {rejectWithValue}) => {
+  async (quest, { rejectWithValue }) => {
     try {
       const response = await questsApi.createQuest(quest);
       // If you want to get something back
@@ -104,7 +116,7 @@ export const createQuest = createAsyncThunk(
 
 export const getInitQuest = createAsyncThunk(
   'quests/getInitQuest',
-  async (_, {rejectWithValue}) => {
+  async (_, { rejectWithValue }) => {
     try {
       return await questExecutionApi.getInitQuest()
     } catch (e) {
@@ -116,7 +128,7 @@ export const getInitQuest = createAsyncThunk(
 
 export const getNextQuest = createAsyncThunk(
   'quests/getNextQuest',
-  async (id, {rejectWithValue}) => {
+  async (id, { rejectWithValue }) => {
     try {
       return await questExecutionApi.getNextQuest(id)
     } catch (e) {
