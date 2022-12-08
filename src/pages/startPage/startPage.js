@@ -43,8 +43,8 @@ export const StartPage = () => {
               }}
               variant="contained"
               size="large"
-              onClick={() => navigate('panel/create-quest')}
-            >Создать квест
+              onClick={() => navigate('panel')}
+            >В панель
             </Button>
             :
             <Button
