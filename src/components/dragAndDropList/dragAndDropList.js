@@ -4,10 +4,7 @@ import {addSteps, deleteStep} from "../../store/reducers/currentQuestSlice";
 
 import Box from "@mui/material/Box";
 import {IconButton} from "@mui/material";
-// import EditIcon from "@mui/icons-material/Edit";
-import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-// import DeleteIcon from "@mui/icons-material/Delete";
 
 import TextIcon from "../../assets/images/questions/text-icon.png";
 import QRIcon from "../../assets/images/questions/qr-icon.png";
@@ -23,8 +20,6 @@ export const DragAndDropList = () => {
   //save reference for dragitem and dragOverItem
   const dragItem = React.useRef(null);
   const dragOverItem = React.useRef(null);
-
-  //const handle drag sorting
 
   const handleSort = () => {
     //duplicate items
@@ -121,12 +116,6 @@ export const DragAndDropList = () => {
                 }}
               >
                 <ModalEditQuestStep stepData = {step}/>
-                {/*<IconButton*/}
-                {/*  sx={{ color: "#cfd8dc", p: { xs: 0.5 } }}*/}
-                {/*  onClick={handleOpenModal}*/}
-                {/*>*/}
-                {/*  <ModeEditOutlineOutlinedIcon />*/}
-                {/*</IconButton>*/}
                 <IconButton
                   aria-label="delete"
                   sx={{color: "#ff6090", p: {xs: 0.5}}}

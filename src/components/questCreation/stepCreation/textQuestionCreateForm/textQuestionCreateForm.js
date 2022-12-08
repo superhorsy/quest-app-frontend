@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
+import {v4} from 'uuid';
 
 import {addOneStep, editStep} from "../../../../store/reducers/currentQuestSlice";
 
@@ -12,8 +13,6 @@ export const TextQuestionCreateForm = ({stepData, handleClose}) => {
   const [taskName, setTaskName] = useState(stepData?.description ? stepData.description : "");
   const [taskDescription, setTaskDescription] = useState(stepData?.question_content ? stepData.question_content : "");
   const [taskAnswersString, setTaskAnswersString] = useState(stepData?.answer_content ? stepData.answer_content : "");
-  // const test = {...taskAnswersString};
-  // console.log("taskAnswersString", taskAnswersString.toString())
   const {questId} = useParams();
 
   const currentQuest = useSelector(state => state.currentQuestReducer.currentQuest);
@@ -31,10 +30,9 @@ export const TextQuestionCreateForm = ({stepData, handleClose}) => {
     console.log("arrayOfAnswers", arrayOfAnswers)
     let stepN = stepData ? currentQuest.steps.length : currentQuest.steps.length + 1;
 
-    // let copyOfCurrentQuest = structuredClone(currentQuest);
-
     let step = {
       quest_id: questId,
+      id: !stepData ? v4() : stepData.id,
       sort: stepN,
       description: taskName,
       question_type: "text",
@@ -42,25 +40,15 @@ export const TextQuestionCreateForm = ({stepData, handleClose}) => {
       answer_type: "text",
       answer_content: arrayOfAnswers
     }
-    // copyOfCurrentQuest.steps.push(step);
+    console.log("V4", step.id)
     if (!stepData) {
       dispatch(addOneStep(step));
       navigate(`/panel/quest-profile/${questId}`);
     } else {
-      //TODO написать метод редактирования шага
-      console.log("STEPtoSLICE", step)
       dispatch(editStep(step));
       handleClose();
     }
   };
-  // useEffect(() => {
-  //   if (stepData) {
-  //     console.log('stepData', stepData)
-  //     setTaskName(stepData.description)
-  //     setTaskDescription(stepData.question_content)
-  //   }
-  // }, [])
-  console.log("currentQuest", currentQuest)
 
   return (
     <Box

@@ -1,12 +1,10 @@
 import React, {useState} from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import TextField from "@mui/material/TextField";
 import {IconButton} from "@mui/material";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import {TextQuestionCreateForm} from "../../questCreation/stepCreation/textQuestionCreateForm/textQuestionCreateForm";
+import {QRQuestionCreateForm} from "../../questCreation/stepCreation/qrQuestionCreateForm/qrQuestionCreateForm";
 
 const style = {
   position: 'absolute',
@@ -25,32 +23,27 @@ const style = {
 };
 
 export const ModalEditQuestStep = ({stepData}) => {
-  //console.log("!!!", stepData.description)
-
   const [open, setOpen] = useState(false);
-  // const [passForm, setPassForm] = useState({
-  //   currentPassword: '',
-  //   newPassword: '',
-  //   confirmPassword: '',
-  // });
-  // const [error, setError] = useState(null);
-  //console.log("!!!!", children)
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  // const isEmptyField = !passForm.currentPassword || !passForm.newPassword || !passForm.confirmPassword;
-  // const isPassMatched = passForm.newPassword === passForm.confirmPassword;
-
-  // const handleSubmitEditPassword = async (event) => {
-  //   event.preventDefault();
-  //   try {
-  //     //await userProfileApi.changePassword(passForm.newPassword);
-  //     setError(null);
-  //     handleClose();
-  //   } catch (error) {
-  //     setError(error.message);
-  //   }
-  // }
+  const selectTypeOfStep = () => {
+    switch (stepData?.question_type) {
+    case 'text' : {
+      return <TextQuestionCreateForm stepData={stepData} handleClose={handleClose}/>
+    }
+    case 'qr' : {
+      return <QRQuestionCreateForm stepData={stepData} handleClose={handleClose}/>
+    }
+    case 'audio' : {
+      return <></>
+    }
+    case 'video' : {
+      return <></>
+    }
+    }
+  }
 
   return (
     <div>
@@ -73,72 +66,10 @@ export const ModalEditQuestStep = ({stepData}) => {
         aria-describedby="modal-modal-description"
       >
         <Box
-          // component="form"
-          // noValidate={false}
-          // autoComplete="off"
-          // onSubmit={handleSubmitEditPassword}
           sx={style}>
-          <TextQuestionCreateForm stepData = {stepData} handleClose={handleClose}/>
-          {/*  <TextField*/}
-          {/*    disabled={false}*/}
-          {/*    required*/}
-          {/*    fullWidth*/}
-          {/*    sx={{mb: {xs: 3, sm: 4}}}*/}
-          {/*    id="outlined-basic-current-pass"*/}
-          {/*    type="password"*/}
-          {/*    label="Ваш текущий пароль"*/}
-          {/*    variant="outlined"*/}
-          {/*    value={passForm.currentPassword}*/}
-          {/*    onChange={(e) => setPassForm({...passForm, currentPassword: e.target.value})}*/}
-          {/*  />*/}
-          {/*  <TextField*/}
-          {/*    disabled={false}*/}
-          {/*    required*/}
-          {/*    fullWidth*/}
-          {/*    sx={{mb: {xs: 3, sm: 4}}}*/}
-          {/*    id="outlined-basic-new-pass"*/}
-          {/*    type="password"*/}
-          {/*    label="Новый пароль"*/}
-          {/*    variant="outlined"*/}
-          {/*    value={passForm.newPassword}*/}
-          {/*    onChange={(e) => setPassForm({...passForm, newPassword: e.target.value})}*/}
-          {/*  />*/}
-          {/*  <TextField*/}
-          {/*    disabled={false}*/}
-          {/*    error={!isPassMatched && Boolean(passForm.confirmPassword)}*/}
-          {/*    required*/}
-          {/*    fullWidth*/}
-          {/*    sx={{mb: {xs: 3, sm: 4}}}*/}
-          {/*    id="outlined-basic-confirm-pass"*/}
-          {/*    type="password"*/}
-          {/*    label="Подтвердите пароль"*/}
-          {/*    variant="outlined"*/}
-          {/*    value={passForm.confirmPassword}*/}
-          {/*    onChange={(e) => setPassForm({...passForm, confirmPassword: e.target.value})}*/}
-          {/*  />*/}
-          {/*  <Button*/}
-          {/*    fullWidth*/}
-          {/*    type="submit"*/}
-          {/*    sx={{mb: 4}}*/}
-          {/*    variant="contained"*/}
-          {/*    size="large"*/}
-          {/*    disabled={isEmptyField || !isPassMatched}*/}
-          {/*  >*/}
-          {/*    Сохранить*/}
-          {/*  </Button>*/}
-          {/*  {error ?*/}
-          {/*    <Typography*/}
-          {/*      id="modal-modal-title-error"*/}
-          {/*      variant="h6"*/}
-          {/*      component="h2"*/}
-          {/*      color="error"*/}
-          {/*      sx={{fontSize: "inherit"}}*/}
-          {/*    >*/}
-          {/*      Ошибка обработки запроса: {error}*/}
-          {/*    </Typography>*/}
-          {/*    :*/}
-          {/*    <></>*/}
-          {/*  }*/}
+          {
+            selectTypeOfStep()
+          }
         </Box>
       </Modal>
     </div>

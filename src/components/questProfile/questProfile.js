@@ -67,7 +67,6 @@ export const QuestProfile = () => {
               }}
             >
               <Button
-                // disabled
                 fullWidth
                 variant="text"
                 size="medium"
