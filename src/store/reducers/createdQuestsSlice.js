@@ -34,8 +34,8 @@ const createdQuestsSlice = createSlice({
       if (action.payload.data.steps === null) {
         action.payload.data.steps = [];
       }
-      if(state.quest === null) {
-        state.quests = [];
+      if(state.quests === null) {
+        state.quests = [action.payload.data];
       }
       state.quests.push(action.payload.data);
     },

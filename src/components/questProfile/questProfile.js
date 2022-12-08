@@ -67,11 +67,12 @@ export const QuestProfile = () => {
               }}
             >
               <Button
+                disabled
                 fullWidth
                 variant="text"
                 size="medium"
                 sx={{ mb: { xs: 2, sm: 3 } }}
-                onClick={() => navigate("/panel/create-quest/")}
+                // onClick={() => navigate("/panel/create-quest/")}
               >
                 Редактировать
               </Button>

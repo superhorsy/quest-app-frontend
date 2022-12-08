@@ -44,10 +44,6 @@ export const DragAndDropList = () => {
     dispatch(addSteps(_steps));
   };
 
-  const handleDeleteStep = (id) => {
-    dispatch(deleteStep(id));
-  }
-
   return (
     <Box
       component="div"
