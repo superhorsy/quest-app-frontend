@@ -3,8 +3,9 @@ import React, { useState } from "react";
 import QRCode from "qrcode";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import {v4} from 'uuid';
 
-import { updateQuest } from "../../../../store/actions/actions";
+import {addOneStep, editStep} from "../../../../store/reducers/currentQuestSlice";
 
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -12,17 +13,17 @@ import Button from "@mui/material/Button";
 
 import styles from "./qrQuestionCreateForm.module.scss";
 
-export const QRQuestionCreateForm = () => {
+export const QRQuestionCreateForm = ({stepData, handleClose}) => {
 
-  const [taskName, setTaskName] = useState("");
-  const [taskDescription, setTaskDescription] = useState("");
+  const [taskName, setTaskName] = useState(stepData?.description ? stepData.description : "");
+  const [taskDescription, setTaskDescription] = useState(stepData?.question_content ? stepData.question_content : "");
   const [qrImageUrl, setQrImageUrl] = useState("");
 
   // для qr-code
   const imageSaveName = `qr-code-${taskDescription}.png`;
   const { questId } = useParams();
-  const quests = useSelector(state => state.createdQuestsReducer.quests);
-  const currentQuest = quests.find(item => item.id === questId);
+
+  const currentQuest = useSelector(state => state.currentQuestReducer.currentQuest);
 
   const dispatch = useDispatch();
 
@@ -40,10 +41,9 @@ export const QRQuestionCreateForm = () => {
 
     let stepN = currentQuest.steps.length + 1;
 
-    let copyOfCurrentQuest = structuredClone(currentQuest);
-
     const step = {
       quest_id: questId,
+      id: !stepData ? v4() : stepData.id,
       sort: stepN,
       description: taskName,
       question_type: "qr",
@@ -51,10 +51,13 @@ export const QRQuestionCreateForm = () => {
       answer_type: "text",
       answer_content: [taskDescription],
     };
-    copyOfCurrentQuest.steps.push(step);
-
-    dispatch(updateQuest(copyOfCurrentQuest));
-    navigate(`/panel/quest-profile/${questId}`);
+    if (!stepData) {
+      dispatch(addOneStep(step));
+      navigate(`/panel/quest-profile/${questId}`);
+    } else {
+      dispatch(editStep(step));
+      handleClose();
+    }
   };
   return (
     <Box

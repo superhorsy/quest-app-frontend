@@ -12,6 +12,7 @@ import {
   ListItemIcon,
   CardActionArea
 } from "@mui/material";
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import { Login, Settings, Logout } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
@@ -52,6 +53,10 @@ export const Header = () => {
     navigate("/panel/profile");
   };
 
+  const goToPanel = () => {
+    navigate("/panel");
+  }
+
   const handleLogin = () => {
     navigate("/signin");
   };
@@ -69,6 +74,11 @@ export const Header = () => {
       name: "Профиль",
       function: goToProfile,
       icon: <Settings />,
+    },
+    {
+      name: "Панель",
+      function: goToPanel,
+      icon: <DashboardIcon />,
     },
     {
       name: "Выйти",
@@ -96,7 +106,7 @@ export const Header = () => {
             <Box sx={{ flexGrow: 0 }}>
               {isAuth ? (
                 <>
-                  <span>Привет, {profile?.data.first_name} </span>
+                  <span>Привет, {profile?.first_name} </span>
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar alt="user" src={UserAvatar} />
                   </IconButton>

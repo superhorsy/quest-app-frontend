@@ -12,6 +12,7 @@ import {
   Grid,
 } from "@mui/material";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import style from "./availableQuestsPage.module.scss";
 
@@ -40,49 +41,47 @@ export const AvailableQuestsPage = () => {
   }
   return (
     <div className="page-container">
-      <div className="main-container">
-        <h1 className="title">Доступные квесты</h1>
-        <Container maxWidth="sm">
-          <Grid container spacing={1} >
-            {!loading && quests.length > 0 ? (<List sx={{ width: '100%' }}>
-              {quests.map((quest) => (
-                <ListItem
-                  key={quest.quest_id}
-                  button
-                  sx={{
-                    borderBottom: "1px solid lightgray",
-                    minHeight: "73px",
-                  }}
-                >
-                  <Grid item xs={10}>
-                    <ListItemText>{quest.quest_name}</ListItemText>
-                  </Grid>
-                  <Grid item xs={2}>
-                    <ListItemSecondaryAction>
-                      <CheckCircleOutlineIcon
-                        edge="end"
-                        sx={{ color: "#8FBC8F" }}
-                        style={{ display: isVisible ? "true" : "none" }}
-                      />
-                    </ListItemSecondaryAction>
-                  </Grid>
-                </ListItem>
-              ))}
-            </List>) : <p>Загрузка...</p>
-            }
-            {!loading && !quests.length && <p>Сожалеем, у вас пока нет доступных квестов!</p>}
-            {getPages() >= 2 && (
-              <Grid item xs={12}>
-                <Pagination
-                  className={style.pagination}
-                  count={getPages()}
-                  size="small"
-                />
-              </Grid>
-            )}
-          </Grid>
-        </Container>
-      </div>
+      <h1 className="title">Доступные квесты</h1>
+      <Container maxWidth="sm">
+        <Grid container spacing={2} sx={{ maxWidth: "600px" }}>
+          {!loading && quests.length > 0 ? (<List sx={{ width: '100%' }}>
+            {quests.map((quest) => (
+              <ListItem
+                key={quest.quest_id}
+                button
+                sx={{
+                  borderBottom: "1px solid lightgray",
+                  minHeight: "73px",
+                }}
+              >
+                <Grid item xs={10}>
+                  <ListItemText>{quest.quest_name}</ListItemText>
+                </Grid>
+                <Grid item xs={2}>
+                  <ListItemSecondaryAction>
+                    <CheckCircleOutlineIcon
+                      edge="end"
+                      sx={{ color: "#8FBC8F" }}
+                      style={{ display: isVisible ? "true" : "none" }}
+                    />
+                  </ListItemSecondaryAction>
+                </Grid>
+              </ListItem>
+            ))}
+          </List>) : <CircularProgress disableShrink sx={{ m: "0 auto", mt: 10 }} />
+          }
+          {!loading && !quests.length && <p>Сожалеем, у вас пока нет доступных квестов!</p>}
+          {getPages() >= 2 && (
+            <Grid item xs={12}>
+              <Pagination
+                className={style.pagination}
+                count={getPages()}
+                size="small"
+              />
+            </Grid>
+          )}
+        </Grid>
+      </Container>
     </div>
   );
 };

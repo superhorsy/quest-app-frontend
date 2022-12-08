@@ -2,8 +2,9 @@ import axios from "axios";
 import { apiQuests, apiTest } from "../constants/constants";
 import { nextQuestResponse } from "./questExecutionApiTMP";
 
+
 const { BASE_URL_TEST, POSTS } = apiTest;
-const { BASE_URL, QUESTS, QUESTS_CREATED, REGISTER, LOGIN, PROFILE, QUESTS_AVAILABLE } = apiQuests;
+const { BASE_URL, QUESTS, QUESTS_CREATED, REGISTER, LOGIN, PROFILE, QUESTS_AVAILABLE, CHANGE_PASSWORD } = apiQuests;
 
 const instance_test = axios.create({
   baseURL: BASE_URL_TEST,
@@ -18,7 +19,6 @@ const instance = axios.create({
 instance.interceptors.request.use((config) => {
   // в хэдер из localStorage добавили токен
   config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
-  console.log('REQ_CONFIG', config)
   return config
 })
 
@@ -45,7 +45,7 @@ instance.interceptors.response.use((config) => {
       //делаем повторный запрос
       return instance.request(originalRequest)
     } catch (e) {
-      console.log("Не авторизован")
+      console.log("Не авторизован");
     }
 
   }
@@ -110,6 +110,10 @@ export const userProfileApi = {
   //для получения профиля пользователя
   fetchUserProfile: () => {
     return instance.get(PROFILE);
+  },
+  // Изменение пароля
+  changePassword: (newPass) => {
+    return instance.patch(CHANGE_PASSWORD, newPass);
   }
 }
 
