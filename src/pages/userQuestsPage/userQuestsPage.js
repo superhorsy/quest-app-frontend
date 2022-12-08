@@ -98,7 +98,6 @@ const DeleteQuestDialog = ({
 
 export const UserQuestsPage = () => {
   const dispatch = useDispatch();
-  console.log("quests", quests);
   const navigate = useNavigate();
   const quests = useSelector((state) => state.createdQuestsReducer.quests);
   const isLoading = useSelector(
@@ -141,7 +140,6 @@ export const UserQuestsPage = () => {
   };
 
   const handleClose = () => {
-    setOpen(false);
     setIsOpen(false);
   };
 
