@@ -2,13 +2,14 @@ import React from "react";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { useNavigate } from "react-router-dom";
-import Logo from "../../assets/images/log-b.png";
+// import Logo from "../../assets/images/log-b.png";
+import Logo from "../../assets/images/logo-n.png";
 import { useSelector } from "react-redux";
 
 export const StartPage = () => {
   const navigate = useNavigate();
   const { isAuth } = useSelector(state => state.authReducer);
-  console.log(isAuth);
+
   return (
     <div className="page-container">
 

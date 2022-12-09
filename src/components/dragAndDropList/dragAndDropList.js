@@ -27,7 +27,6 @@ export const DragAndDropList = () => {
 
     // remove and save the dragged item content
     let draggedItemContent = _steps.splice(dragItem.current, 1)[0];
-    console.log("draggedItemContent", draggedItemContent);
 
     // switch the position
     _steps.splice(dragOverItem.current, 0, draggedItemContent);
