@@ -147,7 +147,7 @@ export const FooterTest = () => {
             component="div"
             sx={{fontSize: {xs: '12px', md: '15px'}}}
           >
-            Copyright @ 2022 All Rights Reserved
+            Copyright © 2022 All Rights Reserved
           </Typography>
           <Box sx={{flexGrow: 1}}/>
           <Box sx={{display: {xs: 'none', md: 'flex'}}}>
