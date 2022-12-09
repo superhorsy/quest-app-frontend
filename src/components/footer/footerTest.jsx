@@ -76,7 +76,6 @@ export const FooterTest = () => {
   };
 
   const handleMobileMenuOpen = (event) => {
-    console.log('мобильное меню')
     setMobileMoreAnchorEl(event.currentTarget);
   };
 

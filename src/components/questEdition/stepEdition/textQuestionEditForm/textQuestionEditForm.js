@@ -32,7 +32,7 @@ export const TextQuestionEditForm = () => {
     });
 
     getArrayOfAnswers(taskAnswersString);
-    console.log(taskAnswersArray);
+
     navigate("/panel/quest-profile");
   };
   return (

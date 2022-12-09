@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 export const StartPage = () => {
   const navigate = useNavigate();
   const { isAuth } = useSelector(state => state.authReducer);
-  console.log(isAuth);
+
   return (
     <div className="page-container">
 
