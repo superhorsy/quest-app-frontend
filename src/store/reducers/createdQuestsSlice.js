@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import { fetchCreatedQuests, createQuest, updateQuest, deleteQuest } from "../actions/actions";
+import { fetchCreatedQuests, createQuest, deleteQuest } from "../actions/actions";
 
 const initialState = {
   quests: [],
@@ -52,22 +52,6 @@ const createdQuestsSlice = createSlice({
       state.quests = state.quests.filter(quest => quest.id !== action.meta.arg)
     },
     [deleteQuest.rejected.type]: (state, action) => {
-      state.isLoading = false
-      state.error = action.payload
-    },
-    [updateQuest.pending.type]: (state, action) => {
-      state.isLoading = true
-    },
-    [updateQuest.fulfilled.type]: (state, action) => {
-      state.isLoading = false
-      state.error = ''
-      const currentQuestId = action.payload.id;
-      console.log(action.payload);
-      const currentQuest = state.quests.find(item => item.id === currentQuestId);
-      const ind = state.quests.indexOf(currentQuest)
-      state.quests[ind] = action.payload;
-    },
-    [updateQuest.rejected.type]: (state, action) => {
       state.isLoading = false
       state.error = action.payload
     },

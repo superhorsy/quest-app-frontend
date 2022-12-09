@@ -108,7 +108,7 @@ export const QuestProfile = () => {
                 mb: { xs: 1, sm: 2 },
                 py: 1,
               }}
-              onClick={() => navigate("/panel")}
+              onClick={() => navigate("/panel/my-quests")}
             >
               Назад
             </Button>

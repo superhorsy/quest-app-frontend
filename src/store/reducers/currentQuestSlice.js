@@ -49,6 +49,18 @@ const currentQuestSlice = createSlice({
       state.isLoading = false
       state.error = action.payload
     },
+    [updateQuest.pending.type]: (state, action) => {
+      state.isLoading = true
+    },
+    [updateQuest.fulfilled.type]: (state, action) => {
+      state.isLoading = false
+      state.error = ''
+      console.log(action.payload);
+    },
+    [updateQuest.rejected.type]: (state, action) => {
+      state.isLoading = false
+      state.error = action.payload
+    },
   }
 })
 
