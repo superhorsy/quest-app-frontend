@@ -57,7 +57,7 @@ export const routes = createBrowserRouter(
             <Route path="change-password" element={<ChangePass />} handle={{ crumb: () => ({ name: "Изменить пароль", href: "/panel/profile/change-password" }) }} />
           </Route>
         </Route>
-        <Route path="questExecution" element={<QuestExecution />} />
+        <Route path="/questExecution/:questId" element={<QuestExecution />} />
         <Route path="*" element={<h1>Ошибка 404</h1>} handle={{ crumb: () => ({ name: "Ошибка 404", href: "*" }) }} />
       </Route>
       <Route path="/questExecution_decorated" element={<DecoratedPage />} />

@@ -120,19 +120,24 @@ export const userProfileApi = {
 //Под каждую сущность создаем свою константу апи с методами
 
 export const questExecutionApi = {
-  getInitQuest: async () => {
-    return {
-      quests: [
-        {
-          id: 1,
-          label: 'Отгадайте загадку',
-          description: 'Первая загадка. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque, et!',
-          hasAnswer: false,
-          rightAnswer: null
-        }
-      ],
-      totalQuestsCount: 5
-    }
+  getInitQuest: async (questId) => {
+    return instance.post(`${QUESTS}/${questId}/start`)
+  // getInitQuest: async () => {
+  //   return {
+  //     quests: [
+  //       {
+  //         id: 1,
+  //         label: 'Отгадайте загадку',
+  //         description: 'Первая загадка. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque, et!',
+  //         hasAnswer: false,
+  //         rightAnswer: null
+  //       }
+  //     ],
+  //     totalQuestsCount: 5
+  //   }
+  },
+  getStatusQuest: async (questId) => {
+    return instance.get(`${QUESTS}/${questId}/status`);
   },
   getNextQuest: async (id) => {
     return nextQuestResponse[id]

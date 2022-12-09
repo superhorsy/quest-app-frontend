@@ -1,11 +1,11 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { questExecutionApi, questsApi, userProfileApi, authApi, testPostsApi } from "../../api/api";
+import {createAsyncThunk} from "@reduxjs/toolkit";
+import {questExecutionApi, questsApi, userProfileApi, authApi, testPostsApi} from "../../api/api";
 
 export const testFetchPosts = createAsyncThunk(
   'posts/fetchPosts',
-  async (_, { rejectWithValue }) => {
+  async (_, {rejectWithValue}) => {
     try {
-      const { data } = await testPostsApi.fetchPosts()
+      const {data} = await testPostsApi.fetchPosts()
       return data
     } catch (e) {
       return rejectWithValue(e.message)
@@ -15,9 +15,9 @@ export const testFetchPosts = createAsyncThunk(
 
 export const login = createAsyncThunk(
   "auth/login",
-  async (loginData, { rejectWithValue }) => {
+  async (loginData, {rejectWithValue}) => {
     try {
-      const { data } = await authApi.loginUser(loginData);
+      const {data} = await authApi.loginUser(loginData);
       localStorage.setItem('token', data.jwt);
       return data;
     } catch (e) {
@@ -28,9 +28,9 @@ export const login = createAsyncThunk(
 
 export const registration = createAsyncThunk(
   "auth/registration",
-  async (registrationData, { rejectWithValue }) => {
+  async (registrationData, {rejectWithValue}) => {
     try {
-      const { data } = await authApi.registrationUser(registrationData);
+      const {data} = await authApi.registrationUser(registrationData);
       localStorage.setItem('token', data.jwt);
       return data;
     } catch (e) {
@@ -41,9 +41,9 @@ export const registration = createAsyncThunk(
 
 export const fetchCreatedQuests = createAsyncThunk(
   "quests/fetchQuests",
-  async (questsData, { rejectWithValue }) => {
+  async (questsData, {rejectWithValue}) => {
     try {
-      const { data } = await questsApi.fetchCreatedQuests(questsData);
+      const {data} = await questsApi.fetchCreatedQuests(questsData);
       return data.data;
     } catch (e) {
       return rejectWithValue(e.message);
@@ -53,9 +53,9 @@ export const fetchCreatedQuests = createAsyncThunk(
 
 export const fetchAvailableQuests = createAsyncThunk(
   "quests/fetchAvailableQuests",
-  async (avQData, { rejectWithValue }) => {
+  async (avQData, {rejectWithValue}) => {
     try {
-      const { data } = await questsApi.fetchAvailableQuests(avQData);
+      const {data} = await questsApi.fetchAvailableQuests(avQData);
       return data;
     } catch (e) {
       return rejectWithValue(e.message);
@@ -65,9 +65,9 @@ export const fetchAvailableQuests = createAsyncThunk(
 
 export const deleteQuest = createAsyncThunk(
   "quests/deleteQuest",
-  async (id, { rejectWithValue }) => {
+  async (id, {rejectWithValue}) => {
     try {
-      const { data } = await questsApi.deleteQuest(id);
+      const {data} = await questsApi.deleteQuest(id);
       return data.data;
     } catch (e) {
       return rejectWithValue(e.message);
@@ -77,9 +77,9 @@ export const deleteQuest = createAsyncThunk(
 
 export const updateQuest = createAsyncThunk(
   "quests/updateQuest",
-  async (questData, { rejectWithValue }) => {
+  async (questData, {rejectWithValue}) => {
     try {
-      const { data } = await questsApi.updateQuest(questData.id, questData);
+      const {data} = await questsApi.updateQuest(questData.id, questData);
       return data.data;
     } catch (e) {
       return rejectWithValue(e.message);
@@ -89,9 +89,9 @@ export const updateQuest = createAsyncThunk(
 
 export const fetchUserProfile = createAsyncThunk(
   "userProfile/fetchUserProfile",
-  async (_, { rejectWithValue }) => {
+  async (_, {rejectWithValue}) => {
     try {
-      const { data } = await userProfileApi.fetchUserProfile();
+      const {data} = await userProfileApi.fetchUserProfile();
       console.log("получение результата по запросу", data.data);
       return data;
     } catch (e) {
@@ -102,7 +102,7 @@ export const fetchUserProfile = createAsyncThunk(
 
 export const createQuest = createAsyncThunk(
   "quests/createQuest",
-  async (quest, { rejectWithValue }) => {
+  async (quest, {rejectWithValue}) => {
     try {
       const response = await questsApi.createQuest(quest);
       // If you want to get something back
@@ -115,19 +115,29 @@ export const createQuest = createAsyncThunk(
 
 export const getInitQuest = createAsyncThunk(
   'quests/getInitQuest',
-  async (_, { rejectWithValue }) => {
+  async (questId, {rejectWithValue}) => {
     try {
-      return await questExecutionApi.getInitQuest()
+      return await questExecutionApi.getInitQuest(questId);
     } catch (e) {
       return rejectWithValue(e.message)
     }
   }
 );
 
+export const getStatusQuest = createAsyncThunk(
+  'quests/getStatusQuest',
+  async (questId, {rejectWithValue}) => {
+    try {
+      return await questExecutionApi.getStatusQuest(questId);
+    } catch (e) {
+      return rejectWithValue(e.message)
+    }
+  }
+);
 
 export const getNextQuest = createAsyncThunk(
   'quests/getNextQuest',
-  async (id, { rejectWithValue }) => {
+  async (id, {rejectWithValue}) => {
     try {
       return await questExecutionApi.getNextQuest(id)
     } catch (e) {
@@ -138,9 +148,9 @@ export const getNextQuest = createAsyncThunk(
 
 export const fetchQuest = createAsyncThunk(
   "currentQuest/fetchCurrentQuest",
-  async (questId, { rejectWithValue }) => {
+  async (questId, {rejectWithValue}) => {
     try {
-      const { data } = await questsApi.fetchQuest(questId);
+      const {data} = await questsApi.fetchQuest(questId);
       return data.data;
     } catch (e) {
       return rejectWithValue(e.message);

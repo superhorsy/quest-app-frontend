@@ -15,6 +15,7 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import CircularProgress from "@mui/material/CircularProgress";
 
 import style from "./availableQuestsPage.module.scss";
+import {useNavigate} from "react-router";
 
 export const AvailableQuestsPage = () => {
   const perPage = 10;
@@ -25,6 +26,8 @@ export const AvailableQuestsPage = () => {
   const [page, setPage] = useState(1);
   const [settings, setSettings] = useState({ limit: perPage, offset: 0 });
   const isVisible = true;
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!quests.length) {
@@ -39,6 +42,11 @@ export const AvailableQuestsPage = () => {
   const getPages = () => {
     return Math.ceil(totalQuests / perPage)
   }
+
+  const handleQuestStart = (questId) => {
+    navigate(`/questExecution/${questId}`)
+  }
+
   return (
     <div className="page-container">
       <h1 className="title">Доступные квесты</h1>
@@ -49,6 +57,7 @@ export const AvailableQuestsPage = () => {
               <ListItem
                 key={quest.quest_id}
                 button
+                onClick={() => handleQuestStart(quest.quest_id)}
                 sx={{
                   borderBottom: "1px solid lightgray",
                   minHeight: "73px",
