@@ -27,7 +27,7 @@ export const TextQuestionCreateForm = ({stepData, handleClose}) => {
     event.preventDefault();
 
     const arrayOfAnswers = taskAnswersString.toString().toLowerCase().split(",");
-    console.log("arrayOfAnswers", arrayOfAnswers)
+
     let stepN = stepData ? currentQuest.steps.length : currentQuest.steps.length + 1;
 
     let step = {
@@ -40,7 +40,7 @@ export const TextQuestionCreateForm = ({stepData, handleClose}) => {
       answer_type: "text",
       answer_content: arrayOfAnswers
     }
-    console.log("V4", step.id)
+
     if (!stepData) {
       dispatch(addOneStep(step));
       navigate(`/panel/quest-profile/${questId}`);

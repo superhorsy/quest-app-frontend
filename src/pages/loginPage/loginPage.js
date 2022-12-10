@@ -21,14 +21,13 @@ export const LoginPage = () => {
   const isEmptyField = !email || !pass;
 
   const sendData = (event) => {
-    console.log('Метод отправки')
+
     dispatch(login({password: pass, email}));
     event.preventDefault();
   };
 
   useEffect(() => {
     if (isAuth) {
-      console.log('isAuth header', isAuth)
       navigate("/panel");
     }
   }, [isAuth])

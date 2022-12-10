@@ -91,8 +91,8 @@ export const fetchUserProfile = createAsyncThunk(
   "userProfile/fetchUserProfile",
   async (_, {rejectWithValue}) => {
     try {
-      const {data} = await userProfileApi.fetchUserProfile();
-      console.log("получение результата по запросу", data.data);
+      const { data } = await userProfileApi.fetchUserProfile();
+
       return data;
     } catch (e) {
       return rejectWithValue(e.message);

@@ -32,7 +32,6 @@ export const ModalRestorePass = (children) => {
     confirmPassword: '',
   });
   const [error, setError] = useState(null);
-  console.log("!!!!", children)
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
