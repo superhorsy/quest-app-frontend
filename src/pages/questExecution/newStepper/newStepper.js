@@ -78,6 +78,7 @@ export const QuestExecution = () => {
         questionCount={questionCount}
         questStatus={questStatus}
         handleNext={handleNext}
+        qrCodeAnswer={qrCodeAnswer}
       />
     </Box>
   );

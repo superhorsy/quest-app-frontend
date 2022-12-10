@@ -17,6 +17,7 @@ export const StepContainer = ({
   questionCount,
   questStatus,
   handleNext,
+  qrCodeAnswer
 }) => {
   const navigate = useNavigate();
 
@@ -97,7 +98,7 @@ export const StepContainer = ({
               )}
             </Box>
             <Box component="div">
-              {current.question_type === "qr" && <QRStep />}
+              {current.question_type === "qr" && <QRStep qrCodeAnswer={qrCodeAnswer}/>}
             </Box>
           </Box>
 

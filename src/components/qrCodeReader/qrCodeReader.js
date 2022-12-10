@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import QrReader from "react-qr-scanner";
 import styles from "./qrCodeReader.module.scss";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
 import { addAnswerFromQRCodeReader } from "../../store/reducers/questExecutionSlice";
 
@@ -31,22 +31,19 @@ class QRScan extends Component {
       width: 150,
     };
     return (
-      <>
-        <div className={styles.qrBox}>
-          {this.state.result == null && (
-            <QrReader
-              className={styles.qrBox__box}
-              delay={this.state.delay}
-              style={previewStyle}
-              onError={this.handleError}
-              onScan={this.handleScan}
-            />
-          )}
-          {this.state.result !== null && this.props.success && <p className={styles.qrBox__desc}>{this.state.result}</p>}
-        </div>
-      </>
+      <div className={styles.qrBox}>
+        {this.state.result == null && (
+          <QrReader
+            className={styles.qrBox__box}
+            delay={this.state.delay}
+            style={previewStyle}
+            onError={this.handleError}
+            onScan={this.handleScan}
+          />
+        )}
+      </div>
     );
   }
 }
 
-export default connect() (QRScan);
+export default connect()(QRScan);
