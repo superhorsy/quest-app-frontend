@@ -28,7 +28,8 @@ import { QRQuestionStep } from "../pages/QRQuestionStep";
 import { DecoratedPage } from "../pages/themes/decoratedPage/decoratedPage";
 
 import { Header } from "./Header/Header";
-import { QuestExecution } from "../pages/questExecution/questExecution";
+// import { QuestExecution } from "../pages/questExecution/questExecution";
+import { QuestExecution } from "../pages/questExecution/newStepper/newStepper.js";
 import { FooterTest } from "./footer/footerTest";
 
 export const routes = createBrowserRouter(

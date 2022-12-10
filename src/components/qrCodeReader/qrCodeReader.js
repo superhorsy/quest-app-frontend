@@ -25,19 +25,21 @@ class QRScan extends Component {
     const previewStyle = {
       height: 150,
       width: 150,
-    }
+    };
     return (
-      <div className={styles.qrBox}>
-        {this.state.result == null && (
-          <QrReader
-            delay={this.state.delay}
-            style={previewStyle}
-            onError={this.handleError}
-            onScan={this.handleScan}
-          />
-        )}
-        <p className={styles.qrBox__desc}>{this.state.result}</p>
-      </div>
+      <>
+        <div className={styles.qrBox}>
+          {this.state.result == null && (
+            <QrReader
+              delay={this.state.delay}
+              style={previewStyle}
+              onError={this.handleError}
+              onScan={this.handleScan}
+            />
+          )}
+          <p className={styles.qrBox__desc}>{this.state.result}</p>
+        </div>
+      </>
     );
   }
 }

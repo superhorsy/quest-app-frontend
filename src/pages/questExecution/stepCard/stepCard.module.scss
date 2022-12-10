@@ -1,0 +1,22 @@
+@keyframes slidein {
+  from {
+    transform: translateX(100%);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.card {
+  &__content {
+    width: 100%;
+    transform: translateX(100%);
+    opacity: 0;
+    animation: slidein 0.5s linear forwards;
+    animation-delay: 0.5s;
+    
+  }
+}

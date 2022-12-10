@@ -10,6 +10,7 @@ const initialState = {
   questStatus: null, // Статус квеста (начат/не начат)
   isLoading: false,
   error: '',
+  success: true,
   test: []
 }
 
@@ -55,6 +56,7 @@ const questExecutionSlice = createSlice({
     [getNextQuest.fulfilled.type]: (state, action) => {
       state.isLoading = false
       state.error = ''
+      state.success = action.payload.data.success
       state.current = action.payload.data.current
       if (action.payload.data.previous) {
         state.previous = [...action.payload.data.previous]
