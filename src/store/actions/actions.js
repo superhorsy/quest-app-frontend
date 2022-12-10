@@ -117,7 +117,8 @@ export const getInitQuest = createAsyncThunk(
   'quests/getInitQuest',
   async (questId, {rejectWithValue}) => {
     try {
-      return await questExecutionApi.getInitQuest(questId);
+      const {data} = await questExecutionApi.getInitQuest(questId);
+      return data
     } catch (e) {
       return rejectWithValue(e.message)
     }
@@ -128,7 +129,8 @@ export const getStatusQuest = createAsyncThunk(
   'quests/getStatusQuest',
   async (questId, {rejectWithValue}) => {
     try {
-      return await questExecutionApi.getStatusQuest(questId);
+      const {data} = await questExecutionApi.getStatusQuest(questId);
+      return data
     } catch (e) {
       return rejectWithValue(e.message)
     }
@@ -137,9 +139,10 @@ export const getStatusQuest = createAsyncThunk(
 
 export const getNextQuest = createAsyncThunk(
   'quests/getNextQuest',
-  async (id, {rejectWithValue}) => {
+  async (dataAnswer, {rejectWithValue}) => {
     try {
-      return await questExecutionApi.getNextQuest(id)
+      const {data} = await questExecutionApi.getNextQuest(dataAnswer)
+      return data
     } catch (e) {
       return rejectWithValue(e.message)
     }
