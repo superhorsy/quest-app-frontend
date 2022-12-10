@@ -231,20 +231,6 @@ export const QuestExecution = () => {
     </Box>
   );
 
-  const renderCompleteQuest = () => (
-    <Box sx={{mt: 10}}>
-      <h1>Поздравляем с прохождением квеста!</h1>
-      <Button
-        fullWidth
-        size="large"
-        variant="contained"
-        onClick={() => navigate("/panel")}
-        sx={{mt: 5, mr: 1}}
-      >
-        Вернуться назад
-      </Button>
-    </Box>
-  );
 
   return (
     <div className="page-container">

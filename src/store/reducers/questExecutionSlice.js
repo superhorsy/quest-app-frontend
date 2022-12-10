@@ -11,13 +11,18 @@ const initialState = {
   isLoading: false,
   error: '',
   success: true,
-  test: []
+  test: [],
+  qrCodeAnswer: null
 }
 
 const questExecutionSlice = createSlice({
   name: 'questExecutionSlice',
   initialState,
-  reducers: {},
+  reducers: {
+    addAnswerFromQRCodeReader(state, action) {
+      state.qrCodeAnswer = action.payload;
+    }
+  },
   extraReducers: {
     [getInitQuest.pending.type]: (state) => {
       state.isLoading = true
@@ -68,5 +73,5 @@ const questExecutionSlice = createSlice({
     }
   }
 })
-
+export const {addAnswerFromQRCodeReader} = questExecutionSlice.actions;
 export default questExecutionSlice.reducer

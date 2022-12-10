@@ -5,9 +5,8 @@ import Typography from "@mui/material/Typography";
 
 import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
+import { QRStep } from "../questionsContent/qrStep/qrStep";
 import { useNavigate } from "react-router-dom";
-
-import QRScan from "../../../components/qrCodeReader/qrCodeReader.js";
 
 export const StepContainer = ({
   activeStep,
@@ -98,30 +97,34 @@ export const StepContainer = ({
               )}
             </Box>
             <Box component="div">
-              {current.question_type === "qr" && <QRScan />}
+              {current.question_type === "qr" && <QRStep />}
             </Box>
           </Box>
 
-          <Input
-            required
-            sx={{
-              mb: { xs: 1, sm: 2 },
-              mt: { xs: 3, sm: 4 },
-              position: "absolute",
-              bottom: 40,
-              left: 0,
-            }}
-            id="outlined-basic-answer"
-            placeholder="Ваш ответ"
-            size="small"
-            value={answer}
-            onChange={(e) => setAnswer(e.target.value)}
-          />
+          {!current.question_type === "qr" && (
+            <Input
+              required
+              sx={{
+                mb: { xs: 1, sm: 2 },
+                mt: { xs: 3, sm: 4 },
+                position: "absolute",
+                bottom: 40,
+                left: 0,
+              }}
+              id="outlined-basic-answer"
+              placeholder="Ваш ответ"
+              size="small"
+              value={answer}
+              onChange={(e) => setAnswer(e.target.value)}
+            />
+          )}
           {!success && (
             <Typography
               sx={{
+                width:1,
                 color: "error.main",
                 fontWeight: 700,
+                textAlign: "center",
                 fontSize: { xs: 12, sm: 14 },
                 position: "absolute",
                 left: 0,
@@ -131,15 +134,17 @@ export const StepContainer = ({
               Вы ответили неправильно, поробуйте еще раз
             </Typography>
           )}
-          <Button
-            size="middle"
-            variant="outlined"
-            sx={{ position: "absolute", bottom: 0, right: 20 }}
-            disabled={!answer.length}
-            onClick={handleNext}
-          >
-            {activeStep === questionCount ? "Завершить" : "Ответить"}
-          </Button>
+          {!current.question_type === "qr" && (
+            <Button
+              size="middle"
+              variant="outlined"
+              sx={{ position: "absolute", bottom: 0, right: 20 }}
+              disabled={!answer.length}
+              onClick={handleNext}
+            >
+              {activeStep === questionCount ? "Завершить" : "Ответить"}
+            </Button>
+          )}
         </>
       )}
     </Box>
