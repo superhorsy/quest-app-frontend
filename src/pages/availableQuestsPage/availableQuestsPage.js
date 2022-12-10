@@ -44,7 +44,7 @@ export const AvailableQuestsPage = () => {
   }
 
   const handleQuestStart = (questId) => {
-    navigate(`/questExecution/${questId}`)
+    navigate(`/questExecution_decorated/${questId}`)
   }
 
   return (

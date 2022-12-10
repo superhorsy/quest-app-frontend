@@ -61,7 +61,7 @@ export const routes = createBrowserRouter(
         <Route path="/questExecution/:questId" element={<QuestExecution />} />
         <Route path="*" element={<h1>Ошибка 404</h1>} handle={{ crumb: () => ({ name: "Ошибка 404", href: "*" }) }} />
       </Route>
-      <Route path="/questExecution_decorated" element={<DecoratedPage />} />
+      <Route path="/questExecution_decorated/:questId" element={<DecoratedPage />} />
     </>
   )
 );

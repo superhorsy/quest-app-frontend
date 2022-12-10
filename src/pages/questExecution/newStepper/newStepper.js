@@ -11,7 +11,7 @@ import {
   getNextQuest,
 } from "../../../store/actions/actions";
 
-import { StepContainer } from "../stepCard/stepCard";
+import { StepContainer } from "../stepContainer/stepContainer";
 
 export const QuestExecution = () => {
   const {
@@ -60,14 +60,6 @@ export const QuestExecution = () => {
       dispatch(addAnswerFromQRCodeReader(null));
     }
   };
-  // useEffect(() => {
-  //   if(current.question_type === "qr" && qrCodeAnswer !== null) {
-  //     dispatch(
-  //       getNextQuest({ questId: questId, answer_type: "text", answer: qrCodeAnswer })
-  //     );
-  //     dispatch(addAnswerFromQRCodeReader(null));
-  //   }
-  // }, [qrCodeAnswer])
 
   /**
    * Render

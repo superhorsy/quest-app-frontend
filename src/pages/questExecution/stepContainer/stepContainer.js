@@ -17,7 +17,7 @@ export const StepContainer = ({
   questionCount,
   questStatus,
   handleNext,
-  qrCodeAnswer
+  qrCodeAnswer,
 }) => {
   const navigate = useNavigate();
 
@@ -45,7 +45,7 @@ export const StepContainer = ({
         </>
       ) : (
         <>
-          <Box component="div" sx={{ display: "flex", width: 1 }}>
+          <Box component="div" sx={{ display: "flex", width: 1, p: 2 }}>
             <Box
               component="div"
               sx={{
@@ -98,11 +98,13 @@ export const StepContainer = ({
               )}
             </Box>
             <Box component="div">
-              {current.question_type === "qr" && <QRStep qrCodeAnswer={qrCodeAnswer}/>}
+              {current.question_type === "qr" && (
+                <QRStep qrCodeAnswer={qrCodeAnswer} />
+              )}
             </Box>
           </Box>
 
-          {!current.question_type === "qr" && (
+          {current.question_type !== "qr" && (
             <Input
               required
               sx={{
@@ -110,7 +112,7 @@ export const StepContainer = ({
                 mt: { xs: 3, sm: 4 },
                 position: "absolute",
                 bottom: 40,
-                left: 0,
+                left: 15,
               }}
               id="outlined-basic-answer"
               placeholder="Ваш ответ"
@@ -119,10 +121,28 @@ export const StepContainer = ({
               onChange={(e) => setAnswer(e.target.value)}
             />
           )}
+
+          {success && current.sort !== 1 && (
+            <Typography
+              sx={{
+                width: 1,
+                color: "success.main",
+                fontWeight: 700,
+                textAlign: "center",
+                fontSize: { xs: 12, sm: 14 },
+                position: "absolute",
+                left: 0,
+                bottom: 0,
+              }}
+            >
+              Вы ответили верно!
+            </Typography>
+          )}
+
           {!success && (
             <Typography
               sx={{
-                width:1,
+                width: 1,
                 color: "error.main",
                 fontWeight: 700,
                 textAlign: "center",
@@ -135,7 +155,7 @@ export const StepContainer = ({
               Вы ответили неправильно, поробуйте еще раз
             </Typography>
           )}
-          {!current.question_type === "qr" && (
+          {current.question_type !== "qr" && (
             <Button
               size="middle"
               variant="outlined"

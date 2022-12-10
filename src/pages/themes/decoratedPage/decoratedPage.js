@@ -6,8 +6,10 @@ import { ValentainPage } from "../../../components/themeComponents/valentain/val
 import { CommonThemePage } from "../../../components/themeComponents/common/commonThemePage";
 import { ChristmasPage } from "../../../components/themeComponents/christmas/christmasPage";
 
+
 export const DecoratedPage = () => {
-  const theme = "common";
+  const theme = "christmas";
+
   return (
     <>
       {theme === "christmas" && <ChristmasPage />}
