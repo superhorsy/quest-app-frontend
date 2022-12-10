@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import { useDispatch } from "react-redux";
 import { authSlice } from "./store/reducers/authSlice";
 
@@ -9,7 +9,6 @@ import { RouterProvider } from 'react-router-dom';
 import { routes } from './components/AppRouter';
 
 import "./App.scss";
-//import {getProfile} from "./store/actions/actions";
 import { fetchUserProfile } from './store/actions/actions';
 
 function App() {
@@ -20,7 +19,13 @@ function App() {
     if (localStorage.getItem('token')) {
       dispatch(fetchUserProfile())
       dispatch(checkAuth());
-      // store.checkAuth()
+    }
+  }, [checkAuth, dispatch]);
+
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      dispatch(fetchUserProfile())
+      dispatch(checkAuth());
     }
   }, [checkAuth, dispatch]);
 
