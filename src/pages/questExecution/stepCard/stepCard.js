@@ -146,6 +146,17 @@ export const StepContainer = ({
               {activeStep === questionCount ? "Завершить" : "Ответить"}
             </Button>
           )}
+          {current.question_type === "qr" && (
+            <Button
+              size="middle"
+              variant="outlined"
+              sx={{ position: "absolute", bottom: -60, right: 20 }}
+              disabled={!qrCodeAnswer?.length}
+              onClick={handleNext}
+            >
+              {activeStep === questionCount ? "Завершить" : "Ответить"}
+            </Button>
+          )}
         </>
       )}
     </Box>

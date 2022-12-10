@@ -53,15 +53,21 @@ export const QuestExecution = () => {
       );
       setAnswer("");
     }
-  };
-  useEffect(() => {
     if(current.question_type === "qr" && qrCodeAnswer !== null) {
       dispatch(
         getNextQuest({ questId: questId, answer_type: "text", answer: qrCodeAnswer })
       );
       dispatch(addAnswerFromQRCodeReader(null));
     }
-  }, [qrCodeAnswer])
+  };
+  // useEffect(() => {
+  //   if(current.question_type === "qr" && qrCodeAnswer !== null) {
+  //     dispatch(
+  //       getNextQuest({ questId: questId, answer_type: "text", answer: qrCodeAnswer })
+  //     );
+  //     dispatch(addAnswerFromQRCodeReader(null));
+  //   }
+  // }, [qrCodeAnswer])
 
   /**
    * Render
