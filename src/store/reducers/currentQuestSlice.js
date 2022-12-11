@@ -34,6 +34,10 @@ const currentQuestSlice = createSlice({
         step.sort = ind + 1;
         return step;
       })
+    },
+    updateProfileQuest(state, action){
+      state.currentQuest.name = action.payload.name;
+      state.currentQuest.description = action.payload.description;
     }
   },
   extraReducers: {
@@ -63,5 +67,5 @@ const currentQuestSlice = createSlice({
   }
 })
 
-export const {addSteps, addOneStep, editStep, updateTheme, deleteStep} = currentQuestSlice.actions;
+export const {addSteps, addOneStep, editStep, updateTheme, deleteStep, updateProfileQuest} = currentQuestSlice.actions;
 export default currentQuestSlice.reducer;

@@ -15,12 +15,21 @@ const initialState = {
   qrCodeAnswer: null
 }
 
-const questExecutionSlice = createSlice({
+export const questExecutionSlice = createSlice({
   name: 'questExecutionSlice',
   initialState,
   reducers: {
     addAnswerFromQRCodeReader(state, action) {
       state.qrCodeAnswer = action.payload;
+    },
+    clearStateSteps (state) {
+      // state = initialState
+      state.current = {}
+      state.previous = []
+      state.questionCount = ''
+      state.questStatus = null
+      state.isLoading = false
+      state.error = ''
     }
   },
   extraReducers: {
@@ -30,12 +39,19 @@ const questExecutionSlice = createSlice({
     [getInitQuest.fulfilled.type]: (state, action) => {
       state.isLoading = false
       state.error = ''
-      state.current.push(action.payload.data.current)
-      state.questionCount = action.payload.data.question_count
+      // state.current.push(action.payload.data.current)
+      // state.questionCount = action.payload.data.question_count
+      state.questStatus = action.payload.data.quest_status
     },
     [getInitQuest.rejected.type]: (state, action) => {
       state.isLoading = false
       state.error = action.payload
+      if(action.payload.data.previous) {
+        state.previous = [...action.payload.data.previous]
+      }
+      if (action.payload.data.quest_status === "finished") {
+        state.questStatus = action.payload.data.quest_status
+      }
     },
     [getStatusQuest.pending.type]: (state) => {
       state.isLoading = true
