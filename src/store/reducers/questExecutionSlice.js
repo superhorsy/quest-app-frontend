@@ -2,8 +2,6 @@ import {createSlice} from "@reduxjs/toolkit";
 import {getInitQuest, getStatusQuest, getNextQuest} from "../actions/actions";
 
 const initialState = {
-  // quests: [],
-  // totalQuestsCount: 0,
   current: {},       // Текущий шаг квеста
   previous: [],      // Предыдущий шаг квеста
   questionCount: '', // Количество шагов в квесте
@@ -17,7 +15,6 @@ export const questExecutionSlice = createSlice({
   initialState,
   reducers: {
     clearStateSteps (state) {
-      // state = initialState
       state.current = {}
       state.previous = []
       state.questionCount = ''
@@ -33,8 +30,6 @@ export const questExecutionSlice = createSlice({
     [getInitQuest.fulfilled.type]: (state, action) => {
       state.isLoading = false
       state.error = ''
-      // state.current.push(action.payload.data.current)
-      // state.questionCount = action.payload.data.question_count
       state.questStatus = action.payload.data.quest_status
     },
     [getInitQuest.rejected.type]: (state, action) => {
@@ -53,7 +48,6 @@ export const questExecutionSlice = createSlice({
       }
       state.questionCount = action.payload.data.question_count
       state.questStatus = action.payload.data.quest_status
-      // state.test = action.payload
     },
     [getStatusQuest.rejected.type]: (state, action) => {
       state.isLoading = false

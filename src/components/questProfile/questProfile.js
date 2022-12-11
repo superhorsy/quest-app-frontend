@@ -1,22 +1,17 @@
 import React, {useEffect} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux";
-
 import {ThemeSelector} from "../questCreation/themeSelector/themeSelector";
 import {fetchQuest, updateQuest} from "../../store/actions/actions";
-
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import SaveIcon from "@mui/icons-material/Save";
 import styles from "./questProfile.module.scss";
-
 import {DragAndDropList} from "../dragAndDropList/dragAndDropList";
 import {Loader} from "../loader/loader.js";
 import {ModalQuestProfileEditor} from "./modalQuestProfileEditor";
-import {ModalRestorePass} from "../modalResorePass";
 
 export const QuestProfile = () => {
   const currentQuest = useSelector(
@@ -25,7 +20,6 @@ export const QuestProfile = () => {
   const isLoading = useSelector((state) => state.currentQuestReducer.isLoading);
 
   const {questId} = useParams();
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -65,19 +59,8 @@ export const QuestProfile = () => {
               sx={{
                 m: "0 auto",
                 textAlign: "center",
-                //width: {xs: 150, sm: 200},
               }}
             >
-              {/*<Button*/}
-              {/*  //disabled*/}
-              {/*  fullWidth*/}
-              {/*  variant="contained"*/}
-              {/*  size="medium"*/}
-              {/*  sx={{ mb: { xs: 2, sm: 3 } }}*/}
-              {/*  // onClick={() => navigate("/panel/create-quest/")}*/}
-              {/*>*/}
-              {/*  Редактировать*/}
-              {/*</Button>*/}
               <ModalQuestProfileEditor
                 buttonProps={{
                   fullWidth: true,

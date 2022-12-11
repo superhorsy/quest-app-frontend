@@ -1,12 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate, useParams} from "react-router-dom";
-
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
-// import StepContent from "@mui/material/StepContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
@@ -14,8 +12,6 @@ import TextField from "@mui/material/TextField";
 import {getInitQuest, getStatusQuest, getNextQuest} from "../../store/actions/actions";
 // import QRScan from "../../components/qrCodeReader/qrCodeReader";
 // import {Scanner} from "../../components/qrCodeReader/qrTestReader";
-// import {ColorLibStepIcon} from "./questExecutionConfig";
-// import {ColorLibStepIcon} from "./questExecutionConfig";
 
 export const QuestExecution = () => {
   /**

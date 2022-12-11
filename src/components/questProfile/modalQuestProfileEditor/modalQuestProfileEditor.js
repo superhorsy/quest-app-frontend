@@ -1,12 +1,8 @@
 import React, {useState} from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from "@mui/material/TextField";
-
-// Api
-// import {userProfileApi} from "../../api/api";
 import {useDispatch} from "react-redux";
 import {updateProfileQuest} from "../../../store/reducers/currentQuestSlice";
 
@@ -27,44 +23,22 @@ const style = {
 };
 
 export const ModalQuestProfileEditor = ({questData, buttonProps}) => {
-  // console.log("4444444", questdata)
-  // console.log("555555", buttonprops)
-  // console.log("555555", children)
   const [open, setOpen] = React.useState(false);
-  // const [passForm, setPassForm] = useState({
-  //   currentPassword: '',
-  //   newPassword: '',
-  //   confirmPassword: '',
-  // });
   const [questProfileForm, setQuestProfileForm] = useState({
     name: questData.name,
     description: questData.description,
   });
-  const [error, setError] = useState(null);
-  //console.log("!!!!", children)
   const dispatch = useDispatch();
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const isEmptyField = !questProfileForm.name || !questProfileForm.description;
-  //const isPassMatched = passForm.newPassword === passForm.confirmPassword;
 
   const handleSubmitQuestProfileForm = async (event) => {
     event.preventDefault();
     dispatch(updateProfileQuest(questProfileForm));
     handleClose();
   }
-
-  // const handleSubmitEditPassword = async (event) => {
-  //   event.preventDefault();
-  //   try {
-  //     await userProfileApi.changePassword(passForm.newPassword);
-  //     setError(null);
-  //     handleClose();
-  //   } catch (error) {
-  //     setError(error.message);
-  //   }
-  // }
 
   return (
     <div>
@@ -106,7 +80,6 @@ export const ModalQuestProfileEditor = ({questData, buttonProps}) => {
           />
           <TextField
             disabled={false}
-            //error={!isPassMatched && Boolean(passForm.confirmPassword)}
             required
             fullWidth
             sx={{mb: {xs: 3, sm: 4}}}
@@ -127,19 +100,6 @@ export const ModalQuestProfileEditor = ({questData, buttonProps}) => {
           >
             Сохранить
           </Button>
-          {error ?
-            <Typography
-              id="modal-modal-title-error"
-              variant="h6"
-              component="h2"
-              color="error"
-              sx={{fontSize: "inherit"}}
-            >
-              Ошибка обработки запроса: {error}
-            </Typography>
-            :
-            <></>
-          }
         </Box>
       </Modal>
     </div>

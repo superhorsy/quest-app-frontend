@@ -1,11 +1,9 @@
 import React from "react";
 import {useSelector, useDispatch} from "react-redux";
 import {addSteps, deleteStep} from "../../store/reducers/currentQuestSlice";
-
 import Box from "@mui/material/Box";
 import {IconButton} from "@mui/material";
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-
 import TextIcon from "../../assets/images/questions/text-icon.png";
 import QRIcon from "../../assets/images/questions/qr-icon.png";
 import styles from "./dragAndDropList.module.scss";
@@ -27,7 +25,6 @@ export const DragAndDropList = () => {
 
     // remove and save the dragged item content
     let draggedItemContent = _steps.splice(dragItem.current, 1)[0];
-    console.log("draggedItemContent", draggedItemContent);
 
     // switch the position
     _steps.splice(dragOverItem.current, 0, draggedItemContent);
