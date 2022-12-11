@@ -79,6 +79,7 @@ export const questExecutionSlice = createSlice({
       state.error = ''
       state.success = action.payload.data.success
       state.current = action.payload.data.current
+      state.questStatus = action.payload.data.quest_status
       if (action.payload.data.previous) {
         state.previous = [...action.payload.data.previous]
       }
