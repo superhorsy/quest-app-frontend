@@ -21,11 +21,8 @@ import {
 export const QuestExecution = () => {
   const {
     current,
-    previous,
     questionCount,
-    isLoading,
     questStatus,
-    error,
     success,
     qrCodeAnswer,
   } = useSelector((state) => state.questExecutionReducer);
