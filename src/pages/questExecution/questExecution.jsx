@@ -12,6 +12,9 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 
 import {getInitQuest, getStatusQuest, getNextQuest} from "../../store/actions/actions";
+import QRScan from "../../components/qrCodeReader/qrCodeReader";
+import {Scanner} from "../../components/qrCodeReader/qrTestReader";
+// import {ColorLibStepIcon} from "./questExecutionConfig";
 // import {ColorLibStepIcon} from "./questExecutionConfig";
 
 export const QuestExecution = () => {
@@ -21,93 +24,38 @@ export const QuestExecution = () => {
   const {current, previous, questionCount, isLoading, questStatus, error, test} = useSelector(
     (state) => state.questExecutionReducer
   );
-  const [activeStep, setActiveStep] = useState(current?.sort);
-  const [skipped, setSkipped] = React.useState(new Set());
+  const [activeStep, setActiveStep] = useState(0);
   const steps = current?.description ? [current?.description] : [''];
-  const [reqId, setReqId] = useState(1);
   const [answer, setAnswer] = useState('');
-  //   {
-  //     "data": {
-  //         "current": {
-  //             "id": "b26afe64-81e6-4c38-a01a-3cf158e6760a",
-  //             "quest_id": "b3a7a108-0b99-4dbe-b990-b41c6013954b",
-  //             "sort": 3,
-  //             "description": "Шаг 2",
-  //             "question_type": "text",
-  //             "question_content": "Описание шага 2",
-  //             "answer_type": "text"
-  //         },
-  //         "previous": [
-  //             {
-  //                 "id": "9168cdec-452e-4467-912b-62ec795ed3e1",
-  //                 "quest_id": "b3a7a108-0b99-4dbe-b990-b41c6013954b",
-  //                 "sort": 1,
-  //                 "description": "Шаг 1",
-  //                 "question_type": "text",
-  //                 "question_content": "Шаг",
-  //                 "answer_type": "text"
-  //             },
-  //             {
-  //                 "id": "3266a79a-0133-452e-846e-8fe0a4424734",
-  //                 "quest_id": "b3a7a108-0b99-4dbe-b990-b41c6013954b",
-  //                 "sort": 2,
-  //                 "description": "Шаг 3",
-  //                 "question_type": "text",
-  //                 "question_content": "Описание шага 3",
-  //                 "answer_type": "text"
-  //             }
-  //         ],
-  //         "question_count": 4,
-  //         "quest_status": "in_progress"
-  //     }
-  // }
-
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const {questId} = useParams();
 
   /**
    * Lifecycle
    */
 
-  const isStepOptional = (step) => {
-    return step === 1;
-  };
+  // const isStepOptional = (step) => {
+  //   return step === 1;
+  // };
 
   // const isStepSkipped = (step) => {
   //   return skipped.has(step);
   // };
 
-  // console.log("TEST", test)
-  console.log("!CURRENT STEP", current)
-  console.log("!previous", previous)
-  console.log("!questionCount", questionCount)
-  console.log("!questStatus", questStatus)
-
   useEffect(() => {
-    console.log("!&!", questId)
-    console.log("First Effect", questStatus)
     dispatch(getStatusQuest(questId));
-    // console.log('error', e)
-    // if (e.response.status === 500) {
-    //   return questExecutionApi.getStatusQuest(questId);
-    // } else {
-    //   return rejectWithValue(e.message)
-    // }
-
-  }, []);
+  }, [dispatch, questId]);
 
   useEffect(() => {
     if (questStatus === 'not_started') {
       dispatch(getInitQuest(questId));
     }
-  }, [questStatus])
-
-  // useEffect(() => {
-  //   setActiveStep('0')
-  // }, [current])
+    if (current.sort) {
+      setActiveStep(current.sort - 1)
+    }
+  }, [questStatus, current, dispatch, questId])
 
   /**
    * Handlers
@@ -125,9 +73,9 @@ export const QuestExecution = () => {
     // setSkipped(newSkipped);
   };
 
-  const handleBack = () => {
-    //setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
+  // const handleBack = () => {
+  //setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  // };
 
   // const handleSkip = () => {
   //   if (!isStepOptional(activeStep)) {
@@ -144,9 +92,9 @@ export const QuestExecution = () => {
   //   });
   // };
 
-  const handleReset = () => {
-    setActiveStep(0);
-  };
+  // const handleReset = () => {
+  //   setActiveStep(0);
+  // };
 
   // const handleNext = () => {
   //   setActiveStep(1);
@@ -161,39 +109,40 @@ export const QuestExecution = () => {
    * Render
    */
 
-  const renderQuestSteps = () => (
-    <Box sx={{maxWidth: 600}}>
-      <Stepper activeStep={activeStep}>
-        {steps.map((label, index) => {
-          const stepProps = {};
-          const labelProps = {};
-          // if (isStepOptional(index)) {
-          //   labelProps.optional = (
-          //     <Typography variant="caption">Optional</Typography>
-          //   );
-          // }
-          // if (isStepSkipped(index)) {
-          //   stepProps.completed = false;
-          // }
-          stepProps.completed = false
-          return (
-            <Step key={label} {...stepProps}>
-              <StepLabel {...labelProps}>{label}</StepLabel>
-            </Step>
-          );
-        })}
-      </Stepper>
-      {activeStep > current?.questionCount ? (
-        <React.Fragment>
-          <Typography sx={{mt: 2, mb: 1}}>
-            All steps completed - you&apos;re finished
-          </Typography>
-          <Box sx={{display: 'flex', flexDirection: 'row', pt: 2}}>
-            <Box sx={{flex: '1 1 auto'}}/>
-            <Button onClick={handleReset}>Reset</Button>
-          </Box>
-        </React.Fragment>
-      ) : (
+  const renderQuestSteps = () => {
+    return isLoading ? <>Loading...</> : (
+      <Box sx={{maxWidth: 600}}>
+        <Stepper activeStep={activeStep} connector={<></>}>
+          {steps.map((label, index) => {
+            const stepProps = {};
+            const labelProps = {};
+            // if (isStepOptional(index)) {
+            // labelProps.optional = (
+            //   <Typography variant="caption">Optional</Typography>
+            // );
+            // }
+            // if (isStepSkipped(index)) {
+            //   stepProps.completed = false;
+            // }
+            stepProps.completed = false;
+            stepProps.index = activeStep
+            // stepProps.connector = <></>
+            stepProps.sx = {
+              backgroundColor: '#e3e3e3',
+              padding: '7px',
+              borderRadius: '5px'
+            }
+            // stepProps.active = true
+            return (
+              <Step
+                key={label}
+                {...stepProps}
+              >
+                <StepLabel {...labelProps} >{label}</StepLabel>
+              </Step>
+            );
+          })}
+        </Stepper>
         <React.Fragment>
           <Typography sx={{mt: 2, mb: 1}}>{current?.question_content}</Typography>
           <TextField
@@ -208,12 +157,13 @@ export const QuestExecution = () => {
           />
           <Box sx={{display: 'flex', flexDirection: 'row', pt: 2}}>
             <Button
-              color="inherit"
-              disabled={activeStep === 0}
-              onClick={handleBack}
+              // color="inherit"
+              // disabled={activeStep === 0}
+              variant="contained"
+              onClick={() => navigate('/panel/available-quests')}
               sx={{mr: 1}}
             >
-              Назад
+              Вернуться назад
             </Button>
             <Box sx={{flex: '1 1 auto'}}/>
             {/*{isStepOptional(activeStep) && (*/}
@@ -221,24 +171,25 @@ export const QuestExecution = () => {
             {/*    Skip*/}
             {/*  </Button>*/}
             {/*)}*/}
-
-            <Button onClick={handleNext}>
-              {activeStep === questionCount ? 'Завершить' : 'Следующий'}
+            <Button variant="contained" onClick={handleNext}>
+              {activeStep + 1 === questionCount ? 'Завершить' : 'Ответить'}
             </Button>
           </Box>
+          {/*<QRScan />*/}
+          {/*<Scanner />*/}
         </React.Fragment>
-      )}
-    </Box>
-  );
+      </Box>
+    );
+  }
 
   const renderCompleteQuest = () => (
-    <Box sx={{mt: 10}}>
+    <Box sx={{mt: 10, textAlign: 'center'}}>
       <h1>Поздравляем с прохождением квеста!</h1>
       <Button
         fullWidth
         size="large"
         variant="contained"
-        onClick={() => navigate("/panel")}
+        onClick={() => navigate("/panel/available-quests")}
         sx={{mt: 5, mr: 1}}
       >
         Вернуться назад
@@ -250,8 +201,7 @@ export const QuestExecution = () => {
     <div className="page-container">
       <div className="main-container">
         <h1 className="title">Прохождение квеста</h1>
-        {/*{reqId > totalQuestsCount ? renderCompleteQuest() : renderQuestSteps()}*/}
-        {renderQuestSteps()}
+        {questStatus === "finished" ? renderCompleteQuest() : renderQuestSteps()}
       </div>
     </div>
   );

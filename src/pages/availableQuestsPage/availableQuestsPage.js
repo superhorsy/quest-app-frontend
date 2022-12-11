@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchAvailableQuests } from "../../store/actions/actions";
+import React, {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchAvailableQuests} from "../../store/actions/actions";
+import {questExecutionSlice} from "../../store/reducers/questExecutionSlice";
 
 import {
   ListItemText,
@@ -24,16 +25,16 @@ export const AvailableQuestsPage = () => {
   const totalQuests = useSelector((state) => state.questsAvailableReducer.total);
   const loading = useSelector((state) => state.questsAvailableReducer.loading);
   const [page, setPage] = useState(1);
-  const [settings, setSettings] = useState({ limit: perPage, offset: 0 });
+  const [settings, setSettings] = useState({limit: perPage, offset: 0});
   const isVisible = true;
 
+  const {clearStateSteps} = questExecutionSlice.actions;
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!quests.length) {
-      fetchData();
-    }
-  }, [quests]);
+    fetchData();
+    dispatch(clearStateSteps()) // Очистка стейта шагов квеста. Слайсер questExecutionSlice
+  }, []);
 
   function fetchData() {
     dispatch(fetchAvailableQuests(settings));
@@ -51,8 +52,8 @@ export const AvailableQuestsPage = () => {
     <div className="page-container">
       <h1 className="title">Доступные квесты</h1>
       <Container maxWidth="sm">
-        <Grid container spacing={2} sx={{ maxWidth: "600px" }}>
-          {!loading && quests.length > 0 ? (<List sx={{ width: '100%' }}>
+        <Grid container spacing={2} sx={{maxWidth: "600px"}}>
+          {!loading && quests.length > 0 ? (<List sx={{width: '100%'}}>
             {quests.map((quest) => (
               <ListItem
                 key={quest.quest_id}
@@ -70,14 +71,14 @@ export const AvailableQuestsPage = () => {
                   <ListItemSecondaryAction>
                     <CheckCircleOutlineIcon
                       edge="end"
-                      sx={{ color: "#8FBC8F" }}
-                      style={{ display: isVisible ? "true" : "none" }}
+                      sx={{color: "#8FBC8F"}}
+                      style={{display: isVisible ? "true" : "none"}}
                     />
                   </ListItemSecondaryAction>
                 </Grid>
               </ListItem>
             ))}
-          </List>) : <CircularProgress disableShrink sx={{ m: "0 auto", mt: 10 }} />
+          </List>) : <CircularProgress disableShrink sx={{m: "0 auto", mt: 10}}/>
           }
           {!loading && !quests.length && <p>Сожалеем, у вас пока нет доступных квестов!</p>}
           {getPages() >= 2 && (

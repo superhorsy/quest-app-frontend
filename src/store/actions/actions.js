@@ -144,6 +144,7 @@ export const getNextQuest = createAsyncThunk(
       const {data} = await questExecutionApi.getNextQuest(dataAnswer)
       return data
     } catch (e) {
+      console.log('e.message', e.message)
       return rejectWithValue(e.message)
     }
   }

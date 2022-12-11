@@ -65,7 +65,7 @@ export const DragAndDropList = () => {
             onDragEnd={handleSort}
             onDragOver={(e) => e.preventDefault()}
             key={index}
-            button
+            //button
             sx={{
               display: "flex",
               width: 1,
