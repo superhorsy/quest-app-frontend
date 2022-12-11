@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteQuest, fetchCreatedQuests } from "../../store/actions/actions";
 import { useNavigate } from "react-router-dom";
 import { Loader } from "../../components/loader/loader";
+import { sendQuest } from "../../store/actions/actions";
 
 // UI
 import {
@@ -104,11 +105,14 @@ export const UserQuestsPage = () => {
     setIsOpen(false);
   };
 
+
   //send and delete quest
 
   const handleSendQuest = () => {
-    // dispatch(sendQuest(questIdToSend))
     console.log("quest was send", questIdToSend, friendName, email);
+    const data = {questId: questIdToSend, data: {email: email, name: friendName}}
+    dispatch(sendQuest(data));
+    
     setIsOpen(false);
   };
 
@@ -189,7 +193,7 @@ export const UserQuestsPage = () => {
                 questNameToSend={questNameToSend}
                 formValid={formValid}
                 setFormValid={setFormValid}
-                handleAction={handleSendQuest}
+                handleSendQuest={handleSendQuest}
               />
             )}
             {isOpenDialog && (

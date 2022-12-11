@@ -11,7 +11,7 @@ export const SendQuestDialog = ({
   isOpen,
   handleClose,
   questNameToSend,
-  handleAction,
+  handleSendQuest,
   friendName,
   setFriendName,
   email,
@@ -47,7 +47,7 @@ export const SendQuestDialog = ({
       <DialogTitle>Отправить квест: {questNameToSend}</DialogTitle>
       <DialogContent>
         <DialogContentText>
-                    Введите имя и email вашего друга для отправки квеста на почту.
+          Введите имя и email вашего друга для отправки квеста на почту.
         </DialogContentText>
         <TextField
           autoFocus
@@ -73,7 +73,7 @@ export const SendQuestDialog = ({
       </DialogContent>
       <DialogActions>
         <Button onClick={() => handleClose()}>Отмена</Button>
-        <Button onClick={() => handleAction()} disabled={isEmptyField || !formValid} >Отправить</Button>
+        <Button onClick={() => handleSendQuest()} disabled={isEmptyField || !formValid} >Отправить</Button>
       </DialogActions>
     </Dialog>
   );

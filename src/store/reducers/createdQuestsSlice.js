@@ -4,7 +4,8 @@ import {fetchCreatedQuests, createQuest, deleteQuest, sendQuest} from "../action
 const initialState = {
   quests: [],
   isLoading: false,
-  error: ''
+  error: '',
+  sendQuestSuccess: null
 }
 
 const createdQuestsSlice = createSlice({
@@ -61,8 +62,7 @@ const createdQuestsSlice = createSlice({
     [sendQuest.fulfilled.type]: (state, action) => {
       state.isLoading = false
       state.error = ''
-      state.quests = action.payload
-      //уточнить как правильно
+      state.sendQuestSuccess = action.payload.success
     },
     [sendQuest.rejected.type]: (state, action) => {
       state.isLoading = false
