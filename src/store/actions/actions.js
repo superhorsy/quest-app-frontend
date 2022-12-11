@@ -92,7 +92,6 @@ export const fetchUserProfile = createAsyncThunk(
   async (_, {rejectWithValue}) => {
     try {
       const {data} = await userProfileApi.fetchUserProfile();
-      console.log("получение результата по запросу", data.data);
       return data;
     } catch (e) {
       return rejectWithValue(e.message);
@@ -144,7 +143,6 @@ export const getNextQuest = createAsyncThunk(
       const {data} = await questExecutionApi.getNextQuest(dataAnswer)
       return data
     } catch (e) {
-      console.log('e.message', e.message)
       return rejectWithValue(e.message)
     }
   }

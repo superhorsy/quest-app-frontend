@@ -36,9 +36,9 @@ export const Header = () => {
   const { logOut } = authSlice.actions;
 
   const handleLogout = () => {
+    handleCloseUserMenu();
     dispatch(logOut());
     navigate("/signin");
-    handleCloseUserMenu();
   };
 
   const handleToMain = () => {
@@ -50,10 +50,12 @@ export const Header = () => {
   };
 
   const goToProfile = () => {
+    handleCloseUserMenu();
     navigate("/panel/profile");
   };
 
   const goToPanel = () => {
+    handleCloseUserMenu();
     navigate("/panel");
   }
 
