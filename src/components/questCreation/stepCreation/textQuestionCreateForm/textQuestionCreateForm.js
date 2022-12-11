@@ -88,7 +88,7 @@ export const TextQuestionCreateForm = ({stepData, handleClose}) => {
       <TextField
         fullWidth
         id="outlined-basic"
-        label="варианты ответа"
+        label="Варианты правильных ответов"
         variant="outlined"
         helperText="Например: елка,елочка,ёлка,ёлочка"
         sx={{mb: {xs: 3, sm: 7}}}

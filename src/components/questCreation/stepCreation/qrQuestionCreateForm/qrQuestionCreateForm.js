@@ -18,6 +18,7 @@ export const QRQuestionCreateForm = ({stepData, handleClose}) => {
   const [taskName, setTaskName] = useState(stepData?.description ? stepData.description : "");
   const [taskDescription, setTaskDescription] = useState(stepData?.question_content ? stepData.question_content : "");
   const [qrImageUrl, setQrImageUrl] = useState("");
+  const [qrCodeCreated, setQRCodeCreated] = useState(false);
 
   // для qr-code
   const imageSaveName = `qr-code-${taskDescription}.png`;
@@ -29,11 +30,12 @@ export const QRQuestionCreateForm = ({stepData, handleClose}) => {
 
   const navigate = useNavigate();
 
-  const isEmptyField = !taskName || !taskDescription;
+  const isDisabled = !taskName || !taskDescription || !qrCodeCreated;
 
   const handleCreateQRCode = async () => {
     const response = await QRCode.toDataURL(taskDescription);
     setQrImageUrl(response);
+    setQRCodeCreated(true);
   };
 
   const onCreateTaskSubmit = (event) => {
@@ -126,7 +128,7 @@ export const QRQuestionCreateForm = ({stepData, handleClose}) => {
         type="submit"
         variant="contained"
         size="large"
-        disabled={isEmptyField}
+        disabled={isDisabled}
       >
         Сохранить
       </Button>
