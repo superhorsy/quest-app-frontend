@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import { fetchCreatedQuests, createQuest, deleteQuest } from "../actions/actions";
+import {fetchCreatedQuests, createQuest, deleteQuest, sendQuest} from "../actions/actions";
 
 const initialState = {
   quests: [],
@@ -52,6 +52,19 @@ const createdQuestsSlice = createSlice({
       state.quests = state.quests.filter(quest => quest.id !== action.meta.arg)
     },
     [deleteQuest.rejected.type]: (state, action) => {
+      state.isLoading = false
+      state.error = action.payload
+    },
+    [sendQuest.pending.type]: (state, action) => {
+      state.isLoading = true
+    },
+    [sendQuest.fulfilled.type]: (state, action) => {
+      state.isLoading = false
+      state.error = ''
+      state.quests = action.payload
+      //уточнить как правильно
+    },
+    [sendQuest.rejected.type]: (state, action) => {
       state.isLoading = false
       state.error = action.payload
     },

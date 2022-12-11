@@ -75,6 +75,18 @@ export const deleteQuest = createAsyncThunk(
   }
 );
 
+export const sendQuest = createAsyncThunk(
+  "quests/sendQuest",
+  async (questData, {rejectWithValue}) => {
+    try {
+      const {data} = await questsApi.sendQuest(questData.id, questData);
+      return data.data;
+    } catch (e) {
+      return rejectWithValue(e.message);
+    }
+  }
+);
+
 export const updateQuest = createAsyncThunk(
   "quests/updateQuest",
   async (questData, {rejectWithValue}) => {
