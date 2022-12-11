@@ -21,7 +21,7 @@ export const login = createAsyncThunk(
       localStorage.setItem('token', data.jwt);
       return data;
     } catch (e) {
-      return rejectWithValue(e.message)
+      return rejectWithValue(e.response.data.error)
     }
   }
 );
