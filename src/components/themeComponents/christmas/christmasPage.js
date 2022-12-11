@@ -2,7 +2,7 @@ import React from "react";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import { QuestExecution } from "../../../pages/questExecution/questExecution";
+import { QuestExecution } from "../../../pages/questExecution/newStepper/newStepper";
 import { LinksFooter } from "../../linksFooter/linksFooter";
 import { Header } from "../../Header/Header";
 

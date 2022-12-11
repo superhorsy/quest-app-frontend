@@ -15,6 +15,8 @@ import styles from "./questProfile.module.scss";
 
 import { DragAndDropList } from "../dragAndDropList/dragAndDropList";
 import { Loader } from "../loader/loader.js";
+import { ModalQuestProfileEditor } from "./modalQuestProfileEditor";
+import { ModalRestorePass } from "../modalResorePass";
 
 export const QuestProfile = () => {
   const currentQuest = useSelector(
@@ -44,7 +46,7 @@ export const QuestProfile = () => {
   return (
     <>
       {isLoading && <Loader />}
-      {(!isLoading && currentQuest) && (
+      {!isLoading && currentQuest && (
         <>
           <div className={styles.questInfo}>
             <div className={styles.questInfo__item}>
@@ -63,10 +65,10 @@ export const QuestProfile = () => {
               sx={{
                 m: "0 auto",
                 textAlign: "center",
-                width: { xs: 150, sm: 200 },
+                // width: { xs: 150, sm: 200 },
               }}
             >
-              <Button
+              {/* <Button
                 disabled
                 fullWidth
                 variant="text"
@@ -75,7 +77,19 @@ export const QuestProfile = () => {
                 // onClick={() => navigate("/panel/create-quest/")}
               >
                 Редактировать
-              </Button>
+              </Button> */}
+              <ModalQuestProfileEditor
+                buttonProps={{
+                  fullWidth: true,
+                  variant: "contained",
+                  size: "large",
+                  sx: { marginBottom: "20px" },
+                }}
+                questData={{
+                  name: currentQuest.name,
+                  description: currentQuest.description,
+                }}
+              />
             </Box>
           </div>
           <DragAndDropList />

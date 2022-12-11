@@ -26,7 +26,8 @@ import {QRQuestionStep} from "../pages/QRQuestionStep";
 import {DecoratedPage} from "../pages/themes/decoratedPage/decoratedPage";
 
 import {Header} from "./Header/Header";
-import {QuestExecution} from "../pages/questExecution/questExecution";
+// import {QuestExecution} from "../pages/questExecution/questExecution";
+import { QuestExecution } from "../pages/questExecution/newStepper/newStepper.js";
 import {FooterTest} from "./footer/footerTest";
 import {ErrorWindow} from "./ErrorWindow/ErrorWindow";
 
@@ -77,11 +78,10 @@ export const routes = createBrowserRouter(
             }}/>
           </Route>
         </Route>
-        <Route path="questExecution" element={<QuestExecution/>}/>
-        <Route path="*" element={<h1>Ошибка 404</h1>}
-          handle={{crumb: () => ({name: "Ошибка 404", href: "*"})}}/>
+        <Route path="/questExecution/:questId" element={<QuestExecution />} />
+        <Route path="*" element={<h1>Ошибка 404</h1>} handle={{ crumb: () => ({ name: "Ошибка 404", href: "*" }) }} />
       </Route>
-      <Route path="/questExecution_decorated" element={<DecoratedPage/>}/>
+      <Route path="/questExecution_decorated/:questId" element={<DecoratedPage />} />
     </>
   )
 );
