@@ -21,11 +21,8 @@ import {
 export const QuestExecution = () => {
   const {
     current,
-    previous,
     questionCount,
-    isLoading,
     questStatus,
-    error,
     success,
     qrCodeAnswer,
   } = useSelector((state) => state.questExecutionReducer);
@@ -93,7 +90,7 @@ export const QuestExecution = () => {
     <Box sx={{ maxWidth: 600 }}>
       <Box sx={{ maxWidth: 600, minHeight: "55vh", position: "relative" }}>
         <>
-          <Box component="div" sx={{ display: "flex", width: 1, p: 2 }}>
+          <Box component="div" sx={{ display: "flex", width: 1, p: 2, boxSizing: "border-box"}}>
             <Box
               component="div"
               sx={{
@@ -208,7 +205,7 @@ export const QuestExecution = () => {
           {current.question_type !== "qr" && (
             <Button
               size="middle"
-              variant="outlined"
+              variant="contained"
               sx={{ position: "absolute", bottom: 0, right: 20 }}
               disabled={!answer.length}
               onClick={handleNext}
@@ -219,8 +216,8 @@ export const QuestExecution = () => {
           {current.question_type === "qr" && (
             <Button
               size="middle"
-              variant="outlined"
-              sx={{ position: "absolute", bottom: -60, right: 20 }}
+              variant="contained"
+              sx={{ position: "absolute", bottom: 0, right: 20 }}
               disabled={!qrCodeAnswer?.length}
               onClick={handleNext}
             >

@@ -34,6 +34,7 @@ class QRScan extends Component {
       <div className={styles.qrBox}>
         {this.state.result == null && (
           <QrReader
+            facingMode="rear"
             className={styles.qrBox__box}
             delay={this.state.delay}
             style={previewStyle}
