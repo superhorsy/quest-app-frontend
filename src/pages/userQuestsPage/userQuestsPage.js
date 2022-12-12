@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteQuest, fetchCreatedQuests } from "../../store/actions/actions";
 import { useNavigate } from "react-router-dom";
+
+import { useDispatch, useSelector } from "react-redux";
+import { deleteQuest, fetchCreatedQuests, sendQuest } from "../../store/actions/actions";
+
 import { Loader } from "../../components/loader/loader";
-import { sendQuest } from "../../store/actions/actions";
+import { SendQuestDialog } from "../../components/modalSendQuest"
+import { DeleteQuestDialog } from "../../components/modalDeleteQuest";
 
 // UI
 import {
@@ -17,41 +20,8 @@ import {
 } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
 import DeleteIcon from "@mui/icons-material/Delete";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogActions from "@mui/material/DialogActions";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
 
 import style from "./userQuestsPage.module.scss";
-
-import { SendQuestDialog } from "../../components/modalSendQuest"
-
-
-const DeleteQuestDialog = ({
-  isOpenDialog,
-  handleClose,
-  questNameToDelete,
-  handleAction,
-}) => {
-  return (
-    <Dialog open={isOpenDialog} onClose={() => handleClose()}>
-      <DialogTitle>
-        Вы уверены, что хотите удалить квест {questNameToDelete}
-      </DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-          Это действие приведет к безвозвратному удалению квеста
-        </DialogContentText>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={() => handleClose()}>Отмена</Button>
-        <Button onClick={() => handleAction()}>Удалить</Button>
-      </DialogActions>
-    </Dialog>
-  );
-};
 
 export const UserQuestsPage = () => {
   const dispatch = useDispatch();
@@ -76,9 +46,6 @@ export const UserQuestsPage = () => {
   const [formValid, setFormValid] = useState(false)
   const [questIdToDelete, setQuestIdToDelete] = useState("");
   const [questNameToDelete, setQuestNameToDelete] = useState("");
-
-
-  // reusable modal
 
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenDialog, setIsOpenDialog] = useState(false);
@@ -105,14 +72,9 @@ export const UserQuestsPage = () => {
     setIsOpen(false);
   };
 
-
-  //send and delete quest
-
   const handleSendQuest = () => {
-    console.log("quest was send", questIdToSend, friendName, email);
     const data = {questId: questIdToSend, data: {email: email, name: friendName}}
     dispatch(sendQuest(data));
-    
     setIsOpen(false);
   };
 

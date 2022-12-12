@@ -13,7 +13,7 @@ export const DeleteQuestDialog = ({
   handleAction,
 }) => {
   return (
-    <Dialog isOpenDialog={isOpenDialog} onClose={handleClose()}>
+    <Dialog open={isOpenDialog} onClose={() => handleClose()}>
       <DialogTitle>
                 Вы уверены, что хотите удалить квест {questNameToDelete}
       </DialogTitle>
