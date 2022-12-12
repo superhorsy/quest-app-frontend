@@ -86,7 +86,7 @@ export const questsApi = {
   },
 
   sendQuest: (questId, data) => {
-    return instance.post(`${QUESTS}/${questId}`, data);
+    return instance.post(`${QUESTS}/${questId}/send`, data);
   },
 
   fetchAvailableQuests: (avQData) => {
