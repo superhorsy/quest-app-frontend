@@ -1,12 +1,19 @@
-import React, {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import {useDispatch, useSelector} from "react-redux";
-import {deleteQuest, fetchCreatedQuests, sendQuest} from "../../store/actions/actions";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  deleteQuest,
+  fetchCreatedQuests,
+  sendQuest,
+} from "../../store/actions/actions";
 
-import {Loader} from "../../components/loader/loader";
-import {SendQuestDialog} from "../../components/modalSendQuest"
-import {DeleteQuestDialog} from "../../components/modalDeleteQuest";
+import { updateRecipientsInfo } from "../../store/reducers/createdQuestsSlice";
+
+import { Loader } from "../../components/loader/loader";
+import { SendQuestDialog } from "../../components/modalSendQuest";
+import { DeleteQuestDialog } from "../../components/modalDeleteQuest";
+import { SuccessWindow } from "../../components/sendQuestSuccessWindow/sendQuestSuccessWindow";
 
 // UI
 import {
@@ -18,13 +25,13 @@ import {
   ListItemText,
   Pagination,
 } from "@mui/material";
-import Tooltip from '@mui/material/Tooltip';
-import Box from '@mui/material/Box';
-import EmailIcon from "@mui/icons-material/Email";
-import DeleteIcon from "@mui/icons-material/Delete";
-import MarkEmailReadOutlinedIcon from '@mui/icons-material/MarkEmailReadOutlined';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import Typography from '@mui/material/Typography';
+import Tooltip from "@mui/material/Tooltip";
+import Box from "@mui/material/Box";
+import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import MarkEmailReadOutlinedIcon from "@mui/icons-material/MarkEmailReadOutlined";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import Badge from "@mui/material/Badge";
 
 import style from "./userQuestsPage.module.scss";
 
@@ -35,7 +42,6 @@ export const UserQuestsPage = () => {
   const isLoading = useSelector(
     (state) => state.createdQuestsReducer.isLoading
   );
-  const recipients = quests.recipients;
 
   //pagination
   // const perPage = 10;
@@ -61,7 +67,7 @@ export const UserQuestsPage = () => {
   const [emailError, setEmailError] = useState("");
   const [questIdToSend, setQuestIdToSend] = useState("");
   const [questNameToSend, setQuestNameToSend] = useState("");
-  const [formValid, setFormValid] = useState(false)
+  const [formValid, setFormValid] = useState(false);
   const [questIdToDelete, setQuestIdToDelete] = useState("");
   const [questNameToDelete, setQuestNameToDelete] = useState("");
 
@@ -85,14 +91,18 @@ export const UserQuestsPage = () => {
   };
 
   const handleClose = () => {
-    setFriendName("")
-    setEmail("")
+    setFriendName("");
+    setEmail("");
     setIsOpen(false);
   };
 
   const handleSendQuest = () => {
-    const data = {questId: questIdToSend, data: {email: email, name: friendName}}
+    const data = {
+      questId: questIdToSend,
+      data: { email: email, name: friendName },
+    };
     dispatch(sendQuest(data));
+    dispatch(updateRecipientsInfo(data));
     setIsOpen(false);
   };
 
@@ -101,82 +111,113 @@ export const UserQuestsPage = () => {
     setIsOpenDialog(false);
   };
 
-
   return (
     <div className="page-container">
+      <SuccessWindow />
       <div className="main-container">
         <h1 className="title">Мои квесты</h1>
-        {isLoading && <Loader/>}
+        {isLoading && <Loader />}
         {!isLoading && quests === null && (
-          <Box sx={{width: 1, textAlign: "center", fontSize: {xs: 15, sm: 20}}}>У вас нет созданных
-                        квестов</Box>
+          <Box
+            sx={{ width: 1, textAlign: "center", fontSize: { xs: 15, sm: 20 } }}
+          >
+            У вас нет созданных квестов
+          </Box>
         )}
         {!isLoading && isQuestsExist && (
           <>
-            <Grid container spacing={2} sx={{maxWidth: "600px"}}>
-              <List sx={{width: "100%"}}>
+            <Grid container spacing={2} sx={{ maxWidth: "600px" }}>
+              <List sx={{ width: "100%" }}>
                 {quests &&
-                                    quests.map((quest, idx) => (
-                                      <ListItem
-                                        key={idx}
-                                        button
-                                        className={style.listItem}
-                                        sx={{borderBottom: "1px solid lightgray"}}
-                                      >
-                                        <Grid item xs={9}>
-                                          <ListItemText
-                                            onClick={() =>
-                                              navigate(`/panel/quest-profile/${quest.id}`)
-                                            }
-                                          >
-                                            {quest.name}
-                                          </ListItemText>
-                                        </Grid>
-                                        <Grid item xs={2}>
-                                          <ListItemSecondaryAction>
-                                            {quest.recipients !== null && <Tooltip
-                                              placement="top"
-                                              title=<Box sx={{display: "flex", flexDirection: "column"}}>
-                                                <em>Отправлено на email:</em>
-                                                {quest.recipients.map((item, idx) => (<em key={idx}>{item.email}</em>))}
-                                              </Box>
-                                              <IconButton
-                                                edge="start"
-                                                sx={{color: "#F08080"}}
-                                              >
-                                                <InfoOutlinedIcon/>
-                                              </IconButton>
-                                            </Tooltip>}
-                                            {quest.recipients === null && <IconButton
-                                              aria-label="send"
-                                              sx={{color: "#8FBC8F"}}
-                                              onClick={() => handleOpen(quest.id, quest.name)}
-                                            >
-                                              <EmailIcon/>
-                                            </IconButton>}
-                                            {quest.recipients === null && <IconButton
-                                              onClick={() =>
-                                                handleDialogOpen(quest.id, quest.name)
-                                              }
-                                              edge="end"
-                                              aria-label="delete"
-                                              sx={{color: "#F08080"}}
-                                            >
-                                              <DeleteIcon/>
-                                            </IconButton>}
-                                            {quest.recipients !== null &&
-                                                        <Tooltip title="Отправлен" placement="top"><IconButton
-                                                          edge="end"
-                                                          sx={{color: "#F08080"}}
-                                                          onClick={() => handleOpen(quest.id, quest.name)}
-                                                        >
-                                                          <MarkEmailReadOutlinedIcon/>
-                                                        </IconButton>
-                                                        </Tooltip>}
-                                          </ListItemSecondaryAction>
-                                        </Grid>
-                                      </ListItem>
-                                    ))}
+                  quests.map((quest, idx) => (
+                    <ListItem
+                      key={idx}
+                      button
+                      className={style.listItem}
+                      sx={{ borderBottom: "1px solid lightgray" }}
+                    >
+                      <Grid item xs={9}>
+                        <ListItemText
+                          onClick={() =>
+                            navigate(`/panel/quest-profile/${quest.id}`)
+                          }
+                        >
+                          {quest.name}
+                        </ListItemText>
+                      </Grid>
+                      <Grid item xs={2}>
+                        <ListItemSecondaryAction>
+                          {quest.recipients !== null && (
+                            <>
+                              <Tooltip
+                                placement="left"
+                                title={
+                                  <Box
+                                    sx={{
+                                      display: "flex",
+                                      flexDirection: "column",
+                                      textAlign: "center",
+                                    }}
+                                  >
+                                    <em>Отправлено на email:</em>
+                                    {quest.recipients.map((item, idx) => {
+                                      return <em key={idx}>{item.email}</em>;
+                                    })}
+                                  </Box>
+                                }
+                              >
+                                <IconButton
+                                  edge="start"
+                                  sx={{ color: "#bdbdbd" }}
+                                >
+                                  <InfoOutlinedIcon />
+                                </IconButton>
+                              </Tooltip>
+                            </>
+                          )}
+                          {quest.recipients === null && (
+                            <Tooltip title="Можно отправить на разные email" placement="top-end">
+                              <IconButton
+                                aria-label="send"
+                                sx={{ color: "#8FBC8F" }}
+                                onClick={() => handleOpen(quest.id, quest.name)}
+                              >
+                                <EmailOutlinedIcon />
+                              </IconButton>
+                            </Tooltip>
+                          )}
+                          {quest.recipients === null && (
+                            <IconButton
+                              onClick={() =>
+                                handleDialogOpen(quest.id, quest.name)
+                              }
+                              edge="end"
+                              aria-label="delete"
+                              sx={{ color: "#F08080" }}
+                            >
+                              <DeleteOutlineOutlinedIcon />
+                            </IconButton>
+                          )}
+                          {quest.recipients !== null && (
+                            <Tooltip title="Можно снова отправить" placement="top">
+                              <IconButton
+                                edge="end"
+                                sx={{ color: "#4E7AD2" }}
+                                onClick={() => handleOpen(quest.id, quest.name)}
+                              >
+                                <Badge
+                                  badgeContent={quest.recipients.length}
+                                  color="info"
+                                >
+                                  <MarkEmailReadOutlinedIcon />
+                                </Badge>
+                              </IconButton>
+                            </Tooltip>
+                          )}
+                        </ListItemSecondaryAction>
+                      </Grid>
+                    </ListItem>
+                  ))}
               </List>
               {/*{getPages() >= 2 && (*/}
               {/*  <Grid item xs={12}>*/}
