@@ -49,7 +49,8 @@ const birthdayTheme = createTheme({
 export const BirthdayPage = () => {
   return (
     <ThemeProvider theme={birthdayTheme}>
-      <><Header/>
+      <>
+        <Header />
         <div className={styles.decoratedPage}>
           <img
             className={styles.decoratedPage__stikerTopLeftRotaded}

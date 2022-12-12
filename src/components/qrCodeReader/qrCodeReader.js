@@ -27,14 +27,13 @@ class QRScan extends Component {
 
   render() {
     const previewStyle = {
-      height: 150,
-      width: 150,
+      height: "auto",
+      width: "80%",
     };
     return (
       <div className={styles.qrBox}>
         {this.state.result == null && (
           <QrReader
-            facingMode="rear"
             className={styles.qrBox__box}
             delay={this.state.delay}
             style={previewStyle}

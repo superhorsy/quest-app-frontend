@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {v4} from 'uuid';
@@ -68,7 +68,7 @@ export const TextQuestionCreateForm = ({stepData, handleClose}) => {
         id="outlined-basic"
         label="Название задания"
         variant="outlined"
-        helperText="Например: Отгадайте загадку"
+        helperText="Например: Отгадайте загадку (не более 255 символов)"
         sx={{mb: {xs: 3, sm: 7}}}
         value={taskName}
         onChange={(e) => setTaskName(e.target.value)}
@@ -78,7 +78,7 @@ export const TextQuestionCreateForm = ({stepData, handleClose}) => {
         id="outlined-basic"
         label="Описание задания"
         variant="outlined"
-        helperText="Например: Зимой и летом одним цветом"
+        helperText="Например: Зимой и летом одним цветом (не более 255 символов)"
         multiline
         rows={4}
         sx={{mb: {xs: 3, sm: 7}}}

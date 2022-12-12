@@ -49,7 +49,7 @@ export const CreateQuestForm = () => {
         id="outlined-basic"
         label="Название квеста"
         variant="outlined"
-        helperText="Название квеста будете видеть только Вы"
+        helperText="Название квеста будет видно в списке квестов"
         sx={{ mb: { xs: 3, sm: 7 } }}
         value={questName}
         onChange={(e) => setQuestName(e.target.value)}
@@ -60,6 +60,7 @@ export const CreateQuestForm = () => {
         id="outlined-basic"
         label="Описание квеста"
         variant="outlined"
+        helperText="Описание квеста адресат увидит перед прохождением квеста"
         multiline
         rows={4}
         sx={{ mb: { xs: 3, sm: 7 } }}

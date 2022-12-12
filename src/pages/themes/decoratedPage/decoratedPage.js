@@ -6,17 +6,19 @@ import { ValentainPage } from "../../../components/themeComponents/valentain/val
 import { CommonThemePage } from "../../../components/themeComponents/common/commonThemePage";
 import { ChristmasPage } from "../../../components/themeComponents/christmas/christmasPage";
 
+import Box from "@mui/material/Box";
+
 
 export const DecoratedPage = () => {
   const theme = "christmas";
 
   return (
-    <>
+    <Box sx={{mt: 0}}>
       {theme === "christmas" && <ChristmasPage />}
       {theme === "birthday" && <BirthdayPage />}
       {theme === "valentain" && <ValentainPage />}
       {theme === "halloween" && <HalloweenPage />}
       {theme === "common" && <CommonThemePage />}
-    </>
+    </Box>
   );
 };
