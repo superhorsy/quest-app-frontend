@@ -18,6 +18,7 @@ import {
   ListItemText,
   // Pagination,
 } from "@mui/material";
+import Box from '@mui/material/Box';
 import EmailIcon from "@mui/icons-material/Email";
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -89,7 +90,7 @@ export const UserQuestsPage = () => {
         <h1 className="title">Мои квесты</h1>
         {isLoading && <Loader/>}
         {!isLoading && quests === null && (
-          <div>У вас нет созданных квестов</div>
+          <Box sx={{width: 1, textAlign: "center", fontSize: {xs: 15, sm: 20}}}>У вас нет созданных квестов</Box>
         )}
         {!isLoading && isQuestsExist && (
           <>
