@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteQuest, fetchCreatedQuests } from "../../store/actions/actions";
 import { useNavigate } from "react-router-dom";
 
+import { useDispatch, useSelector } from "react-redux";
+import { deleteQuest, fetchCreatedQuests, sendQuest } from "../../store/actions/actions";
+
+import { Loader } from "../../components/loader/loader";
+import { SendQuestDialog } from "../../components/modalSendQuest"
+import { DeleteQuestDialog } from "../../components/modalDeleteQuest";
+
+// UI
 import {
   Grid,
   IconButton,
@@ -15,86 +21,7 @@ import {
 import EmailIcon from "@mui/icons-material/Email";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import TextField from "@mui/material/TextField";
-import DialogActions from "@mui/material/DialogActions";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-
 import style from "./userQuestsPage.module.scss";
-import CircularProgress from "@mui/material/CircularProgress";
-
-const SendQuestDialog = ({
-  isOpen,
-  handleClose,
-  questNameToSend,
-  handleAction,
-  friendName,
-  setFriendName,
-  email,
-  setEmail,
-}) => {
-  return (
-    <Dialog open={isOpen} onClose={handleClose}>
-      <DialogTitle>Отправить квест: {questNameToSend}</DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-          Введите имя и email вашего друга для отправки квеста на почту.
-        </DialogContentText>
-        <TextField
-          autoFocus
-          margin="dense"
-          id="name"
-          label="Имя друга"
-          fullWidth
-          variant="standard"
-          value={friendName}
-          onChange={(e) => setFriendName(e.target.value)}
-        />
-        <TextField
-          margin="dense"
-          id="name"
-          label="Адрес почты"
-          type="email"
-          fullWidth
-          variant="standard"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={() => handleClose()}>Отмена</Button>
-        <Button onClick={() => handleAction()}>Отправить</Button>
-      </DialogActions>
-    </Dialog>
-  );
-};
-
-const DeleteQuestDialog = ({
-  isOpenDialog,
-  handleClose,
-  questNameToDelete,
-  handleAction,
-}) => {
-  return (
-    <Dialog open={() => isOpenDialog} onClose={() => handleClose()}>
-      <DialogTitle>
-        Вы уверены, что хотите удалить квест {questNameToDelete}
-      </DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-          Это действие приведет к безвозвратному удалению квеста
-        </DialogContentText>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={() => handleClose()}>Отмена</Button>
-        <Button onClick={() => handleAction()}>Удалить</Button>
-      </DialogActions>
-    </Dialog>
-  );
-};
 
 export const UserQuestsPage = () => {
   const dispatch = useDispatch();
@@ -113,12 +40,12 @@ export const UserQuestsPage = () => {
   // модальные окна
   const [email, setEmail] = useState("");
   const [friendName, setFriendName] = useState("");
+  const [emailError, setEmailError] = useState("");
   const [questIdToSend, setQuestIdToSend] = useState("");
   const [questNameToSend, setQuestNameToSend] = useState("");
+  const [formValid, setFormValid] = useState(false)
   const [questIdToDelete, setQuestIdToDelete] = useState("");
   const [questNameToDelete, setQuestNameToDelete] = useState("");
-
-  // reusable modal
 
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenDialog, setIsOpenDialog] = useState(false);
@@ -133,18 +60,21 @@ export const UserQuestsPage = () => {
     setIsOpenDialog(false);
   };
 
-  const handleOpen = (questId, questName, ) => {
+  const handleOpen = (questId, questName ) => {
     setQuestNameToSend(questName);
     setQuestIdToSend(questId);
     setIsOpen(true);
   };
 
   const handleClose = () => {
+    setFriendName("")
+    setEmail("")
     setIsOpen(false);
   };
 
   const handleSendQuest = () => {
-    console.log("quest was send", questIdToSend, friendName, email);
+    const data = {questId: questIdToSend, data: {email: email, name: friendName}}
+    dispatch(sendQuest(data));
     setIsOpen(false);
   };
 
@@ -157,9 +87,7 @@ export const UserQuestsPage = () => {
     <div className="page-container">
       <div className="main-container">
         <h1 className="title">Мои квесты</h1>
-        {isLoading && (
-          <CircularProgress disableShrink sx={{ m: "0 auto", mt: 10 }} />
-        )}
+        {isLoading && <Loader/>}
         {!isLoading && quests === null && (
           <div>У вас нет созданных квестов</div>
         )}
@@ -222,8 +150,12 @@ export const UserQuestsPage = () => {
                 setEmail={setEmail}
                 friendName={friendName}
                 setFriendName={setFriendName}
+                emailError={emailError}
+                setEmailError={setEmailError}
                 questNameToSend={questNameToSend}
-                handleAction={handleSendQuest}
+                formValid={formValid}
+                setFormValid={setFormValid}
+                handleSendQuest={handleSendQuest}
               />
             )}
             {isOpenDialog && (
