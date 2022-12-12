@@ -5,7 +5,8 @@ const initialState = {
   quests: [],
   isLoading: false,
   error: '',
-  sendQuestSuccess: null
+  sendQuestSuccess: null,
+  total: 0,
 }
 
 const createdQuestsSlice = createSlice({
@@ -20,6 +21,7 @@ const createdQuestsSlice = createSlice({
     [fetchCreatedQuests.fulfilled.type]: (state, action) => {
       state.isLoading = false
       state.error = ''
+      // state.total = action.payload.meta.total_count ? action.payload.meta.total_count : 0;
       state.quests = action.payload
     },
     [fetchCreatedQuests.rejected.type]: (state, action) => {
