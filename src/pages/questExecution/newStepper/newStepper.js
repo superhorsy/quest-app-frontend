@@ -12,23 +12,19 @@ import { QRStep } from "../questionsContent/qrStep/qrStep";
 
 import Box from "@mui/material/Box";
 
+import styles from "./newStepper.module.scss";
+
 import {
   getInitQuest,
   getStatusQuest,
   getNextQuest,
 } from "../../../store/actions/actions";
 
+
+
 export const QuestExecution = () => {
-  const {
-    current,
-    previous,
-    questionCount,
-    isLoading,
-    questStatus,
-    error,
-    success,
-    qrCodeAnswer,
-  } = useSelector((state) => state.questExecutionReducer);
+  const { current, questionCount, questStatus, success, qrCodeAnswer } =
+    useSelector((state) => state.questExecutionReducer);
 
   const [answer, setAnswer] = useState("");
 
@@ -90,10 +86,31 @@ export const QuestExecution = () => {
   );
 
   const renderQuestSteps = () => (
-    <Box sx={{ maxWidth: 600 }}>
-      <Box sx={{ maxWidth: 600, minHeight: "55vh", position: "relative" }}>
-        <>
-          <Box component="div" sx={{ display: "flex", width: 1, p: 2 }}>
+    <Box
+      sx={{
+        maxWidth: 600,
+        // minHeight: "55vh",
+        position: "relative",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        alignItems: "center",
+      }}
+    >
+      <>
+        <Box
+          component="div"
+          sx={{ display: "flex", width: 1, p: 2, boxSizing: "border-box" }}
+        >
+          <Box
+            className="superBox"
+            sx={{
+              display: "block",
+              mr: 2,
+              width: { xs: 20, sm: 25 },
+              height: { xs: 20, sm: 25 },
+            }}
+          >
             <Box
               component="div"
               sx={{
@@ -104,7 +121,6 @@ export const QuestExecution = () => {
                 backgroundColor: "primary.main",
                 width: { xs: 20, sm: 25 },
                 height: { xs: 20, sm: 25 },
-                mr: 2,
                 textAlign: "center",
                 position: "relative",
                 color: "primary.contrastText",
@@ -123,35 +139,43 @@ export const QuestExecution = () => {
                 {current?.sort}
               </Box>
             </Box>
-            <Typography sx={{ fontWeight: 700, fontSize: { xs: 12, sm: 14 } }}>
-              {current?.description}
-            </Typography>
           </Box>
-          <Box
-            component="div"
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: 1,
-              minHeight: "45vh",
-              overflowX: "hidden",
-            }}
-          >
-            <Box component="div">
-              {current.question_type === "text" && (
-                <Typography sx={{ mt: 2, mb: 1, textAlign: "center" }}>
-                  {current?.question_content}
-                </Typography>
-              )}
-            </Box>
-            <Box component="div">
-              {current.question_type === "qr" && (
-                <QRStep qrCodeAnswer={qrCodeAnswer} />
-              )}
-            </Box>
-          </Box>
+          <Typography sx={{ fontWeight: 700, fontSize: { xs: 12, sm: 14 } }}>
+            {current?.description}
+          </Typography>
+        </Box>
 
+        <Box
+          component="div"
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: 1,
+            minHeight: "30vh",
+            padding: "0 15px",
+            boxSizing: "border-box",
+            overflowX: "hidden",
+          }}
+        >
+          <Box component="div">
+            {current.question_type === "text" && (
+              <Typography sx={{ textAlign: "center" }}>
+                {current?.question_content}
+              </Typography>
+            )}
+          </Box>
+          <Box component="div">
+            {current.question_type === "qr" && (
+              <QRStep qrCodeAnswer={qrCodeAnswer} />
+            )}
+          </Box>
+        </Box>
+        <Box
+          className="AnswerBlock"
+          component="div"
+          sx={{ position: "relative", height: "10vh", width: "100%" }}
+        >
           {current.question_type !== "qr" && (
             <Input
               required
@@ -200,7 +224,8 @@ export const QuestExecution = () => {
                 bottom: 50,
               }}
             >
-              Вы ответили неправильно,<br/> поробуйте еще раз
+              Вы ответили неправильно,
+              <br /> поробуйте еще раз
             </Typography>
           )}
           {/* кнопки ответить или назад */}
@@ -208,7 +233,7 @@ export const QuestExecution = () => {
           {current.question_type !== "qr" && (
             <Button
               size="middle"
-              variant="outlined"
+              variant="contained"
               sx={{ position: "absolute", bottom: 0, right: 20 }}
               disabled={!answer.length}
               onClick={handleNext}
@@ -219,8 +244,8 @@ export const QuestExecution = () => {
           {current.question_type === "qr" && (
             <Button
               size="middle"
-              variant="outlined"
-              sx={{ position: "absolute", bottom: -60, right: 20 }}
+              variant="contained"
+              sx={{ position: "absolute", bottom: 0, right: 20 }}
               disabled={!qrCodeAnswer?.length}
               onClick={handleNext}
             >
@@ -235,16 +260,18 @@ export const QuestExecution = () => {
           >
             Вернуться назад
           </Button>
-        </>
-      </Box>
+        </Box>
+      </>
     </Box>
   );
 
   return (
     <div className="page-container">
       <div className="main-container">
-        <h1 className="title">Прохождение квеста</h1>
-        {(questStatus === "finished") ? renderCompleteQuest() : renderQuestSteps()}
+        <h1 className={styles.title}>Прохождение квеста</h1>
+        {questStatus === "finished"
+          ? renderCompleteQuest()
+          : renderQuestSteps()}
       </div>
     </div>
   );

@@ -14,8 +14,11 @@ export const apiQuests = {
   CHANGE_PASSWORD: 'profile/change-password'
 }
 
-export const colors = {
-  primary: '#1976d2',
-  success: '#388e3c',
-  danger: '#d32f2f',
-}
+// export const colors = {
+//   primary: '#1976d2',
+//   success: '#388e3c',
+//   danger: '#d32f2f',
+// }
+
+export const String255 =
+  "В этой строке 255 символов. Она нужна для того чтобы, определить максимальное количество допустимых символов в тексте вопроса и его описания. Возможно это будет очень длинное описание, поэтому я делаю эту строку для проверки! Еще несколько символов для к.";

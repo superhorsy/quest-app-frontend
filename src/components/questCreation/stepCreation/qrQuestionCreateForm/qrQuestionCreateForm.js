@@ -79,7 +79,7 @@ export const QRQuestionCreateForm = ({stepData, handleClose}) => {
         id="outlined-basic"
         label="Название задания"
         variant="outlined"
-        helperText="Например: отсканируйте QR-код"
+        helperText="Например: отсканируйте QR-код (не более 255 символов)"
         sx={{ mb: { xs: 3, sm: 7 } }}
         value={taskName}
         onChange={(e) => setTaskName(e.target.value)}
@@ -89,7 +89,7 @@ export const QRQuestionCreateForm = ({stepData, handleClose}) => {
         id="outlined-basic"
         label="Введите строку для генерации QR-кода"
         variant="outlined"
-        helperText="Например: Ты такой хороший человек, спасибо , что отсканировал этот код"
+        helperText="Например: Ты такой хороший человек, спасибо , что отсканировал этот код (не более 255 символов)"
         multiline
         rows={4}
         sx={{ mb: { xs: 3, sm: 6 } }}

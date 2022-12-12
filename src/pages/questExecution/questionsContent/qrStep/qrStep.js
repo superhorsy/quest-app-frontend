@@ -15,8 +15,8 @@ export const QRStep = ({ qrCodeAnswer }) => {
   }, []);
   return (
     <>
-      {qrCodeAnswer && <Typography variant="h6" sx={{textAlign: "center"}}>{qrCodeAnswer}</Typography>}
-      {!toggleScanQR && !qrCodeAnswer && <QRScan success={success} />}
+      {qrCodeAnswer && <Typography sx={{textAlign: "center", fontSize: "14px"}}>{qrCodeAnswer}</Typography>}
+      {!toggleScanQR && !qrCodeAnswer && <QRScan success={success}/>}
       {toggleScanQR && (
         <Button onClick={() => setToggleScanQR(false)}>
           Отсканировать QR-код

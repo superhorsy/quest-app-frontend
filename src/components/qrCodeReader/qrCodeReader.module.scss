@@ -1,9 +1,16 @@
 .qrBox {
   width: 100%;
+  @media(max-width: 600px) {
+    margin: 0 auto;
+    width: 95%;
+  }
   &__box {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    width: 150px;
+    // width: 350px;
+    @media(max-width: 600px) {
+      width: 100%;
+    }
   }
 }

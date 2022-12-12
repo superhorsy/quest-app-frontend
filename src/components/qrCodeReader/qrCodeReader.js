@@ -27,8 +27,8 @@ class QRScan extends Component {
 
   render() {
     const previewStyle = {
-      height: 150,
-      width: 150,
+      height: "auto",
+      width: "80%",
     };
     return (
       <div className={styles.qrBox}>
