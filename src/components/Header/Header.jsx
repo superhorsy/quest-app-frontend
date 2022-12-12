@@ -50,10 +50,12 @@ export const Header = () => {
   };
 
   const goToProfile = () => {
+    handleCloseUserMenu();
     navigate("/panel/profile");
   };
 
   const goToPanel = () => {
+    handleCloseUserMenu();
     navigate("/panel");
   }
 
