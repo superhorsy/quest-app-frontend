@@ -12,7 +12,8 @@ const initialState = {
   error: '',
   success: true,
   test: [],
-  qrCodeAnswer: null
+  qrCodeAnswer: null,
+  questTheme: null
 }
 
 export const questExecutionSlice = createSlice({
@@ -30,6 +31,7 @@ export const questExecutionSlice = createSlice({
       state.questStatus = null
       state.isLoading = false
       state.error = ''
+      state.questTheme = null
     }
   },
   extraReducers: {
@@ -42,6 +44,7 @@ export const questExecutionSlice = createSlice({
       // state.current.push(action.payload.data.current)
       // state.questionCount = action.payload.data.question_count
       state.questStatus = action.payload.data.quest_status
+      state.questTheme = action.payload.data.quest_theme
     },
     [getInitQuest.rejected.type]: (state, action) => {
       state.isLoading = false
@@ -65,6 +68,7 @@ export const questExecutionSlice = createSlice({
       }
       state.questionCount = action.payload.data.question_count
       state.questStatus = action.payload.data.quest_status
+      state.questTheme = action.payload.data.quest_theme
       // state.test = action.payload
     },
     [getStatusQuest.rejected.type]: (state, action) => {

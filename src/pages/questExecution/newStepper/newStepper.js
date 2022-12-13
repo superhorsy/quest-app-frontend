@@ -15,8 +15,8 @@ import Box from "@mui/material/Box";
 import styles from "./newStepper.module.scss";
 
 import {
-  getInitQuest,
-  getStatusQuest,
+  // getInitQuest,
+  // getStatusQuest,
   getNextQuest,
 } from "../../../store/actions/actions";
 import {Loader} from "../../../components/loader/loader";
@@ -34,15 +34,15 @@ export const QuestExecution = () => {
 
   const { questId } = useParams();
 
-  useEffect(() => {
-    dispatch(getStatusQuest(questId));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getStatusQuest(questId));
+  // }, []);
 
-  useEffect(() => {
-    if (questStatus === "not_started") {
-      dispatch(getInitQuest(questId));
-    }
-  }, [questStatus]);
+  // useEffect(() => {
+  //   if (questStatus === "not_started") {
+  //     dispatch(getInitQuest(questId));
+  //   }
+  // }, [questStatus]);
 
   /**
    * Handlers
