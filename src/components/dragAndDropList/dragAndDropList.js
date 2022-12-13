@@ -1,17 +1,17 @@
 import React from "react";
-import {useSelector, useDispatch} from "react-redux";
-import {addSteps, deleteStep} from "../../store/reducers/currentQuestSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { addSteps, deleteStep } from "../../store/reducers/currentQuestSlice";
 
 import Box from "@mui/material/Box";
-import {IconButton} from "@mui/material";
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import { IconButton } from "@mui/material";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
 import TextIcon from "../../assets/images/questions/text-icon.png";
 import QRIcon from "../../assets/images/questions/qr-icon.png";
 import styles from "./dragAndDropList.module.scss";
-import {ModalEditQuestStep} from "./modalEditQuestStep/modalEditQuestStep";
+import { ModalEditQuestStep } from "./modalEditQuestStep/modalEditQuestStep";
 
-export const DragAndDropList = () => {
+export const DragAndDropList = ({ recipients }) => {
   const steps = useSelector(
     (state) => state.currentQuestReducer.currentQuest.steps
   );
@@ -50,81 +50,80 @@ export const DragAndDropList = () => {
         maxWidth: 600,
         width: 1,
         boxSizing: "border-box",
-        mt: {xs: 1, sm: 4},
+        mt: { xs: 1, sm: 4 },
       }}
     >
-      <Box sx={{width: 1, mb: 2}}>
+      <Box sx={{ width: 1, mb: 2 }}>
         {steps &&
-        steps.map((step, index) => (
-          <Box
-            component="div"
-            draggable
-            onDragStart={(e) => (dragItem.current = index)}
-            onDragEnter={(e) => (dragOverItem.current = index)}
-            onDragEnd={handleSort}
-            onDragOver={(e) => e.preventDefault()}
-            key={index}
-            // button
-            sx={{
-              display: "flex",
-              width: 1,
-              flexDirection: "column",
-              boxSizing: "border-box",
-              mb: 1,
-              minHeight: 60,
-              p: 1,
-            }}
-          >
+          steps.map((step, index) => (
             <Box
+              component="div"
+              draggable
+              onDragStart={(e) => (dragItem.current = index)}
+              onDragEnter={(e) => (dragOverItem.current = index)}
+              onDragEnd={handleSort}
+              onDragOver={(e) => e.preventDefault()}
+              key={index}
+              // button
               sx={{
                 display: "flex",
-                alignItems: "start",
                 width: 1,
+                flexDirection: "column",
+                boxSizing: "border-box",
+                mb: 1,
+                minHeight: 60,
+                p: 1,
               }}
             >
               <Box
                 sx={{
                   display: "flex",
-                  width: 30,
-                  mr: 1,
-                }}
-              >
-                {step.question_type === "text" && (
-                  <img src={TextIcon} alt="text"/>
-                )}
-                {step.question_type === "qr" && (
-                  <img src={QRIcon} alt="qr"/>
-                )}
-              </Box>
-              <div
-                className={styles.question__title}>
-                <b>{step.description}</b>
-              </div>
-              <Box
-                sx={{
-                  width: {xs: 2 / 9, sm: 1 / 9},
-                  ml: 2,
-                  display: "flex",
                   alignItems: "start",
-                  justifyContent: {sm: "center"},
-                  flexDirection: {sm: "row"},
+                  width: 1,
                 }}
               >
-                <ModalEditQuestStep stepData = {step}/>
-                <IconButton
-                  aria-label="delete"
-                  sx={{color: "#ff6090", p: {xs: 0.5}}}
-                  onClick={() => dispatch(deleteStep(step.id))}
+                <Box
+                  sx={{
+                    display: "flex",
+                    width: 30,
+                    mr: 1,
+                  }}
                 >
-                  <DeleteOutlineOutlinedIcon/>
-                </IconButton>
+                  {step.question_type === "text" && (
+                    <img src={TextIcon} alt="text" />
+                  )}
+                  {step.question_type === "qr" && <img src={QRIcon} alt="qr" />}
+                </Box>
+                <div className={styles.question__title}>
+                  <b>{step.description}</b>
+                </div>
+                <Box
+                  sx={{
+                    width: { xs: 2 / 9, sm: 1 / 9 },
+                    ml: 2,
+                    display: "flex",
+                    alignItems: "start",
+                    justifyContent: { sm: "center" },
+                    flexDirection: { sm: "row" },
+                  }}
+                >
+                  <ModalEditQuestStep stepData={step} recipients={recipients} />
+
+                  <IconButton
+                    disabled={recipients?.length > 0}
+                    aria-label="delete"
+                    sx={{ color: "#ff6090", p: { xs: 0.5 } }}
+                    onClick={() => dispatch(deleteStep(step.id))}
+                  >
+                    <DeleteOutlineOutlinedIcon />
+                  </IconButton>
+                </Box>
               </Box>
+              <div className={styles.question__desc}>
+                {step.question_content}
+              </div>
             </Box>
-            <div className={styles.question__desc}>
-              {step.question_content}
-            </div>
-          </Box>
-        ))}
+          ))}
       </Box>
     </Box>
   );
