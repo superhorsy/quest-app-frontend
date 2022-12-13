@@ -7,6 +7,7 @@ import { fetchQuest, updateQuest } from "../../store/actions/actions";
 
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import Tooltip from "@mui/material/Tooltip";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
@@ -22,6 +23,8 @@ export const QuestProfile = () => {
   const currentQuest = useSelector(
     (state) => state.currentQuestReducer.currentQuest
   );
+  const recipients = currentQuest.recipients;
+
   const isLoading = useSelector((state) => state.currentQuestReducer.isLoading);
 
   const { questId } = useParams();
@@ -59,7 +62,7 @@ export const QuestProfile = () => {
                 {currentQuest.description}
               </div>
             </div>
-            <ThemeSelector />
+            <ThemeSelector recipients={recipients}/>
             <Box
               component="div"
               sx={{
@@ -68,16 +71,6 @@ export const QuestProfile = () => {
                 // width: { xs: 150, sm: 200 },
               }}
             >
-              {/* <Button
-                disabled
-                fullWidth
-                variant="text"
-                size="medium"
-                sx={{ mb: { xs: 2, sm: 3 } }}
-                // onClick={() => navigate("/panel/create-quest/")}
-              >
-                Редактировать
-              </Button> */}
               <ModalQuestProfileEditor
                 buttonProps={{
                   fullWidth: true,
@@ -85,6 +78,7 @@ export const QuestProfile = () => {
                   size: "large",
                   sx: { marginBottom: "20px" },
                 }}
+                recipients={recipients}
                 questData={{
                   name: currentQuest.name,
                   description: currentQuest.description,
@@ -92,8 +86,9 @@ export const QuestProfile = () => {
               />
             </Box>
           </div>
-          <DragAndDropList />
+          <DragAndDropList recipients={recipients} />
           <Button
+            disabled={recipients?.length > 0}
             endIcon={<NoteAddIcon />}
             variant="contained"
             sx={{
@@ -126,19 +121,44 @@ export const QuestProfile = () => {
             >
               Назад
             </Button>
-            <Button
-              variant="contained"
-              endIcon={<SaveIcon />}
-              sx={{
-                width: { xs: 130, sm: 200 },
-                mt: 3,
-                mb: { xs: 1, sm: 2 },
-                py: 1,
-              }}
-              onClick={handleSaveQuest}
-            >
-              Сохранить
-            </Button>
+            {(recipients?.length > 0) && (
+              <Tooltip
+                title="После отправки квеста его нельзя редактировать"
+                placement="top"
+              >
+                <span>
+                  <Button
+                    disabled={recipients?.length > 0}
+                    variant="contained"
+                    endIcon={<SaveIcon />}
+                    sx={{
+                      width: { xs: 130, sm: 200 },
+                      mt: 3,
+                      mb: { xs: 1, sm: 2 },
+                      py: 1,
+                    }}
+                    onClick={handleSaveQuest}
+                  >
+                    Сохранить
+                  </Button>
+                </span>
+              </Tooltip>
+            )}
+            {(recipients?.length === 0) && (
+              <Button
+                variant="contained"
+                endIcon={<SaveIcon />}
+                sx={{
+                  width: { xs: 130, sm: 200 },
+                  mt: 3,
+                  mb: { xs: 1, sm: 2 },
+                  py: 1,
+                }}
+                onClick={handleSaveQuest}
+              >
+                Сохранить
+              </Button>
+            )}
           </Box>
         </>
       )}

@@ -1,14 +1,7 @@
 import axios from "axios";
-import {apiQuests, apiTest} from "../constants/constants";
-import {nextQuestResponse} from "./questExecutionApiTMP";
+import {apiQuests} from "../constants/constants";
 
-
-const {BASE_URL_TEST, POSTS} = apiTest;
 const {BASE_URL, QUESTS, QUESTS_CREATED, REGISTER, LOGIN, PROFILE, QUESTS_AVAILABLE, CHANGE_PASSWORD} = apiQuests;
-
-const instance_test = axios.create({
-  baseURL: BASE_URL_TEST,
-});
 
 const instance = axios.create({
   baseURL: BASE_URL,
@@ -52,19 +45,6 @@ instance.interceptors.response.use((config) => {
   // если if не отработал, то пробрасываем ошибку
   throw error;
 })
-
-
-export const testPostsApi = {
-  fetchPosts: () => {
-    return instance_test.get(POSTS)
-  },
-  // sendPosts: (posts) => {
-  // const data = {
-  //     posts
-  // }
-  //     return instance.post(POSTS, data)
-  // }
-}
 
 export const questsApi = {
   fetchCreatedQuests: () => {
@@ -122,19 +102,6 @@ export const userProfileApi = {
 export const questExecutionApi = {
   getInitQuest: async (questId) => {
     return instance.post(`${QUESTS}/${questId}/start`)
-    // getInitQuest: async () => {
-    //   return {
-    //     quests: [
-    //       {
-    //         id: 1,
-    //         label: 'Отгадайте загадку',
-    //         description: 'Первая загадка. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque, et!',
-    //         hasAnswer: false,
-    //         rightAnswer: null
-    //       }
-    //     ],
-    //     totalQuestsCount: 5
-    //   }
   },
   getStatusQuest: async (questId) => {
     return instance.get(`${QUESTS}/${questId}/status`);

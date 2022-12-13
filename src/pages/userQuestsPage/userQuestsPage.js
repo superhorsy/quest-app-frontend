@@ -61,6 +61,8 @@ export const UserQuestsPage = () => {
     dispatch(fetchCreatedQuests());
   }, [dispatch]);
 
+
+
   // модальные окна
   const [email, setEmail] = useState("");
   const [friendName, setFriendName] = useState("");
@@ -176,7 +178,7 @@ export const UserQuestsPage = () => {
                             </>
                           )}
                           {quest.recipients === null && (
-                            <Tooltip title="Можно отправить на разные email" placement="top-end">
+                            <Tooltip title="Можно отправить на разные email" placement="left">
                               <IconButton
                                 aria-label="send"
                                 sx={{ color: "#8FBC8F" }}

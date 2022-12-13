@@ -34,7 +34,7 @@ const ThemeCard = ({ imgUrl, altText }) => {
   );
 };
 
-export const ThemeSelector = () => {
+export const ThemeSelector = ({recipients}) => {
   const themes = [
     { name: "Common", imgUrl: CommonImg, altText: "common" },
     { name: "Christmas", imgUrl: ChristmasImg, altText: "christmas" },
@@ -124,6 +124,7 @@ export const ThemeSelector = () => {
                 {themes &&
                   themes.map((item, ind) => (
                     <FormControlLabel
+                      disabled={(recipients?.length > 0)}
                       // sx={{ minWidth: 125 }}
                       sx={{ width: 1 / 3, fontSize: {xs: 10, sm: 14} }}
                       key={ind}
