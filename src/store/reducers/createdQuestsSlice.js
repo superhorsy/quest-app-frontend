@@ -5,13 +5,26 @@ const initialState = {
   quests: [],
   isLoading: false,
   error: '',
-  sendQuestSuccess: null
+  sendQuestSuccess: null,
+  total: 0,
 }
 
 const createdQuestsSlice = createSlice({
   name: 'quests',
   initialState,
   reducers: {
+    updateRecipientsInfo(state, action) {
+      const currentQuest = state.quests.find(quest => quest.id !== action.payload.questId);
+      if(currentQuest.recipients === null) {
+        currentQuest.recipients = [];
+      } else {
+        currentQuest.recipients.push(action.payload.data);
+      }
+      console.log(action.payload.data);
+    },
+    hideSendQuestSuccessWindow(state, action) {
+      state.sendQuestSuccess = action.payload;
+    }
   },
   extraReducers: {
     [fetchCreatedQuests.pending.type]: (state, action) => {
@@ -20,6 +33,7 @@ const createdQuestsSlice = createSlice({
     [fetchCreatedQuests.fulfilled.type]: (state, action) => {
       state.isLoading = false
       state.error = ''
+      // state.total = action.payload.meta.total_count ? action.payload.meta.total_count : 0;
       state.quests = action.payload
     },
     [fetchCreatedQuests.rejected.type]: (state, action) => {
@@ -70,5 +84,5 @@ const createdQuestsSlice = createSlice({
     },
   }
 })
-
+export const {updateRecipientsInfo, hideSendQuestSuccessWindow} = createdQuestsSlice.actions;
 export default createdQuestsSlice.reducer;

@@ -26,12 +26,12 @@ import {QRQuestionStep} from "../pages/QRQuestionStep";
 import {DecoratedPage} from "../pages/themes/decoratedPage/decoratedPage";
 
 import {Header} from "./Header/Header";
-// import {QuestExecution} from "../pages/questExecution/questExecution";
-import { QuestExecution } from "../pages/questExecution/newStepper/newStepper.js";
+import {QuestExecution} from "../pages/questExecution/newStepper/newStepper.js";
 import {FooterTest} from "./footer/footerTest";
 import {ErrorWindow} from "./ErrorWindow/ErrorWindow";
+import {PublicRoute} from "./routes";
 
-export const routes = createBrowserRouter(
+export const routes = (isAuth) => createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/" element={<>
@@ -41,10 +41,10 @@ export const routes = createBrowserRouter(
       </>
       }>
         <Route index element={<StartPage/>}/>
-        <Route path="/signin" element={<LoginPage/>} handle={{crumb: () => ({name: "Вход", href: "/signin"})}}/>
-        <Route path="/signup" element={<SignUpPage/>}
+        <Route path="/signin" element={<PublicRoute isAuth={isAuth}><LoginPage/></PublicRoute>} handle={{crumb: () => ({name: "Вход", href: "/signin"})}}/>
+        <Route path="/signup" element={<PublicRoute isAuth={isAuth}><SignUpPage/></PublicRoute>}
           handle={{crumb: () => ({name: "Регистрация", href: "/signup"})}}/>
-        <Route path="/restore" element={<PassRecoveryPage/>}
+        <Route path="/restore" element={<PublicRoute isAuth={isAuth}><PassRecoveryPage/></PublicRoute>}
           handle={{crumb: () => ({name: "Восстановить пароль", href: "/restore"})}}/>
         <Route path="/panel" element={<Panel/>} handle={{crumb: () => ({name: "Панель", href: "/panel"})}}>
           <Route index element={<PanelIndex/>}/>
