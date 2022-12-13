@@ -1,10 +1,10 @@
 import axios from "axios";
-import {apiQuests, apiTest} from "../constants/constants";
-import {nextQuestResponse} from "./questExecutionApiTMP";
+import { apiQuests, apiTest } from "../constants/constants";
+import { nextQuestResponse } from "./questExecutionApiTMP";
 
 
-const {BASE_URL_TEST, POSTS} = apiTest;
-const {BASE_URL, QUESTS, QUESTS_CREATED, REGISTER, LOGIN, PROFILE, QUESTS_AVAILABLE, CHANGE_PASSWORD} = apiQuests;
+const { BASE_URL_TEST, POSTS } = apiTest;
+const { BASE_URL, QUESTS, QUESTS_CREATED, REGISTER, LOGIN, PROFILE, QUESTS_AVAILABLE, CHANGE_PASSWORD } = apiQuests;
 
 const instance_test = axios.create({
   baseURL: BASE_URL_TEST,
@@ -12,7 +12,7 @@ const instance_test = axios.create({
 
 const instance = axios.create({
   baseURL: BASE_URL,
-  headers: {'Content-Type': 'application/json'}
+  headers: { 'Content-Type': 'application/json' }
 });
 
 // инитерцептор на запрос, будет в хедер вшивать аксесс токен
@@ -39,7 +39,7 @@ instance.interceptors.response.use((config) => {
     originalRequest._isRetry = true;
     try {
       //запрос на обновление токена
-      const response = await axios.get(`${BASE_URL}/refresh`, {withCredentials: true});
+      const response = await axios.get(`${BASE_URL}/refresh`, { withCredentials: true });
       // записываем новый токен в localStorage
       localStorage.setItem('token', response.data.accessToken);
       //делаем повторный запрос
@@ -90,8 +90,8 @@ export const questsApi = {
   },
 
   fetchAvailableQuests: (avQData) => {
-    //return instance.get(QUESTS_AVAILABLE + `?limit=${avQData.limit}&offset=${avQData.offset}`);
-    return instance.get(QUESTS_AVAILABLE);
+    return instance.get(QUESTS_AVAILABLE + `?limit=${avQData.limit}&offset=${avQData.offset}`);
+    //return instance.get(QUESTS_AVAILABLE);
   }
 };
 
@@ -139,7 +139,7 @@ export const questExecutionApi = {
   getStatusQuest: async (questId) => {
     return instance.get(`${QUESTS}/${questId}/status`);
   },
-  getNextQuest: async ({questId, answer_type, answer}) => {
-    return instance.post(`${QUESTS}/${questId}/next`, {answer_type, answer});
+  getNextQuest: async ({ questId, answer_type, answer }) => {
+    return instance.post(`${QUESTS}/${questId}/next`, { answer_type, answer });
   }
 }
