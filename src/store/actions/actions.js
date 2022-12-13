@@ -1,17 +1,5 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {questExecutionApi, questsApi, userProfileApi, authApi, testPostsApi} from "../../api/api";
-
-export const testFetchPosts = createAsyncThunk(
-  'posts/fetchPosts',
-  async (_, {rejectWithValue}) => {
-    try {
-      const {data} = await testPostsApi.fetchPosts()
-      return data
-    } catch (e) {
-      return rejectWithValue(e.response.data.error)
-    }
-  }
-);
+import {questExecutionApi, questsApi, userProfileApi, authApi} from "../../api/api";
 
 export const login = createAsyncThunk(
   "auth/login",
