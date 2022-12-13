@@ -19,11 +19,12 @@ import {
   getStatusQuest,
   getNextQuest,
 } from "../../../store/actions/actions";
+import {Loader} from "../../../components/loader/loader";
 
 
 
 export const QuestExecution = () => {
-  const { current, questionCount, questStatus, success, qrCodeAnswer } =
+  const { current, questionCount, questStatus, success, qrCodeAnswer, isLoading } =
     useSelector((state) => state.questExecutionReducer);
 
   const [answer, setAnswer] = useState("");
@@ -269,7 +270,7 @@ export const QuestExecution = () => {
     <div className="page-container">
       <div className="main-container">
         <h1 className={styles.title}>Прохождение квеста</h1>
-        {questStatus === "finished"
+        {isLoading ? <Loader/> : questStatus === "finished"
           ? renderCompleteQuest()
           : renderQuestSteps()}
       </div>
