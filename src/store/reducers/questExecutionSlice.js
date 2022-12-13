@@ -1,5 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {getInitQuest, getStatusQuest, getNextQuest} from "../actions/actions";
+import { questStatuses } from "../../constants/constants";
 
 const initialState = {
   // quests: [],
@@ -13,7 +14,12 @@ const initialState = {
   success: true,
   test: [],
   qrCodeAnswer: null,
-  questTheme: null
+  questTheme: null,
+  notification: {
+    "success": false,
+    "message": "",
+    "visible": false,
+  }
 }
 
 export const questExecutionSlice = createSlice({
@@ -32,6 +38,9 @@ export const questExecutionSlice = createSlice({
       state.isLoading = false
       state.error = ''
       state.questTheme = null
+    },
+    hideAnswerNotification(state) {
+      state.notification.visible = false;
     }
   },
   extraReducers: {
@@ -52,7 +61,7 @@ export const questExecutionSlice = createSlice({
       if(action.payload.data.previous) {
         state.previous = [...action.payload.data.previous]
       }
-      if (action.payload.data.quest_status === "finished") {
+      if (action.payload.data.quest_status === questStatuses.FINISHED) {
         state.questStatus = action.payload.data.quest_status
       }
     },
@@ -82,6 +91,11 @@ export const questExecutionSlice = createSlice({
       state.isLoading = false
       state.error = ''
       state.success = action.payload.data.success
+      state.notification = {
+        "success": Boolean(action.payload.data.success),
+        "message": Boolean(action.payload.data.success) ? "Вы ответили верно!" : "Ответ неверный, попробуйте снова",
+        "visible": action.payload.data.quest_status !== questStatuses.IN_PROGRESS ? false : true,
+      }
       state.current = action.payload.data.current
       state.questStatus = action.payload.data.quest_status
       if (action.payload.data.previous) {
@@ -94,5 +108,5 @@ export const questExecutionSlice = createSlice({
     }
   }
 })
-export const {addAnswerFromQRCodeReader} = questExecutionSlice.actions;
+export const {addAnswerFromQRCodeReader, hideAnswerNotification} = questExecutionSlice.actions;
 export default questExecutionSlice.reducer

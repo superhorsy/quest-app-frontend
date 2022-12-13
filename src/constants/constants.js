@@ -9,6 +9,11 @@ export const apiQuests = {
   CHANGE_PASSWORD: 'profile/change-password'
 }
 
+export const questStatuses = {
+  FINISHED: "finished",
+  IN_PROGRESS: "in_progress"
+}
+
 // export const colors = {
 //   primary: '#1976d2',
 //   success: '#388e3c',

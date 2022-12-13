@@ -1,30 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+
 import { addAnswerFromQRCodeReader } from "../../../store/reducers/questExecutionSlice";
-import { useNavigate } from "react-router-dom";
+import {
+  getNextQuest,
+} from "../../../store/actions/actions";
+
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-
+import Box from "@mui/material/Box";
 import Input from "@mui/material/Input";
 
 import { QRStep } from "../questionsContent/qrStep/qrStep";
-
-import Box from "@mui/material/Box";
+import {Loader} from "../../../components/loader/loader";
+import { Notification } from "../notification/notification";
 
 import styles from "./newStepper.module.scss";
 
-import {
-  // getInitQuest,
-  // getStatusQuest,
-  getNextQuest,
-} from "../../../store/actions/actions";
-import {Loader} from "../../../components/loader/loader";
-
-
 
 export const QuestExecution = () => {
-  const { current, questionCount, questStatus, success, qrCodeAnswer, isLoading } =
+  const { current, questionCount, questStatus, qrCodeAnswer, isLoading, notification } =
     useSelector((state) => state.questExecutionReducer);
 
   const [answer, setAnswer] = useState("");
@@ -33,16 +29,6 @@ export const QuestExecution = () => {
   const navigate = useNavigate();
 
   const { questId } = useParams();
-
-  // useEffect(() => {
-  //   dispatch(getStatusQuest(questId));
-  // }, []);
-
-  // useEffect(() => {
-  //   if (questStatus === "not_started") {
-  //     dispatch(getInitQuest(questId));
-  //   }
-  // }, [questStatus]);
 
   /**
    * Handlers
@@ -173,7 +159,6 @@ export const QuestExecution = () => {
           </Box>
         </Box>
         <Box
-          className="AnswerBlock"
           component="div"
           sx={{ position: "relative", height: "10vh", width: "100%" }}
         >
@@ -194,42 +179,7 @@ export const QuestExecution = () => {
               onChange={(e) => setAnswer(e.target.value)}
             />
           )}
-
-          {success && current.sort !== 1 && (
-            <Typography
-              sx={{
-                width: 1,
-                color: "success.main",
-                fontWeight: 700,
-                textAlign: "end",
-                fontSize: { xs: 12, sm: 14 },
-                position: "absolute",
-                right: 10,
-                bottom: 50,
-              }}
-            >
-              Вы ответили верно!
-            </Typography>
-          )}
-
-          {!success && (
-            <Typography
-              sx={{
-                width: 1,
-                color: "error.main",
-                fontWeight: 700,
-                textAlign: "end",
-                fontSize: { xs: 12, sm: 14 },
-                position: "absolute",
-                right: 10,
-                bottom: 50,
-              }}
-            >
-              Вы ответили неправильно,
-              <br /> поробуйте еще раз
-            </Typography>
-          )}
-          {/* кнопки ответить или назад */}
+          <Notification notification={notification}></Notification>
 
           {current.question_type !== "qr" && (
             <Button
