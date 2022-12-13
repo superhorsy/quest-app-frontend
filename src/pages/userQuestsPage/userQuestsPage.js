@@ -61,6 +61,8 @@ export const UserQuestsPage = () => {
     dispatch(fetchCreatedQuests());
   }, [dispatch]);
 
+
+
   // модальные окна
   const [email, setEmail] = useState("");
   const [friendName, setFriendName] = useState("");

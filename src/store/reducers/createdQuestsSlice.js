@@ -14,7 +14,7 @@ const createdQuestsSlice = createSlice({
   initialState,
   reducers: {
     updateRecipientsInfo(state, action) {
-      const currentQuest = state.quests.find(quest => quest.id !== action.payload.questId);
+      const currentQuest = state.quests.find(quest => quest.id === action.payload.questId);
       if(currentQuest.recipients === null) {
         currentQuest.recipients = [];
       } else {

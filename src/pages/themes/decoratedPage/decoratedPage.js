@@ -5,6 +5,7 @@ import { BirthdayPage } from "../../../components/themeComponents/birthday/birth
 import { ValentainPage } from "../../../components/themeComponents/valentain/valentain";
 import { CommonThemePage } from "../../../components/themeComponents/common/commonThemePage";
 import { ChristmasPage } from "../../../components/themeComponents/christmas/christmasPage";
+import { QuestExecution } from "../../questExecution/newStepper/newStepper";
 
 import Box from "@mui/material/Box";
 
@@ -19,6 +20,7 @@ export const DecoratedPage = () => {
       {theme === "valentain" && <ValentainPage />}
       {theme === "halloween" && <HalloweenPage />}
       {theme === "common" && <CommonThemePage />}
+      {theme === "standart" && <QuestExecution />}
     </Box>
   );
 };
