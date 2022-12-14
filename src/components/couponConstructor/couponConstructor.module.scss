@@ -5,10 +5,10 @@
 
 .blockLeft {
   position: relative;
-  border-left: 13px dotted white;
+  border-left: 7px dotted white;
   border-radius: 0 10px 10px 0;
-  width: 110px;
-  height: 200px;
+  width: 62px;
+  height: 106px;
   background-color: #ed76de;
   display: flex;
   flex-direction: column;
@@ -19,10 +19,10 @@
 }
 
 .blockLeftBorder {
-  width: 10px;
-  height: 200px;
+  width: 5px;
+  height: 106px;
   position: absolute;
-  left: -16px;
+  left: -9px;
   background-color: white;
   //width: 10px;
   //height: 10px;
@@ -42,15 +42,34 @@
 //  font-weight: bold;
 //  color: floralwhite;
 //}
-.blockLeftText{
-      line-height: 10px;
-    transform: rotate(-90deg);
+.blockLeftText {
+  font-size: 18px;
+  line-height: 10px;
+  transform: rotate(-90deg);
 }
 
 .blockRight {
   border-radius: 10px;
-  border-left: 2px dashed white;
-  width: 400px;
-  height: 200px;
+  border-left: 1px dashed white;
+  width: 200px;
+  height: 106px;
   background-color: #2b46aa;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  box-sizing: border-box;
+  justify-content: center;
+}
+
+.title {
+  text-align: center;
+  color: floralwhite;
+  font-size: 16px;
+}
+
+.promoCode {
+  font-size: 14px;
+  text-transform: uppercase;
+  text-align: center;
+  color: floralwhite;
 }
