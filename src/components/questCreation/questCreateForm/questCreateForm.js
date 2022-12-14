@@ -21,7 +21,8 @@ export const CreateQuestForm = () => {
     const data = {
       name: questName,
       description: questDesctiption,
-      steps: []
+      steps: [],
+      theme: "standart"
     }
     dispatch(createQuest(data))
       .then((data) => {

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -6,6 +6,7 @@ import { ThemeSelector } from "../questCreation/themeSelector/themeSelector";
 import { fetchQuest, updateQuest } from "../../store/actions/actions";
 
 import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 
@@ -24,16 +25,24 @@ export const QuestProfile = () => {
   );
   const isLoading = useSelector((state) => state.currentQuestReducer.isLoading);
 
+  const [questPresentMessage, setQuestPresentMessage] = useState("");
+
   const { questId } = useParams();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  //const isEmptyField = !questPresentMessage || !setQuestPresentMessage;
 
   const handleSaveQuest = () => {
     dispatch(updateQuest(currentQuest));
     navigate("/panel/my-quests");
   };
 
+  //
+  const changeButton = (button) => {
+    button.innerText = "Редактировать";
+  }
+  //
   useEffect(() => {
     if (!currentQuest?.steps?.length) {
       dispatch(fetchQuest(questId));
@@ -93,6 +102,32 @@ export const QuestProfile = () => {
             </Box>
           </div>
           <DragAndDropList />
+          <TextField
+            required
+            fullWidth
+            id="outlined-basic"
+            label="Здесь можно написать финальное послание другу"
+            variant="outlined"
+            helperText="Описание послания адресат увидит после прохождением квеста"
+            sx={{ mb: { xs: 3, sm: 7 } }}
+            value={questPresentMessage}
+            onChange={(e) => setQuestPresentMessage(e.target.value)}
+          />
+          <Button
+            //endIcon={<NoteAddIcon />}
+            variant="contained"
+            //disabled={isEmptyField}
+            onClick={changeButton}
+            sx={{
+              m: "0 auto",
+              width: { sx: 1, sm: 300 },
+              mt: -5,
+              mb: { xs: 1, sm: 2 },
+              py: 1,
+            }}
+          >
+            Сохранить послание
+          </Button>
           <Button
             endIcon={<NoteAddIcon />}
             variant="contained"

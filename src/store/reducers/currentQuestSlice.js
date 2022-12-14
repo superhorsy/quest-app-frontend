@@ -38,6 +38,7 @@ const currentQuestSlice = createSlice({
     updateProfileQuest(state, action){
       state.currentQuest.name = action.payload.name;
       state.currentQuest.description = action.payload.description;
+      
     }
   },
   extraReducers: {
