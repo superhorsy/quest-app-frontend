@@ -1,0 +1,56 @@
+.blockWrp {
+  display: flex;
+  margin: 50px;
+}
+
+.blockLeft {
+  position: relative;
+  border-left: 13px dotted white;
+  border-radius: 0 10px 10px 0;
+  width: 110px;
+  height: 200px;
+  background-color: #ed76de;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  color: floralwhite;
+}
+
+.blockLeftBorder {
+  width: 10px;
+  height: 200px;
+  position: absolute;
+  left: -16px;
+  background-color: white;
+  //width: 10px;
+  //height: 10px;
+  //border-radius: 5px;
+  //position: absolute;
+  //left: -5px;
+  //top: 3px;
+  //background-color: white;
+}
+
+//.blockLeftText {
+//  transform: rotate(-90deg);
+//  position: absolute;
+//  top: 80px;
+//  left: -13px;
+//  font-size: 30px;
+//  font-weight: bold;
+//  color: floralwhite;
+//}
+.blockLeftText{
+      line-height: 10px;
+    transform: rotate(-90deg);
+}
+
+.blockRight {
+  border-radius: 10px;
+  border-left: 2px dashed white;
+  width: 400px;
+  height: 200px;
+  background-color: #2b46aa;
+}

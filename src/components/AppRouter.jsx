@@ -30,6 +30,7 @@ import {QuestExecution} from "../pages/questExecution/newStepper/newStepper.js";
 import {FooterTest} from "./footer/footerTest";
 import {ErrorWindow} from "./ErrorWindow/ErrorWindow";
 import {PublicRoute} from "./routes";
+import {CouponConstructor} from "./couponConstructor/couponConstructor";
 
 export const routes = (isAuth) => createBrowserRouter(
   createRoutesFromElements(
@@ -82,6 +83,7 @@ export const routes = (isAuth) => createBrowserRouter(
         <Route path="*" element={<h1>Ошибка 404</h1>} handle={{ crumb: () => ({ name: "Ошибка 404", href: "*" }) }} />
       </Route>
       <Route path="/questExecution_decorated/:questId" element={<DecoratedPage />} />
+      <Route path="/couponConstructor" element={<CouponConstructor />} />
     </>
   )
 );
