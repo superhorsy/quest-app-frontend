@@ -4,7 +4,7 @@ import {fetchQuest, updateQuest} from "../actions/actions";
 const initialState = {
   currentQuest: {},
   isLoading: false,
-  error: ''
+  error: '',
 }
 
 const currentQuestSlice = createSlice({
@@ -38,7 +38,7 @@ const currentQuestSlice = createSlice({
     updateProfileQuest(state, action){
       state.currentQuest.name = action.payload.name;
       state.currentQuest.description = action.payload.description;
-    }
+    },
   },
   extraReducers: {
     [fetchQuest.pending.type]: (state, action) => {

@@ -42,7 +42,7 @@
     ],
     "rules": {
       "indent": [
-        "error",
+        "warn",
         2
       ]
     }

@@ -26,10 +26,7 @@ const style = {
   transition: 'transform 3s'
 };
 
-export const ModalQuestProfileEditor = ({questData, buttonProps}) => {
-  // console.log("4444444", questdata)
-  // console.log("555555", buttonprops)
-  // console.log("555555", children)
+export const ModalQuestProfileEditor = ({questData, buttonProps, recipients}) => {
   const [open, setOpen] = React.useState(false);
   // const [passForm, setPassForm] = useState({
   //   currentPassword: '',
@@ -41,7 +38,6 @@ export const ModalQuestProfileEditor = ({questData, buttonProps}) => {
     description: questData.description,
   });
   const [error, setError] = useState(null);
-  //console.log("!!!!", children)
   const dispatch = useDispatch();
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -69,6 +65,7 @@ export const ModalQuestProfileEditor = ({questData, buttonProps}) => {
   return (
     <div>
       <Button
+        disabled={recipients?.length > 0}
         {...buttonProps}
         onClick={handleOpen}
       >

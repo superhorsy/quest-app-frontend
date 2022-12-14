@@ -2,11 +2,18 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
-import { deleteQuest, fetchCreatedQuests, sendQuest } from "../../store/actions/actions";
+import {
+  deleteQuest,
+  fetchCreatedQuests,
+  sendQuest,
+} from "../../store/actions/actions";
+
+import { updateRecipientsInfo } from "../../store/reducers/createdQuestsSlice";
 
 import { Loader } from "../../components/loader/loader";
-import { SendQuestDialog } from "../../components/modalSendQuest"
+import { SendQuestDialog } from "../../components/modalSendQuest";
 import { DeleteQuestDialog } from "../../components/modalDeleteQuest";
+import { SuccessWindow } from "../../components/sendQuestSuccessWindow/sendQuestSuccessWindow";
 
 // UI
 import {
@@ -16,11 +23,15 @@ import {
   ListItem,
   ListItemSecondaryAction,
   ListItemText,
-  // Pagination,
+  Pagination,
 } from "@mui/material";
-import Box from '@mui/material/Box';
-import EmailIcon from "@mui/icons-material/Email";
-import DeleteIcon from "@mui/icons-material/Delete";
+import Tooltip from "@mui/material/Tooltip";
+import Box from "@mui/material/Box";
+import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import MarkEmailReadOutlinedIcon from "@mui/icons-material/MarkEmailReadOutlined";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import Badge from "@mui/material/Badge";
 
 import style from "./userQuestsPage.module.scss";
 
@@ -32,11 +43,25 @@ export const UserQuestsPage = () => {
     (state) => state.createdQuestsReducer.isLoading
   );
 
+  //pagination
+  // const perPage = 10;
+  // const totalQuests = useSelector(
+  //   (state) => state.createdQuestsReducer.total
+  // );
+  // const [page, setPage] = useState(1);
+  // const [settings, setSettings] = useState({ limit: perPage, offset: 0 });
+
+  // const getPages = () => {
+  //   return Math.ceil(totalQuests / perPage);
+  // };
+
   const isQuestsExist = quests && quests !== null;
 
   useEffect(() => {
     dispatch(fetchCreatedQuests());
   }, [dispatch]);
+
+
 
   // модальные окна
   const [email, setEmail] = useState("");
@@ -44,7 +69,7 @@ export const UserQuestsPage = () => {
   const [emailError, setEmailError] = useState("");
   const [questIdToSend, setQuestIdToSend] = useState("");
   const [questNameToSend, setQuestNameToSend] = useState("");
-  const [formValid, setFormValid] = useState(false)
+  const [formValid, setFormValid] = useState(false);
   const [questIdToDelete, setQuestIdToDelete] = useState("");
   const [questNameToDelete, setQuestNameToDelete] = useState("");
 
@@ -61,21 +86,25 @@ export const UserQuestsPage = () => {
     setIsOpenDialog(false);
   };
 
-  const handleOpen = (questId, questName ) => {
+  const handleOpen = (questId, questName) => {
     setQuestNameToSend(questName);
     setQuestIdToSend(questId);
     setIsOpen(true);
   };
 
   const handleClose = () => {
-    setFriendName("")
-    setEmail("")
+    setFriendName("");
+    setEmail("");
     setIsOpen(false);
   };
 
   const handleSendQuest = () => {
-    const data = {questId: questIdToSend, data: {email: email, name: friendName}}
+    const data = {
+      questId: questIdToSend,
+      data: { email: email, name: friendName },
+    };
     dispatch(sendQuest(data));
+    dispatch(updateRecipientsInfo(data));
     setIsOpen(false);
   };
 
@@ -86,11 +115,16 @@ export const UserQuestsPage = () => {
 
   return (
     <div className="page-container">
+      <SuccessWindow />
       <div className="main-container">
         <h1 className="title">Мои квесты</h1>
-        {isLoading && <Loader/>}
+        {isLoading && <Loader />}
         {!isLoading && quests === null && (
-          <Box sx={{width: 1, textAlign: "center", fontSize: {xs: 15, sm: 20}}}>У вас нет созданных квестов</Box>
+          <Box
+            sx={{ width: 1, textAlign: "center", fontSize: { xs: 15, sm: 20 } }}
+          >
+            У вас нет созданных квестов
+          </Box>
         )}
         {!isLoading && isQuestsExist && (
           <>
@@ -115,33 +149,86 @@ export const UserQuestsPage = () => {
                       </Grid>
                       <Grid item xs={2}>
                         <ListItemSecondaryAction>
-                          <IconButton
-                            aria-label="send"
-                            sx={{ color: "#8FBC8F" }}
-                            onClick={() => handleOpen(quest.id, quest.name)}
-                          >
-                            <EmailIcon />
-                          </IconButton>
-
-                          <IconButton
-                            onClick={() =>
-                              handleDialogOpen(quest.id, quest.name)
-                            }
-                            edge="end"
-                            aria-label="delete"
-                            sx={{ color: "#F08080" }}
-                          >
-                            <DeleteIcon />
-                          </IconButton>
+                          {quest.recipients !== null && (
+                            <>
+                              <Tooltip
+                                placement="left"
+                                title={
+                                  <Box
+                                    sx={{
+                                      display: "flex",
+                                      flexDirection: "column",
+                                      textAlign: "center",
+                                    }}
+                                  >
+                                    <em>Отправлено на email:</em>
+                                    {quest.recipients.map((item, idx) => {
+                                      return <em key={idx}>{item.email}</em>;
+                                    })}
+                                  </Box>
+                                }
+                              >
+                                <IconButton
+                                  edge="start"
+                                  sx={{ color: "#bdbdbd" }}
+                                >
+                                  <InfoOutlinedIcon />
+                                </IconButton>
+                              </Tooltip>
+                            </>
+                          )}
+                          {quest.recipients === null && (
+                            <Tooltip title="Можно отправить на разные email" placement="left">
+                              <IconButton
+                                aria-label="send"
+                                sx={{ color: "#8FBC8F" }}
+                                onClick={() => handleOpen(quest.id, quest.name)}
+                              >
+                                <EmailOutlinedIcon />
+                              </IconButton>
+                            </Tooltip>
+                          )}
+                          {quest.recipients === null && (
+                            <IconButton
+                              onClick={() =>
+                                handleDialogOpen(quest.id, quest.name)
+                              }
+                              edge="end"
+                              aria-label="delete"
+                              sx={{ color: "#F08080" }}
+                            >
+                              <DeleteOutlineOutlinedIcon />
+                            </IconButton>
+                          )}
+                          {quest.recipients !== null && (
+                            <Tooltip title="Можно снова отправить" placement="top">
+                              <IconButton
+                                edge="end"
+                                sx={{ color: "#4E7AD2" }}
+                                onClick={() => handleOpen(quest.id, quest.name)}
+                              >
+                                <Badge
+                                  badgeContent={quest.recipients.length}
+                                  color="info"
+                                >
+                                  <MarkEmailReadOutlinedIcon />
+                                </Badge>
+                              </IconButton>
+                            </Tooltip>
+                          )}
                         </ListItemSecondaryAction>
                       </Grid>
                     </ListItem>
                   ))}
               </List>
-
-              {/* {pageAmount >= 2 && <Grid item xs={12}>
-                <Pagination className={style.pagination} count={pageAmount} size="small"/>
-              </Grid>} */}
+              {/*{getPages() >= 2 && (*/}
+              {/*  <Grid item xs={12}>*/}
+              {/*    <Pagination*/}
+              {/*      className={style.pagination}*/}
+              {/*      count={getPages()}*/}
+              {/*      size="small"*/}
+              {/*    />*/}
+              {/*  </Grid>)}*/}
             </Grid>
             {isOpen && (
               <SendQuestDialog

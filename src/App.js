@@ -1,19 +1,20 @@
 import React, {useEffect} from 'react';
-import { useDispatch } from "react-redux";
-import { authSlice } from "./store/reducers/authSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {authSlice} from "./store/reducers/authSlice";
 
 //Styles
 import "./App.scss";
 
-import { RouterProvider } from 'react-router-dom';
-import { routes } from './components/AppRouter';
+import {RouterProvider} from 'react-router-dom';
+import {routes} from './components/AppRouter';
 
 import "./App.scss";
-import { fetchUserProfile } from './store/actions/actions';
+import {fetchUserProfile} from './store/actions/actions';
 
 function App() {
-  const { checkAuth } = authSlice.actions;
+  const {checkAuth} = authSlice.actions;
   const dispatch = useDispatch();
+  const {isAuth} = useSelector((state) => state.authReducer);
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
@@ -31,7 +32,7 @@ function App() {
 
   return (
     <div className="App">
-      <RouterProvider router={routes} />
+      <RouterProvider router={routes(isAuth)}/>
     </div>
   );
 }
