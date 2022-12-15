@@ -32,7 +32,7 @@ export const fetchCreatedQuests = createAsyncThunk(
   async (questsData, {rejectWithValue}) => {
     try {
       const {data} = await questsApi.fetchCreatedQuests(questsData);
-      return data.data;
+      return data;
     } catch (e) {
       return rejectWithValue(e.response.data.error);
     }

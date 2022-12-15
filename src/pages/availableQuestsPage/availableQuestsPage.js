@@ -26,7 +26,7 @@ import style from "./availableQuestsPage.module.scss";
 import { useNavigate } from "react-router";
 
 export const AvailableQuestsPage = () => {
-  const perPage = 10;
+  const perPage = 7;
   const dispatch = useDispatch();
   const quests = useSelector((state) => state.questsAvailableReducer.quests);
   const totalQuests = useSelector(
