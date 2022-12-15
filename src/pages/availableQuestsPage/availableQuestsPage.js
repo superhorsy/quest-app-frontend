@@ -64,7 +64,7 @@ export const AvailableQuestsPage = () => {
   };
 
   const handleQuestStart = (questId) => {
-    navigate(`/questExecution_decorated/${questId}`);
+    navigate(`/panel/quest-info/${questId}`);
   };
 
   const generateSecondAction = (status, owner) => {
