@@ -10,6 +10,7 @@ import {routes} from './components/AppRouter';
 
 import "./App.scss";
 import {fetchUserProfile} from './store/actions/actions';
+import {CouponTest} from "./components/couponConstructor/couponTest";
 
 function App() {
   const {checkAuth} = authSlice.actions;
@@ -33,6 +34,7 @@ function App() {
   return (
     <div className="App">
       <RouterProvider router={routes(isAuth)}/>
+      <CouponTest />
     </div>
   );
 }

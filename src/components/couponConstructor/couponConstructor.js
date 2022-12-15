@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 
 // Styles
 import classes from './couponConstructor.module.scss'
@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 export const CouponConstructor = () => {
   const [title, setTitle] = useState('Ты выиграл промокод на скидку 50% в парк развлечений')
   const [promoCode, setPromoCode] = useState('6CD435SDH');
+  // const theme = useContext(theme)
   const [theme, setTheme] = useState({
     leftBlock: {
       backgroundColor: 'red',
@@ -44,14 +45,14 @@ export const CouponConstructor = () => {
         </div>
 
       </div>
-      <Button
-        onClick={() => {
-          return setTheme({...theme, rightBlock: {...theme.rightBlock, backgroundColor: 'coral'}})
-        }}
-        sx={{color: 'coral'}}
-      >
-        Make Coral
-      </Button>
+      {/*<Button*/}
+      {/*  onClick={() => {*/}
+      {/*    return setTheme({...theme, rightBlock: {...theme.rightBlock, backgroundColor: 'coral'}})*/}
+      {/*  }}*/}
+      {/*  sx={{color: 'coral'}}*/}
+      {/*>*/}
+      {/*  Make Coral*/}
+      {/*</Button>*/}
     </div>
   );
 };
