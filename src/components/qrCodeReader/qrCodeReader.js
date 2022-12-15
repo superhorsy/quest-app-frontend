@@ -1,45 +1,47 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 
-import QrReader from "react-qr-scanner";
-import styles from "./qrCodeReader.module.scss";
-import { connect } from "react-redux";
+import {Html5QrcodeScanner} from "html5-qrcode"
+import {connect} from "react-redux";
 
-import { addAnswerFromQRCodeReader } from "../../store/reducers/questExecutionSlice";
+import {addAnswerFromQRCodeReader} from "../../store/reducers/questExecutionSlice";
+
 
 class QRScan extends Component {
   state = {
-    delay: 1500,
     result: null,
   };
 
-  handleScan = (data) => {
-    if (data != null && this.state.result === null) {
+  qrcodeRegionId = "html5qr-code-full-region";
+
+  handleScan = (decodedText) => {
+    console.log(`Code matched = ${decodedText}`);
+    if (decodedText != null && this.state.result === null) {
       this.setState({
-        result: data ? data.text : null,
+        result: decodedText,
       });
-      this.props.dispatch(addAnswerFromQRCodeReader(data.text));
+      this.props.dispatch(addAnswerFromQRCodeReader(decodedText));
     }
   };
 
-  handleError = (err) => {
-    console.error(err);
-  };
+  componentWillUnmount() {
+    this.html5QrcodeScanner.clear().catch(error => {
+      console.error("Failed to clear html5QrcodeScanner. ", error);
+    });
+  }
+
+  componentDidMount() {
+    // Creates the configuration object for Html5QrcodeScanner.
+    let config = { fps: 10, qrbox: {width: 250, height: 250} };
+    let verbose = false;
+    this.html5QrcodeScanner = new Html5QrcodeScanner(this.qrcodeRegionId, config, verbose);
+    this.html5QrcodeScanner.render(this.handleScan, undefined);
+  }
 
   render() {
-    const previewStyle = {
-      height: "auto",
-      width: "80%",
-    };
     return (
-      <div className={styles.qrBox}>
+      <div>
         {this.state.result == null && (
-          <QrReader
-            className={styles.qrBox__box}
-            delay={this.state.delay}
-            style={previewStyle}
-            onError={this.handleError}
-            onScan={this.handleScan}
-          />
+          <div id={this.qrcodeRegionId} />
         )}
       </div>
     );
