@@ -23,6 +23,29 @@ export const QuestInfo = () => {
   const loading = useSelector((state) => state.currentQuestReducer.isLoading);
 
   useEffect(() => {
+    const getQuestStatus = (recipients) => {
+      const statuses = {
+        'not_started': {
+          title: 'не начато',
+          btn: 'Начать квест',
+          color: '#4E7AD2'
+        },
+        'in_progress': {
+          title: 'в процессе',
+          btn: 'Продолжить прохождение',
+          color: '#FFE600'
+        },
+        'finished': {
+          title: 'завершено',
+          btn: false,
+          color: '#31A42F'
+        }
+      }
+      if (recipients) {
+        const currUserQuestInfo = recipients.find((user) => user.email === profile.email);
+        return statuses[currUserQuestInfo.status];
+      }
+    }
     if (!profile) {
       dispatch(fetchUserProfile());
     }
@@ -32,35 +55,13 @@ export const QuestInfo = () => {
     if (quest && profile) {
       setStatus(getQuestStatus(quest.recipients));
     }
-  }, [quest, profile]);
+  }, [quest, profile, dispatch, questId,]);
 
   const handleQuestStart = () => {
     navigate(`/questExecution_decorated/${questId}`);
   };
 
-  const getQuestStatus = (recipients) => {
-    const statuses = {
-      'not_started': {
-        title: 'не начато',
-        btn: 'Начать квест',
-        color: '#4E7AD2'
-      },
-      'in_progress': {
-        title: 'в процессе',
-        btn: 'Продолжить прохождение',
-        color: '#FFE600'
-      },
-      'finished': {
-        title: 'завершено',
-        btn: false,
-        color: '#31A42F'
-      }
-    }
-    if (recipients) {
-      const currUserQuestInfo = recipients.find((user) => user.email === profile.email);
-      return statuses[currUserQuestInfo.status];
-    }
-  }
+
   return <div className="page-container">
     <h1 className="title">{quest.name}</h1>
     <Container maxWidth="sm">
