@@ -28,8 +28,11 @@ const createdQuestsSlice = createSlice({
     [fetchCreatedQuests.fulfilled.type]: (state, action) => {
       state.isLoading = false
       state.error = ''
-      // state.total = action.payload.meta.total_count ? action.payload.meta.total_count : 0;
-      state.quests = action.payload
+      state.total = action.payload.meta.total_count ? action.payload.meta.total_count : 0;
+      console.log("payload>>>>", action.payload)
+      if(action.payload) {
+        state.quests = action.payload.data
+      }
     },
     [fetchCreatedQuests.rejected.type]: (state, action) => {
       state.isLoading = false

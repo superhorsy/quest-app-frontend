@@ -47,8 +47,8 @@ instance.interceptors.response.use((config) => {
 })
 
 export const questsApi = {
-  fetchCreatedQuests: () => {
-    return instance.get(QUESTS_CREATED);
+  fetchCreatedQuests: (questData) => {
+    return instance.get(QUESTS_CREATED + `?limit=${questData.limit}&offset=${questData.offset}`);
   },
   createQuest: (quest) => {
     return instance.post(QUESTS, quest);
