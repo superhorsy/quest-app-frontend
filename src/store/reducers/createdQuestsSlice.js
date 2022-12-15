@@ -15,7 +15,11 @@ const createdQuestsSlice = createSlice({
   reducers: {
     updateRecipientsInfo(state, action) {
       const currentQuest = state.quests.find(quest => quest.id === action.payload.questId);
-      currentQuest.recipients.push(action.payload.data);
+      if(currentQuest.recipients === null) {
+        currentQuest.recipients = [action.payload.data];
+      } else {
+        currentQuest.recipients.push(action.payload.data);
+      }
     },
     hideSendQuestSuccessWindow(state, action) {
       state.sendQuestSuccess = action.payload;
@@ -29,7 +33,6 @@ const createdQuestsSlice = createSlice({
       state.isLoading = false
       state.error = ''
       state.total = action.payload.meta.total_count ? action.payload.meta.total_count : 0;
-      console.log("payload>>>>", action.payload)
       if(action.payload) {
         state.quests = action.payload.data
       }

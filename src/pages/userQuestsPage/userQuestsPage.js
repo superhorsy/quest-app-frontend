@@ -116,6 +116,7 @@ export const UserQuestsPage = () => {
     dispatch(sendQuest(data));
     dispatch(updateRecipientsInfo(data));
     setIsOpen(false);
+    console.log('letter was send!')
   };
 
   const handleDeleteQuest = () => {
