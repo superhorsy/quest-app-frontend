@@ -41,11 +41,14 @@ export const AvailableQuestsPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    function fetchData() {
+      dispatch(fetchAvailableQuests(settings));
+    }
     if (page) {
       fetchData();
     }
     dispatch(clearStateSteps()); // Очистка стейта шагов квеста. Слайсер questExecutionSlice
-  }, [page]);
+  }, [page, clearStateSteps, dispatch, settings]);
 
   const handleChange = (event, value) => {
     setPage(value);
@@ -55,16 +58,14 @@ export const AvailableQuestsPage = () => {
     });
   };
 
-  function fetchData() {
-    dispatch(fetchAvailableQuests(settings));
-  }
+
 
   const getPages = () => {
     return Math.ceil(totalQuests / perPage);
   };
 
   const handleQuestStart = (questId) => {
-    navigate(`/questExecution_decorated/${questId}`);
+    navigate(`/panel/quest-info/${questId}`);
   };
 
   const generateSecondAction = (status, owner) => {
