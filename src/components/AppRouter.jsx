@@ -21,10 +21,9 @@ import {QuestProfileTemplate} from "../pages/QuestProfileTemplate";
 import {QuestProfileIndex} from "../pages/QuestProfileIndex";
 import {TextQuestionStep} from "../pages/TextQuestionStep";
 import {QRQuestionStep} from "../pages/QRQuestionStep";
-
+import {QuestInfo} from "../pages/QuestInfo";
 
 import {DecoratedPage} from "../pages/themes/decoratedPage/decoratedPage";
-
 import {Header} from "./Header/Header";
 import {QuestExecution} from "../pages/questExecution/newStepper/newStepper.js";
 import {FooterTest} from "./footer/footerTest";
@@ -52,6 +51,8 @@ export const routes = (isAuth) => createBrowserRouter(
           <Route index element={<PanelIndex/>}/>
           <Route path="available-quests" element={<AvailableQuests/>}
                  handle={{crumb: () => ({name: "Доступные квесты", href: "/panel/available-quests"})}}/>
+          <Route path="quest-info/:questId" element={<QuestInfo/>}
+                 handle={{crumb: () => ({name: "О квесте", href: "/panel/quest-info"})}}/>
           <Route path="my-progress" element={<QuestProgress/>}
                  handle={{crumb: () => ({name: "Прогресс", href: "/panel/my-progress"})}}/>
           <Route path="my-quests" element={<UserQuests/>}

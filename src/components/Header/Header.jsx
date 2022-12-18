@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Button,
   AppBar,
@@ -13,27 +13,27 @@ import {
   CardActionArea
 } from "@mui/material";
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import { Login, Settings, Logout } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
+import {Login, Settings, Logout} from "@mui/icons-material";
+import {useNavigate} from "react-router-dom";
 
 import Logo from "../../assets/images/logo-sm-w.png";
 import UserAvatar from "../../assets/images/avatar.jpg";
-import { Outlet } from "react-router-dom";
+import {Outlet} from "react-router-dom";
 
-import { useDispatch, useSelector } from "react-redux";
-import { authSlice } from "../../store/reducers/authSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {authSlice} from "../../store/reducers/authSlice";
 //import userProfileReducer from "../../store/reducers/userProfileSlice";
-import { fetchUserProfile } from "../../store/actions/actions";
-import { Breadcrumbs } from '../Breadcrumbs/Breadcrumbs';
+import {fetchUserProfile} from "../../store/actions/actions";
+import {Breadcrumbs} from '../Breadcrumbs/Breadcrumbs';
 
 export const Header = () => {
   const [anchorElUser, setAnchorElUser] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { isAuth } = useSelector(state => state.authReducer);
-  const { profile } = useSelector((state) => state.userProfileReducer);
-  const { logOut } = authSlice.actions;
+  const {isAuth} = useSelector(state => state.authReducer);
+  const {profile} = useSelector((state) => state.userProfileReducer);
+  const {logOut} = authSlice.actions;
 
   const handleLogout = () => {
     dispatch(logOut());
@@ -75,17 +75,17 @@ export const Header = () => {
     {
       name: "Профиль",
       function: goToProfile,
-      icon: <Settings />,
+      icon: <Settings/>,
     },
     {
       name: "Панель",
       function: goToPanel,
-      icon: <DashboardIcon />,
+      icon: <DashboardIcon/>,
     },
     {
       name: "Выйти",
       function: handleLogout,
-      icon: <Logout />,
+      icon: <Logout/>,
     },
   ];
 
@@ -96,26 +96,29 @@ export const Header = () => {
       dispatch(fetchUserProfile())
     }
   }, [dispatch, isAuth])
-
   return (
     <>
       <AppBar position="sticky">
-        <Container maxWidth="xl">
-          <Toolbar disableGutters>
-            <Box sx={{ flexGrow: 1 }}>
+        <Container
+          maxWidth="xl">
+          <Toolbar
+            sx={{justifyContent: 'space-between'}}
+            disableGutters
+          >
+            <Box sx={{flexGrow: 1, maxWidth: '64px'}}>
               <CardActionArea onClick={isAuth ? handleToPanel : handleToMain}>
-                <img src={Logo} alt="logo" />
+                <img src={Logo} alt="logo"/>
               </CardActionArea>
             </Box>
-            <Box sx={{ flexGrow: 0 }}>
+            <Box sx={{flexGrow: 0}}>
               {isAuth ? (
                 <>
                   <span>Привет, {profile?.first_name} </span>
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar alt="user" src={UserAvatar} />
+                  <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
+                    <Avatar alt="User" src=''>{profile?.first_name[0]}{profile?.last_name[0]}</Avatar>
                   </IconButton>
                   <Menu
-                    sx={{ mt: "45px" }}
+                    sx={{mt: "45px"}}
                     id="menu-appbar"
                     anchorEl={anchorElUser}
                     anchorOrigin={{
@@ -140,9 +143,9 @@ export const Header = () => {
                 </>
               ) : (
                 <Button
-                  sx={{ color: "white" }}
+                  sx={{color: "white"}}
                   onClick={handleLogin}
-                  endIcon={<Login />}
+                  endIcon={<Login/>}
                 >
                   Войти
                 </Button>
@@ -154,8 +157,8 @@ export const Header = () => {
       <Container maxWidth="xl">
         <Box>
           {/*<Outlet context={[isAuth, setIsAuth]} />*/}
-          <Breadcrumbs />
-          <Outlet />
+          <Breadcrumbs/>
+          <Outlet/>
         </Box>
       </Container>
     </>
