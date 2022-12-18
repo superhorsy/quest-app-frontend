@@ -18,6 +18,7 @@ import { DragAndDropList } from "../dragAndDropList/dragAndDropList";
 import { Loader } from "../loader/loader.js";
 import { ModalQuestProfileEditor } from "./modalQuestProfileEditor";
 import { ModalRestorePass } from "../modalResorePass";
+import { FinalQuestMessage } from "../finalQuestMessage/finalQuestMessage";
 
 export const QuestProfile = () => {
   const currentQuest = useSelector(
@@ -25,7 +26,7 @@ export const QuestProfile = () => {
   );
   const isLoading = useSelector((state) => state.currentQuestReducer.isLoading);
 
-  const [questPresentMessage, setQuestPresentMessage] = useState("");
+  
 
   const { questId } = useParams();
 
@@ -102,7 +103,8 @@ export const QuestProfile = () => {
             </Box>
           </div>
           <DragAndDropList />
-          <TextField
+          <FinalQuestMessage />
+          {/* <TextField
             required
             fullWidth
             id="outlined-basic"
@@ -127,7 +129,7 @@ export const QuestProfile = () => {
             }}
           >
             Сохранить послание
-          </Button>
+          </Button> */}
           <Button
             endIcon={<NoteAddIcon />}
             variant="contained"
