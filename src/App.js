@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {authSlice} from "./store/reducers/authSlice";
+import {MyTheme} from "./themes/theme"
 
 //Styles
 import "./App.scss";
@@ -10,7 +11,9 @@ import {routes} from './components/AppRouter';
 
 import "./App.scss";
 import {fetchUserProfile} from './store/actions/actions';
-import {CouponTest} from "./components/couponConstructor/couponTest";
+
+export const ThemeContext = React.createContext()
+
 
 function App() {
   const {checkAuth} = authSlice.actions;
@@ -32,10 +35,11 @@ function App() {
   }, [checkAuth, dispatch]);
 
   return (
-    <div className="App">
-      <RouterProvider router={routes(isAuth)}/>
-      <CouponTest />
-    </div>
+    <ThemeContext.Provider value={MyTheme}>
+      <div className="App">
+        <RouterProvider router={routes(isAuth)}/>
+      </div>
+    </ThemeContext.Provider>
   );
 }
 

@@ -28,11 +28,6 @@ const style = {
 
 export const ModalQuestProfileEditor = ({questData, buttonProps, recipients}) => {
   const [open, setOpen] = React.useState(false);
-  // const [passForm, setPassForm] = useState({
-  //   currentPassword: '',
-  //   newPassword: '',
-  //   confirmPassword: '',
-  // });
   const [questProfileForm, setQuestProfileForm] = useState({
     name: questData.name,
     description: questData.description,
@@ -43,7 +38,6 @@ export const ModalQuestProfileEditor = ({questData, buttonProps, recipients}) =>
   const handleClose = () => setOpen(false);
 
   const isEmptyField = !questProfileForm.name || !questProfileForm.description;
-  //const isPassMatched = passForm.newPassword === passForm.confirmPassword;
 
   const handleSubmitQuestProfileForm = async (event) => {
     event.preventDefault();
@@ -51,19 +45,10 @@ export const ModalQuestProfileEditor = ({questData, buttonProps, recipients}) =>
     handleClose();
   }
 
-  // const handleSubmitEditPassword = async (event) => {
-  //   event.preventDefault();
-  //   try {
-  //     await userProfileApi.changePassword(passForm.newPassword);
-  //     setError(null);
-  //     handleClose();
-  //   } catch (error) {
-  //     setError(error.message);
-  //   }
-  // }
-
   return (
-    <div>
+    <div
+      style={{marginRight: '10px'}}
+    >
       <Button
         disabled={recipients?.length > 0}
         {...buttonProps}
@@ -103,7 +88,6 @@ export const ModalQuestProfileEditor = ({questData, buttonProps, recipients}) =>
           />
           <TextField
             disabled={false}
-            //error={!isPassMatched && Boolean(passForm.confirmPassword)}
             required
             fullWidth
             sx={{mb: {xs: 3, sm: 4}}}

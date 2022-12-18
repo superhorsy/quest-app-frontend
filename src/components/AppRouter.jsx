@@ -42,34 +42,35 @@ export const routes = (isAuth) => createBrowserRouter(
       </>
       }>
         <Route index element={<StartPage/>}/>
-        <Route path="/signin" element={<PublicRoute isAuth={isAuth}><LoginPage/></PublicRoute>} handle={{crumb: () => ({name: "Вход", href: "/signin"})}}/>
+        <Route path="/signin" element={<PublicRoute isAuth={isAuth}><LoginPage/></PublicRoute>}
+               handle={{crumb: () => ({name: "Вход", href: "/signin"})}}/>
         <Route path="/signup" element={<PublicRoute isAuth={isAuth}><SignUpPage/></PublicRoute>}
-          handle={{crumb: () => ({name: "Регистрация", href: "/signup"})}}/>
+               handle={{crumb: () => ({name: "Регистрация", href: "/signup"})}}/>
         <Route path="/restore" element={<PublicRoute isAuth={isAuth}><PassRecoveryPage/></PublicRoute>}
-          handle={{crumb: () => ({name: "Восстановить пароль", href: "/restore"})}}/>
+               handle={{crumb: () => ({name: "Восстановить пароль", href: "/restore"})}}/>
         <Route path="/panel" element={<Panel/>} handle={{crumb: () => ({name: "Панель", href: "/panel"})}}>
           <Route index element={<PanelIndex/>}/>
           <Route path="available-quests" element={<AvailableQuests/>}
-            handle={{crumb: () => ({name: "Доступные квесты", href: "/panel/available-quests"})}}/>
+                 handle={{crumb: () => ({name: "Доступные квесты", href: "/panel/available-quests"})}}/>
           <Route path="my-progress" element={<QuestProgress/>}
-            handle={{crumb: () => ({name: "Прогресс", href: "/panel/my-progress"})}}/>
+                 handle={{crumb: () => ({name: "Прогресс", href: "/panel/my-progress"})}}/>
           <Route path="my-quests" element={<UserQuests/>}
-            handle={{crumb: () => ({name: "Мои квесты", href: "/panel/my-quests"})}}/>
+                 handle={{crumb: () => ({name: "Мои квесты", href: "/panel/my-quests"})}}/>
           <Route path="create-quest" element={<CreateQuest/>}
-            handle={{crumb: () => ({name: "Создать квест", href: "/panel/create-quest"})}}/>
+                 handle={{crumb: () => ({name: "Создать квест", href: "/panel/create-quest"})}}/>
           <Route path="create-quest/:questId" element={<CreateStep/>}/>
           <Route path="create-quest/:questId/create-step" element={<CreateStepIndex/>}
-            handle={{crumb: () => ({name: "Создать шаг", href: "#"})}}/>
+                 handle={{crumb: () => ({name: "Создать шаг", href: "#"})}}/>
           <Route path="create-quest/:questId/create-step/text-step" element={<TextQuestionStep/>}
-            handle={{crumb: () => ({name: "Текстовый квест", href: "#"})}}/>
+                 handle={{crumb: () => ({name: "Текстовый квест", href: "#"})}}/>
           <Route path="create-quest/:questId/create-step/qr-step" element={<QRQuestionStep/>}
-            handle={{crumb: () => ({name: "QR квест", href: "#"})}}/>
+                 handle={{crumb: () => ({name: "QR квест", href: "#"})}}/>
           <Route path="quest-profile" element={<QuestProfileTemplate/>}
-            handle={{crumb: () => ({name: "Профиль квеста", href: "#"})}}>
+                 handle={{crumb: () => ({name: "Профиль квеста", href: "#"})}}>
             <Route path=":questId" element={<QuestProfileIndex/>}/>
           </Route>
           <Route path="profile" element={<Profile/>}
-            handle={{crumb: () => ({name: "Профиль", href: "/panel/profile"})}}>
+                 handle={{crumb: () => ({name: "Профиль", href: "/panel/profile"})}}>
             <Route index element={<ProfileIndex/>}/>
             <Route path="change-password" element={<ChangePass/>} handle={{
               crumb: () => ({
@@ -79,11 +80,10 @@ export const routes = (isAuth) => createBrowserRouter(
             }}/>
           </Route>
         </Route>
-        <Route path="/questExecution/:questId" element={<QuestExecution />} />
-        <Route path="*" element={<h1>Ошибка 404</h1>} handle={{ crumb: () => ({ name: "Ошибка 404", href: "*" }) }} />
+        <Route path="/questExecution/:questId" element={<QuestExecution/>}/>
+        <Route path="*" element={<h1>Ошибка 404</h1>} handle={{crumb: () => ({name: "Ошибка 404", href: "*"})}}/>
       </Route>
-      <Route path="/questExecution_decorated/:questId" element={<DecoratedPage />} />
-      <Route path="/couponConstructor" element={<CouponConstructor />} />
+      <Route path="/questExecution_decorated/:questId" element={<DecoratedPage/>}/>
     </>
   )
 );

@@ -1,13 +1,13 @@
 .blockWrp {
   display: flex;
-  margin: 50px;
+  margin: 0 auto 30px auto;
 }
 
 .blockLeft {
   position: relative;
   border-left: 7px dotted white;
   border-radius: 0 10px 10px 0;
-  width: 62px;
+  width: 50px;
   height: 106px;
   background-color: #ed76de;
   display: flex;
@@ -49,6 +49,7 @@
 }
 
 .blockRight {
+  overflow-wrap: break-word;
   border-radius: 10px;
   border-left: 1px dashed white;
   width: 200px;
@@ -72,4 +73,20 @@
   text-transform: uppercase;
   text-align: center;
   color: floralwhite;
+}
+
+@keyframes couponAnimation-go-top-down {
+  from {
+    top: 5px;
+  }
+  to {
+    top: -5px
+  }
+}
+
+.couponAnimation {
+  animation: couponAnimation-go-top-down 1s ease-in-out infinite alternate-reverse;
+  position: relative;
+  //transition: 1s ease-in-out 0s;
+  //top: 10px;
 }
