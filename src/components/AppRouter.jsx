@@ -22,7 +22,7 @@ import {QuestProfileIndex} from "../pages/QuestProfileIndex";
 import {TextQuestionStep} from "../pages/TextQuestionStep";
 import {QRQuestionStep} from "../pages/QRQuestionStep";
 import {QuestInfo} from "../pages/QuestInfo";
-
+import {DecoratedPage} from "../pages/themes/decoratedPage/decoratedPage";
 import {Header} from "./Header/Header";
 import {QuestExecution} from "../pages/questExecution/newStepper/newStepper.js";
 import {FooterTest} from "./footer/footerTest";
