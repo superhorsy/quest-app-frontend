@@ -13,8 +13,13 @@ export const FinalQuestMessage = () => {
 	const [finalQuestMessage, setFinalQuestMessage] = useState("");
 
 
+	//const handleEditProfile = () => {
+	//setFinalQuestMessage(!finalQuestMessage);
+	//};
+	//Изменение кнопки
+
 	return (
-		<Box sx={{ display: "flex", alignItems: "centr", justifyContent: "space-between", mb: { xs: 3, sm: 7 } }}>
+		<Box sx={{ display: "flex", alignItems: "centr", justifyContent: "space-between", mb: { xs: 3, sm: 3 } }}>
 			<TextField
 				required
 				//fullWidth
@@ -26,31 +31,36 @@ export const FinalQuestMessage = () => {
 				sx={{ width: 500 }}
 				onChange={(e) => setFinalQuestMessage(e.target.value)}
 			/>
+
 			<Box>
 				<IconButton
 					//endIcon={<NoteAddIcon />}
 					variant="contained"
-					//disabled={isEmptyField}
 					sx={{
-						mb: { xs: 1, sm: 3 },
+						mb: { xs: 1, sm: 1 },
 						py: 1,
+						//p: {xs: 0.5}
 					}}
-					
 					size="small"
+
 				>
 					<SaveIcon />
+
 				</IconButton>
+
 				<IconButton
+					variant="contained"
 					aria-label="delete"
 					sx={{
-						mb: { xs: 1, sm: 3 },
+						mb: { xs: 1, sm: 1 },
 						py: 1,
 					}}
 					size="small"
-					
+
 				>
 					<ModeEditOutlineOutlinedIcon />
 				</IconButton>
+
 			</Box>
 			{/* <Input
 				onChange={(e) => setFinalQuestMessage(e.target.value)}
