@@ -166,7 +166,7 @@ export const QuestExecution = () => {
             <Box component="div" className={styles.imageBox}>
               {!matches && (
                 <img
-                  src={`${current.question_content}&w=500&h=500&fit=contain`}
+                  src={`${current.question_content}&w=450&h=450&fit=contain`}
                   alt="задание с картинкой"
                 />
               )}
