@@ -24,12 +24,13 @@ import {QRQuestionStep} from "../pages/QRQuestionStep";
 import {QuestInfo} from "../pages/QuestInfo";
 import {DecoratedPage} from "../pages/themes/decoratedPage/decoratedPage";
 import {Header} from "./Header/Header";
-import {QuestExecution} from "../pages/questExecution/newStepper/newStepper.js";
+// import {QuestExecution} from "../pages/questExecution/newStepper/newStepper.js";
 import {FooterTest} from "./footer/footerTest";
 import {ErrorWindow} from "./ErrorWindow/ErrorWindow";
 import {PrivateRoute, PublicRoute} from "./routes";
 import {ImageQuestionStep} from "../pages/ImageQuestionStep";
 import { AudioQuestionStep } from "../pages/AudioQuestionStep";
+import { ExamplePage } from "../pages/themes/examplePage/examplePage";
 
 
 export const routes = (isAuth) => createBrowserRouter(
@@ -92,12 +93,14 @@ export const routes = (isAuth) => createBrowserRouter(
             }}/>
           </Route>
         </Route>
-        <Route path="/questExecution/:questId"
-               element={<PrivateRoute isAuth={isAuth}><QuestExecution/></PrivateRoute>}/>
+        {/* <Route path="/questExecution/:questId"
+               element={<PrivateRoute isAuth={isAuth}><QuestExecution/></PrivateRoute>}/> */}
         <Route path="*" element={<h1>Ошибка 404</h1>} handle={{crumb: () => ({name: "Ошибка 404", href: "*"})}}/>
       </Route>
       <Route path="/questExecution_decorated/:questId"
              element={<PrivateRoute isAuth={isAuth}><DecoratedPage/></PrivateRoute>}/>
+       <Route path="/questExample/:questId"
+             element={<PrivateRoute isAuth={isAuth}><ExamplePage/></PrivateRoute>}/>
     </>
   )
 );
