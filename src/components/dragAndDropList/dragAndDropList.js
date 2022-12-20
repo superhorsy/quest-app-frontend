@@ -125,11 +125,11 @@ export const DragAndDropList = ({ recipients }) => {
                 </Box>
               </Box>
               {step.question_type !== "image" &&
-                step.question_type !== "audio" && (
-                  <div className={styles.question__desc}>
-                    {step.question_content}
-                  </div>
-                )}
+              step.question_type !== "audio" && (
+                <div className={styles.question__desc}>
+                  {step.question_content}
+                </div>
+              )}
             </Box>
           ))}
       </Box>
