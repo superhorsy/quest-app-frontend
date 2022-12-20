@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 
 import { HalloweenPage } from "../../../components/themeComponents/halloween/halloween";
 import { BirthdayPage } from "../../../components/themeComponents/birthday/birthday";
