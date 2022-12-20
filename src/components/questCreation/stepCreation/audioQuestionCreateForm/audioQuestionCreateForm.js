@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {v4} from 'uuid';
 
 import {addOneStep, editStep} from "../../../../store/reducers/currentQuestSlice";
+import { clearMedia } from "../../../../store/reducers/mediaSlice";
 
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -37,13 +38,14 @@ export const AudioQuestionCreateForm = ({stepData, handleClose}) => {
       sort: stepN,
       description: taskName,
       question_type: "audio",
-      question_content: media.link,
+      question_content: `https:questy.fun/${media.link}`,
       answer_type: "text",
       answer_content: arrayOfAnswers
     }
 
     if (!stepData) {
       dispatch(addOneStep(step));
+      dispatch(clearMedia());
       navigate(`/panel/quest-profile/${questId}`);
     } else {
       dispatch(editStep(step));

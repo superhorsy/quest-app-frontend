@@ -119,7 +119,7 @@ export const FileUploader = ({ type, media }) => {
               <img
                 className={styles.file__img}
                 alt="задание в виде картинки"
-                src={media.link}
+                src={`${media.link}&w=100`}
               />
               <div className={styles.file__text}>{media.filename}</div>
               <IconButton

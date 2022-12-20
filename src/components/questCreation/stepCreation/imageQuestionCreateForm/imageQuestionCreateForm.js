@@ -7,6 +7,7 @@ import {
   addOneStep,
   editStep,
 } from "../../../../store/reducers/currentQuestSlice";
+import { clearMedia } from "../../../../store/reducers/mediaSlice";
 
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -58,6 +59,7 @@ export const ImageQuestionCreateForm = ({ stepData, handleClose }) => {
 
     if (!stepData) {
       dispatch(addOneStep(step));
+      dispatch(clearMedia());
       navigate(`/panel/quest-profile/${questId}`);
     } else {
       dispatch(editStep(step));
