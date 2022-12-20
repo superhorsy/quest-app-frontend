@@ -1,7 +1,7 @@
 import axios from "axios";
 import { apiQuests } from "../constants/constants";
 
-const { BASE_URL, QUESTS, QUESTS_CREATED, REGISTER, LOGIN, PROFILE, QUESTS_AVAILABLE, CHANGE_PASSWORD } = apiQuests;
+const { BASE_URL, QUESTS, QUESTS_CREATED, REGISTER, LOGIN, PROFILE, QUESTS_AVAILABLE, CHANGE_PASSWORD, MEDIA } = apiQuests;
 
 const instance = axios.create({
   baseURL: BASE_URL,
@@ -110,3 +110,18 @@ export const questExecutionApi = {
     return instance.post(`${QUESTS}/${questId}/next`, { answer_type, answer });
   }
 }
+
+export const uploadApi = {
+  fetchMedia: async (mediaId) => {
+    return instance.get(`${MEDIA}/${mediaId}`);
+  },
+  uploadFile: async (formData) => {
+    return instance.post(`${MEDIA}/upload`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+  });
+  }
+}
+
+

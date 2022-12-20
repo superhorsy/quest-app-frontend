@@ -1,5 +1,5 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {questExecutionApi, questsApi, userProfileApi, authApi} from "../../api/api";
+import {questExecutionApi, questsApi, userProfileApi, authApi, uploadApi} from "../../api/api";
 
 export const login = createAsyncThunk(
   "auth/login",
@@ -155,6 +155,32 @@ export const fetchQuest = createAsyncThunk(
     try {
       const {data} = await questsApi.fetchQuest(questId);
       return data.data;
+    } catch (e) {
+      return rejectWithValue(e.response.data.error);
+    }
+  }
+);
+
+export const getMedia = createAsyncThunk(
+  "media/getMedia",
+  async (mediaId, {rejectWithValue}) => {
+    try {
+      const {data} = await uploadApi.fetchMedia(mediaId);
+      console.log("media", data);
+      return data.data;
+    } catch (e) {
+      return rejectWithValue(e.response.data.error);
+    }
+  }
+);
+
+export const uploadFile = createAsyncThunk(
+  "media/uploadFile",
+  async (formData, {rejectWithValue}) => {
+    try {
+      const response = await uploadApi.uploadFile(formData);
+      console.log("unswer after upload", response.data);
+      return response.data.data;
     } catch (e) {
       return rejectWithValue(e.response.data.error);
     }
