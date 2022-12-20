@@ -8,6 +8,7 @@
 .questInfo {
   width: 100%;
   margin: 0 auto;
+  margin-bottom: 20px;
   max-width: 600px;
   display: flex;
   flex-direction: column;
@@ -32,6 +33,14 @@
     font-size: 22px;
     color: black;
     font-style: italic;
+    @media(max-width: 600px) {
+      font-size: 18px;
+    }
+  }
+  &__subdesc {
+    text-align: center;
+    font-size: 22px;
+    color: black;
     @media(max-width: 600px) {
       font-size: 18px;
     }

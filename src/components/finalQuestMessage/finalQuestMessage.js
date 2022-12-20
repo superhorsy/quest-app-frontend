@@ -30,6 +30,7 @@ export const FinalQuestMessage = () => {
       sx={{
         display: "flex",
         justifyContent: "space-around",
+				mt: 3,
         mb: { xs: 3, sm: 3 },
         width: 1,
       }}
