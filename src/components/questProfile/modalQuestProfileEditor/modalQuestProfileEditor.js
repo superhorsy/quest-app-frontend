@@ -26,28 +26,18 @@ const style = {
   transition: 'transform 3s'
 };
 
-export const ModalQuestProfileEditor = ({questData, buttonProps}) => {
-  // console.log("4444444", questdata)
-  // console.log("555555", buttonprops)
-  // console.log("555555", children)
+export const ModalQuestProfileEditor = ({questData, buttonProps, recipients}) => {
   const [open, setOpen] = React.useState(false);
-  // const [passForm, setPassForm] = useState({
-  //   currentPassword: '',
-  //   newPassword: '',
-  //   confirmPassword: '',
-  // });
   const [questProfileForm, setQuestProfileForm] = useState({
     name: questData.name,
     description: questData.description,
   });
   const [error, setError] = useState(null);
-  //console.log("!!!!", children)
   const dispatch = useDispatch();
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const isEmptyField = !questProfileForm.name || !questProfileForm.description;
-  //const isPassMatched = passForm.newPassword === passForm.confirmPassword;
 
   const handleSubmitQuestProfileForm = async (event) => {
     event.preventDefault();
@@ -55,20 +45,12 @@ export const ModalQuestProfileEditor = ({questData, buttonProps}) => {
     handleClose();
   }
 
-  // const handleSubmitEditPassword = async (event) => {
-  //   event.preventDefault();
-  //   try {
-  //     await userProfileApi.changePassword(passForm.newPassword);
-  //     setError(null);
-  //     handleClose();
-  //   } catch (error) {
-  //     setError(error.message);
-  //   }
-  // }
-
   return (
-    <div>
+    <div
+      style={{marginRight: '10px'}}
+    >
       <Button
+        disabled={recipients?.length > 0}
         {...buttonProps}
         onClick={handleOpen}
       >
@@ -106,7 +88,6 @@ export const ModalQuestProfileEditor = ({questData, buttonProps}) => {
           />
           <TextField
             disabled={false}
-            //error={!isPassMatched && Boolean(passForm.confirmPassword)}
             required
             fullWidth
             sx={{mb: {xs: 3, sm: 4}}}

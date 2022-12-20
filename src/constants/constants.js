@@ -1,8 +1,3 @@
-export const apiTest = {
-  BASE_URL_TEST: 'https://jsonplaceholder.typicode.com',
-  POSTS: 'posts'
-}
-
 export const apiQuests = {
   BASE_URL: 'https://questy.fun/api/v1/',
   QUESTS: 'quests',
@@ -11,7 +6,13 @@ export const apiQuests = {
   LOGIN: 'login',
   REGISTER: 'register',
   PROFILE: 'profile',
-  CHANGE_PASSWORD: 'profile/change-password'
+  CHANGE_PASSWORD: 'profile/change-password',
+  MEDIA: 'media'
+}
+
+export const questStatuses = {
+  FINISHED: "finished",
+  IN_PROGRESS: "in_progress"
 }
 
 // export const colors = {

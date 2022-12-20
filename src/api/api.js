@@ -1,18 +1,11 @@
 import axios from "axios";
-import {apiQuests, apiTest} from "../constants/constants";
-import {nextQuestResponse} from "./questExecutionApiTMP";
+import { apiQuests } from "../constants/constants";
 
-
-const {BASE_URL_TEST, POSTS} = apiTest;
-const {BASE_URL, QUESTS, QUESTS_CREATED, REGISTER, LOGIN, PROFILE, QUESTS_AVAILABLE, CHANGE_PASSWORD} = apiQuests;
-
-const instance_test = axios.create({
-  baseURL: BASE_URL_TEST,
-});
+const { BASE_URL, QUESTS, QUESTS_CREATED, REGISTER, LOGIN, PROFILE, QUESTS_AVAILABLE, CHANGE_PASSWORD, MEDIA } = apiQuests;
 
 const instance = axios.create({
   baseURL: BASE_URL,
-  headers: {'Content-Type': 'application/json'}
+  headers: { 'Content-Type': 'application/json' }
 });
 
 // инитерцептор на запрос, будет в хедер вшивать аксесс токен
@@ -39,7 +32,7 @@ instance.interceptors.response.use((config) => {
     originalRequest._isRetry = true;
     try {
       //запрос на обновление токена
-      const response = await axios.get(`${BASE_URL}/refresh`, {withCredentials: true});
+      const response = await axios.get(`${BASE_URL}/refresh`, { withCredentials: true });
       // записываем новый токен в localStorage
       localStorage.setItem('token', response.data.accessToken);
       //делаем повторный запрос
@@ -53,22 +46,9 @@ instance.interceptors.response.use((config) => {
   throw error;
 })
 
-
-export const testPostsApi = {
-  fetchPosts: () => {
-    return instance_test.get(POSTS)
-  },
-  // sendPosts: (posts) => {
-  // const data = {
-  //     posts
-  // }
-  //     return instance.post(POSTS, data)
-  // }
-}
-
 export const questsApi = {
-  fetchCreatedQuests: () => {
-    return instance.get(QUESTS_CREATED);
+  fetchCreatedQuests: (questData) => {
+    return instance.get(QUESTS_CREATED + `?limit=${questData.limit}&offset=${questData.offset}`);
   },
   createQuest: (quest) => {
     return instance.post(QUESTS, quest);
@@ -90,8 +70,8 @@ export const questsApi = {
   },
 
   fetchAvailableQuests: (avQData) => {
-    //return instance.get(QUESTS_AVAILABLE + `?limit=${avQData.limit}&offset=${avQData.offset}`);
-    return instance.get(QUESTS_AVAILABLE);
+    return instance.get(QUESTS_AVAILABLE + `?limit=${avQData.limit}&offset=${avQData.offset}`);
+    //return instance.get(QUESTS_AVAILABLE);
   }
 };
 
@@ -122,24 +102,26 @@ export const userProfileApi = {
 export const questExecutionApi = {
   getInitQuest: async (questId) => {
     return instance.post(`${QUESTS}/${questId}/start`)
-    // getInitQuest: async () => {
-    //   return {
-    //     quests: [
-    //       {
-    //         id: 1,
-    //         label: 'Отгадайте загадку',
-    //         description: 'Первая загадка. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque, et!',
-    //         hasAnswer: false,
-    //         rightAnswer: null
-    //       }
-    //     ],
-    //     totalQuestsCount: 5
-    //   }
   },
   getStatusQuest: async (questId) => {
     return instance.get(`${QUESTS}/${questId}/status`);
   },
-  getNextQuest: async ({questId, answer_type, answer}) => {
-    return instance.post(`${QUESTS}/${questId}/next`, {answer_type, answer});
+  getNextQuest: async ({ questId, answer_type, answer }) => {
+    return instance.post(`${QUESTS}/${questId}/next`, { answer_type, answer });
   }
 }
+
+export const uploadApi = {
+  fetchMedia: async (mediaId) => {
+    return instance.get(`${MEDIA}/${mediaId}`);
+  },
+  uploadFile: async (formData) => {
+    return instance.post(`${MEDIA}/upload`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+  });
+  }
+}
+
+

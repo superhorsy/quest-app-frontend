@@ -1,31 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+
 import { addAnswerFromQRCodeReader } from "../../../store/reducers/questExecutionSlice";
-import { useNavigate } from "react-router-dom";
+import { getNextQuest } from "../../../store/actions/actions";
+import { useMediaQuery } from "../../../utils/utils";
+
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-
+import Box from "@mui/material/Box";
 import Input from "@mui/material/Input";
 
 import { QRStep } from "../questionsContent/qrStep/qrStep";
-
-import Box from "@mui/material/Box";
+import { Loader } from "../../../components/loader/loader";
+import { Notification } from "../notification/notification";
 
 import styles from "./newStepper.module.scss";
 
-import {
-  getInitQuest,
-  getStatusQuest,
-  getNextQuest,
-} from "../../../store/actions/actions";
-import {Loader} from "../../../components/loader/loader";
-
-
-
 export const QuestExecution = () => {
-  const { current, questionCount, questStatus, success, qrCodeAnswer, isLoading } =
-    useSelector((state) => state.questExecutionReducer);
+  const {
+    current,
+    questionCount,
+    questStatus,
+    qrCodeAnswer,
+    isLoading,
+    notification,
+  } = useSelector((state) => state.questExecutionReducer);
+  const matches = useMediaQuery('(max-width: 600px)');
 
   const [answer, setAnswer] = useState("");
 
@@ -33,16 +34,6 @@ export const QuestExecution = () => {
   const navigate = useNavigate();
 
   const { questId } = useParams();
-
-  useEffect(() => {
-    dispatch(getStatusQuest(questId));
-  }, []);
-
-  useEffect(() => {
-    if (questStatus === "not_started") {
-      dispatch(getInitQuest(questId));
-    }
-  }, [questStatus]);
 
   /**
    * Handlers
@@ -104,7 +95,6 @@ export const QuestExecution = () => {
           sx={{ display: "flex", width: 1, p: 2, boxSizing: "border-box" }}
         >
           <Box
-            className="superBox"
             sx={{
               display: "block",
               mr: 2,
@@ -171,9 +161,33 @@ export const QuestExecution = () => {
               <QRStep qrCodeAnswer={qrCodeAnswer} />
             )}
           </Box>
+          {current.question_type === "image" && (
+            <Box component="div" className={styles.imageBox}>
+              {!matches && (
+                <img
+                  src={`${current.question_content}&w=450&h=450&fit=contain`}
+                  alt="задание с картинкой"
+                />
+              )}
+              {matches && (
+                <img
+                  src={`${current.question_content}&w=200&h=200&fit=contain`}
+                  alt="задание с картинкой"
+                />
+              )}
+            </Box>
+          )}
+          <Box component="div">
+            {current.question_type === "audio" && (
+              <audio controls>
+                <source src={current.question_content} type="audio/mp3" />
+                <source src={current.question_content} type="audio/wav" />
+                <source src={current.question_content} type="audio/webm" />
+              </audio>
+            )}
+          </Box>
         </Box>
         <Box
-          className="AnswerBlock"
           component="div"
           sx={{ position: "relative", height: "10vh", width: "100%" }}
         >
@@ -194,42 +208,7 @@ export const QuestExecution = () => {
               onChange={(e) => setAnswer(e.target.value)}
             />
           )}
-
-          {success && current.sort !== 1 && (
-            <Typography
-              sx={{
-                width: 1,
-                color: "success.main",
-                fontWeight: 700,
-                textAlign: "end",
-                fontSize: { xs: 12, sm: 14 },
-                position: "absolute",
-                right: 10,
-                bottom: 50,
-              }}
-            >
-              Вы ответили верно!
-            </Typography>
-          )}
-
-          {!success && (
-            <Typography
-              sx={{
-                width: 1,
-                color: "error.main",
-                fontWeight: 700,
-                textAlign: "end",
-                fontSize: { xs: 12, sm: 14 },
-                position: "absolute",
-                right: 10,
-                bottom: 50,
-              }}
-            >
-              Вы ответили неправильно,
-              <br /> поробуйте еще раз
-            </Typography>
-          )}
-          {/* кнопки ответить или назад */}
+          <Notification notification={notification}></Notification>
 
           {current.question_type !== "qr" && (
             <Button
@@ -270,9 +249,13 @@ export const QuestExecution = () => {
     <div className="page-container">
       <div className="main-container">
         <h1 className={styles.title}>Прохождение квеста</h1>
-        {isLoading ? <Loader/> : questStatus === "finished"
-          ? renderCompleteQuest()
-          : renderQuestSteps()}
+        {isLoading ? (
+          <Loader />
+        ) : questStatus === "finished" ? (
+          renderCompleteQuest()
+        ) : (
+          renderQuestSteps()
+        )}
       </div>
     </div>
   );

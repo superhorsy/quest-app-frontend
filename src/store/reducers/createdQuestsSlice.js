@@ -14,13 +14,12 @@ const createdQuestsSlice = createSlice({
   initialState,
   reducers: {
     updateRecipientsInfo(state, action) {
-      const currentQuest = state.quests.find(quest => quest.id !== action.payload.questId);
+      const currentQuest = state.quests.find(quest => quest.id === action.payload.questId);
       if(currentQuest.recipients === null) {
-        currentQuest.recipients = [];
+        currentQuest.recipients = [action.payload.data];
       } else {
         currentQuest.recipients.push(action.payload.data);
       }
-      console.log(action.payload.data);
     },
     hideSendQuestSuccessWindow(state, action) {
       state.sendQuestSuccess = action.payload;
@@ -33,8 +32,10 @@ const createdQuestsSlice = createSlice({
     [fetchCreatedQuests.fulfilled.type]: (state, action) => {
       state.isLoading = false
       state.error = ''
-      // state.total = action.payload.meta.total_count ? action.payload.meta.total_count : 0;
-      state.quests = action.payload
+      state.total = action.payload.meta.total_count ? action.payload.meta.total_count : 0;
+      if(action.payload) {
+        state.quests = action.payload.data
+      }
     },
     [fetchCreatedQuests.rejected.type]: (state, action) => {
       state.isLoading = false

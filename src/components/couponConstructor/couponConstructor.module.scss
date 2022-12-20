@@ -1,0 +1,92 @@
+.blockWrp {
+  display: flex;
+  margin: 0 auto 30px auto;
+}
+
+.blockLeft {
+  position: relative;
+  border-left: 7px dotted white;
+  border-radius: 0 10px 10px 0;
+  width: 50px;
+  height: 106px;
+  background-color: #ed76de;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  color: floralwhite;
+}
+
+.blockLeftBorder {
+  width: 5px;
+  height: 106px;
+  position: absolute;
+  left: -9px;
+  background-color: white;
+  //width: 10px;
+  //height: 10px;
+  //border-radius: 5px;
+  //position: absolute;
+  //left: -5px;
+  //top: 3px;
+  //background-color: white;
+}
+
+//.blockLeftText {
+//  transform: rotate(-90deg);
+//  position: absolute;
+//  top: 80px;
+//  left: -13px;
+//  font-size: 30px;
+//  font-weight: bold;
+//  color: floralwhite;
+//}
+.blockLeftText {
+  font-size: 18px;
+  line-height: 10px;
+  transform: rotate(-90deg);
+}
+
+.blockRight {
+  overflow-wrap: break-word;
+  border-radius: 10px;
+  border-left: 1px dashed white;
+  width: 200px;
+  height: 106px;
+  background-color: #2b46aa;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  box-sizing: border-box;
+  justify-content: center;
+}
+
+.title {
+  text-align: center;
+  color: floralwhite;
+  font-size: 16px;
+}
+
+.promoCode {
+  font-size: 14px;
+  text-transform: uppercase;
+  text-align: center;
+  color: floralwhite;
+}
+
+@keyframes couponAnimation-go-top-down {
+  from {
+    top: 5px;
+  }
+  to {
+    top: -5px
+  }
+}
+
+.couponAnimation {
+  animation: couponAnimation-go-top-down 1s ease-in-out infinite alternate-reverse;
+  position: relative;
+  //transition: 1s ease-in-out 0s;
+  //top: 10px;
+}
