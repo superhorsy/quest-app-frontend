@@ -29,6 +29,7 @@ import {FooterTest} from "./footer/footerTest";
 import {ErrorWindow} from "./ErrorWindow/ErrorWindow";
 import {PrivateRoute, PublicRoute} from "./routes";
 import {ImageQuestionStep} from "../pages/ImageQuestionStep";
+import { AudioQuestionStep } from "../pages/AudioQuestionStep";
 
 
 export const routes = (isAuth) => createBrowserRouter(
@@ -72,6 +73,9 @@ export const routes = (isAuth) => createBrowserRouter(
                  handle={{crumb: () => ({name: "QR квест", href: "#"})}}/>
               <Route path="create-quest/:questId/create-step/image-step"
                  element={<PrivateRoute isAuth={isAuth}><ImageQuestionStep/></PrivateRoute>}
+                 handle={{crumb: () => ({name: "Квест с картинкой", href: "#"})}}/>
+              <Route path="create-quest/:questId/create-step/audio-step"
+                 element={<PrivateRoute isAuth={isAuth}><AudioQuestionStep/></PrivateRoute>}
                  handle={{crumb: () => ({name: "Квест с картинкой", href: "#"})}}/>
           <Route path="quest-profile" element={<PrivateRoute isAuth={isAuth}><QuestProfileTemplate/></PrivateRoute>}
                  handle={{crumb: () => ({name: "Профиль квеста", href: "#"})}}>

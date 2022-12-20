@@ -51,12 +51,13 @@ export const QuestQuestions = () => {
         Задание с QR-кодом
       </Button>
       <Button
-        disabled
         fullWidth
         variant="contained"
         size="medium"
         sx={{ mt: 4, py: 2, mb: 1 }}
-
+        onClick={() =>
+          navigate(`/panel/create-quest/${questId}/create-step/audio-step/`)
+        }
       >
         Задание с аудио
       </Button>

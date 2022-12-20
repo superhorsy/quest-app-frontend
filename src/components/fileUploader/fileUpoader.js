@@ -8,6 +8,8 @@ import Box from "@mui/material/Box";
 import UploadFileOutlinedIcon from "@mui/icons-material/UploadFileOutlined";
 import PhotoSizeSelectActualOutlinedIcon from "@mui/icons-material/PhotoSizeSelectActualOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+
+import AudiotrackOutlinedIcon from '@mui/icons-material/AudiotrackOutlined';
 import { Loader } from "../loader/loader.js";
 
 import styles from "./fileUploader.module.scss";
@@ -22,6 +24,7 @@ export const FileUploader = ({ type, media }) => {
   const audioAccept = "audio/mp3, audio/wav, audio/webm";
   const filePiker = useRef(null);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [open, setOpen] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -92,7 +95,12 @@ export const FileUploader = ({ type, media }) => {
 
       {selectedFile && (
         <div className={styles.preview}>
-          <PhotoSizeSelectActualOutlinedIcon sx={{ mr: 2 }} />
+          {type === "image" && (
+            <PhotoSizeSelectActualOutlinedIcon sx={{ mr: 2 }} />
+          )}
+          {type === "sound" && (
+            <AudiotrackOutlinedIcon sx={{ mr: 2 }} />
+          )}
           {selectedFile.name} {selectedFile.size} КБ
         </div>
       )}
@@ -104,9 +112,9 @@ export const FileUploader = ({ type, media }) => {
 
       {isLoading && <Loader />}
 
-      {!isLoading && media && type === "image" && (
+      {!isLoading && media && (
         <>
-          {media.link && (
+          {media.link && type === "image" && (
             <div className={styles.file}>
               <img
                 className={styles.file__img}
@@ -114,6 +122,22 @@ export const FileUploader = ({ type, media }) => {
                 src={media.link}
               />
               <div className={styles.file__text}>{media.filename}</div>
+              <IconButton
+                sx={{ color: "#ff6090", ml: 2 }}
+                onClick={handleDelete}
+              >
+                <DeleteOutlineOutlinedIcon />
+              </IconButton>
+            </div>
+          )}
+          {media.link && type === "sound" && (
+            <div className={styles.file}>
+              <audio controls>
+                <source src={`https://questy.fun/${media.link}`} type="audio/mp3"/>
+                <source src={`https://questy.fun/${media.link}`} type="audio/wav"/>
+                <source src={`https://questy.fun/${media.link}`} type="audio/webm"/>
+              </audio>
+
               <IconButton
                 sx={{ color: "#ff6090", ml: 2 }}
                 onClick={handleDelete}

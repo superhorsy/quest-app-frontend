@@ -6,6 +6,7 @@ import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutl
 import { TextQuestionCreateForm } from "../../questCreation/stepCreation/textQuestionCreateForm/textQuestionCreateForm";
 import { QRQuestionCreateForm } from "../../questCreation/stepCreation/qrQuestionCreateForm/qrQuestionCreateForm";
 import { ImageQuestionCreateForm } from "../../questCreation/stepCreation/imageQuestionCreateForm/imageQuestionCreateForm";
+import { AudioQuestionCreateForm } from "../../questCreation/stepCreation/audioQuestionCreateForm/audioQuestionCreateForm";
 
 const style = {
   position: "absolute",
@@ -48,8 +49,9 @@ export const ModalEditQuestStep = ({ stepData, recipients }) => {
         return (
           <ImageQuestionCreateForm stepData={stepData} handleClose={handleClose}/>);
       }
-      case "video": {
-        return <></>;
+      case "audio": {
+        return (
+          <AudioQuestionCreateForm stepData={stepData} handleClose={handleClose}/>);
       }
     }
   };

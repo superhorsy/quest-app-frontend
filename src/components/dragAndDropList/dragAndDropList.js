@@ -5,6 +5,7 @@ import { addSteps, deleteStep } from "../../store/reducers/currentQuestSlice";
 import Box from "@mui/material/Box";
 import { IconButton } from "@mui/material";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import AudioFileOutlinedIcon from "@mui/icons-material/AudioFileOutlined";
 
 import TextIcon from "../../assets/images/questions/text-icon.png";
 import QRIcon from "../../assets/images/questions/qr-icon.png";
@@ -93,7 +94,10 @@ export const DragAndDropList = ({ recipients }) => {
                     <img src={TextIcon} alt="текст" />
                   )}
                   {step.question_type === "qr" && <img src={QRIcon} alt="qr" />}
-                  {step.question_type === "image" && <img src={`${step.question_content}&w=30`} alt="картинка" />}
+                  {step.question_type === "image" && (
+                    <img src={`${step.question_content}&w=30`} alt="картинка" />
+                  )}
+                  {step.question_type === "audio" && <AudioFileOutlinedIcon />}
                 </Box>
                 <div className={styles.question__title}>
                   <b>{step.description}</b>
@@ -120,9 +124,12 @@ export const DragAndDropList = ({ recipients }) => {
                   </IconButton>
                 </Box>
               </Box>
-              <div className={styles.question__desc}>
-                {step.question_content}
-              </div>
+              {step.question_type !== "image" &&
+                step.question_type !== "audio" && (
+                  <div className={styles.question__desc}>
+                    {step.question_content}
+                  </div>
+                )}
             </Box>
           ))}
       </Box>
