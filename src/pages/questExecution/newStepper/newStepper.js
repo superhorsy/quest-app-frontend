@@ -26,7 +26,7 @@ export const QuestExecution = () => {
     isLoading,
     notification,
   } = useSelector((state) => state.questExecutionReducer);
-  const matches = useMediaQuery('(max-width: 600px)')
+  const matches = useMediaQuery('(max-width: 600px)');
 
   const [answer, setAnswer] = useState("");
 
@@ -95,7 +95,6 @@ export const QuestExecution = () => {
           sx={{ display: "flex", width: 1, p: 2, boxSizing: "border-box" }}
         >
           <Box
-            className="superBox"
             sx={{
               display: "block",
               mr: 2,

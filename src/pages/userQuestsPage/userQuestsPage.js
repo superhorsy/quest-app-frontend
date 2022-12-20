@@ -138,9 +138,10 @@ export const UserQuestsPage = () => {
               {quests &&
                 quests.map((quest, idx) => (
                   <ListItem
+                  
                     key={idx}
                     className={style.listItem}
-                    sx={{ borderBottom: "1px solid lightgray" }}
+                    sx={{ borderBottom: "1px solid lightgray", p:0,  }}
                   >
                     <ListItemButton sx={{ minHeight: "73px" }}>
                       <Grid item xs={9}>

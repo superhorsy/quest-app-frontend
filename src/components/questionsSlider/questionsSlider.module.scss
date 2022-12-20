@@ -1,0 +1,15 @@
+.title {
+  margin: 0 auto;
+  width: 100%;
+  color: black;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 28px;
+  margin-top: 25px;
+  margin-bottom: 20px;
+
+  @media (max-width: 600px) {
+    font-size: 22px;
+    margin-top: 47px;
+  }
+}
