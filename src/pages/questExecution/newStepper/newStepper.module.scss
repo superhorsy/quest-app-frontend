@@ -13,17 +13,5 @@
   }
 }
 .imageBox {
-  width: 500px;
-  @media (max-width: 500px) {
-    width: 300px;
-  }
-  img {
-    display: block;
-    object-fit: contain;
-    width: 500px;
-    @media (max-width: 500px) {
-      width: 300px;
-    }
-  }
-
+  margin: 0 auto;
 }

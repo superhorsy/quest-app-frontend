@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { addAnswerFromQRCodeReader } from "../../../store/reducers/questExecutionSlice";
 import { getNextQuest } from "../../../store/actions/actions";
+import { useMediaQuery } from "../../../utils/utils";
 
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -25,6 +26,7 @@ export const QuestExecution = () => {
     isLoading,
     notification,
   } = useSelector((state) => state.questExecutionReducer);
+  const matches = useMediaQuery('(max-width: 600px)')
 
   const [answer, setAnswer] = useState("");
 
@@ -162,27 +164,26 @@ export const QuestExecution = () => {
           </Box>
           {current.question_type === "image" && (
             <Box component="div" className={styles.imageBox}>
-              <img
-                src={`${current.question_content}&w=500`}
-                alt="задание с картинкой"
-              />
+              {!matches && (
+                <img
+                  src={`${current.question_content}&w=500&h=500&fit=contain`}
+                  alt="задание с картинкой"
+                />
+              )}
+              {matches && (
+                <img
+                  src={`${current.question_content}&w=200&h=200&fit=contain`}
+                  alt="задание с картинкой"
+                />
+              )}
             </Box>
           )}
           <Box component="div">
             {current.question_type === "audio" && (
               <audio controls>
-                <source
-                  src={current.question_content}
-                  type="audio/mp3"
-                />
-                <source
-                  src={current.question_content}
-                  type="audio/wav"
-                />
-                <source
-                  src={current.question_content}
-                  type="audio/webm"
-                />
+                <source src={current.question_content} type="audio/mp3" />
+                <source src={current.question_content} type="audio/wav" />
+                <source src={current.question_content} type="audio/webm" />
               </audio>
             )}
           </Box>
