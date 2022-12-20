@@ -5,6 +5,7 @@ import { IconButton } from "@mui/material";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import { TextQuestionCreateForm } from "../../questCreation/stepCreation/textQuestionCreateForm/textQuestionCreateForm";
 import { QRQuestionCreateForm } from "../../questCreation/stepCreation/qrQuestionCreateForm/qrQuestionCreateForm";
+import { ImageQuestionCreateForm } from "../../questCreation/stepCreation/imageQuestionCreateForm/imageQuestionCreateForm";
 
 const style = {
   position: "absolute",
@@ -43,8 +44,9 @@ export const ModalEditQuestStep = ({ stepData, recipients }) => {
           <QRQuestionCreateForm stepData={stepData} handleClose={handleClose} />
         );
       }
-      case "audio": {
-        return <></>;
+      case "image": {
+        return (
+          <ImageQuestionCreateForm stepData={stepData} handleClose={handleClose}/>);
       }
       case "video": {
         return <></>;

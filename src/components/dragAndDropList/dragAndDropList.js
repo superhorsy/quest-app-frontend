@@ -90,9 +90,10 @@ export const DragAndDropList = ({ recipients }) => {
                   }}
                 >
                   {step.question_type === "text" && (
-                    <img src={TextIcon} alt="text" />
+                    <img src={TextIcon} alt="текст" />
                   )}
                   {step.question_type === "qr" && <img src={QRIcon} alt="qr" />}
+                  {step.question_type === "image" && <img src={`${step.question_content}&w=30`} alt="картинка" />}
                 </Box>
                 <div className={styles.question__title}>
                   <b>{step.description}</b>
