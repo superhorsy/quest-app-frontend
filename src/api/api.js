@@ -65,6 +65,10 @@ export const questsApi = {
     return instance.get(`${QUESTS}/${questId}`);
   },
 
+  getQuestStatus: (questId) => {
+    return instance.get(`${QUESTS}/${questId}/status`);
+  },
+
   sendQuest: (questId, data) => {
     return instance.post(`${QUESTS}/${questId}/send`, data);
   },
@@ -120,7 +124,7 @@ export const uploadApi = {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
-  });
+    });
   }
 }
 
