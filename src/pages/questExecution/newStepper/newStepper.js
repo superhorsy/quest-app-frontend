@@ -3,9 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { addAnswerFromQRCodeReader } from "../../../store/reducers/questExecutionSlice";
-import {
-  getNextQuest,
-} from "../../../store/actions/actions";
+import { getNextQuest } from "../../../store/actions/actions";
+import { useMediaQuery } from "../../../utils/utils";
 
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -13,15 +12,21 @@ import Box from "@mui/material/Box";
 import Input from "@mui/material/Input";
 
 import { QRStep } from "../questionsContent/qrStep/qrStep";
-import {Loader} from "../../../components/loader/loader";
+import { Loader } from "../../../components/loader/loader";
 import { Notification } from "../notification/notification";
 
 import styles from "./newStepper.module.scss";
 
-
 export const QuestExecution = () => {
-  const { current, questionCount, questStatus, qrCodeAnswer, isLoading, notification } =
-    useSelector((state) => state.questExecutionReducer);
+  const {
+    current,
+    questionCount,
+    questStatus,
+    qrCodeAnswer,
+    isLoading,
+    notification,
+  } = useSelector((state) => state.questExecutionReducer);
+  const matches = useMediaQuery('(max-width: 600px)');
 
   const [answer, setAnswer] = useState("");
 
@@ -90,7 +95,6 @@ export const QuestExecution = () => {
           sx={{ display: "flex", width: 1, p: 2, boxSizing: "border-box" }}
         >
           <Box
-            className="superBox"
             sx={{
               display: "block",
               mr: 2,
@@ -157,6 +161,31 @@ export const QuestExecution = () => {
               <QRStep qrCodeAnswer={qrCodeAnswer} />
             )}
           </Box>
+          {current.question_type === "image" && (
+            <Box component="div" className={styles.imageBox}>
+              {!matches && (
+                <img
+                  src={`${current.question_content}&w=450&h=450&fit=contain`}
+                  alt="задание с картинкой"
+                />
+              )}
+              {matches && (
+                <img
+                  src={`${current.question_content}&w=200&h=200&fit=contain`}
+                  alt="задание с картинкой"
+                />
+              )}
+            </Box>
+          )}
+          <Box component="div">
+            {current.question_type === "audio" && (
+              <audio controls>
+                <source src={current.question_content} type="audio/mp3" />
+                <source src={current.question_content} type="audio/wav" />
+                <source src={current.question_content} type="audio/webm" />
+              </audio>
+            )}
+          </Box>
         </Box>
         <Box
           component="div"
@@ -220,9 +249,13 @@ export const QuestExecution = () => {
     <div className="page-container">
       <div className="main-container">
         <h1 className={styles.title}>Прохождение квеста</h1>
-        {isLoading ? <Loader/> : questStatus === "finished"
-          ? renderCompleteQuest()
-          : renderQuestSteps()}
+        {isLoading ? (
+          <Loader />
+        ) : questStatus === "finished" ? (
+          renderCompleteQuest()
+        ) : (
+          renderQuestSteps()
+        )}
       </div>
     </div>
   );

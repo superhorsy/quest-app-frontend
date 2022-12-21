@@ -38,6 +38,10 @@ const currentQuestSlice = createSlice({
     updateProfileQuest(state, action){
       state.currentQuest.name = action.payload.name;
       state.currentQuest.description = action.payload.description;
+      
+    },
+    addFinalQuestMessage(state,action) {
+      state.currentQuest.final_message = action.payload;
     },
   },
   extraReducers: {
@@ -67,5 +71,5 @@ const currentQuestSlice = createSlice({
   }
 })
 
-export const {addSteps, addOneStep, editStep, updateTheme, deleteStep, updateProfileQuest} = currentQuestSlice.actions;
+export const {addSteps, addOneStep, editStep, updateTheme, deleteStep, updateProfileQuest, addFinalQuestMessage } = currentQuestSlice.actions;
 export default currentQuestSlice.reducer;

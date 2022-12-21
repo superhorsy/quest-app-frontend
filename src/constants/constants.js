@@ -6,7 +6,8 @@ export const apiQuests = {
   LOGIN: 'login',
   REGISTER: 'register',
   PROFILE: 'profile',
-  CHANGE_PASSWORD: 'profile/change-password'
+  CHANGE_PASSWORD: 'profile/change-password',
+  MEDIA: 'media'
 }
 
 export const questStatuses = {

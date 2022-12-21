@@ -17,10 +17,12 @@ import { SuccessWindow } from "../../components/sendQuestSuccessWindow/sendQuest
 
 // UI
 import {
+  Container,
   Grid,
   IconButton,
   List,
   ListItem,
+  ListItemButton,
   ListItemSecondaryAction,
   ListItemText,
   Pagination,
@@ -36,32 +38,41 @@ import Badge from "@mui/material/Badge";
 import style from "./userQuestsPage.module.scss";
 
 export const UserQuestsPage = () => {
+  const perPage = 5;
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const quests = useSelector((state) => state.createdQuestsReducer.quests);
+  const totalQuests = useSelector((state) => state.createdQuestsReducer.total);
   const isLoading = useSelector(
     (state) => state.createdQuestsReducer.isLoading
   );
+  const [page, setPage] = useState(1);
+  const [settings, setSettings] = useState({ limit: perPage, offset: 0 });
 
-  //pagination
-  // const perPage = 10;
-  // const totalQuests = useSelector(
-  //   (state) => state.createdQuestsReducer.total
-  // );
-  // const [page, setPage] = useState(1);
-  // const [settings, setSettings] = useState({ limit: perPage, offset: 0 });
-
-  // const getPages = () => {
-  //   return Math.ceil(totalQuests / perPage);
-  // };
-
-  const isQuestsExist = quests && quests !== null;
+  const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(fetchCreatedQuests());
-  }, [dispatch]);
+    if (page) {
+      fetchData();
+    }
+  }, [page]);
 
+  const handleChange = (event, value) => {
+    setPage(value);
+    setSettings({
+      limit: perPage,
+      offset: perPage * (value - 1),
+    });
+  };
 
+  const fetchData = () => {
+    dispatch(fetchCreatedQuests(settings));
+  };
+
+  const getPages = () => {
+    return Math.ceil(totalQuests / perPage);
+  };
+
+  const isQuestsExist = quests && quests !== null;
 
   // модальные окна
   const [email, setEmail] = useState("");
@@ -106,38 +117,33 @@ export const UserQuestsPage = () => {
     dispatch(sendQuest(data));
     dispatch(updateRecipientsInfo(data));
     setIsOpen(false);
+    console.log("letter was send!");
   };
 
   const handleDeleteQuest = () => {
     dispatch(deleteQuest(questIdToDelete));
     setIsOpenDialog(false);
   };
+  
 
   return (
     <div className="page-container">
       <SuccessWindow />
-      <div className="main-container">
-        <h1 className="title">Мои квесты</h1>
-        {isLoading && <Loader />}
-        {!isLoading && quests === null && (
-          <Box
-            sx={{ width: 1, textAlign: "center", fontSize: { xs: 15, sm: 20 } }}
-          >
-            У вас нет созданных квестов
-          </Box>
-        )}
-        {!isLoading && isQuestsExist && (
-          <>
-            <Grid container spacing={2} sx={{ maxWidth: "600px" }}>
-              <List sx={{ width: "100%" }}>
-                {quests &&
-                  quests.map((quest, idx) => (
-                    <ListItem
-                      key={idx}
-                      button
-                      className={style.listItem}
-                      sx={{ borderBottom: "1px solid lightgray" }}
-                    >
+      <h1 className="title">Мои квесты</h1>
+      <Container maxWidth="sm">
+        <Grid container spacing={2} sx={{ maxWidth: "600px" }}>
+          {isLoading && <Loader />}
+          {!isLoading && isQuestsExist && (
+            <List sx={{ width: "100%" }}>
+              {quests &&
+                quests.map((quest, idx) => (
+                  <ListItem
+                  
+                    key={idx}
+                    className={style.listItem}
+                    sx={{ borderBottom: "1px solid lightgray", p:0,  }}
+                  >
+                    <ListItemButton sx={{ minHeight: "73px" }}>
                       <Grid item xs={9}>
                         <ListItemText
                           onClick={() =>
@@ -178,7 +184,10 @@ export const UserQuestsPage = () => {
                             </>
                           )}
                           {quest.recipients === null && (
-                            <Tooltip title="Можно отправить на разные email" placement="left">
+                            <Tooltip
+                              title="Можно отправить на разные email"
+                              placement="left"
+                            >
                               <IconButton
                                 aria-label="send"
                                 sx={{ color: "#8FBC8F" }}
@@ -201,7 +210,10 @@ export const UserQuestsPage = () => {
                             </IconButton>
                           )}
                           {quest.recipients !== null && (
-                            <Tooltip title="Можно снова отправить" placement="top">
+                            <Tooltip
+                              title="Можно снова отправить"
+                              placement="top"
+                            >
                               <IconButton
                                 edge="end"
                                 sx={{ color: "#4E7AD2" }}
@@ -218,45 +230,59 @@ export const UserQuestsPage = () => {
                           )}
                         </ListItemSecondaryAction>
                       </Grid>
-                    </ListItem>
-                  ))}
-              </List>
-              {/*{getPages() >= 2 && (*/}
-              {/*  <Grid item xs={12}>*/}
-              {/*    <Pagination*/}
-              {/*      className={style.pagination}*/}
-              {/*      count={getPages()}*/}
-              {/*      size="small"*/}
-              {/*    />*/}
-              {/*  </Grid>)}*/}
+                    </ListItemButton>
+                  </ListItem>
+                ))}
+            </List>
+          )}
+          {!isLoading && quests === null && (
+            <Box
+              sx={{
+                width: 1,
+                textAlign: "center",
+                fontSize: { xs: 15, sm: 20 },
+              }}
+            >
+              У вас нет созданных квестов
+            </Box>
+          )}
+          {getPages() >= 2 && (
+            <Grid item xs={12}>
+              <Pagination
+                className={style.pagination}
+                page={page}
+                count={getPages()}
+                onChange={handleChange}
+                size="small"
+              />
             </Grid>
-            {isOpen && (
-              <SendQuestDialog
-                isOpen={isOpen}
-                handleClose={handleClose}
-                email={email}
-                setEmail={setEmail}
-                friendName={friendName}
-                setFriendName={setFriendName}
-                emailError={emailError}
-                setEmailError={setEmailError}
-                questNameToSend={questNameToSend}
-                formValid={formValid}
-                setFormValid={setFormValid}
-                handleSendQuest={handleSendQuest}
-              />
-            )}
-            {isOpenDialog && (
-              <DeleteQuestDialog
-                isOpenDialog={isOpenDialog}
-                handleClose={handleDialogClose}
-                questNameToDelete={questNameToDelete}
-                handleAction={handleDeleteQuest}
-              />
-            )}
-          </>
+          )}
+        </Grid>
+        {isOpen && (
+          <SendQuestDialog
+            isOpen={isOpen}
+            handleClose={handleClose}
+            email={email}
+            setEmail={setEmail}
+            friendName={friendName}
+            setFriendName={setFriendName}
+            emailError={emailError}
+            setEmailError={setEmailError}
+            questNameToSend={questNameToSend}
+            formValid={formValid}
+            setFormValid={setFormValid}
+            handleSendQuest={handleSendQuest}
+          />
         )}
-      </div>
+        {isOpenDialog && (
+          <DeleteQuestDialog
+            isOpenDialog={isOpenDialog}
+            handleClose={handleDialogClose}
+            questNameToDelete={questNameToDelete}
+            handleAction={handleDeleteQuest}
+          />
+        )}
+      </Container>
     </div>
   );
 };

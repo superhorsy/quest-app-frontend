@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -6,8 +6,10 @@ import { ThemeSelector } from "../questCreation/themeSelector/themeSelector";
 import { fetchQuest, updateQuest } from "../../store/actions/actions";
 
 import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Tooltip from "@mui/material/Tooltip";
+import Divider from "@mui/material/Divider";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
@@ -18,12 +20,16 @@ import { DragAndDropList } from "../dragAndDropList/dragAndDropList";
 import { Loader } from "../loader/loader.js";
 import { ModalQuestProfileEditor } from "./modalQuestProfileEditor";
 import { ModalRestorePass } from "../modalResorePass";
+import { FinalQuestMessage } from "../finalQuestMessage/finalQuestMessage";
+import { MyModal } from "../MyModal";
+import { CouponConstructor } from "../couponConstructor/couponConstructor";
 
 export const QuestProfile = () => {
   const currentQuest = useSelector(
     (state) => state.currentQuestReducer.currentQuest
   );
   const recipients = currentQuest.recipients;
+  const currentTheme = currentQuest.theme;
 
   const isLoading = useSelector((state) => state.currentQuestReducer.isLoading);
 
@@ -53,6 +59,11 @@ export const QuestProfile = () => {
         <>
           <div className={styles.questInfo}>
             <div className={styles.questInfo__item}>
+              <div className={styles.questInfo__subdesc}>
+                Общие данные о квесте
+              </div>
+            </div>
+            <div className={styles.questInfo__item}>
               <div className={styles.questInfo__title}>
                 Квест: {currentQuest.name}
               </div>
@@ -62,10 +73,13 @@ export const QuestProfile = () => {
                 {currentQuest.description}
               </div>
             </div>
-            <ThemeSelector recipients={recipients}/>
             <Box
               component="div"
               sx={{
+                display: "flex",
+                justifyContent: "center",
+                flexWrap: "wrap",
+                width: "100%",
                 m: "0 auto",
                 textAlign: "center",
                 // width: { xs: 150, sm: 200 },
@@ -85,8 +99,11 @@ export const QuestProfile = () => {
                 }}
               />
             </Box>
+            <ThemeSelector recipients={recipients} />
           </div>
+          <div className={styles.questInfo__subdesc}> Создание шагов</div>
           <DragAndDropList recipients={recipients} />
+
           <Button
             disabled={recipients?.length > 0}
             endIcon={<NoteAddIcon />}
@@ -103,6 +120,54 @@ export const QuestProfile = () => {
             }
           >
             Создать шаг
+          </Button>
+
+          <Divider sx={{ backgroundColor: "black", height: 1, mb: 3 }} />
+
+          <div className={styles.questInfo__subdesc}>Награда</div>
+
+          <FinalQuestMessage />
+          <Box
+            component="div"
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              flexWrap: "wrap",
+              width: "100%",
+              m: "0 auto",
+              textAlign: "center",
+              // width: { xs: 150, sm: 200 },
+            }}
+          >
+            <MyModal
+              buttonProps={{
+                fullWidth: true,
+                variant: "contained",
+                size: "large",
+                sx: { marginBottom: "20px" },
+              }}
+              buttonTitle={{
+                title: "Создать купон",
+              }}
+            >
+              <CouponConstructor questTheme={currentTheme} />
+            </MyModal>
+          </Box>
+
+          <Divider sx={{ backgroundColor: "black", height: 1, mb: 3 }} />
+          
+          <Button
+            variant="contained"
+            sx={{
+              m: "0 auto",
+              width: { sx: 1, sm: 300 },
+              mt: 3,
+              mb: { xs: 1, sm: 2 },
+              py: 1,
+            }}
+            onClick={() => navigate(`/questExample/${questId}`)}
+          >
+            Посмотреть результат
           </Button>
           <Box
             component="div"
@@ -121,7 +186,7 @@ export const QuestProfile = () => {
             >
               Назад
             </Button>
-            {(recipients?.length > 0) && (
+            {recipients?.length > 0 && (
               <Tooltip
                 title="После отправки квеста его нельзя редактировать"
                 placement="top"
@@ -144,7 +209,8 @@ export const QuestProfile = () => {
                 </span>
               </Tooltip>
             )}
-            {(recipients?.length === 0) && (
+
+            {recipients?.length === 0 && (
               <Button
                 variant="contained"
                 endIcon={<SaveIcon />}

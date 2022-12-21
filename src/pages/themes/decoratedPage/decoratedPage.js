@@ -6,7 +6,7 @@ import { ValentainPage } from "../../../components/themeComponents/valentain/val
 import { CommonThemePage } from "../../../components/themeComponents/common/commonThemePage";
 import { ChristmasPage } from "../../../components/themeComponents/christmas/christmasPage";
 import { StandartPage } from "../../../components/themeComponents/standart/standart";
-import { QuestExecution } from "../../questExecution/newStepper/newStepper";
+
 
 import Box from "@mui/material/Box";
 import {useSelector, useDispatch} from "react-redux";
@@ -36,12 +36,12 @@ export const DecoratedPage = () => {
 
   return (
     <Box sx={{mt: 0}}>
-      {theme === "christmas" && <ChristmasPage />}
-      {theme === "birthday" && <BirthdayPage />}
-      {theme === "valentain" && <ValentainPage />}
-      {theme === "halloween" && <HalloweenPage />}
-      {theme === "common" && <CommonThemePage />}
-      {theme === "standart" && <StandartPage />}
+      {theme === "christmas" && <ChristmasPage example={false}/>}
+      {theme === "birthday" && <BirthdayPage example={false}/>}
+      {theme === "valentain" && <ValentainPage example={false}/>}
+      {theme === "halloween" && <HalloweenPage example={false}/>}
+      {theme === "common" && <CommonThemePage example={false}/>}
+      {theme === "standart" && <StandartPage example={false}/>}
     </Box>
   );
 };
