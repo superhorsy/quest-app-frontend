@@ -24,7 +24,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "set PORT=3000 && react-scripts start",
+    "start": "set HTTPS=true&&set SSL_CRT_FILE=C:/Windows/System32/ca.crt&&set SSL_KEY_FILE=C:\\Windows\\System32\\ca.key&& set PORT=3000 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -35,13 +35,7 @@
     "extends": [
       "react-app",
       "react-app/jest"
-    ],
-    "rules": {
-      "indent": [
-        "warn",
-        2
-      ]
-    }
+    ]
   },
   "browserslist": {
     "production": [

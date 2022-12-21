@@ -24,7 +24,6 @@ export const FileUploader = ({ type, media }) => {
   const audioAccept = "audio/mp3, audio/wav, audio/webm";
   const filePiker = useRef(null);
   const [selectedFile, setSelectedFile] = useState(null);
-  const [open, setOpen] = useState(false);
 
   const dispatch = useDispatch();
 

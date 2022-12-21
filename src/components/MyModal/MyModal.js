@@ -1,13 +1,9 @@
 import React, {useState} from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import TextField from "@mui/material/TextField";
 
-// Api
-import {userProfileApi} from "../../api/api";
-import {CouponConstructor} from "../couponConstructor/couponConstructor";
+import Modal from '@mui/material/Modal';
+
 
 const style = {
   display: 'flex',
@@ -29,7 +25,7 @@ const style = {
 
 export const MyModal = ({buttonProps, buttonTitle, children}) => {
   const [open, setOpen] = useState(false);
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);

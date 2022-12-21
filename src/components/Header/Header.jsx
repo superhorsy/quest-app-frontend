@@ -17,12 +17,11 @@ import {Login, Settings, Logout} from "@mui/icons-material";
 import {useNavigate} from "react-router-dom";
 
 import Logo from "../../assets/images/logo-sm-w.png";
-import UserAvatar from "../../assets/images/avatar.jpg";
 import {Outlet} from "react-router-dom";
 
 import {useDispatch, useSelector} from "react-redux";
 import {authSlice} from "../../store/reducers/authSlice";
-//import userProfileReducer from "../../store/reducers/userProfileSlice";
+
 import {fetchUserProfile} from "../../store/actions/actions";
 import {Breadcrumbs} from '../Breadcrumbs/Breadcrumbs';
 
