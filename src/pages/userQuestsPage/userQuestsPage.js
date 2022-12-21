@@ -212,10 +212,10 @@ export const UserQuestsPage = () => {
           {!isLoading && isQuestsExist && (
             <List sx={{ width: "100%" }}>
               {quests &&
-                quests.map((quest) => (
+                quests.map((quest, idx) => (
                   <ListItem
                     disablePadding
-                    key={quest.quest_id}
+                    key={idx}
                     divider
                     secondaryAction={generateSecondAction(quest)}
                   >
