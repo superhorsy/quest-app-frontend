@@ -1,1 +1,1 @@
-export const QuestProgress = () => <h1>Прогресс</h1>;
+export const QuestProgress = () => <h1>Архив</h1>;
