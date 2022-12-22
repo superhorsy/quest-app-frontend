@@ -25,8 +25,9 @@ export const QuestExecution = () => {
     qrCodeAnswer,
     isLoading,
     notification,
+    finalMessage,
   } = useSelector((state) => state.questExecutionReducer);
-  const matches = useMediaQuery('(max-width: 600px)');
+  const matches = useMediaQuery("(max-width: 600px)");
 
   const [answer, setAnswer] = useState("");
 
@@ -63,9 +64,15 @@ export const QuestExecution = () => {
 
   const renderCompleteQuest = () => (
     <Box sx={{ mt: 10, width: 1, display: "flex", flexDirection: "column" }}>
-      <Typography sx={{ textAlign: "center", fontSize: { xs: 20, sm: 30 } }}>
-        Поздравляем с прохождением квеста!
-      </Typography>
+      {finalMessage ? (
+        <Typography sx={{ textAlign: "center", fontSize: { xs: 20, sm: 30 } }}>
+          {finalMessage}
+        </Typography>
+      ) : (
+        <Typography sx={{ textAlign: "center", fontSize: { xs: 20, sm: 30 } }}>
+          Поздравляем с прохождением квеста!
+        </Typography>
+      )}
       <Button
         size="large"
         variant="contained"
