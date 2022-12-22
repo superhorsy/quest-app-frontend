@@ -2,7 +2,7 @@ import {createSlice} from "@reduxjs/toolkit";
 import {login, registration} from "../actions/actions";
 
 export const initialState = {
-  isAuth: false,
+  isAuth: !!localStorage.getItem('token'),
   isLoading: false,
   error: null,
 }
