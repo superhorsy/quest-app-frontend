@@ -75,7 +75,7 @@ export const CouponConstructor = ({questTheme}) => {
       <TextField
         required
         fullWidth
-        inputProps={{maxlength: '33'}}
+        inputProps={{maxLength: '33'}}
         helperText='Допускается не более 33 символов'
         sx={{mb: {xs: 3, sm: 4}}}
         id="outlined-basic-title"
@@ -88,7 +88,7 @@ export const CouponConstructor = ({questTheme}) => {
       <TextField
         // required
         fullWidth
-        inputProps={{maxlength: '13'}}
+        inputProps={{maxLength: '13'}}
         helperText='Допускается не более 13 символов'
         sx={{mb: {xs: 3, sm: 4}}}
         id="outlined-basic-promo"
