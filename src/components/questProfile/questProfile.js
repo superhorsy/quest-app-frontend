@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -6,7 +6,6 @@ import { ThemeSelector } from "../questCreation/themeSelector/themeSelector";
 import { fetchQuest, updateQuest } from "../../store/actions/actions";
 
 import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Tooltip from "@mui/material/Tooltip";
 import Divider from "@mui/material/Divider";
@@ -155,20 +154,23 @@ export const QuestProfile = () => {
           </Box>
 
           <Divider sx={{ backgroundColor: "black", height: 1, mb: 3 }} />
-          
-          <Button
-            variant="contained"
-            sx={{
-              m: "0 auto",
-              width: { sx: 1, sm: 300 },
-              mt: 3,
-              mb: { xs: 1, sm: 2 },
-              py: 1,
-            }}
-            onClick={() => navigate(`/questExample/${questId}`)}
-          >
-            Посмотреть результат
-          </Button>
+
+          {currentQuest.steps && (
+            <Button
+              disabled={currentQuest.steps.length < 1}
+              variant="contained"
+              sx={{
+                m: "0 auto",
+                width: { sx: 1, sm: 300 },
+                mt: 3,
+                mb: { xs: 1, sm: 2 },
+                py: 1,
+              }}
+              onClick={() => navigate(`/questExample/${questId}`)}
+            >
+              Посмотреть результат
+            </Button>
+          )}
           <Box
             component="div"
             sx={{ mb: 9, display: "flex", justifyContent: "space-around" }}
