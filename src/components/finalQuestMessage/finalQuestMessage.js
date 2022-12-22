@@ -17,6 +17,8 @@ export const FinalQuestMessage = () => {
   const [isEdit, setIsEdit] = useState(false);
   const dispatch = useDispatch();
 
+  const finalMessage = useSelector((state) => state.currentQuestReducer.currentQuest.final_message);
+
   const handleEdit = () => {
     setIsEdit(false);
   };
@@ -24,6 +26,11 @@ export const FinalQuestMessage = () => {
     dispatch(addFinalQuestMessage(finalQuestMessage));
     setIsEdit(true);
   };
+  useEffect(() => {
+    if(finalMessage) {
+      setFinalQuestMessage(finalMessage)
+    }
+  }, [])
 
   return (
     <Box
