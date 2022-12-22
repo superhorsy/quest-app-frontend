@@ -155,25 +155,10 @@ export const QuestProfile = () => {
 
           <Divider sx={{ backgroundColor: "black", height: 1, mb: 3 }} />
 
-          {currentQuest.steps && (
-            <Button
-              disabled={currentQuest.steps.length < 1}
-              variant="contained"
-              sx={{
-                m: "0 auto",
-                width: { sx: 1, sm: 300 },
-                mt: 3,
-                mb: { xs: 1, sm: 2 },
-                py: 1,
-              }}
-              onClick={() => navigate(`/questExample/${questId}`)}
-            >
-              Посмотреть результат
-            </Button>
-          )}
+
           <Box
             component="div"
-            sx={{ mb: 9, display: "flex", justifyContent: "space-around" }}
+            sx={{ mb: 4, display: "flex", justifyContent: "space-around" }}
           >
             <Button
               variant="contained"
@@ -228,6 +213,21 @@ export const QuestProfile = () => {
               </Button>
             )}
           </Box>
+          {currentQuest.steps && (
+            <Button
+              disabled={currentQuest.steps.length < 1}
+              variant="contained"
+              sx={{
+                m: "0 auto",
+                width: { sx: 1, sm: 300 },
+                mb: { xs: 1, sm: 2 },
+                py: 1,
+              }}
+              onClick={() => navigate(`/questExample/${questId}`)}
+            >
+              Посмотреть результат
+            </Button>
+          )}
         </>
       )}
     </>
