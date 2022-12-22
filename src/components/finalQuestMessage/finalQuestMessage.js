@@ -29,6 +29,7 @@ export const FinalQuestMessage = () => {
   useEffect(() => {
     if(finalMessage) {
       setFinalQuestMessage(finalMessage)
+      setIsEdit(true);
     }
   }, [])
 
