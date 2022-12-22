@@ -38,7 +38,7 @@ export const AudioQuestionCreateForm = ({stepData, handleClose}) => {
       sort: stepN,
       description: taskName,
       question_type: "audio",
-      question_content: `https:questy.fun/${media.link}`,
+      question_content: `https://questy.fun${media.link}`,
       answer_type: "text",
       answer_content: arrayOfAnswers
     }
