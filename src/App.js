@@ -16,23 +16,16 @@ export const ThemeContext = React.createContext()
 
 
 function App() {
-  const {checkAuth} = authSlice.actions;
+  //const {checkAuth} = authSlice.actions;
   const dispatch = useDispatch();
   const {isAuth} = useSelector((state) => state.authReducer);
 
   useEffect(() => {
-    if (localStorage.getItem('token')) {
+    if (isAuth) {
       dispatch(fetchUserProfile())
-      dispatch(checkAuth());
+      //dispatch(checkAuth());
     }
-  }, [checkAuth, dispatch]);
-
-  useEffect(() => {
-    if (localStorage.getItem('token')) {
-      dispatch(fetchUserProfile())
-      dispatch(checkAuth());
-    }
-  }, [checkAuth, dispatch]);
+  }, [dispatch]);
 
   return (
     <ThemeContext.Provider value={MyTheme}>

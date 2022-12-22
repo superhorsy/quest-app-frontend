@@ -1,9 +1,10 @@
-import {createSlice} from "@reduxjs/toolkit";
-import {fetchQuest, updateQuest} from "../actions/actions";
+import { createSlice } from "@reduxjs/toolkit";
+import { fetchQuest, updateQuest, getQuestStatus } from "../actions/actions";
 
 const initialState = {
   currentQuest: {},
   isLoading: false,
+  status: '',
   error: '',
 }
 
@@ -35,12 +36,12 @@ const currentQuestSlice = createSlice({
         return step;
       })
     },
-    updateProfileQuest(state, action){
+    updateProfileQuest(state, action) {
       state.currentQuest.name = action.payload.name;
       state.currentQuest.description = action.payload.description;
-      
+
     },
-    addFinalQuestMessage(state,action) {
+    addFinalQuestMessage(state, action) {
       state.currentQuest.final_message = action.payload;
     },
   },
@@ -68,8 +69,20 @@ const currentQuestSlice = createSlice({
       state.isLoading = false
       state.error = action.payload
     },
+    [getQuestStatus.pending.type]: (state, action) => {
+      state.isLoading = true
+    },
+    [getQuestStatus.fulfilled.type]: (state, action) => {
+      state.isLoading = false
+      state.status = action.payload
+      state.error = ''
+    },
+    [getQuestStatus.rejected.type]: (state, action) => {
+      state.isLoading = false
+      state.error = action.payload
+    },
   }
 })
 
-export const {addSteps, addOneStep, editStep, updateTheme, deleteStep, updateProfileQuest, addFinalQuestMessage } = currentQuestSlice.actions;
+export const { addSteps, addOneStep, editStep, updateTheme, deleteStep, updateProfileQuest, addFinalQuestMessage } = currentQuestSlice.actions;
 export default currentQuestSlice.reducer;

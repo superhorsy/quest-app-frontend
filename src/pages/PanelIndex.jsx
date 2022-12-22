@@ -15,8 +15,8 @@ export const PanelIndex = () => {
     navigate('my-quests');
   };
 
-  const goToMyProgress = () => {
-    navigate('my-progress');
+  const goToArchive = () => {
+    navigate('archive');
   };
 
   const goToAvailableQuests = () => {
@@ -30,17 +30,17 @@ export const PanelIndex = () => {
   const panelRouting = [
     {
       name: 'Мои квесты',
-      description: 'В данном разделе можно просмотреть созданные вами квесты.',
+      description: 'Просмотреть созданные квесты.',
       topage: goToMyQuests,
     },
     {
-      name: 'Прогресс',
-      description: 'Посмотреть прогресс текущего квеста, выбранного для прохождения.',
-      topage: goToMyProgress,
+      name: 'Архив',
+      description: 'Просмотреть все пройденные квесты.',
+      topage: goToArchive,
     },
     {
       name: 'Доступные квесты',
-      description: 'В данном разделе можно выбрать предложенные вам квесты.',
+      description: 'Просмотреть список доступных для прохождения квестов.',
       topage: goToAvailableQuests,
     },
   ];
