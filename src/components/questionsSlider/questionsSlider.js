@@ -174,7 +174,7 @@ export const QuestionsSlider = () => {
                   onClick={handleNext}
                   disabled={activeStep === maxSteps - 1}
                 >
-                  Next
+                  Вперед
                   {theme.direction === "rtl" ? (
                     <KeyboardArrowLeft />
                   ) : (
@@ -193,7 +193,7 @@ export const QuestionsSlider = () => {
                   ) : (
                     <KeyboardArrowLeft />
                   )}
-                  Back
+                  Назад
                 </Button>
               }
             />
