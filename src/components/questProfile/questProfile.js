@@ -180,6 +180,7 @@ export const QuestProfile = () => {
               >
                 <span>
                   <Button
+                  color="success"
                     disabled={recipients?.length > 0}
                     variant="contained"
                     endIcon={<SaveIcon />}
@@ -199,6 +200,7 @@ export const QuestProfile = () => {
 
             {recipients?.length === 0 && (
               <Button
+              color="success"
                 variant="contained"
                 endIcon={<SaveIcon />}
                 sx={{
