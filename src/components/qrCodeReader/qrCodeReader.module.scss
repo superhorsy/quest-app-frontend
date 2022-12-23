@@ -17,8 +17,15 @@
 
 .box {
   margin: 0 auto;
-  max-height: 350px;
+  width: 500px;
+  max-height: 500px;
   @media(max-width: 600px) {
     max-height: 250px;
+    width: 100%;
+  }
+}
+.qrCodeBox{
+  @media(max-width: 600px) {
+    max-height: 200px;
   }
 }

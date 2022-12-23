@@ -150,7 +150,7 @@ export const QuestExecution = () => {
             justifyContent: "center",
             alignItems: "center",
             height: 1,
-            minHeight: "30vh",
+            minHeight: "40vh",
             padding: "0 15px",
             boxSizing: "border-box",
             overflowX: "hidden",

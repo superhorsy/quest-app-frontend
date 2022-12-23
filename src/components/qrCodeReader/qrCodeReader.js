@@ -42,7 +42,7 @@ class QRScan extends Component {
     return (
       <div className={styles.box}>
         {this.state.result == null && (
-          <div id={this.qrcodeRegionId} />
+          <div id={this.qrcodeRegionId}/>
         )}
       </div>
     );

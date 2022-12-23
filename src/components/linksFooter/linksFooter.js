@@ -12,7 +12,7 @@ export const LinksFooter = ({ linksData }) => {
         display: "flex",
         height: "auto",
         position: "absolute",
-        bottom: 0,
+        bottom: {xs: -60, sm: 0},
         left: 0,
         right: 0,
         backgroundColor: "primary.main",
