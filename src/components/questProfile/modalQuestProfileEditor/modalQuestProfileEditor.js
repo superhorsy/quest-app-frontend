@@ -54,7 +54,7 @@ export const ModalQuestProfileEditor = ({questData, buttonProps, recipients}) =>
         {...buttonProps}
         onClick={handleOpen}
       >
-        Редактировать квест
+        Редактировать
       </Button>
       <Modal
         open={open}
