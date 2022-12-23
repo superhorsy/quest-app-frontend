@@ -14,3 +14,11 @@
     }
   }
 }
+
+.box {
+  margin: 0 auto;
+  max-height: 350px;
+  @media(max-width: 600px) {
+    max-height: 250px;
+  }
+}

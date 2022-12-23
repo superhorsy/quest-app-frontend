@@ -4,6 +4,7 @@ import {Html5QrcodeScanner} from "html5-qrcode"
 import {connect} from "react-redux";
 
 import {addAnswerFromQRCodeReader} from "../../store/reducers/questExecutionSlice";
+import styles from "./qrCodeReader.module.scss";
 
 
 class QRScan extends Component {
@@ -31,7 +32,7 @@ class QRScan extends Component {
 
   componentDidMount() {
     // Creates the configuration object for Html5QrcodeScanner.
-    let config = { fps: 10, qrbox: {width: 250, height: 250} };
+    let config = { fps: 10, aspectRatio: 1.333334, rememberLastUsedCamera: false, };
     let verbose = false;
     this.html5QrcodeScanner = new Html5QrcodeScanner(this.qrcodeRegionId, config, verbose);
     this.html5QrcodeScanner.render(this.handleScan, undefined);
@@ -39,7 +40,7 @@ class QRScan extends Component {
 
   render() {
     return (
-      <div>
+      <div className={styles.box}>
         {this.state.result == null && (
           <div id={this.qrcodeRegionId} />
         )}
