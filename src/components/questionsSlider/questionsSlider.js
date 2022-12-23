@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { useMediaQuery } from "../../utils/utils";
 
@@ -16,6 +16,7 @@ import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import styles from "./questionsSlider.module.scss";
 
 export const QuestionsSlider = () => {
+  const {questId} = useParams();
   const matches = useMediaQuery("(max-width: 600px)");
   const navigate = useNavigate();
 
@@ -173,7 +174,7 @@ export const QuestionsSlider = () => {
                   onClick={handleNext}
                   disabled={activeStep === maxSteps - 1}
                 >
-                  Next
+                  Вперед
                   {theme.direction === "rtl" ? (
                     <KeyboardArrowLeft />
                   ) : (
@@ -192,7 +193,7 @@ export const QuestionsSlider = () => {
                   ) : (
                     <KeyboardArrowLeft />
                   )}
-                  Back
+                  Назад
                 </Button>
               }
             />
@@ -201,7 +202,7 @@ export const QuestionsSlider = () => {
             sx={{m: "0 auto"}}
             size="middle"
             variant="contained"
-            onClick={() => navigate("/panel/my-quests")}
+            onClick={() => navigate(`/panel/quest-profile/${questId}`)}
           >
             Вернуться назад
           </Button>

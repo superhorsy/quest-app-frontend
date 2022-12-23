@@ -155,25 +155,9 @@ export const QuestProfile = () => {
 
           <Divider sx={{ backgroundColor: "black", height: 1, mb: 3 }} />
 
-          {currentQuest.steps && (
-            <Button
-              disabled={currentQuest.steps.length < 1}
-              variant="contained"
-              sx={{
-                m: "0 auto",
-                width: { sx: 1, sm: 300 },
-                mt: 3,
-                mb: { xs: 1, sm: 2 },
-                py: 1,
-              }}
-              onClick={() => navigate(`/questExample/${questId}`)}
-            >
-              Посмотреть результат
-            </Button>
-          )}
           <Box
             component="div"
-            sx={{ mb: 9, display: "flex", justifyContent: "space-around" }}
+            sx={{ mb: 4, display: "flex", justifyContent: "space-around" }}
           >
             <Button
               variant="contained"
@@ -195,6 +179,7 @@ export const QuestProfile = () => {
               >
                 <span>
                   <Button
+                    color="success"
                     disabled={recipients?.length > 0}
                     variant="contained"
                     endIcon={<SaveIcon />}
@@ -213,21 +198,44 @@ export const QuestProfile = () => {
             )}
 
             {recipients?.length === 0 && (
-              <Button
-                variant="contained"
-                endIcon={<SaveIcon />}
-                sx={{
-                  width: { xs: 130, sm: 200 },
-                  mt: 3,
-                  mb: { xs: 1, sm: 2 },
-                  py: 1,
-                }}
-                onClick={handleSaveQuest}
+              <Tooltip
+                title="Нажмите, чтобы зафиксировать все изменения"
+                placement="top"
               >
-                Сохранить
-              </Button>
+                <span>
+                  <Button
+                    color="success"
+                    variant="contained"
+                    endIcon={<SaveIcon />}
+                    sx={{
+                      width: { xs: 130, sm: 200 },
+                      mt: 3,
+                      mb: { xs: 1, sm: 2 },
+                      py: 1,
+                    }}
+                    onClick={handleSaveQuest}
+                  >
+                    Сохранить
+                  </Button>
+                </span>
+              </Tooltip>
             )}
           </Box>
+          {currentQuest.steps && (
+            <Button
+              disabled={currentQuest.steps.length < 1}
+              variant="contained"
+              sx={{
+                m: "0 auto",
+                width: { sx: 1, sm: 300 },
+                mb: { xs: 1, sm: 2 },
+                py: 1,
+              }}
+              onClick={() => navigate(`/questExample/${questId}`)}
+            >
+              Посмотреть результат
+            </Button>
+          )}
         </>
       )}
     </>
