@@ -155,7 +155,6 @@ export const QuestProfile = () => {
 
           <Divider sx={{ backgroundColor: "black", height: 1, mb: 3 }} />
 
-
           <Box
             component="div"
             sx={{ mb: 4, display: "flex", justifyContent: "space-around" }}
@@ -180,7 +179,7 @@ export const QuestProfile = () => {
               >
                 <span>
                   <Button
-                  color="success"
+                    color="success"
                     disabled={recipients?.length > 0}
                     variant="contained"
                     endIcon={<SaveIcon />}
@@ -199,20 +198,27 @@ export const QuestProfile = () => {
             )}
 
             {recipients?.length === 0 && (
-              <Button
-              color="success"
-                variant="contained"
-                endIcon={<SaveIcon />}
-                sx={{
-                  width: { xs: 130, sm: 200 },
-                  mt: 3,
-                  mb: { xs: 1, sm: 2 },
-                  py: 1,
-                }}
-                onClick={handleSaveQuest}
+              <Tooltip
+                title="Нажмите, чтобы зафиксировать все изменения"
+                placement="top"
               >
-                Сохранить
-              </Button>
+                <span>
+                  <Button
+                    color="success"
+                    variant="contained"
+                    endIcon={<SaveIcon />}
+                    sx={{
+                      width: { xs: 130, sm: 200 },
+                      mt: 3,
+                      mb: { xs: 1, sm: 2 },
+                      py: 1,
+                    }}
+                    onClick={handleSaveQuest}
+                  >
+                    Сохранить
+                  </Button>
+                </span>
+              </Tooltip>
             )}
           </Box>
           {currentQuest.steps && (
