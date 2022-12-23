@@ -18,10 +18,10 @@ import styles from "./questProfile.module.scss";
 import { DragAndDropList } from "../dragAndDropList/dragAndDropList";
 import { Loader } from "../loader/loader.js";
 import { ModalQuestProfileEditor } from "./modalQuestProfileEditor";
-import { ModalRestorePass } from "../modalResorePass";
 import { FinalQuestMessage } from "../finalQuestMessage/finalQuestMessage";
 import { MyModal } from "../MyModal";
 import { CouponConstructor } from "../couponConstructor/couponConstructor";
+import { useLocation } from "react-router-dom";
 
 export const QuestProfile = () => {
   const currentQuest = useSelector(
@@ -35,6 +35,7 @@ export const QuestProfile = () => {
   const { questId } = useParams();
 
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
 
   const handleSaveQuest = () => {
@@ -49,7 +50,16 @@ export const QuestProfile = () => {
     if (currentQuest.id !== questId) {
       dispatch(fetchQuest(questId));
     }
-  }, []);
+  }, [currentQuest.id, currentQuest?.steps?.length, dispatch, questId]);
+
+  const handleBack = () => {
+    console.log(location.key)
+    if (location.key === "default") {
+      navigate("/panel/my-quests")
+    } else {
+      navigate(-1)
+    }
+  };
 
   return (
     <>
@@ -168,7 +178,7 @@ export const QuestProfile = () => {
                 mb: { xs: 1, sm: 2 },
                 py: 1,
               }}
-              onClick={() => navigate("/panel/my-quests")}
+              onClick={() => handleBack()}
             >
               Назад
             </Button>

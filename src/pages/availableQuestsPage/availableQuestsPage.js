@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAvailableQuests } from "../../store/actions/actions";
 import { questExecutionSlice } from "../../store/reducers/questExecutionSlice";
+import { useSearchParams } from 'react-router-dom';
 
 import {
   ListItemText,
@@ -32,9 +33,13 @@ export const AvailableQuestsPage = () => {
   const totalQuests = useSelector(
     (state) => state.questsAvailableReducer.total
   );
+  const [searchParams, setSearchParams] = useSearchParams();
+  const getPageOnload = () => {
+    return searchParams.has("page") ? parseInt(searchParams.get("page")) : 1;
+  }
+  const [page, setPage] = useState(getPageOnload());
+  const [settings, setSettings] = useState({ limit: perPage, offset: perPage * (page - 1) });
   const loading = useSelector((state) => state.questsAvailableReducer.loading);
-  const [page, setPage] = useState(1);
-  const [settings, setSettings] = useState({ limit: perPage, offset: 0 });
 
   const { clearStateSteps } = questExecutionSlice.actions;
 
@@ -50,15 +55,15 @@ export const AvailableQuestsPage = () => {
     dispatch(clearStateSteps()); // Очистка стейта шагов квеста. Слайсер questExecutionSlice
   }, [page, clearStateSteps, dispatch, settings]);
 
-  const handleChange = (event, value) => {
-    setPage(value);
+  const handleChange = (event, val) => {
+    event.preventDefault();
+    setPage(val);
     setSettings({
       limit: perPage,
-      offset: perPage * (value - 1)
+      offset: perPage * (val - 1)
     });
+    setSearchParams({"page": val})
   };
-
-
 
   const getPages = () => {
     return Math.ceil(totalQuests / perPage);
