@@ -63,7 +63,7 @@ export const FinalQuestMessage = () => {
             <ModeEditOutlineOutlinedIcon />
           </IconButton>
         ) : (
-          <IconButton onClick={handleSave} sx={{ m: "0 auto" }}>
+          <IconButton onClick={handleSave} sx={{ m: "0 auto" }} color="success">
             <SaveIcon />
           </IconButton>
         )}
