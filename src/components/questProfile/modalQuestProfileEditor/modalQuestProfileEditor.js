@@ -32,7 +32,7 @@ export const ModalQuestProfileEditor = ({questData, buttonProps, recipients}) =>
     name: questData.name,
     description: questData.description,
   });
-  const [error, setError] = useState(null);
+  const [error] = useState(null);
   const dispatch = useDispatch();
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);

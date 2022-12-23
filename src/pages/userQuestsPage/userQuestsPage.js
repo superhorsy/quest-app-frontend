@@ -1,31 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {useNavigate, useSearchParams} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {deleteQuest, fetchCreatedQuests, sendQuest,} from "../../store/actions/actions";
 
-import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteQuest,
-  fetchCreatedQuests,
-  sendQuest,
-} from "../../store/actions/actions";
+import {updateRecipientsInfo} from "../../store/reducers/createdQuestsSlice";
 
-import { updateRecipientsInfo } from "../../store/reducers/createdQuestsSlice";
-
-import { Loader } from "../../components/loader/loader";
-import { SendQuestDialog } from "../../components/modalSendQuest";
-import { DeleteQuestDialog } from "../../components/modalDeleteQuest";
-import { SuccessWindow } from "../../components/sendQuestSuccessWindow/sendQuestSuccessWindow";
+import {Loader} from "../../components/loader/loader";
+import {SendQuestDialog} from "../../components/modalSendQuest";
+import {DeleteQuestDialog} from "../../components/modalDeleteQuest";
+import {SuccessWindow} from "../../components/sendQuestSuccessWindow/sendQuestSuccessWindow";
 
 // UI
-import {
-  Container,
-  Grid,
-  IconButton,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  Pagination,
-} from "@mui/material";
+import {Container, Grid, IconButton, List, ListItem, ListItemButton, ListItemText, Pagination,} from "@mui/material";
 import Tooltip from "@mui/material/Tooltip";
 import Box from "@mui/material/Box";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
@@ -44,10 +30,13 @@ export const UserQuestsPage = () => {
   const isLoading = useSelector(
     (state) => state.createdQuestsReducer.isLoading
   );
-  const [page, setPage] = useState(1);
-  const [settings, setSettings] = useState({ limit: perPage, offset: 0 });
-
+  const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
+  const getPageOnload = () => {
+    return searchParams.has("page") ? parseInt(searchParams.get("page")) : 1;
+  }
+  const [page, setPage] = useState(getPageOnload());
+  const [settings, setSettings] = useState({ limit: perPage, offset: perPage * (page - 1) });
 
   useEffect(() => {
     const fetchData = () => {
@@ -58,12 +47,14 @@ export const UserQuestsPage = () => {
     }
   }, [page, settings, dispatch]);
 
-  const handleChange = (event, value) => {
-    setPage(value);
+  const handleChange = (event, val) => {
+    event.preventDefault();
+    setPage(val);
     setSettings({
       limit: perPage,
-      offset: perPage * (value - 1),
+      offset: perPage * (val - 1)
     });
+    setSearchParams({"page": val})
   };
 
 
