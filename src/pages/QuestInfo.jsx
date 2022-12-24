@@ -40,8 +40,6 @@ export const QuestInfo = () => {
     }
   }, [dispatch, quest.id, questId]);
 
-  console.log(quest);
-
   const handleQuestStart = () => {
     navigate(`/questExecution_decorated/${questId}`);
   };
