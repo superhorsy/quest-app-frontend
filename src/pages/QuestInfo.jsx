@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchQuest, getQuestStatus } from "../store/actions/actions";
+import { fetchQuestInfo } from "../store/actions/actions";
 import {
   Box,
   Button,
@@ -15,9 +15,8 @@ export const QuestInfo = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { questId } = useParams();
-  const quest = useSelector((state) => state.currentQuestReducer.currentQuest);
-  const status = useSelector((state) => state.currentQuestReducer.status);
-  const loading = useSelector((state) => state.currentQuestReducer.isLoading);
+  const quest = useSelector((state) => state.questInfoReducer.quest);
+  const loading = useSelector((state) => state.questInfoReducer.loading);
   const statuses = {
     'not_started': {
       title: 'не начато',
@@ -37,10 +36,11 @@ export const QuestInfo = () => {
   }
   useEffect(() => {
     if (quest.id !== questId) {
-      dispatch(fetchQuest(questId));
-      dispatch(getQuestStatus(questId));
+      dispatch(fetchQuestInfo(questId));
     }
-  }, [quest, dispatch, questId]);
+  }, [dispatch, quest.id, questId]);
+
+  console.log(quest);
 
   const handleQuestStart = () => {
     navigate(`/questExecution_decorated/${questId}`);
@@ -53,13 +53,13 @@ export const QuestInfo = () => {
         {loading && <CircularProgress disableShrink sx={{ m: "0 auto", mt: 10 }} />}
         {(!loading && quest) && (
           <>
-            <h1 className="title">{quest.name}</h1>
-            <Typography align="left" sx={{ width: "100%", mt: 2 }}>{quest.description}</Typography>
-            {status &&
+            <h1 className="title">{quest.quest_name}</h1>
+            <Typography align="left" sx={{ width: "100%", mt: 2 }}>{quest.quest_description}</Typography>
+            {quest.status &&
               <>
-                <Typography align="left" sx={{ width: "100%", mt: 2, fontWeight: '600' }}>Статус: <Box component="span" sx={{ color: statuses[status].color }}>{statuses[status].title}</Box></Typography>
-                {statuses[status].btn &&
-                  <Button onClick={handleQuestStart} sx={{ m: "0 auto", mt: 6 }} size="large" variant="contained">{statuses[status].btn}</Button>
+                <Typography align="left" sx={{ width: "100%", mt: 2, fontWeight: '600' }}>Статус: <Box component="span" sx={{ color: statuses[quest.status].color }}>{statuses[quest.status].title}</Box></Typography>
+                {statuses[quest.status].btn &&
+                  <Button onClick={handleQuestStart} sx={{ m: "0 auto", mt: 6 }} size="large" variant="contained">{statuses[quest.status].btn}</Button>
                 }
               </>
             }
