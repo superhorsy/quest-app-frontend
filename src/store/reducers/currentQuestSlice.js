@@ -12,6 +12,9 @@ const currentQuestSlice = createSlice({
   name: 'currentQuest',
   initialState,
   reducers: {
+    addCoupon(state, action){
+      state.currentQuest.rewards = action.payload;
+    },
     addOneStep(state, action) {
       state.currentQuest.steps.push(action.payload);
     },
@@ -84,5 +87,14 @@ const currentQuestSlice = createSlice({
   }
 })
 
-export const { addSteps, addOneStep, editStep, updateTheme, deleteStep, updateProfileQuest, addFinalQuestMessage } = currentQuestSlice.actions;
+export const {
+  addCoupon,
+  addSteps,
+  addOneStep,
+  editStep,
+  updateTheme,
+  deleteStep,
+  updateProfileQuest,
+  addFinalQuestMessage
+} = currentQuestSlice.actions;
 export default currentQuestSlice.reducer;

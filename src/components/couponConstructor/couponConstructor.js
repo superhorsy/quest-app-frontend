@@ -1,77 +1,34 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {createTheme, ThemeProvider} from "@mui/material/styles";
+import React, {useState} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {addCoupon} from "../../store/reducers/currentQuestSlice";
 
-// Styles
-import classes from './couponConstructor.module.scss'
-import {Header} from "../Header/Header";
-import {ThemeContext} from "../../App";
+// MUI Comps
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
+// Custom Comps
+import {Coupon} from "./coupon/coupon";
 
 export const CouponConstructor = ({questTheme}) => {
-  const [title, setTitle] = useState('')
-  const [promoCode, setPromoCode] = useState('');
-  const myTheme = useContext(ThemeContext);
+  const currentQuest = useSelector(
+    (state) => state.currentQuestReducer.currentQuest
+  );
+  const [title, setTitle] = useState(currentQuest.rewards?.message ? currentQuest.rewards.message : '')
+  const [promoCode, setPromoCode] = useState(currentQuest.rewards?.value ? currentQuest.rewards.value : '');
+  const dispatch = useDispatch()
 
-  const setTheme = () => {
-    try {
-      return createTheme(myTheme[questTheme]);
-    } catch (e) {
-      return createTheme({})
-    }
-  }
+  const onCouponSave = (handleClose) => {
+    dispatch(addCoupon({
+      type: 'coupon',
+      message: title,
+      value: promoCode,
+    }));
+    handleClose();
+  };
 
   return (
-    <ThemeProvider theme={setTheme()}>
-      <div className={`${classes.blockWrp} ${classes.couponAnimation}`}>
-        <div
-          className={classes.blockLeft}
-          style={{
-            backgroundColor: myTheme[questTheme].palette.primary.couponLight
-          }}
-        >
-          <h1
-            style={{
-              color: myTheme[questTheme].palette.primary.couponSecondText
-            }}
-            className={classes.blockLeftText}
-          >
-            Coupon
-          </h1>
-          <div className={classes.blockLeftBorder}>
-          </div>
-        </div>
-        <div
-          className={classes.blockRight}
-          style={{
-            backgroundColor: myTheme[questTheme].palette.primary.couponMain
-          }}>
-          <div
-            style={{color: myTheme[questTheme].palette.primary.couponTitleText}}
-            className={classes.title}
-          >
-            {title}
-          </div>
-          {promoCode ?
-            <div>
-              <div
-                style={{color: myTheme[questTheme].palette.primary.couponPromoText}}
-                className={classes.promoCode}
-              >
-                PROMO CODE:
-              </div>
-              <div
-                className={classes.promoCode}
-                style={{color: myTheme[questTheme].palette.primary.couponSecondText}}
-              >
-                {promoCode}
-              </div>
-            </div>
-            : <></>}
-        </div>
-
-      </div>
+    <div>
+      <Coupon questTheme={questTheme} data={{message: title, value: promoCode}}/>
       <TextField
         required
         fullWidth
@@ -105,10 +62,9 @@ export const CouponConstructor = ({questTheme}) => {
         variant="contained"
         size="large"
         // disabled={isEmptyField}
-        onClick={() => {
-        }}
+        onClick={onCouponSave}
       >Сохранить
       </Button>
-    </ThemeProvider>
+    </div>
   );
 };

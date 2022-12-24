@@ -34,6 +34,7 @@ export const MyModal = ({buttonProps, buttonTitle, children}) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  console.log(children)
   return (
     <div>
       <Button

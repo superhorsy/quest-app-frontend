@@ -25,6 +25,11 @@ import { MyModal } from "../MyModal";
 import { CouponConstructor } from "../couponConstructor/couponConstructor";
 
 export const QuestProfile = () => {
+  // const [couponData, setCouponData] = useState({
+  //   type: 'coupon',
+  //   message: '',
+  //   value: '',
+  // })
   const currentQuest = useSelector(
     (state) => state.currentQuestReducer.currentQuest
   );
@@ -146,11 +151,12 @@ export const QuestProfile = () => {
                 size: "large",
                 sx: { marginBottom: "20px" },
               }}
-              buttonTitle={{
-                title: "Создать купон",
-              }}
+              buttonTitle={currentQuest.rewards ? {
+                title: "Редактировать купон",
+              }
+              : {title: "Создать купон"}}
             >
-              <CouponConstructor questTheme={currentTheme} />
+              <CouponConstructor questTheme={currentTheme}/>
             </MyModal>
           </Box>
 
