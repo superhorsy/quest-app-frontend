@@ -13,8 +13,8 @@ export const CouponConstructor = ({questTheme}) => {
   const currentQuest = useSelector(
     (state) => state.currentQuestReducer.currentQuest
   );
-  const [title, setTitle] = useState(currentQuest.rewards?.message ? currentQuest.rewards.message : '')
-  const [promoCode, setPromoCode] = useState(currentQuest.rewards?.value ? currentQuest.rewards.value : '');
+  const [title, setTitle] = useState(currentQuest.rewards[0]?.message ? currentQuest.rewards[0].message : '')
+  const [promoCode, setPromoCode] = useState(currentQuest.rewards[0]?.value ? currentQuest.rewards[0].value : '');
   const dispatch = useDispatch()
 
   const onCouponSave = (handleClose) => {
@@ -27,7 +27,7 @@ export const CouponConstructor = ({questTheme}) => {
   };
 
   return (
-    <div>
+    <div style={{display: 'flex', flexDirection: 'column'}}>
       <Coupon questTheme={questTheme} data={{message: title, value: promoCode}}/>
       <TextField
         required
