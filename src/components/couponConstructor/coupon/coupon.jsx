@@ -5,7 +5,7 @@ import {createTheme, ThemeProvider} from "@mui/material/styles";
 import classes from './coupon.module.scss'
 import {ThemeContext} from "../../../App";
 
-export const Coupon = ({questTheme, data}) => {
+export const Coupon = ({questTheme, data, sx}) => {
   const myTheme = useContext(ThemeContext);
 
   const setTheme = () => {
@@ -18,7 +18,7 @@ export const Coupon = ({questTheme, data}) => {
 
   return (
     <ThemeProvider theme={setTheme()}>
-      <div className={`${classes.blockWrp} ${classes.couponAnimation}`}>
+      <div style={sx} className={`${classes.blockWrp} ${classes.couponAnimation}`}>
         <div
           className={classes.blockLeft}
           style={{

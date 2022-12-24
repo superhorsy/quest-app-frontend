@@ -20,7 +20,8 @@ const initialState = {
     "message": "",
     "visible": false,
   },
-  finalMessage: null
+  finalMessage: null,
+  rewards: null,
 }
 
 export const questExecutionSlice = createSlice({
@@ -103,6 +104,9 @@ export const questExecutionSlice = createSlice({
         state.previous = [...action.payload.data.previous]
       }
       state.finalMessage = action.payload.data?.final_message
+      if(action.payload.data?.rewards){
+        state.rewards = action.payload.data?.rewards;
+      }
     },
     [getNextQuest.rejected.type]: (state, action) => {
       state.isLoading = false
