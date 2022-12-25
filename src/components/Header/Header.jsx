@@ -87,8 +87,6 @@ export const Header = () => {
     },
   ];
 
-  console.log("HEADER")
-
   useEffect(() => {
     if (isAuth) {
       dispatch(fetchUserProfile())
