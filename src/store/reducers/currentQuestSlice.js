@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { fetchQuest, updateQuest, getQuestStatus } from "../actions/actions";
+import {createSlice} from "@reduxjs/toolkit";
+import {fetchQuest, updateQuest, getQuestStatus} from "../actions/actions";
 
 const initialState = {
   currentQuest: {},
@@ -12,6 +12,13 @@ const currentQuestSlice = createSlice({
   name: 'currentQuest',
   initialState,
   reducers: {
+    addCoupon(state, action) {
+      // !!!!!Эта логика полностью перезапишет rewards!!!!
+      // TODO написать логику, которая не будет перезаписывать rewards,
+      // TODO а будет переписывать только кукпон
+      state.currentQuest.rewards = [];
+      state.currentQuest.rewards.push(action.payload);
+    },
     addOneStep(state, action) {
       state.currentQuest.steps.push(action.payload);
     },
@@ -84,5 +91,14 @@ const currentQuestSlice = createSlice({
   }
 })
 
-export const { addSteps, addOneStep, editStep, updateTheme, deleteStep, updateProfileQuest, addFinalQuestMessage } = currentQuestSlice.actions;
+export const {
+  addCoupon,
+  addSteps,
+  addOneStep,
+  editStep,
+  updateTheme,
+  deleteStep,
+  updateProfileQuest,
+  addFinalQuestMessage
+} = currentQuestSlice.actions;
 export default currentQuestSlice.reducer;

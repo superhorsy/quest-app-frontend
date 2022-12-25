@@ -44,7 +44,6 @@ export const QuestInfo = () => {
     navigate(`/questExecution_decorated/${questId}`);
   };
 
-
   return <div className="page-container">
     <Container maxWidth="sm">
       <Grid container spacing={2} sx={{ maxWidth: "600px" }}>

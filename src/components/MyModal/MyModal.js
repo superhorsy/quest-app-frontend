@@ -10,8 +10,8 @@ import {userProfileApi} from "../../api/api";
 import {CouponConstructor} from "../couponConstructor/couponConstructor";
 
 const style = {
-  display: 'flex',
-  flexDirection: 'column',
+  // display: 'flex',
+  // flexDirection: 'column',
   position: 'absolute',
   top: '50%',
   left: '50%',
