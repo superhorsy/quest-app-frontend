@@ -9,7 +9,7 @@ import Button from "@mui/material/Button";
 // Custom Comps
 import {Coupon} from "./coupon/coupon";
 
-export const CouponConstructor = ({questTheme}) => {
+export const CouponConstructor = ({questTheme, setOpen}) => {
   const currentQuest = useSelector(
     (state) => state.currentQuestReducer.currentQuest
   );
@@ -23,8 +23,8 @@ export const CouponConstructor = ({questTheme}) => {
       message: title,
       value: promoCode,
     }));
+    setOpen()
   };
-  // console.log("currentQuest.rewards[0]?.value", currentQuest.rewards[0]?.value)
 
   return (
     <div style={{display: 'flex', flexDirection: 'column'}}>
