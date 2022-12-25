@@ -1,17 +1,17 @@
-import React, {useEffect, useState} from "react";
-import {useNavigate, useSearchParams} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {deleteQuest, fetchCreatedQuests, sendQuest,} from "../../store/actions/actions";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { styled } from '@mui/material/styles'; import { useDispatch, useSelector } from "react-redux";
+import { deleteQuest, fetchCreatedQuests, sendQuest, } from "../../store/actions/actions";
 
-import {updateRecipientsInfo} from "../../store/reducers/createdQuestsSlice";
+import { updateRecipientsInfo } from "../../store/reducers/createdQuestsSlice";
 
-import {Loader} from "../../components/loader/loader";
-import {SendQuestDialog} from "../../components/modalSendQuest";
-import {DeleteQuestDialog} from "../../components/modalDeleteQuest";
-import {SuccessWindow} from "../../components/sendQuestSuccessWindow/sendQuestSuccessWindow";
+import { Loader } from "../../components/loader/loader";
+import { SendQuestDialog } from "../../components/modalSendQuest";
+import { DeleteQuestDialog } from "../../components/modalDeleteQuest";
+import { SuccessWindow } from "../../components/sendQuestSuccessWindow/sendQuestSuccessWindow";
 
 // UI
-import {Container, Grid, IconButton, List, ListItem, ListItemButton, ListItemText, Pagination,} from "@mui/material";
+import { Container, Grid, IconButton, List, ListItem, ListItemButton, ListItemText, Pagination, } from "@mui/material";
 import Tooltip from "@mui/material/Tooltip";
 import Box from "@mui/material/Box";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
@@ -23,7 +23,7 @@ import Badge from "@mui/material/Badge";
 import style from "./userQuestsPage.module.scss";
 
 export const UserQuestsPage = () => {
-  const perPage = 5;
+  const perPage = 7;
   const dispatch = useDispatch();
   const quests = useSelector((state) => state.createdQuestsReducer.quests);
   const totalQuests = useSelector((state) => state.createdQuestsReducer.total);
@@ -54,7 +54,7 @@ export const UserQuestsPage = () => {
       limit: perPage,
       offset: perPage * (val - 1)
     });
-    setSearchParams({"page": val})
+    setSearchParams({ "page": val })
   };
 
 
@@ -192,6 +192,16 @@ export const UserQuestsPage = () => {
     </>;
   }
 
+  const CustomizedList = styled(List)`
+    &{
+      width: 100%
+    }
+    & .MuiListItem-root>.MuiListItemButton-root {
+      padding-right: 96px;
+      min-height: 73px;
+    }
+  `;
+
 
   return (
     <div className="page-container">
@@ -201,7 +211,7 @@ export const UserQuestsPage = () => {
         <Grid container spacing={2} sx={{ maxWidth: "600px" }}>
           {isLoading && <Loader />}
           {!isLoading && isQuestsExist && (
-            <List sx={{ width: "100%" }}>
+            <CustomizedList>
               {quests &&
                 quests.map((quest, idx) => (
                   <ListItem
@@ -210,12 +220,12 @@ export const UserQuestsPage = () => {
                     divider
                     secondaryAction={generateSecondAction(quest)}
                   >
-                    <ListItemButton sx={{ minHeight: "73px" }} onClick={() => navigate(`/panel/quest-profile/${quest.id}`)}>
+                    <ListItemButton onClick={() => navigate(`/panel/quest-profile/${quest.id}`)}>
                       <ListItemText>{quest.name}</ListItemText>
                     </ListItemButton>
                   </ListItem>
                 ))}
-            </List>
+            </CustomizedList>
           )}
           {!isLoading && quests === null && (
             <Box

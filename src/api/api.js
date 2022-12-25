@@ -75,7 +75,10 @@ export const questsApi = {
 
   fetchAvailableQuests: (avQData) => {
     return instance.get(QUESTS_AVAILABLE + `?limit=${avQData.limit}&offset=${avQData.offset}`);
-    //return instance.get(QUESTS_AVAILABLE);
+  },
+
+  fetchAvQuests: () => {
+    return instance.get(QUESTS_AVAILABLE);
   }
 };
 

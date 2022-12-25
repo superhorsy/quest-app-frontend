@@ -5,6 +5,7 @@ import authReducer from "./reducers/authSlice";
 import userProfileReducer from "./reducers/userProfileSlice";
 import currentQuestReducer from "./reducers/currentQuestSlice";
 import { questsAvailableReducer } from './reducers/availableQuests';
+import { questInfoReducer } from './reducers/questInfoSlice';
 import mediaReducer from "./reducers/mediaSlice";
 import errorReducer from "./reducers/errorReducer";
 
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
   questsAvailableReducer,
   currentQuestReducer,
   errorReducer,
-  mediaReducer
+  mediaReducer,
+  questInfoReducer,
 })
 
 export const store = configureStore({

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAvailableQuests } from "../../store/actions/actions";
 import { questExecutionSlice } from "../../store/reducers/questExecutionSlice";
+import { styled } from '@mui/material/styles';
 import { useSearchParams } from 'react-router-dom';
 
 import {
@@ -62,7 +63,7 @@ export const AvailableQuestsPage = () => {
       limit: perPage,
       offset: perPage * (val - 1)
     });
-    setSearchParams({"page": val})
+    setSearchParams({ "page": val })
   };
 
   const getPages = () => {
@@ -89,18 +90,28 @@ export const AvailableQuestsPage = () => {
       }
     }
     return <>
-      <Tooltip title={<>{'От '}<b>{owner.name}</b></>} placement="left">
+      <Tooltip key="owner" title={<>{'От '}<b>{owner.name}</b></>} placement="left">
         <IconButton>
           <InfoOutlinedIcon />
         </IconButton>
       </Tooltip>
-      <Tooltip title={statuses[status].title} placement="top">
+      <Tooltip key="status" title={statuses[status].title} placement="top">
         <IconButton>
           {statuses[status].icon}
         </IconButton>
       </Tooltip>
-    </>;
+    </>
   }
+
+  const CustomizedList = styled(List)`
+    &{
+      width: 100%
+    }
+    & .MuiListItem-root>.MuiListItemButton-root {
+      padding-right: 96px;
+      min-height: 73px;
+    }
+  `;
 
   return (
     <div className="page-container">
@@ -109,7 +120,7 @@ export const AvailableQuestsPage = () => {
         <Grid container spacing={2} sx={{ maxWidth: "600px" }}>
           {loading && <CircularProgress disableShrink sx={{ m: "0 auto", mt: 10 }} />}
           {(!loading && quests.length > 0) && (
-            <List sx={{ width: "100%" }}>
+            <CustomizedList>
               {quests.map((quest) => (
                 <ListItem
                   disablePadding
@@ -117,12 +128,12 @@ export const AvailableQuestsPage = () => {
                   divider
                   secondaryAction={generateSecondAction(quest.status, quest.owner)}
                 >
-                  <ListItemButton sx={{ minHeight: "73px" }} onClick={() => handleQuestStart(quest.quest_id)}>
+                  <ListItemButton onClick={() => handleQuestStart(quest.quest_id)}>
                     <ListItemText>{quest.quest_name}</ListItemText>
                   </ListItemButton>
                 </ListItem>
               ))}
-            </List>
+            </CustomizedList>
           )}
           {!loading && !quests.length && (
             <Typography align="center" sx={{ width: "100%", mt: 2 }}>Сожалеем, у вас пока нет доступных квестов!</Typography>
