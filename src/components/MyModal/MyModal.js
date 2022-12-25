@@ -29,7 +29,7 @@ const style = {
 
 export const MyModal = ({buttonProps, buttonTitle, children}) => {
   const [open, setOpen] = useState(false);
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
