@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {cloneElement, useState} from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -34,7 +34,7 @@ export const MyModal = ({buttonProps, buttonTitle, children}) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const newChildren = React.cloneElement(children, {...children.props, setOpen})
+  const newChildren = cloneElement(children, {...children.props, setOpen})
 
   return (
     <div>
