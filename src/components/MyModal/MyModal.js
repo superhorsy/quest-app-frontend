@@ -34,6 +34,7 @@ export const MyModal = ({buttonProps, buttonTitle, children}) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  // Добавление сеттера в пропсы children для закрытия модального окна
   children = cloneElement(children, {...children.props, handleClose})
 
   return (
