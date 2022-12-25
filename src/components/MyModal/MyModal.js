@@ -34,7 +34,7 @@ export const MyModal = ({buttonProps, buttonTitle, children}) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const newChildren = cloneElement(children, {...children.props, setOpen})
+  children = cloneElement(children, {...children.props, handleClose})
 
   return (
     <div>
@@ -63,7 +63,7 @@ export const MyModal = ({buttonProps, buttonTitle, children}) => {
           // onSubmit={handleSubmitEditPassword}
           sx={style}
         >
-          {newChildren}
+          {children}
         </Box>
       </Modal>
     </div>

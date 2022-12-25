@@ -9,7 +9,7 @@ import Button from "@mui/material/Button";
 // Custom Comps
 import {Coupon} from "./coupon/coupon";
 
-export const CouponConstructor = ({questTheme, setOpen}) => {
+export const CouponConstructor = ({questTheme, handleClose}) => {
   const currentQuest = useSelector(
     (state) => state.currentQuestReducer.currentQuest
   );
@@ -17,13 +17,13 @@ export const CouponConstructor = ({questTheme, setOpen}) => {
   const [promoCode, setPromoCode] = useState(currentQuest.rewards !== null ? currentQuest.rewards[0].value : '');
   const dispatch = useDispatch()
 
-  const onCouponSave = (handleClose) => {
+  const onCouponSave = () => {
     dispatch(addCoupon({
       type: 'coupon',
       message: title,
       value: promoCode,
     }));
-    setOpen()
+    handleClose();
   };
 
   return (
