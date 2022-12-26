@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {cloneElement, useState} from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -29,10 +29,13 @@ const style = {
 
 export const MyModal = ({buttonProps, buttonTitle, children}) => {
   const [open, setOpen] = useState(false);
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  // Добавление сеттера в пропсы children для закрытия модального окна
+  children = cloneElement(children, {...children.props, handleClose})
 
   return (
     <div>
