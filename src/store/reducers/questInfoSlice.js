@@ -18,7 +18,6 @@ const questInfoSlice = createSlice({
     [fetchQuestInfo.fulfilled.type]: (state, action) => {
       state.loading = false
       state.error = ''
-      console.log(action.payload)
       if (action.payload) {
         state.quest = action.payload;
       }
