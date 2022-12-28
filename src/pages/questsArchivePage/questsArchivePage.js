@@ -30,7 +30,6 @@ import { useNavigate } from "react-router";
 export const QuestsArchivePage = () => {
   const perPage = 7;
   const dispatch = useDispatch();
-  const quests = useSelector((state) => state.questsAvailableReducer.quests);
   const finishedQuests = useSelector((state) => state.questsAvailableReducer.finishedQuests);
   const totalQuests = useSelector(
     (state) => state.questsAvailableReducer.total
@@ -121,7 +120,7 @@ export const QuestsArchivePage = () => {
       <Container maxWidth="sm">
         <Grid container spacing={2} sx={{ maxWidth: "600px" }}>
           {loading && <CircularProgress disableShrink sx={{ m: "0 auto", mt: 10 }} />}
-          {(!loading && quests.length > 0) && (
+          {(!loading && finishedQuests.length > 0) && (
             <CustomizedList>
               {finishedQuests.map((quest) => (
                 <ListItem
@@ -137,7 +136,7 @@ export const QuestsArchivePage = () => {
               ))}
             </CustomizedList>
           )}
-          {!loading && !quests.length && (
+          {!loading && !finishedQuests.length && (
             <Typography align="center" sx={{ width: "100%", mt: 2 }}>Сожалеем, пока что у вас нет пройденных квестов</Typography>
           )}
           {getPages() >= 2 && (
