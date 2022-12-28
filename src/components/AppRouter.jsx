@@ -12,7 +12,7 @@ import { ChangePass } from "../pages/ChangePass";
 import { Panel } from "../pages/Panel";
 import { PanelIndex } from "../pages/PanelIndex";
 import { AvailableQuests } from "../pages/AvailableQuests";
-import { QuestProgress } from "../pages/QuestProgress";
+import { QuestsArchive } from "../pages/QuestsArchive";
 import { UserQuests } from "../pages/UserQuests";
 import { CreateQuest } from "../pages/CreateQuest";
 import { CreateStep } from "../pages/CreateStep";
@@ -56,7 +56,7 @@ export const routes = (isAuth) => createBrowserRouter(
             handle={{ crumb: () => ({ name: "Доступные квесты", href: "/panel/available-quests" }) }} />
           <Route path="quest-info/:questId" element={<PrivateRoute isAuth={isAuth}><QuestInfo /></PrivateRoute>}
             handle={{ crumb: () => ({ name: "О квесте", href: "/panel/quest-info" }) }} />
-          <Route path="archive" element={<PrivateRoute isAuth={isAuth}><QuestProgress /></PrivateRoute>}
+          <Route path="archive" element={<PrivateRoute isAuth={isAuth}><QuestsArchive /></PrivateRoute>}
             handle={{ crumb: () => ({ name: "Архив", href: "/panel/archive" }) }} />
           <Route path="my-quests" element={<PrivateRoute isAuth={isAuth}><UserQuests /></PrivateRoute>}
             handle={{ crumb: () => ({ name: "Мои квесты", href: "/panel/my-quests" }) }} />

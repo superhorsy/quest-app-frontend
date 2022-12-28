@@ -1,1 +1,0 @@
-export const QuestProgress = () => <h1>Архив</h1>;

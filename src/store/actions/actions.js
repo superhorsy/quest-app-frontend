@@ -99,12 +99,23 @@ export const updateQuest = createAsyncThunk(
   }
 );
 
+export const fetchFinishedQuests = createAsyncThunk(
+  "quests/fetchFinishedQuests",
+  async (avQData, { rejectWithValue }) => {
+    try {
+      const { data } = await questsApi.fetchFinishedQuests(avQData);
+      return data;
+    } catch (e) {
+      return rejectWithValue(e.response.data.error);
+    }
+  }
+);
+
 export const fetchUserProfile = createAsyncThunk(
   "userProfile/fetchUserProfile",
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await userProfileApi.fetchUserProfile();
-
       return data;
     } catch (e) {
       return rejectWithValue(e.response.data.error);
