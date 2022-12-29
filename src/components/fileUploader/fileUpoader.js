@@ -60,6 +60,12 @@ export const FileUploader = ({ type, media }) => {
     setSelectedFile(null);
   };
 
+  const getSizeInMB = (size) => {
+    console.log(size);
+    const sizeInMB = ((size/1024)/1024);
+    return sizeInMB.toFixed(3);
+  }
+
   return (
     <Box component="div" sx={{ width: 1, minHeight: 100, mb: 4 }}>
       <Box
@@ -101,7 +107,7 @@ export const FileUploader = ({ type, media }) => {
           {type === "sound" && (
             <AudiotrackOutlinedIcon sx={{ mr: 2 }} />
           )}
-          {selectedFile.name} {selectedFile.size} КБ
+          {selectedFile.name} {getSizeInMB(selectedFile.size)} МБ
         </div>
       )}
       {selectedFile && !isFileSizeOk && (
