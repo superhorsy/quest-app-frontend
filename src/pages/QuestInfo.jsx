@@ -52,11 +52,11 @@ export const QuestInfo = () => {
           <>
             <h1 className="title">{quest.quest_name}</h1>
             <Typography align="left" sx={{ width: "100%", mt: 2 }}>{quest.quest_description}</Typography>
-            {quest.status &&
+            {quest.quest_status &&
               <>
-                <Typography align="left" sx={{ width: "100%", mt: 2, fontWeight: '600' }}>Статус: <Box component="span" sx={{ color: statuses[quest.status].color }}>{statuses[quest.status].title}</Box></Typography>
-                {statuses[quest.status].btn &&
-                  <Button onClick={handleQuestStart} sx={{ m: "0 auto", mt: 6 }} size="large" variant="contained">{statuses[quest.status].btn}</Button>
+                <Typography align="left" sx={{ width: "100%", mt: 2, fontWeight: '600' }}>Статус: <Box component="span" sx={{ color: statuses[quest.quest_status].color }}>{statuses[quest.quest_status].title}</Box></Typography>
+                {statuses[quest.quest_status].btn &&
+                  <Button onClick={handleQuestStart} sx={{ m: "0 auto", mt: 6 }} size="large" variant="contained">{statuses[quest.quest_status].btn}</Button>
                 }
               </>
             }

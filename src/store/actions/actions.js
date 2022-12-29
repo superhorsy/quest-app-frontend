@@ -52,11 +52,11 @@ export const fetchAvailableQuests = createAsyncThunk(
 );
 
 export const fetchQuestInfo = createAsyncThunk(
-  "quests/fetchQuestInfo",
+  "quest/fetchQuestInfo",
   async (id, { rejectWithValue }) => {
     try {
-      const { data } = await questsApi.fetchAvQuests();
-      return (data.data).find((item) => item.quest_id === id);
+      const { data } = await questsApi.getQuestStatus(id);
+      return data.data;
     } catch (e) {
       return rejectWithValue(e.response.data.error);
     }
