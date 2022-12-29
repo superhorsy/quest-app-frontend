@@ -135,6 +135,18 @@ export const updateUserProfile = createAsyncThunk(
   }
 );
 
+export const changePassword = createAsyncThunk(
+  "userProfile/updateUserProfile",
+  async (newProfileDataWithPassword, { rejectWithValue }) => {
+    try {
+      const { data } = await userProfileApi.changePassword(newProfileDataWithPassword);
+      return data.data;
+    } catch (e) {
+      return rejectWithValue(e.response.data.error);
+    }
+  }
+);
+
 export const createQuest = createAsyncThunk(
   "quests/createQuest",
   async (quest, { rejectWithValue }) => {

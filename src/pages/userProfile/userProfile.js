@@ -83,7 +83,7 @@ export const UserProfile = () => {
                     disabled={!isEditProfile}
                     fullWidth
                     sx={{ mb: { xs: 3, sm: 4 } }}
-                    id="outlined-basic"
+                    id="outlined-basic-name"
                     label="Имя"
                     variant="outlined"
                     onChange={(e) => setFirstName(e.target.value)}
@@ -93,7 +93,7 @@ export const UserProfile = () => {
                     disabled={!isEditProfile}
                     fullWidth
                     sx={{ mb: { xs: 3, sm: 4 } }}
-                    id="outlined-basic"
+                    id="outlined-basic-lastNmae"
                     label="Фамилия"
                     variant="outlined"
                     onChange = {(e) => setLastName(e.target.value)}
@@ -103,7 +103,7 @@ export const UserProfile = () => {
                     disabled={!isEditProfile}
                     fullWidth
                     sx={{ mb: { xs: 3, sm: 4 } }}
-                    id="outlined-basic"
+                    id="outlined-basic-nick"
                     label="Ваш Никнейм"
                     variant="outlined"
                     onChange = {(e) => setNickName(e.target.value)}
@@ -113,8 +113,8 @@ export const UserProfile = () => {
                     disabled
                     fullWidth
                     sx={{ mb: { xs: 3, sm: 4 } }}
-                    id="outlined-basic"
-                    type="Ваш email"
+                    id="outlined-basic-email"
+                    type="email"
                     label="Ваш email"
                     variant="outlined"
                     value={profile?.email}
