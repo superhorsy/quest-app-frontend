@@ -103,8 +103,11 @@ export const userProfileApi = {
     return instance.get(PROFILE);
   },
   // Изменение пароля
-  changePassword: (newPass) => {
-    return instance.patch(CHANGE_PASSWORD, newPass);
+  changePassword: (newProfileDataWithPassword) => {
+    return instance.put(PROFILE, newProfileDataWithPassword);
+  },
+  updateUserProfile: (newProfileData) => {
+    return instance.put(PROFILE, newProfileData);
   }
 }
 
