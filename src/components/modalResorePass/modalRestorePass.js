@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {useSelector, useDispatch} from "react-redux";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -6,7 +7,8 @@ import Modal from '@mui/material/Modal';
 import TextField from "@mui/material/TextField";
 
 // Api
-import {userProfileApi} from "../../api/api";
+// import {userProfileApi} from "../../api/api";
+import { changePassword } from '../../store/actions/actions';
 
 const style = {
   position: 'absolute',
@@ -25,28 +27,34 @@ const style = {
 };
 
 export const ModalRestorePass = (children) => {
+  const {profile} = useSelector((state) => state.userProfileReducer);
+  const {error} = useSelector((state) => state.userProfileReducer);
   const [open, setOpen] = React.useState(false);
+
   const [passForm, setPassForm] = useState({
     currentPassword: '',
     newPassword: '',
     confirmPassword: '',
   });
-  const [error, setError] = useState(null);
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const isEmptyField = !passForm.currentPassword || !passForm.newPassword || !passForm.confirmPassword;
+  const dispatch = useDispatch();
+
+  const isEmptyField = !passForm.newPassword || !passForm.confirmPassword;
   const isPassMatched = passForm.newPassword === passForm.confirmPassword;
 
-  const handleSubmitEditPassword = async (event) => {
+  const handleSubmitEditPassword =  (event) => {
     event.preventDefault();
-    try {
-      await userProfileApi.changePassword(passForm.newPassword);
-      setError(null);
-      handleClose();
-    } catch (error) {
-      setError(error.message);
+    const newProfileDataWithPassword = {
+      first_name: profile.first_name,
+      last_name: profile.last_name,
+      nickname: profile.nickname,
+      email: profile.email,
+      password: passForm.newPassword
     }
+    dispatch(changePassword(newProfileDataWithPassword));
   }
 
   return (
@@ -75,18 +83,6 @@ export const ModalRestorePass = (children) => {
           autoComplete="off"
           onSubmit={handleSubmitEditPassword}
           sx={style}>
-          <TextField
-            disabled={false}
-            required
-            fullWidth
-            sx={{mb: {xs: 3, sm: 4}}}
-            id="outlined-basic-current-pass"
-            type="password"
-            label="Ваш текущий пароль"
-            variant="outlined"
-            value={passForm.currentPassword}
-            onChange={(e) => setPassForm({...passForm, currentPassword: e.target.value})}
-          />
           <TextField
             disabled={false}
             required

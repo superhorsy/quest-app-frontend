@@ -123,6 +123,30 @@ export const fetchUserProfile = createAsyncThunk(
   }
 );
 
+export const updateUserProfile = createAsyncThunk(
+  "userProfile/updateUserProfile",
+  async (newProfileData, { rejectWithValue }) => {
+    try {
+      const { data } = await userProfileApi.updateUserProfile(newProfileData);
+      return data.data;
+    } catch (e) {
+      return rejectWithValue(e.response.data.error);
+    }
+  }
+);
+
+export const changePassword = createAsyncThunk(
+  "userProfile/updateUserProfile",
+  async (newProfileDataWithPassword, { rejectWithValue }) => {
+    try {
+      const { data } = await userProfileApi.changePassword(newProfileDataWithPassword);
+      return data.data;
+    } catch (e) {
+      return rejectWithValue(e.response.data.error);
+    }
+  }
+);
+
 export const createQuest = createAsyncThunk(
   "quests/createQuest",
   async (quest, { rejectWithValue }) => {

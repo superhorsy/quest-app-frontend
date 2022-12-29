@@ -109,7 +109,7 @@ export const Header = () => {
             <Box sx={{ flexGrow: 0 }}>
               {isAuth ? (
                 <>
-                  <span>Привет, {profile?.first_name} </span>
+                  <span>Привет, {profile?.nickname.toUpperCase()} </span>
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar sx={{ fontSize: '14px', width: '34px', height: '34px' }} alt="User" src=''>{profile?.first_name[0].toUpperCase()}{profile?.last_name[0].toUpperCase()}</Avatar>
                   </IconButton>

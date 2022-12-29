@@ -10,20 +10,29 @@ import {
 import CreateIcon from "@mui/icons-material/Create";
 import { ModalRestorePass } from "../../components/modalResorePass";
 import { Loader } from "../../components/loader/loader";
-import { fetchUserProfile } from "../../store/actions/actions";
+import { fetchUserProfile, updateUserProfile } from "../../store/actions/actions";
 
 export const UserProfile = () => {
   const [isEditProfile, setIsEditProfile] = useState(false);
 
   const { profile } = useSelector((state) => state.userProfileReducer);
   const { isLoading } = useSelector((state) => state.userProfileReducer);
+
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [nickName, setNickName] = useState("");
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchUserProfile());
+    setFirstName(profile?.first_name);
+    setLastName(profile?.last_name);
+    setNickName(profile?.nickname);
   }, [dispatch]);
 
-  const isEmptyField = !profile ? true : !profile.nickname;
+  const isEmptyField = !firstName || !lastName || !nickName;
 
 
   const handleEditProfile = () => {
@@ -32,6 +41,13 @@ export const UserProfile = () => {
 
   const handleSubmitEditProfile = (event) => {
     event.preventDefault();
+    const newProfile = {
+      first_name: firstName,
+      last_name: lastName,
+      nickname: nickName
+    }
+    dispatch(updateUserProfile(newProfile));
+    setIsEditProfile(!isEditProfile);
   };
 
   return (
@@ -64,38 +80,41 @@ export const UserProfile = () => {
               >
                 <div>
                   <TextField
-                    disabled
+                    disabled={!isEditProfile}
                     fullWidth
                     sx={{ mb: { xs: 3, sm: 4 } }}
-                    id="outlined-basic"
+                    id="outlined-basic-name"
                     label="Имя"
                     variant="outlined"
-                    value={profile?.first_name}
-                  />
-                  <TextField
-                    disabled
-                    fullWidth
-                    sx={{ mb: { xs: 3, sm: 4 } }}
-                    id="outlined-basic"
-                    label="Фамилия"
-                    variant="outlined"
-                    value={profile?.last_name}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    value={firstName}
                   />
                   <TextField
                     disabled={!isEditProfile}
                     fullWidth
                     sx={{ mb: { xs: 3, sm: 4 } }}
-                    id="outlined-basic"
+                    id="outlined-basic-lastNmae"
+                    label="Фамилия"
+                    variant="outlined"
+                    onChange = {(e) => setLastName(e.target.value)}
+                    value={lastName}
+                  />
+                  <TextField
+                    disabled={!isEditProfile}
+                    fullWidth
+                    sx={{ mb: { xs: 3, sm: 4 } }}
+                    id="outlined-basic-nick"
                     label="Ваш Никнейм"
                     variant="outlined"
-                    value={profile?.nickname}
+                    onChange = {(e) => setNickName(e.target.value)}
+                    value={nickName}
                   />
                   <TextField
                     disabled
                     fullWidth
                     sx={{ mb: { xs: 3, sm: 4 } }}
-                    id="outlined-basic"
-                    type="Ваш email"
+                    id="outlined-basic-email"
+                    type="email"
                     label="Ваш email"
                     variant="outlined"
                     value={profile?.email}
