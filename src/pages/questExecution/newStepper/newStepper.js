@@ -68,11 +68,11 @@ export const QuestExecution = () => {
   const renderCompleteQuest = () => (
     <Box sx={{mt: 10, width: 1, display: "flex", flexDirection: "column"}}>
       {finalMessage ? (
-        <Typography sx={{textAlign: "center", fontSize: {xs: 20, sm: 30}}}>
+        <Typography sx={{textAlign: "center", fontSize: {xs: 20, sm: 30}, p: "0 5px"}}>
           {finalMessage}
         </Typography>
       ) : (
-        <Typography sx={{textAlign: "center", fontSize: {xs: 20, sm: 30}}}>
+        <Typography sx={{textAlign: "center", fontSize: {xs: 20, sm: 30}, p: "0 5px"}}>
           Поздравляем с прохождением квеста!
         </Typography>
       )}
