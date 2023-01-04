@@ -5,10 +5,12 @@ import { addSteps, deleteStep } from "../../store/reducers/currentQuestSlice";
 import Box from "@mui/material/Box";
 import { IconButton } from "@mui/material";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import AudioFileOutlinedIcon from "@mui/icons-material/AudioFileOutlined";
+// import AudioFileOutlinedIcon from "@mui/icons-material/AudioFileOutlined";
+
 
 import TextIcon from "../../assets/images/questions/text-icon.png";
 import QRIcon from "../../assets/images/questions/qr-icon.png";
+import SoundIcon from "../../assets/images/questions/sound-icon.png";
 import styles from "./dragAndDropList.module.scss";
 import { ModalEditQuestStep } from "./modalEditQuestStep/modalEditQuestStep";
 
@@ -95,9 +97,10 @@ export const DragAndDropList = ({ recipients }) => {
                   )}
                   {step.question_type === "qr" && <img src={QRIcon} alt="qr" />}
                   {step.question_type === "image" && (
-                    <img src={`${step.question_content}&w=30`} alt="картинка" />
+                    // <img src={`${step.question_content}&w=30`} alt="картинка" />
+                    <img className={styles.question__image} src={`https://questy.fun${step.question_content}`} alt="картинка" />
                   )}
-                  {step.question_type === "audio" && <AudioFileOutlinedIcon />}
+                  {step.question_type === "audio" && <img src={SoundIcon} alt="sound" />}
                 </Box>
                 <div className={styles.question__title}>
                   <b>{step.description}</b>

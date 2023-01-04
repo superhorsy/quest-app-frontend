@@ -13,3 +13,14 @@
     margin-top: 47px;
   }
 }
+
+.imageBox {
+  margin: 0 auto;
+  width: 450px;
+  height: 450px;
+  object-fit: contain;
+  @media(max-width: 600px) {
+    width: 200px;
+    height: 200px;
+  }
+}

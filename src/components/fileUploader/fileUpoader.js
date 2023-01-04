@@ -125,7 +125,8 @@ export const FileUploader = ({ type, media }) => {
               <img
                 className={styles.file__img}
                 alt="задание в виде картинки"
-                src={`${media.link}&w=100`}
+                // src={`${media.link}&w=100`}
+                src={`https://questy.fun${media.link}`}
               />
               <div className={styles.file__text}>{media.filename}</div>
               <IconButton
