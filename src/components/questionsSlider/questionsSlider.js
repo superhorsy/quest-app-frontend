@@ -124,18 +124,26 @@ export const QuestionsSlider = () => {
               )}
             </Box>
             {steps[activeStep].question_type === "image" && (
-              <Box component="div" className={styles.imageBox}>
+              <Box component="div" >
                 {!matches && (
-                  <img
-                    src={`${steps[activeStep].question_content}&w=450&h=450&fit=contain`}
-                    alt="задание с картинкой"
-                  />
+                  // <img
+                  //   src={`${steps[activeStep].question_content}&w=450&h=450&fit=contain`}
+                  //   alt="задание с картинкой"
+                  // />
+                  <img className={styles.imageBox}
+                  src={`https://questy.fun${steps[activeStep].question_content}`}
+                  alt="задание с картинкой"
+                />
                 )}
                 {matches && (
-                  <img
-                    src={`${steps[activeStep].question_content}&w=200&h=200&fit=contain`}
-                    alt="задание с картинкой"
-                  />
+                  // <img
+                  //   src={`${steps[activeStep].question_content}&w=200&h=200&fit=contain`}
+                  //   alt="задание с картинкой"
+                  // />
+                  <img className={styles.imageBox}
+                  src={`https://questy.fun${steps[activeStep].question_content}`}
+                  alt="задание с картинкой"
+                />
                 )}
               </Box>
             )}

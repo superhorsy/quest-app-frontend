@@ -14,4 +14,13 @@
 }
 .imageBox {
   margin: 0 auto;
+  img {
+    width: 450px;
+    height: 450px;
+    object-fit: contain;
+    @media(max-width: 600px) {
+      width: 200px;
+      height: 200px;
+    }
+  }
 }
