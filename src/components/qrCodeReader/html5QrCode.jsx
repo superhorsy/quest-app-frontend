@@ -16,8 +16,13 @@ export const QrCodeScanner = () => {
         rememberLastUsedCamera: false
     };
 
+    const qrCodeErrorCallback = (errorMessage) => {
+        //console.log("Error on scan", errorMessage)
+    }
+
     useEffect(() => {
         const Html5QrCode = new Html5Qrcode("reader");
+
         Html5QrCode.start(
             // devices[1].id,
             {facingMode: {exact: "environment"}},
@@ -27,19 +32,35 @@ export const QrCodeScanner = () => {
                 if (decodedText != null && result === null) {
                     setResult(decodedText)
                     dispatch(addAnswerFromQRCodeReader(decodedText));
+                    Html5QrCode.stop().then((ignore) => {
+                    }).catch((error) => {
+                    })
                 }
             },
-            (errorMessage) => {
-                console.log("Error on scan", errorMessage)
-            })
+            qrCodeErrorCallback
+        )
             .catch((error) => {
-                console.log("ERROR", error)
+                console.log("На вашем устройстве нет задней камеры", error)
+                Html5QrCode.start(
+                    {facingMode: {exact: "user"}},
+                    config,
+                    (decodedText, decodedResult) => {
+                        if (decodedText != null && result === null) {
+                            setResult(decodedText)
+                            dispatch(addAnswerFromQRCodeReader(decodedText));
+                            Html5QrCode.stop().then((ignore) => {
+                            }).catch((error) => {
+                            })
+                        }
+                    },
+                    qrCodeErrorCallback
+                )
+                    .catch((error) => console.log("На вашем устройстве нет фронтальной камеры", error))
             })
     }, [])
 
     return (
         <div className={styles.box}>
-            {console.log("render", result)}
             {result == null && (
                 <div id={"reader"}/>
             )}
