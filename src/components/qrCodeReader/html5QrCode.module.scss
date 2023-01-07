@@ -1,0 +1,32 @@
+.qrBox {
+  width: 100%;
+  @media(max-width: 600px) {
+    margin: 0 auto;
+    width: 95%;
+  }
+  &__box {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    // width: 350px;
+    @media(max-width: 600px) {
+      width: 100%;
+    }
+  }
+}
+
+.box {
+  margin: 0 auto;
+  width: 500px;
+  max-height: 500px;
+  @media (max-width: 600px) {
+    width: 350px;
+    max-height: 350px;
+  }
+}
+
+.qrCodeBox {
+  @media (max-width: 600px) {
+    max-height: 200px;
+  }
+}
