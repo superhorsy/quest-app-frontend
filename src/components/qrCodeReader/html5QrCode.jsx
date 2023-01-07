@@ -16,43 +16,39 @@ export const QrCodeScanner = () => {
         rememberLastUsedCamera: false
     };
 
+    const qrCodeSuccessCallback = (html5QrCode) => (decodedText, decodedResult) => {
+        if (decodedText != null && result === null) {
+            setResult(decodedText)
+            dispatch(addAnswerFromQRCodeReader(decodedText));
+            html5QrCode.stop()
+                .then((ignore) => {
+                })
+                .catch((error) => {
+                })
+        }
+    }
+
     const qrCodeErrorCallback = (errorMessage) => {
         //console.log("Error on scan", errorMessage)
     }
 
     useEffect(() => {
-        const Html5QrCode = new Html5Qrcode("reader");
+        const html5QrCode = new Html5Qrcode("reader");
 
-        Html5QrCode.start(
+        html5QrCode.start(
             // devices[1].id,
             {facingMode: {exact: "environment"}},
             // {deviceId: {exact: devices[0].id}},
             config,
-            (decodedText, decodedResult) => {
-                if (decodedText != null && result === null) {
-                    setResult(decodedText)
-                    dispatch(addAnswerFromQRCodeReader(decodedText));
-                    Html5QrCode.stop().then((ignore) => {
-                    }).catch((error) => {
-                    })
-                }
-            },
+            qrCodeSuccessCallback(html5QrCode),
             qrCodeErrorCallback
         )
             .catch((error) => {
                 console.log("На вашем устройстве нет задней камеры", error)
-                Html5QrCode.start(
+                html5QrCode.start(
                     {facingMode: {exact: "user"}},
                     config,
-                    (decodedText, decodedResult) => {
-                        if (decodedText != null && result === null) {
-                            setResult(decodedText)
-                            dispatch(addAnswerFromQRCodeReader(decodedText));
-                            Html5QrCode.stop().then((ignore) => {
-                            }).catch((error) => {
-                            })
-                        }
-                    },
+                    qrCodeSuccessCallback(html5QrCode),
                     qrCodeErrorCallback
                 )
                     .catch((error) => console.log("На вашем устройстве нет фронтальной камеры", error))
