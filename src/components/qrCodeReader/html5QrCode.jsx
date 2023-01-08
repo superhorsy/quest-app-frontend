@@ -37,8 +37,8 @@ export const QrCodeScanner = () => {
 
         html5QrCode.start(
             // devices[1].id,
-            {facingMode: {exact: "environment"}},
             // {deviceId: {exact: devices[0].id}},
+            {facingMode: {exact: "environment"}},
             config,
             qrCodeSuccessCallback(html5QrCode),
             qrCodeErrorCallback
