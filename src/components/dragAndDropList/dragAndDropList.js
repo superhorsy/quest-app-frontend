@@ -53,7 +53,7 @@ export const DragAndDropList = ({ recipients }) => {
         maxWidth: 600,
         width: 1,
         boxSizing: "border-box",
-        mt: { xs: 1, sm: 4 },
+        mt: { xs: 1, sm: 3 },
       }}
     >
       <Box sx={{ width: 1, mb: 2 }}>
@@ -103,7 +103,13 @@ export const DragAndDropList = ({ recipients }) => {
                   {step.question_type === "audio" && <img src={SoundIcon} alt="sound" />}
                 </Box>
                 <div className={styles.question__title}>
-                  <b>{step.description}</b>
+                  <p>{step.description}</p>
+                  {step.question_type !== "image" &&
+                    step.question_type !== "audio" && (
+                      <div className={styles.question__desc}>
+                        {step.question_content}
+                      </div>
+                    )}
                 </div>
                 <Box
                   sx={{
@@ -127,14 +133,9 @@ export const DragAndDropList = ({ recipients }) => {
                   </IconButton>
                 </Box>
               </Box>
-              {step.question_type !== "image" &&
-              step.question_type !== "audio" && (
-                <div className={styles.question__desc}>
-                  {step.question_content}
-                </div>
-              )}
             </Box>
           ))}
+        {!steps?.length && <p>Вы не добавили ни одного шага в этот квест =(</p>}
       </Box>
     </Box>
   );

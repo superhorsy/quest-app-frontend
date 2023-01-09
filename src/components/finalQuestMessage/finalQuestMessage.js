@@ -7,7 +7,7 @@ import Box from "@mui/material/Box";
 import Tooltip from "@mui/material/Tooltip";
 
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
-import SaveIcon from "@mui/icons-material/Save";
+import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 
 import { addFinalQuestMessage } from "../../store/reducers/currentQuestSlice";
 
@@ -38,7 +38,7 @@ export const FinalQuestMessage = () => {
     <Box
       sx={{
         display: "flex",
-        justifyContent: "space-around",
+        justifyContent: "space-between",
         mt: 3,
         mb: { xs: 3, sm: 3 },
         width: 1,
@@ -50,31 +50,36 @@ export const FinalQuestMessage = () => {
         id="outlined-basic"
         multiline
         maxRows={4}
-        label="Здесь можно написать финальное послание другу"
+        label="Послание получателю"
         variant="outlined"
-        helperText="Описание послания адресат увидит после прохождением квеста"
+        helperText="Данное послание получатель увидит после прохождения квеста"
         value={finalQuestMessage}
-        sx={{ width: 9 / 10 }}
+        sx={{ width: '100%', mr: 1 }}
         onChange={(e) => setFinalQuestMessage(e.target.value)}
       />
 
       <Box>
         {isEdit ? (
-          <IconButton onClick={handleEdit} sx={{ m: "0 auto" }}>
-            <ModeEditOutlineOutlinedIcon />
+          <IconButton
+            onClick={handleEdit}
+            sx={{ m: "0 auto" }}
+            size="large"
+          >
+            <ModeEditOutlineOutlinedIcon fontSize="inherit" />
           </IconButton>
         ) : (
           <Tooltip
-            title="Нажмите, чтобы зафиксировать изменения"
-            placement="left"
+            title="сохранить послание"
+            placement="top"
           >
             <span>
               <IconButton
                 onClick={handleSave}
                 sx={{ m: "0 auto" }}
                 color="success"
+                size="large"
               >
-                <SaveIcon />
+                <SaveOutlinedIcon fontSize="inherit" />
               </IconButton>
             </span>
           </Tooltip>

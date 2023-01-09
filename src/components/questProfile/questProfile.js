@@ -9,10 +9,8 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Tooltip from "@mui/material/Tooltip";
 import Divider from "@mui/material/Divider";
-import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 
-import NoteAddIcon from "@mui/icons-material/NoteAdd";
-import SaveIcon from "@mui/icons-material/Save";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import styles from "./questProfile.module.scss";
 
 import { DragAndDropList } from "../dragAndDropList/dragAndDropList";
@@ -65,18 +63,12 @@ export const QuestProfile = () => {
       navigate(-1)
     }
   };
-
   return (
     <>
       {isLoading && <Loader />}
       {!isLoading && currentQuest && (
         <>
           <div className={styles.questInfo}>
-            <div className={styles.questInfo__item}>
-              <div className={styles.questInfo__subdesc}>
-                Общие данные о квесте
-              </div>
-            </div>
             <div className={styles.questInfo__item}>
               <div className={styles.questInfo__title}>
                 Квест: {currentQuest.name}
@@ -102,9 +94,9 @@ export const QuestProfile = () => {
               <ModalQuestProfileEditor
                 buttonProps={{
                   fullWidth: true,
-                  variant: "contained",
+                  variant: "text",
                   size: "large",
-                  sx: { marginBottom: "20px" },
+                  sx: { textDecoration: 'underline' }
                 }}
                 recipients={recipients}
                 questData={{
@@ -113,76 +105,79 @@ export const QuestProfile = () => {
                 }}
               />
             </Box>
+          </div>
+          <Divider sx={{ backgroundColor: "black", opacity: 0.15, height: 1, mb: 4, mt: 2 }} />
+          <div className={styles.questBlock}>
+            <p className={styles.questBlock__subtitle}>Придайте вашему квесту уникальности:</p>
             <ThemeSelector recipients={recipients} />
           </div>
-          <div className={styles.questInfo__subdesc}> Создание шагов</div>
-          <DragAndDropList recipients={recipients} />
-
-          <Button
-            disabled={recipients?.length > 0}
-            endIcon={<NoteAddIcon />}
-            variant="contained"
-            sx={{
-              m: "0 auto",
-              width: { sx: 1, sm: 300 },
-              mt: 3,
-              mb: { xs: 1, sm: 2 },
-              py: 1,
-            }}
-            onClick={() =>
-              navigate(`/panel/create-quest/${questId}/create-step`)
-            }
-          >
-            Создать шаг
-          </Button>
-
-          <Divider sx={{ backgroundColor: "black", height: 1, mb: 3 }} />
-
-          <div className={styles.questInfo__subdesc}>Награда</div>
-
-          <FinalQuestMessage />
-          <Box
-            component="div"
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              flexWrap: "wrap",
-              width: "100%",
-              m: "0 auto",
-              textAlign: "center",
-              // width: { xs: 150, sm: 200 },
-            }}
-          >
-            <MyModal
-              buttonProps={{
-                fullWidth: true,
-                variant: "contained",
-                size: "large",
-                sx: { marginBottom: "20px" },
+          <Divider sx={{ backgroundColor: "black", opacity: 0.15, height: 1, mb: 4, mt: 3 }} />
+          <div className={styles.questBlock}>
+            <div className={styles.questBlock__flex}>
+              <p className={styles.questBlock__subtitle}>Шаги квеста:</p>
+              <Button
+                disabled={recipients?.length > 0}
+                endIcon={<AddCircleOutlineIcon />}
+                variant="contained"
+                color="success"
+                size="small"
+                onClick={() =>
+                  navigate(`/panel/create-quest/${questId}/create-step`)
+                }
+              >
+                Создать шаг
+              </Button>
+            </div>
+            <DragAndDropList recipients={recipients} />
+          </div>
+          <Divider sx={{ backgroundColor: "black", opacity: 0.15, height: 1, mb: 4, mt: 3 }} />
+          <div className={styles.questBlock}>
+            <p className={styles.questBlock__subtitle}>Оставьте послание и создайте купон для получателя:</p>
+            <FinalQuestMessage />
+            <Box
+              component="div"
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                flexWrap: "wrap",
+                width: "100%",
               }}
-              buttonTitle={currentQuest.rewards ? {
-                title: "Редактировать купон",
-              }
-              : {title: "Создать купон"}}
             >
-              <CouponConstructor questTheme={currentTheme}/>
-            </MyModal>
-          </Box>
+              <p>
+                {!currentQuest.rewards ? 'Вы еще не создали купон:' : 'Купон добавлен!'}
+              </p>
+              <MyModal
+                buttonProps={{
+                  fullWidth: true,
+                  variant: "text",
+                  size: "large",
+                  sx: { textDecoration: 'underline', textTransform: 'unset', fontWeight: 600 },
+                }}
+                buttonTitle={currentQuest.rewards ? {
+                  title: "Редактировать купон",
+                }
+                  : { title: "Создать купон" }}
+              >
 
-          <Divider sx={{ backgroundColor: "black", height: 1, mb: 3 }} />
+                <CouponConstructor questTheme={currentTheme} />
+
+              </MyModal>
+            </Box>
+          </div>
+          <Divider sx={{ backgroundColor: "black", opacity: 0.15, height: 1, mb: 4, mt: 3 }} />
 
           <Box
             component="div"
-            sx={{ mb: 4, display: "flex", justifyContent: "space-around" }}
+            sx={{ mb: 2, display: "flex", justifyContent: "space-between" }}
           >
             <Button
-              variant="contained"
-              startIcon={<KeyboardBackspaceIcon />}
+              variant="outlined"
+              size="large"
               sx={{
-                width: { xs: 130, sm: 200 },
+                width: '47%',
                 mt: 3,
-                mb: { xs: 1, sm: 2 },
-                py: 1,
+                mb: 1,
               }}
               onClick={() => handleBack()}
             >
@@ -193,23 +188,21 @@ export const QuestProfile = () => {
                 title="После отправки квеста его нельзя редактировать"
                 placement="top"
               >
-                <span>
-                  <Button
-                    color="success"
-                    disabled={recipients?.length > 0}
-                    variant="contained"
-                    endIcon={<SaveIcon />}
-                    sx={{
-                      width: { xs: 130, sm: 200 },
-                      mt: 3,
-                      mb: { xs: 1, sm: 2 },
-                      py: 1,
-                    }}
-                    onClick={handleSaveQuest}
-                  >
-                    Сохранить
-                  </Button>
-                </span>
+                <Button
+                  disabled={recipients?.length > 0}
+                  variant="contained"
+                  size="large"
+                  sx={{
+                    width: '47%',
+                    mt: 3,
+                    mb: 1,
+                    px: 4,
+                    py: 2
+                  }}
+                  onClick={handleSaveQuest}
+                >
+                  Сохранить
+                </Button>
               </Tooltip>
             )}
 
@@ -218,38 +211,37 @@ export const QuestProfile = () => {
                 title="Нажмите, чтобы зафиксировать все изменения"
                 placement="top"
               >
-                <span>
-                  <Button
-                    color="success"
-                    variant="contained"
-                    endIcon={<SaveIcon />}
-                    sx={{
-                      width: { xs: 130, sm: 200 },
-                      mt: 3,
-                      mb: { xs: 1, sm: 2 },
-                      py: 1,
-                    }}
-                    onClick={handleSaveQuest}
-                  >
-                    Сохранить
-                  </Button>
-                </span>
+                <Button
+                  size="large"
+                  variant="contained"
+                  sx={{
+                    width: '47%',
+                    mt: 3,
+                    mb: 1,
+                    px: 4,
+                    py: 2
+                  }}
+                  onClick={handleSaveQuest}
+                >
+                  Сохранить
+                </Button>
               </Tooltip>
             )}
           </Box>
-          {currentQuest.steps && (
+          {currentQuest.steps?.length > 0 && (
             <Button
-              disabled={currentQuest.steps.length < 1}
-              variant="contained"
+              variant="text"
+              size="large"
               sx={{
+                textDecoration: "underline",
+                textTransform: "none",
+                fontWeight: "600",
                 m: "0 auto",
-                width: { sx: 1, sm: 300 },
                 mb: { xs: 1, sm: 2 },
-                py: 1,
               }}
               onClick={() => navigate(`/questExample/${questId}`)}
             >
-              Посмотреть результат
+              Как увидит получатель?
             </Button>
           )}
         </>
