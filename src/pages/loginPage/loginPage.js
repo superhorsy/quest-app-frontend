@@ -1,15 +1,11 @@
 import {useDispatch, useSelector} from "react-redux";
-import React, {useContext, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import {Link} from "react-router-dom";
-import {useOutletContext} from "react-router-dom";
 import {useNavigate} from "react-router-dom";
 import {login} from "../../store/actions/actions";
-
-//Style
-import classes from './loginPage.module.scss';
 
 export const LoginPage = () => {
   const [email, setEmail] = useState('');

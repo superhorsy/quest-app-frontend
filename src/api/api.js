@@ -1,14 +1,7 @@
 import axios from "axios";
-import { apiQuests, apiTest } from "../constants/constants";
-import { nextQuestResponse } from "./questExecutionApiTMP";
+import { apiQuests } from "../constants/constants";
 
-
-const { BASE_URL_TEST, POSTS } = apiTest;
-const { BASE_URL, QUESTS, QUESTS_CREATED, REGISTER, LOGIN, PROFILE, QUESTS_AVAILABLE, CHANGE_PASSWORD } = apiQuests;
-
-const instance_test = axios.create({
-  baseURL: BASE_URL_TEST,
-});
+const { BASE_URL, QUESTS, QUESTS_CREATED, REGISTER, LOGIN, PROFILE, QUESTS_AVAILABLE, CHANGE_PASSWORD, MEDIA } = apiQuests;
 
 const instance = axios.create({
   baseURL: BASE_URL,
@@ -53,22 +46,9 @@ instance.interceptors.response.use((config) => {
   throw error;
 })
 
-
-export const testPostsApi = {
-  fetchPosts: () => {
-    return instance_test.get(POSTS)
-  },
-  // sendPosts: (posts) => {
-  // const data = {
-  //     posts
-  // }
-  //     return instance.post(POSTS, data)
-  // }
-}
-
 export const questsApi = {
-  fetchCreatedQuests: () => {
-    return instance.get(QUESTS_CREATED);
+  fetchCreatedQuests: (questData) => {
+    return instance.get(QUESTS_CREATED + `?limit=${questData.limit}&offset=${questData.offset}`);
   },
   createQuest: (quest) => {
     return instance.post(QUESTS, quest);
@@ -85,14 +65,25 @@ export const questsApi = {
     return instance.get(`${QUESTS}/${questId}`);
   },
 
+  getQuestStatus: (questId) => {
+    return instance.get(`${QUESTS}/${questId}/status`);
+  },
+
   sendQuest: (questId, data) => {
-    return instance.post(`${QUESTS}/${questId}`, data);
+    return instance.post(`${QUESTS}/${questId}/send`, data);
   },
 
   fetchAvailableQuests: (avQData) => {
-    //return instance.get(QUESTS_AVAILABLE + `?limit=${avQData.limit}&offset=${avQData.offset}`);
+    return instance.get(QUESTS_AVAILABLE + `?limit=${avQData.limit}&offset=${avQData.offset}`);
+  },
+
+  fetchAvQuests: () => {
     return instance.get(QUESTS_AVAILABLE);
-  }
+  },
+
+  fetchFinishedQuests: (avQData) => {
+    return instance.get(QUESTS_AVAILABLE +`?limit=${avQData.limit}&offset=${avQData.offset}&finished=true`);
+  },
 };
 
 export const authApi = {
@@ -112,29 +103,39 @@ export const userProfileApi = {
     return instance.get(PROFILE);
   },
   // Изменение пароля
-  changePassword: (newPass) => {
-    return instance.patch(CHANGE_PASSWORD, newPass);
+  changePassword: (newProfileDataWithPassword) => {
+    return instance.put(PROFILE, newProfileDataWithPassword);
+  },
+  updateUserProfile: (newProfileData) => {
+    return instance.put(PROFILE, newProfileData);
   }
 }
 
 //Под каждую сущность создаем свою константу апи с методами
 
 export const questExecutionApi = {
-  getInitQuest: async () => {
-    return {
-      quests: [
-        {
-          id: 1,
-          label: 'Отгадайте загадку',
-          description: 'Первая загадка. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque, et!',
-          hasAnswer: false,
-          rightAnswer: null
-        }
-      ],
-      totalQuestsCount: 5
-    }
+  getInitQuest: async (questId) => {
+    return instance.post(`${QUESTS}/${questId}/start`)
   },
-  getNextQuest: async (id) => {
-    return nextQuestResponse[id]
+  getStatusQuest: async (questId) => {
+    return instance.get(`${QUESTS}/${questId}/status`);
+  },
+  getNextQuest: async ({ questId, answer_type, answer }) => {
+    return instance.post(`${QUESTS}/${questId}/next`, { answer_type, answer });
   }
 }
+
+export const uploadApi = {
+  fetchMedia: async (mediaId) => {
+    return instance.get(`${MEDIA}/${mediaId}`);
+  },
+  uploadFile: async (formData) => {
+    return instance.post(`${MEDIA}/upload`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+  }
+}
+
+

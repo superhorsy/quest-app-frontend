@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAvailableQuests } from "../../store/actions/actions";
+import { questExecutionSlice } from "../../store/reducers/questExecutionSlice";
+import { styled } from '@mui/material/styles';
+import { useSearchParams } from 'react-router-dom';
 
 import {
   ListItemText,
@@ -8,80 +11,146 @@ import {
   ListItem,
   Container,
   Pagination,
-  ListItemSecondaryAction,
   Grid,
+  Tooltip,
+  IconButton,
+  ListItemButton,
+  Typography
 } from "@mui/material";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import CircularProgress from "@mui/material/CircularProgress";
 
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import NotStartedOutlinedIcon from '@mui/icons-material/NotStartedOutlined';
+
 import style from "./availableQuestsPage.module.scss";
+import { useNavigate } from "react-router";
 
 export const AvailableQuestsPage = () => {
-  const perPage = 10;
+  const perPage = 7;
   const dispatch = useDispatch();
   const quests = useSelector((state) => state.questsAvailableReducer.quests);
-  const totalQuests = useSelector((state) => state.questsAvailableReducer.total);
+  const totalQuests = useSelector(
+    (state) => state.questsAvailableReducer.total
+  );
+  const [searchParams, setSearchParams] = useSearchParams();
+  const getPageOnload = () => {
+    return searchParams.has("page") ? parseInt(searchParams.get("page")) : 1;
+  }
+  const [page, setPage] = useState(getPageOnload());
+  const [settings, setSettings] = useState({ limit: perPage, offset: perPage * (page - 1) });
   const loading = useSelector((state) => state.questsAvailableReducer.loading);
-  const [page, setPage] = useState(1);
-  const [settings, setSettings] = useState({ limit: perPage, offset: 0 });
-  const isVisible = true;
+
+  const { clearStateSteps } = questExecutionSlice.actions;
+
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (!quests.length) {
+    function fetchData() {
+      dispatch(fetchAvailableQuests(settings));
+    }
+    if (page) {
       fetchData();
     }
-  }, [quests]);
+    dispatch(clearStateSteps()); // Очистка стейта шагов квеста. Слайсер questExecutionSlice
+  }, [page, clearStateSteps, dispatch, settings]);
 
-  function fetchData() {
-    dispatch(fetchAvailableQuests(settings));
-  }
+  const handleChange = (event, val) => {
+    event.preventDefault();
+    setPage(val);
+    setSettings({
+      limit: perPage,
+      offset: perPage * (val - 1)
+    });
+    setSearchParams({ "page": val })
+  };
 
   const getPages = () => {
-    return Math.ceil(totalQuests / perPage)
+    return Math.ceil(totalQuests / perPage);
+  };
+
+  const handleQuestStart = (questId) => {
+    navigate(`/panel/quest-info/${questId}`);
+  };
+
+  const generateSecondAction = (status, owner) => {
+    const statuses = {
+      'not_started': {
+        title: 'не начато',
+        icon: <NotStartedOutlinedIcon sx={{ color: "#4E7AD2" }} />
+      },
+      'in_progress': {
+        title: 'в процессе',
+        icon: <AccessTimeIcon sx={{ color: "#FFE600" }} />
+      },
+      'finished': {
+        title: 'завершено',
+        icon: <CheckCircleOutlineIcon sx={{ color: "#31A42F" }} />
+      }
+    }
+    return <>
+      <Tooltip key="owner" title={<>{'От '}<b>{owner.name}</b></>} placement="left">
+        <IconButton>
+          <InfoOutlinedIcon />
+        </IconButton>
+      </Tooltip>
+      <Tooltip key="status" title={statuses[status].title} placement="top">
+        <IconButton>
+          {statuses[status].icon}
+        </IconButton>
+      </Tooltip>
+    </>
   }
+
+  const CustomizedList = styled(List)`
+    &{
+      width: 100%
+    }
+    & .MuiListItem-root>.MuiListItemButton-root {
+      padding-right: 96px;
+      min-height: 73px;
+    }
+  `;
+
   return (
     <div className="page-container">
       <h1 className="title">Доступные квесты</h1>
       <Container maxWidth="sm">
         <Grid container spacing={2} sx={{ maxWidth: "600px" }}>
-          {!loading && quests.length > 0 ? (<List sx={{ width: '100%' }}>
-            {quests.map((quest) => (
-              <ListItem
-                key={quest.quest_id}
-                button
-                sx={{
-                  borderBottom: "1px solid lightgray",
-                  minHeight: "73px",
-                }}
-              >
-                <Grid item xs={10}>
-                  <ListItemText>{quest.quest_name}</ListItemText>
-                </Grid>
-                <Grid item xs={2}>
-                  <ListItemSecondaryAction>
-                    <CheckCircleOutlineIcon
-                      edge="end"
-                      sx={{ color: "#8FBC8F" }}
-                      style={{ display: isVisible ? "true" : "none" }}
-                    />
-                  </ListItemSecondaryAction>
-                </Grid>
-              </ListItem>
-            ))}
-          </List>) : <CircularProgress disableShrink sx={{ m: "0 auto", mt: 10 }} />
-          }
-          {!loading && !quests.length && <p>Сожалеем, у вас пока нет доступных квестов!</p>}
+          {loading && <CircularProgress disableShrink sx={{ m: "0 auto", mt: 10 }} />}
+          {(!loading && quests.length > 0) && (
+            <CustomizedList>
+              {quests.map((quest) => (
+                <ListItem
+                  disablePadding
+                  key={quest.quest_id}
+                  divider
+                  secondaryAction={generateSecondAction(quest.status, quest.owner)}
+                >
+                  <ListItemButton onClick={() => handleQuestStart(quest.quest_id)}>
+                    <ListItemText>{quest.quest_name}</ListItemText>
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </CustomizedList>
+          )}
+          {!loading && !quests.length && (
+            <Typography align="center" sx={{ width: "100%", mt: 2 }}>Сожалеем, у вас пока нет доступных квестов!</Typography>
+          )}
           {getPages() >= 2 && (
             <Grid item xs={12}>
               <Pagination
                 className={style.pagination}
+                page={page}
                 count={getPages()}
+                onChange={handleChange}
                 size="small"
               />
             </Grid>
           )}
         </Grid>
-      </Container>
-    </div>
+      </Container >
+    </div >
   );
 };

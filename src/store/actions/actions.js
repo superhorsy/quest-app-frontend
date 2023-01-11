@@ -1,17 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { questExecutionApi, questsApi, userProfileApi, authApi, testPostsApi } from "../../api/api";
-
-export const testFetchPosts = createAsyncThunk(
-  'posts/fetchPosts',
-  async (_, { rejectWithValue }) => {
-    try {
-      const { data } = await testPostsApi.fetchPosts()
-      return data
-    } catch (e) {
-      return rejectWithValue(e.message)
-    }
-  }
-);
+import { questExecutionApi, questsApi, userProfileApi, authApi, uploadApi } from "../../api/api";
 
 export const login = createAsyncThunk(
   "auth/login",
@@ -21,7 +9,7 @@ export const login = createAsyncThunk(
       localStorage.setItem('token', data.jwt);
       return data;
     } catch (e) {
-      return rejectWithValue(e.message)
+      return rejectWithValue(e.response.data.error)
     }
   }
 );
@@ -34,7 +22,7 @@ export const registration = createAsyncThunk(
       localStorage.setItem('token', data.jwt);
       return data;
     } catch (e) {
-      return rejectWithValue(e.message);
+      return rejectWithValue(e.response.data.error);
     }
   }
 );
@@ -44,9 +32,9 @@ export const fetchCreatedQuests = createAsyncThunk(
   async (questsData, { rejectWithValue }) => {
     try {
       const { data } = await questsApi.fetchCreatedQuests(questsData);
-      return data.data;
+      return data;
     } catch (e) {
-      return rejectWithValue(e.message);
+      return rejectWithValue(e.response.data.error);
     }
   }
 );
@@ -58,7 +46,19 @@ export const fetchAvailableQuests = createAsyncThunk(
       const { data } = await questsApi.fetchAvailableQuests(avQData);
       return data;
     } catch (e) {
-      return rejectWithValue(e.message);
+      return rejectWithValue(e.response.data.error);
+    }
+  }
+);
+
+export const fetchQuestInfo = createAsyncThunk(
+  "quest/fetchQuestInfo",
+  async (id, { rejectWithValue }) => {
+    try {
+      const { data } = await questsApi.getQuestStatus(id);
+      return data.data;
+    } catch (e) {
+      return rejectWithValue(e.response.data.error);
     }
   }
 );
@@ -70,7 +70,19 @@ export const deleteQuest = createAsyncThunk(
       const { data } = await questsApi.deleteQuest(id);
       return data.data;
     } catch (e) {
-      return rejectWithValue(e.message);
+      return rejectWithValue(e.response.data.error);
+    }
+  }
+);
+
+export const sendQuest = createAsyncThunk(
+  "quests/sendQuest",
+  async (questData, { rejectWithValue }) => {
+    try {
+      const { data } = await questsApi.sendQuest(questData.questId, questData.data);
+      return data.data;
+    } catch (e) {
+      return rejectWithValue(e.response.data.error);
     }
   }
 );
@@ -82,7 +94,19 @@ export const updateQuest = createAsyncThunk(
       const { data } = await questsApi.updateQuest(questData.id, questData);
       return data.data;
     } catch (e) {
-      return rejectWithValue(e.message);
+      return rejectWithValue(e.response.data.error);
+    }
+  }
+);
+
+export const fetchFinishedQuests = createAsyncThunk(
+  "quests/fetchFinishedQuests",
+  async (avQData, { rejectWithValue }) => {
+    try {
+      const { data } = await questsApi.fetchFinishedQuests(avQData);
+      return data;
+    } catch (e) {
+      return rejectWithValue(e.response.data.error);
     }
   }
 );
@@ -92,10 +116,33 @@ export const fetchUserProfile = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await userProfileApi.fetchUserProfile();
-
       return data;
     } catch (e) {
-      return rejectWithValue(e.message);
+      return rejectWithValue(e.response.data.error);
+    }
+  }
+);
+
+export const updateUserProfile = createAsyncThunk(
+  "userProfile/updateUserProfile",
+  async (newProfileData, { rejectWithValue }) => {
+    try {
+      const { data } = await userProfileApi.updateUserProfile(newProfileData);
+      return data.data;
+    } catch (e) {
+      return rejectWithValue(e.response.data.error);
+    }
+  }
+);
+
+export const changePassword = createAsyncThunk(
+  "userProfile/updateUserProfile",
+  async (newProfileDataWithPassword, { rejectWithValue }) => {
+    try {
+      const { data } = await userProfileApi.changePassword(newProfileDataWithPassword);
+      return data.data;
+    } catch (e) {
+      return rejectWithValue(e.response.data.error);
     }
   }
 );
@@ -108,30 +155,43 @@ export const createQuest = createAsyncThunk(
       // If you want to get something back
       return response.data;
     } catch (e) {
-      return rejectWithValue(e.message);
+      return rejectWithValue(e.response.data.error);
     }
   }
 );
 
 export const getInitQuest = createAsyncThunk(
   'quests/getInitQuest',
-  async (_, { rejectWithValue }) => {
+  async (questId, { rejectWithValue }) => {
     try {
-      return await questExecutionApi.getInitQuest()
+      const { data } = await questExecutionApi.getInitQuest(questId);
+      return data
     } catch (e) {
-      return rejectWithValue(e.message)
+      return rejectWithValue(e.response.data.error)
     }
   }
 );
 
+export const getStatusQuest = createAsyncThunk(
+  'quests/getStatusQuest',
+  async (questId, { rejectWithValue }) => {
+    try {
+      const { data } = await questExecutionApi.getStatusQuest(questId);
+      return data
+    } catch (e) {
+      return rejectWithValue(e.response.data.error)
+    }
+  }
+);
 
 export const getNextQuest = createAsyncThunk(
   'quests/getNextQuest',
-  async (id, { rejectWithValue }) => {
+  async (dataAnswer, { rejectWithValue }) => {
     try {
-      return await questExecutionApi.getNextQuest(id)
+      const { data } = await questExecutionApi.getNextQuest(dataAnswer)
+      return data
     } catch (e) {
-      return rejectWithValue(e.message)
+      return rejectWithValue(e.response.data.error)
     }
   }
 );
@@ -143,7 +203,45 @@ export const fetchQuest = createAsyncThunk(
       const { data } = await questsApi.fetchQuest(questId);
       return data.data;
     } catch (e) {
-      return rejectWithValue(e.message);
+      return rejectWithValue(e.response.data.error);
+    }
+  }
+);
+
+export const getQuestStatus = createAsyncThunk(
+  "currentQuest/getQuestStatus",
+  async (questId, { rejectWithValue }) => {
+    try {
+      const { data } = await questsApi.getQuestStatus(questId);
+      return data.data.quest_status;
+    } catch (e) {
+      return rejectWithValue(e.response.data.error);
+    }
+  }
+);
+
+export const getMedia = createAsyncThunk(
+  "media/getMedia",
+  async (mediaId, { rejectWithValue }) => {
+    try {
+      const { data } = await uploadApi.fetchMedia(mediaId);
+      console.log("media", data);
+      return data.data;
+    } catch (e) {
+      return rejectWithValue(e.response.data.error);
+    }
+  }
+);
+
+export const uploadFile = createAsyncThunk(
+  "media/uploadFile",
+  async (formData, { rejectWithValue }) => {
+    try {
+      const response = await uploadApi.uploadFile(formData);
+      console.log("unswer after upload", response.data);
+      return response.data.data;
+    } catch (e) {
+      return rejectWithValue(e.response.data.error);
     }
   }
 );

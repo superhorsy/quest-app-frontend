@@ -1,8 +1,3 @@
-export const apiTest = {
-  BASE_URL_TEST: 'https://jsonplaceholder.typicode.com',
-  POSTS: 'posts'
-}
-
 export const apiQuests = {
   BASE_URL: 'https://questy.fun/api/v1/',
   QUESTS: 'quests',
@@ -11,11 +6,20 @@ export const apiQuests = {
   LOGIN: 'login',
   REGISTER: 'register',
   PROFILE: 'profile',
-  CHANGE_PASSWORD: 'profile/change-password'
+  CHANGE_PASSWORD: 'profile/change-password',
+  MEDIA: 'media'
 }
 
-export const colors = {
-  primary: '#1976d2',
-  success: '#388e3c',
-  danger: '#d32f2f',
+export const questStatuses = {
+  FINISHED: "finished",
+  IN_PROGRESS: "in_progress"
 }
+
+// export const colors = {
+//   primary: '#1976d2',
+//   success: '#388e3c',
+//   danger: '#d32f2f',
+// }
+
+export const String255 =
+  "В этой строке 255 символов. Она нужна для того чтобы, определить максимальное количество допустимых символов в тексте вопроса и его описания. Возможно это будет очень длинное описание, поэтому я делаю эту строку для проверки! Еще несколько символов для к.";

@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import { QuestExecution } from "../../../pages/questExecution/questExecution";
+import { QuestExecution } from "../../../pages/questExecution/newStepper/newStepper";
+import { QuestionsSlider } from "../../questionsSlider/questionsSlider";
 import { LinksFooter } from "../../linksFooter/linksFooter";
 import { Header } from "../../Header/Header";
 
@@ -38,7 +39,18 @@ const christmasTheme = createTheme({
   },
 });
 
-export const ChristmasPage = () => {
+export const ChristmasPage = ({example}) => {
+
+  const [isExample, setIsExample] = useState();
+
+  useEffect(() => {
+    if(example) {
+      setIsExample(true);
+    } else {
+      setIsExample(false)
+    }
+  }, [])
+
   return (
     <ThemeProvider theme={christmasTheme}>
       <>
@@ -64,7 +76,7 @@ export const ChristmasPage = () => {
             src={Christmas}
             alt="tree"
           />
-          <QuestExecution />
+          {isExample ? <QuestionsSlider />: <QuestExecution />}
         </div>
         <LinksFooter linksData={linksData} />
       </>

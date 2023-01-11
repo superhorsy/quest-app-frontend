@@ -1,8 +1,8 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {login, registration, fetchUserProfile} from "../actions/actions";
+import {login, registration} from "../actions/actions";
 
 export const initialState = {
-  isAuth: false,
+  isAuth: !!localStorage.getItem('token'),
   isLoading: false,
   error: null,
 }
@@ -11,19 +11,19 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    checkAuth(state, action) {
+    checkAuth(state) {
       state.isAuth = true;
     },
-    logOut(state, action) {
+    logOut(state) {
       localStorage.removeItem('token');
       state.isAuth = false;
-    }
+    },
   },
   extraReducers: {
-    [login.pending.type]: (state, action) => {
+    [login.pending.type]: (state) => {
       state.isLoading = true
     },
-    [login.fulfilled.type]: (state, action) => {
+    [login.fulfilled.type]: (state) => {
       state.isLoading = false
       state.error = null
       state.isAuth = true
@@ -32,31 +32,18 @@ export const authSlice = createSlice({
       state.isLoading = false
       state.error = action.payload
     },
-    [registration.pending.type]: (state, action) => {
+    [registration.pending.type]: (state) => {
       state.isLoading = true
     },
-    [registration.fulfilled.type]: (state, action) => {
+    [registration.fulfilled.type]: (state) => {
       state.isLoading = false
       state.error = null
       state.isAuth = true
-      // state.user = action.payload
     },
     [registration.rejected.type]: (state, action) => {
       state.isLoading = false
       state.error = action.payload
     },
-    // [fetchUserProfile.pending.type]: (state, action) => {
-    //   state.isLoading = true
-    // },
-    // [fetchUserProfile.fulfilled.type]: (state, action) => {
-    //   state.isLoading = false
-    //   state.error = ''
-    //   state.user = action.payload
-    // },
-    // [fetchUserProfile.rejected.type]: (state, action) => {
-    //   state.isLoading = false
-    //   state.error = action.payload
-    // }
   }
 });
 

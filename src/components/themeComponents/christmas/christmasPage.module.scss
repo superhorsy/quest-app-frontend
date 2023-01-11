@@ -37,6 +37,9 @@
       width: 34vw;
       height: auto;
     }
+    @media(max-width: 600px) {
+      bottom: -55px;
+    }
   }
   &__stikerTopRight {
     display: block;
@@ -57,6 +60,9 @@
       width: 16.7vw;
       height: auto;
       left: 16vw;
+    }
+    @media(max-width: 600px) {
+      bottom: -60px;
     }
   }
 }

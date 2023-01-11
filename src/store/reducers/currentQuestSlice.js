@@ -1,16 +1,24 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {fetchQuest, updateQuest} from "../actions/actions";
+import {fetchQuest, updateQuest, getQuestStatus} from "../actions/actions";
 
 const initialState = {
   currentQuest: {},
   isLoading: false,
-  error: ''
+  status: '',
+  error: '',
 }
 
 const currentQuestSlice = createSlice({
   name: 'currentQuest',
   initialState,
   reducers: {
+    addCoupon(state, action) {
+      // !!!!!Эта логика полностью перезапишет rewards!!!!
+      // TODO написать логику, которая не будет перезаписывать rewards,
+      // TODO а будет переписывать только кукпон
+      state.currentQuest.rewards = [];
+      state.currentQuest.rewards.push(action.payload);
+    },
     addOneStep(state, action) {
       state.currentQuest.steps.push(action.payload);
     },
@@ -34,7 +42,15 @@ const currentQuestSlice = createSlice({
         step.sort = ind + 1;
         return step;
       })
-    }
+    },
+    updateProfileQuest(state, action) {
+      state.currentQuest.name = action.payload.name;
+      state.currentQuest.description = action.payload.description;
+
+    },
+    addFinalQuestMessage(state, action) {
+      state.currentQuest.final_message = action.payload;
+    },
   },
   extraReducers: {
     [fetchQuest.pending.type]: (state, action) => {
@@ -60,8 +76,29 @@ const currentQuestSlice = createSlice({
       state.isLoading = false
       state.error = action.payload
     },
+    [getQuestStatus.pending.type]: (state, action) => {
+      state.isLoading = true
+    },
+    [getQuestStatus.fulfilled.type]: (state, action) => {
+      state.isLoading = false
+      state.status = action.payload
+      state.error = ''
+    },
+    [getQuestStatus.rejected.type]: (state, action) => {
+      state.isLoading = false
+      state.error = action.payload
+    },
   }
 })
 
-export const {addSteps, addOneStep, editStep, updateTheme, deleteStep} = currentQuestSlice.actions;
+export const {
+  addCoupon,
+  addSteps,
+  addOneStep,
+  editStep,
+  updateTheme,
+  deleteStep,
+  updateProfileQuest,
+  addFinalQuestMessage
+} = currentQuestSlice.actions;
 export default currentQuestSlice.reducer;

@@ -1,6 +1,7 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 
-import { QuestExecution } from "../../../pages/questExecution/questExecution";
+import { QuestExecution } from "../../../pages/questExecution/newStepper/newStepper";
+import { QuestionsSlider } from "../../questionsSlider/questionsSlider";
 import { LinksFooter } from "../../linksFooter/linksFooter";
 import { Header } from "../../Header/Header";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -40,7 +41,16 @@ const commonTheme = createTheme({
   },
 });
 
-export const CommonThemePage = () => {
+export const CommonThemePage = ({example}) => {
+  const [isExample, setIsExample] = useState();
+
+  useEffect(() => {
+    if(example) {
+      setIsExample(true);
+    } else {
+      setIsExample(false)
+    }
+  }, [])
   return (
     <ThemeProvider theme={commonTheme}>
       <>
@@ -66,7 +76,8 @@ export const CommonThemePage = () => {
             src={Question}
             alt="Question"
           />
-          <QuestExecution />
+          {!isExample && <QuestExecution />}
+          {isExample && <QuestionsSlider />}
         </div>
         <LinksFooter linksData={linksData} />
       </>

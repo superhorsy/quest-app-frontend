@@ -17,12 +17,10 @@ import { Login, Settings, Logout } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
 import Logo from "../../assets/images/logo-sm-w.png";
-import UserAvatar from "../../assets/images/avatar.jpg";
 import { Outlet } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 import { authSlice } from "../../store/reducers/authSlice";
-//import userProfileReducer from "../../store/reducers/userProfileSlice";
 import { fetchUserProfile } from "../../store/actions/actions";
 import { Breadcrumbs } from '../Breadcrumbs/Breadcrumbs';
 
@@ -50,10 +48,12 @@ export const Header = () => {
   };
 
   const goToProfile = () => {
+    handleCloseUserMenu();
     navigate("/panel/profile");
   };
 
   const goToPanel = () => {
+    handleCloseUserMenu();
     navigate("/panel");
   }
 
@@ -92,13 +92,16 @@ export const Header = () => {
       dispatch(fetchUserProfile())
     }
   }, [dispatch, isAuth])
-
   return (
     <>
       <AppBar position="sticky">
-        <Container maxWidth="xl">
-          <Toolbar disableGutters>
-            <Box sx={{ flexGrow: 1 }}>
+        <Container
+          maxWidth="xl">
+          <Toolbar
+            sx={{ justifyContent: 'space-between' }}
+            disableGutters
+          >
+            <Box sx={{ flexGrow: 1, maxWidth: '64px' }}>
               <CardActionArea onClick={isAuth ? handleToPanel : handleToMain}>
                 <img src={Logo} alt="logo" />
               </CardActionArea>
@@ -106,9 +109,9 @@ export const Header = () => {
             <Box sx={{ flexGrow: 0 }}>
               {isAuth ? (
                 <>
-                  <span>Привет, {profile?.first_name} </span>
+                  <span>Привет, {profile?.nickname.toUpperCase()} </span>
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar alt="user" src={UserAvatar} />
+                    <Avatar sx={{ fontSize: '14px', width: '34px', height: '34px' }} alt="User" src=''>{profile?.first_name[0].toUpperCase()}{profile?.last_name[0].toUpperCase()}</Avatar>
                   </IconButton>
                   <Menu
                     sx={{ mt: "45px" }}
@@ -149,7 +152,6 @@ export const Header = () => {
       </AppBar>
       <Container maxWidth="xl">
         <Box>
-          {/*<Outlet context={[isAuth, setIsAuth]} />*/}
           <Breadcrumbs />
           <Outlet />
         </Box>

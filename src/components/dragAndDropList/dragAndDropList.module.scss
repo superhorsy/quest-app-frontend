@@ -1,24 +1,33 @@
 .question {
   &__title {
     width: 80%;
-    font-size: 16px;
+    font-size: 17px;
     text-align: start;
-    
+
     @media(max-width: 600px) {
       font-size: 14px;
     }
+
     @media(max-width: 500px) {
       font-size: 13px;
     }
+
+    p {
+      margin-top: 0;
+      margin-bottom: 5px;
+      line-height: 1;
+    }
   }
+
   &__desc {
     font-size: 14px;
     text-align: start;
-    @media(max-width: 600px) {
-      font-size: 13px;
-    }
-    @media(max-width: 500px) {
-      font-size: 12px;
-    }
+    opacity: 0.6;
+  }
+
+  &__image {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
   }
 }

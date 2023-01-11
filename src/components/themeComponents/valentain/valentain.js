@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import { QuestExecution } from "../../../pages/questExecution/questExecution";
+import { QuestExecution } from "../../../pages/questExecution/newStepper/newStepper";
+import { QuestionsSlider } from "../../questionsSlider/questionsSlider";
 import { LinksFooter } from "../../linksFooter/linksFooter";
 import { Header } from "../../Header/Header";
 
@@ -47,7 +48,17 @@ const ValentainTheme = createTheme({
   },
 });
 
-export const ValentainPage = () => {
+export const ValentainPage = ({example}) => {
+  const [isExample, setIsExample] = useState();
+
+  useEffect(() => {
+    if(example) {
+      setIsExample(true);
+    } else {
+      setIsExample(false)
+    }
+  }, [])
+
   return (
     <ThemeProvider theme={ValentainTheme}>
       <>
@@ -73,7 +84,7 @@ export const ValentainPage = () => {
             src={LoveBalloons}
             alt="baloons"
           />
-          <QuestExecution />
+          {isExample ? <QuestionsSlider />: <QuestExecution />}
         </div>
         <LinksFooter linksData={linksData} />
       </>

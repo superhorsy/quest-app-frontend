@@ -1,0 +1,41 @@
+.hidden {
+  opacity: 0;
+  height:0;
+  width: 0;
+  line-height: 0;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+}
+.preview {
+  display: flex;
+  margin: 25px auto;
+  padding: 0 15px;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+}
+
+.file {
+  display: flex;
+  margin: 25px auto;
+  width: 80%;
+  align-items: center;
+  justify-content: center;
+  &__text {
+    font-size: 12px;
+  }
+  &__img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+}
+
+.notification {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  text-align: center;
+}

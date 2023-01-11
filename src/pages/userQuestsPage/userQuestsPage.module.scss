@@ -1,5 +1,4 @@
 .listItem {
-  min-height: 73px;
   min-width: 570px;
   @media (max-width: 600px) {
     min-width: 400px;
@@ -16,6 +15,9 @@
 
 }
 
+.emptyText {
+  text-align: center;
+}
 .pagination {
   display: flex;
   justify-content: center;
