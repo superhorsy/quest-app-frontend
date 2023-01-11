@@ -108,6 +108,8 @@ export const UserQuestsPage = () => {
     dispatch(sendQuest(data));
     dispatch(updateRecipientsInfo(data));
     setIsOpen(false);
+    setFriendName("");
+    setEmail("");
     console.log("letter was send!");
   };
 

@@ -47,11 +47,11 @@ export const ModalEditQuestStep = ({ stepData, recipients }) => {
       }
       case "image": {
         return (
-          <ImageQuestionCreateForm stepData={stepData} handleClose={handleClose}/>);
+          <ImageQuestionCreateForm stepData={stepData} handleClose={handleClose} />);
       }
       case "audio": {
         return (
-          <AudioQuestionCreateForm stepData={stepData} handleClose={handleClose}/>);
+          <AudioQuestionCreateForm stepData={stepData} handleClose={handleClose} />);
       }
     }
   };

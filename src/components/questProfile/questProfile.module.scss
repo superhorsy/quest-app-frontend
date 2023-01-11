@@ -5,18 +5,39 @@
     width: 100%;
   }
 }
+
+.questBlock {
+  &__flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  &__subtitle {
+    margin-top: 0;
+    font-weight: 500;
+    margin-bottom: 24px;
+  }
+}
+
 .questInfo {
   width: 100%;
   margin: 0 auto;
-  margin-bottom: 20px;
   max-width: 600px;
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid black;
+
   &__item {
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
   }
+
   &__title {
     // margin-bottom: 15px;
     font-size: 20px;
@@ -24,25 +45,15 @@
     font-weight: 700;
     text-transform: uppercase;
     text-align: center;
+
     @media(max-width: 600px) {
       font-size: 16px;
     }
   }
+
   &__desc {
-    text-align: center;
-    font-size: 22px;
+    text-align: left;
+    font-size: 18px;
     color: black;
-    font-style: italic;
-    @media(max-width: 600px) {
-      font-size: 18px;
-    }
-  }
-  &__subdesc {
-    text-align: center;
-    font-size: 22px;
-    color: black;
-    @media(max-width: 600px) {
-      font-size: 18px;
-    }
   }
 }
